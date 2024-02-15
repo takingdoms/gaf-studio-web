@@ -12,4 +12,7 @@ export default {
     900: "#2D2210",
     950: "#161108"
   },
+  window: {
+    "panel": "#F0F0F0",
+  },
 };
