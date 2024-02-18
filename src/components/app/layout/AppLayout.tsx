@@ -10,8 +10,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <Body>
       <div
-        className="grow flex flex-col justify-start items-stretch overflow-hidden border
-          border-slate-400"
+        className="grow flex flex-col justify-start items-stretch overflow-hidden"
       >
         <div>
           <AppTopbar />
