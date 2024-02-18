@@ -1,15 +1,13 @@
+import FileMapViewer from "@/components/app/file-map-viewer/FileMapViewer";
 import AppLayout from "./app/layout/AppLayout";
+import GafFileLoader from "@/components/app/file-map-viewer/GafFileLoader";
 
 export default function App() {
   return (
     <AppLayout>
-      <div className="m-4">
-        Check this out:
-        <div
-          className="border border-gray-400"
-          style={{ width: 48, height: 48, background: 'white' }}
-        />
-      </div>
+      <GafFileLoader>
+        <FileMapViewer />
+      </GafFileLoader>
     </AppLayout>
   );
 }
