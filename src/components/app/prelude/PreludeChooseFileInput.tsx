@@ -21,7 +21,7 @@ export default function PreludeChooseFileInput({
         <tbody>
           <tr>
             <td className="px-1">
-              TAF {subFormat === 'taf_1555' ? '1555' : '4444'}:
+              {subFormat === 'taf_1555' ? '_1555.taf' : '_4444.taf'}:
             </td>
             <td className="px-1">
               <input
