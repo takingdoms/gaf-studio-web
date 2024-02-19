@@ -1,5 +1,5 @@
 import React from "react";
-import * as LibGaf from 'lib-gaf';
+import LibGaf from 'lib-gaf';
 import { GafResultWrapper, GafResultWrapperContext } from "@/components/app/logical/GafResultWrapperContext";
 
 type GafFileLoaderProps = {

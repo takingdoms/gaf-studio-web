@@ -1,4 +1,4 @@
-import * as LibGaf from 'lib-gaf';
+import LibGaf from 'lib-gaf';
 
 type UnknownGapSection = LibGaf.Reader.Mapping.BaseSection<'unknown-gap', null>;
 
