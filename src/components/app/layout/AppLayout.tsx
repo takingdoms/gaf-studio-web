@@ -18,7 +18,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
           <AppIconbar />
           <div className="border-b border-slate-400" />
         </div>
-        <div className="grow overflow-auto bg-window-panel">
+        <div className="grow overflow-hidden bg-window-panel">
           {children}
         </div>
       </div>

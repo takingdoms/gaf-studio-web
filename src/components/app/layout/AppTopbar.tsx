@@ -6,9 +6,21 @@ export default function AppTopbar() {
     <div
       className="flex items-stretch w-full overflow-x-auto overflow-y-hidden bg-slate-100 p-0.5"
     >
-      <AppTopbarMenuButton label="File" />
-      <AppTopbarMenuButton label="Options" />
-      <AppTopbarMenuButton label="Help" />
+      <AppTopbarMenuButton
+        label="File"
+        onClick={() => {}}
+      />
+
+      <AppTopbarMenuButton
+        label="Options"
+        onClick={() => {}}
+      />
+
+      <AppTopbarMenuButton
+        label="Help"
+        onClick={() => {}}
+      />
+
       <div className="grow flex justify-end">
         <AppTopbarHeader label="GAF Studio v0.0.0" />
       </div>
