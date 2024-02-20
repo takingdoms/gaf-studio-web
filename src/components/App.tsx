@@ -1,4 +1,3 @@
-import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
 import { WorkspaceControllerContext } from "@/components/app/logical/WorkspaceControllerContext";
 import PreludeScreen from "@/components/app/prelude/PreludeScreen";
 import WorkspaceRoot from "@/components/app/workspace-root/WorkspaceRoot";
@@ -26,12 +25,10 @@ export default function App() {
   }
 
   return (
-    <WorkspaceContext.Provider value={workspace}>
-      <WorkspaceControllerContext.Provider value={workspaceController}>
-        <AppLayout>
-          <WorkspaceRoot />
-        </AppLayout>
-      </WorkspaceControllerContext.Provider>
-    </WorkspaceContext.Provider>
+    <WorkspaceControllerContext.Provider value={workspaceController}>
+      <AppLayout>
+        <WorkspaceRoot />
+      </AppLayout>
+    </WorkspaceControllerContext.Provider>
   );
 }

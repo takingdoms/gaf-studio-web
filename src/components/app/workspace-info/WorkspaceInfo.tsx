@@ -1,14 +1,14 @@
-import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
+import { WorkspaceControllerContext } from "@/components/app/logical/WorkspaceControllerContext";
 import React from 'react';
 
-type WorkspaceInfoProps = {};
+export default function WorkspaceInfo() {
+  const workspaceController = React.useContext(WorkspaceControllerContext);
 
-export default function WorkspaceInfo({}: WorkspaceInfoProps) {
-  const workspace = React.useContext(WorkspaceContext);
-
-  if (workspace === null) {
+  if (workspaceController === null) {
     return;
   }
+
+  const workspace = workspaceController.state;
 
   return (
     <div className="p-4">
