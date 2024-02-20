@@ -18,28 +18,13 @@ export default function PreludeChooseFileTafPair({
   const [file4444, setFile4444] = React.useState<File>();
 
   const doLoad = React.useCallback(() => {
-    if (isLoading) {
-      return;
-    }
-
-    let promise: Promise<Workspace>;
-
-    if (file1555 && file4444) {
-      promise = Workspace.initFromTafPair(file1555, file4444);
-    }
-    else if (file1555) {
-      promise = Workspace.initFromTafFile(file1555);
-    }
-    else if (file4444) {
-      promise = Workspace.initFromTafFile(file4444);
-    }
-    else {
+    if (isLoading || file1555 === undefined || file4444 === undefined) {
       return;
     }
 
     setIsLoading(true);
 
-    promise
+    Workspace.initFromTafPair(file1555, file4444)
       .then(onInit)
       .catch((err) => {
         // TODO handle err
@@ -62,7 +47,7 @@ export default function PreludeChooseFileTafPair({
       />
       <PreludeButton
         onClick={doLoad}
-        disabled={isLoading || (file1555 === undefined && file4444 === undefined)}
+        disabled={isLoading || file1555 === undefined || file4444 === undefined}
       >
         Load
       </PreludeButton>
