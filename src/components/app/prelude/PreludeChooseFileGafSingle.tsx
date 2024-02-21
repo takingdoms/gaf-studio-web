@@ -1,5 +1,6 @@
 import PreludeButton from '@/components/app/prelude/PreludeButton';
 import { WorkspaceState } from '@/lib/gaf-studio/state/workspace-state';
+import { WorkspaceStateUtils } from "@/lib/gaf-studio/state/workspace-state-utils";
 import React from 'react';
 
 type PreludeChooseFileSingleProps = {
@@ -39,9 +40,9 @@ export default function PreludeChooseFileSingle({
     setIsLoading(true);
 
     const promise
-      = format === 'gaf' ? WorkspaceState.initFromGafFile(files[0])
-      : format === 'taf' ? WorkspaceState.initFromTafFile(files[0])
-      : WorkspaceState.initFromAnyFile(files[0]);
+      = format === 'gaf' ? WorkspaceStateUtils.initFromGafFile(files[0])
+      : format === 'taf' ? WorkspaceStateUtils.initFromTafFile(files[0])
+      : WorkspaceStateUtils.initFromAnyFile(files[0]);
 
     promise
       .then(onInit)

@@ -3,6 +3,7 @@ import PreludeChooseFile from "@/components/app/prelude/PreludeChooseFile";
 import PreludeHeader from "@/components/app/prelude/PreludeHeader";
 import Body from "@/components/ui/layout/Body";
 import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
+import { WorkspaceStateUtils } from "@/lib/gaf-studio/state/workspace-state-utils";
 import React from "react";
 
 type PreludeScreenProps = {
@@ -34,10 +35,10 @@ export default function PreludeScreen({ onInit }: PreludeScreenProps) {
               className="flex flex-col space-y-2"
               style={{ minHeight: 200 }}
             >
-              <PreludeButton onClick={() => onInit(WorkspaceState.initBlank('taf')) }>
+              <PreludeButton onClick={() => onInit(WorkspaceStateUtils.initBlank('taf')) }>
                 TAF
               </PreludeButton>
-              <PreludeButton onClick={() => onInit(WorkspaceState.initBlank('gaf')) }>
+              <PreludeButton onClick={() => onInit(WorkspaceStateUtils.initBlank('gaf')) }>
                 GAF
               </PreludeButton>
             </div>

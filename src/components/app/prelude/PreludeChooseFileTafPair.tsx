@@ -1,6 +1,7 @@
 import PreludeButton from '@/components/app/prelude/PreludeButton';
 import PreludeChooseFileInput from '@/components/app/prelude/PreludeChooseFileInput';
 import { WorkspaceState } from '@/lib/gaf-studio/state/workspace-state';
+import { WorkspaceStateUtils } from "@/lib/gaf-studio/state/workspace-state-utils";
 import React from 'react';
 
 type PreludeChooseFileTafPairProps = {
@@ -24,7 +25,7 @@ export default function PreludeChooseFileTafPair({
 
     setIsLoading(true);
 
-    WorkspaceState.initFromTafPair(file1555, file4444)
+    WorkspaceStateUtils.initFromTafPair(file1555, file4444)
       .then(onInit)
       .catch((err) => {
         // TODO handle err

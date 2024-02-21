@@ -1,6 +1,7 @@
 import { TafSubFormat } from "@/lib/gaf-studio/main-format";
 import { CurrentGaf } from "@/lib/gaf-studio/state/current-gaf";
 import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from "@/lib/gaf-studio/state/workspace-state";
+import { WorkspaceStateUtils } from "@/lib/gaf-studio/state/workspace-state-utils";
 import { DeepReadonly } from "ts-essentials";
 
 // TODO eventually create a WriteableBaseWorkspace that exposes a method to replace the
@@ -33,7 +34,7 @@ export type Workspace = WorkspaceGaf | WorkspaceTaf;
 
 export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
   protected override initBlank() {
-    return WorkspaceState.initBlank('gaf');
+    return WorkspaceStateUtils.initBlank('gaf');
   }
 
   override getCurrentGaf(): DeepReadonly<CurrentGaf> {
@@ -43,7 +44,7 @@ export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
 
 export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
   protected override initBlank() {
-    return WorkspaceState.initBlank('taf');
+    return WorkspaceStateUtils.initBlank('taf');
   }
 
   override getCurrentGaf(): DeepReadonly<CurrentGaf> | null {
