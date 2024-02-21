@@ -1,9 +1,9 @@
 import TextButton from '@/components/ui/button/TextButton';
-import { TafFormat } from '@/lib/gaf-studio/main-format';
+import { TafSubFormat } from '@/lib/gaf-studio/main-format';
 import React from 'react';
 
 type PreludeChooseFileInputProps = {
-  subFormat: TafFormat;
+  subFormat: TafSubFormat;
   file: File | undefined;
   setFile: (file: File | undefined) => void;
 };

@@ -1,19 +1,24 @@
-import { MainFormat } from '@/lib/gaf-studio/main-format';
+import { MainFormat, TafSubFormat } from '@/lib/gaf-studio/main-format';
 import { CurrentGaf, CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import * as LibGaf from 'lib-gaf';
+
+// rename Workspace* to WorkspaceState*
+// and then rename WorkspaceController to Workspace
 
 export type WorkspaceBase<TFormat extends MainFormat> = {
   format: TFormat;
 };
 
 export type WorkspaceGaf = WorkspaceBase<'gaf'> & {
-  currentGaf: CurrentGaf | null;
+  currentGaf: CurrentGaf;
 };
 
 export type WorkspaceTaf = WorkspaceBase<'taf'> & {
-  currentTaf1555: CurrentGaf | null;
-  currentTaf4444: CurrentGaf | null;
+  // currentTaf1555: CurrentGaf | null;
+  // currentTaf4444: CurrentGaf | null;
+  currentGafs: Record<TafSubFormat, CurrentGaf | null>;
+  activeSubFormat: TafSubFormat | null;
 };
 
 export type Workspace =
@@ -62,8 +67,13 @@ export namespace Workspace {
 
     return {
       format: 'taf',
-      currentTaf1555: detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
-      currentTaf4444: detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
+      // currentTaf1555: detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
+      // currentTaf4444: detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
+      currentGafs: {
+        'taf_1555': detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
+        'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
+      },
+      activeSubFormat: detectedFormat.subFormat,
     };
   }
 
@@ -98,8 +108,13 @@ export namespace Workspace {
 
     return {
       format: 'taf',
-      currentTaf1555: detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
-      currentTaf4444: detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
+      // currentTaf1555: detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
+      // currentTaf4444: detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
+      currentGafs: {
+        'taf_1555': detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
+        'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
+      },
+      activeSubFormat: detectedFormat.subFormat,
     };
   }
 
@@ -131,8 +146,13 @@ export namespace Workspace {
 
     return {
       format: 'taf',
-      currentTaf1555: currentGaf1555,
-      currentTaf4444: currentGaf4444,
+      // currentTaf1555: currentGaf1555,
+      // currentTaf4444: currentGaf4444,
+      currentGafs: {
+        'taf_1555': currentGaf1555,
+        'taf_4444': currentGaf4444,
+      },
+      activeSubFormat: null,
     };
   }
 
@@ -149,14 +169,17 @@ export namespace Workspace {
 
     return {
       format,
-      currentTaf1555: {
-        kind: 'blank',
-        entries: [],
+      currentGafs: {
+        'taf_1555': {
+          kind: 'blank',
+          entries: [],
+        },
+        'taf_4444': {
+          kind: 'blank',
+          entries: [],
+        },
       },
-      currentTaf4444: {
-        kind: 'blank',
-        entries: [],
-      },
+      activeSubFormat: null,
     };
   }
 }

@@ -12,9 +12,14 @@ export const MAIN_FORMATS = [
 
 export type MainFormat = ElementOf<typeof MAIN_FORMATS>;
 
-export const TAF_FORMATS = [
+export const TAF_SUB_FORMATS = [
   'taf_1555',
   'taf_4444',
 ] as const satisfies string[];
 
-export type TafFormat = ElementOf<typeof TAF_FORMATS>;
+export type TafSubFormat = ElementOf<typeof TAF_SUB_FORMATS>;
+
+export const TAF_SUB_FORMAT_TO_LABEL: Record<TafSubFormat, string> = {
+  'taf_1555': '1555',
+  'taf_4444': '4444',
+};

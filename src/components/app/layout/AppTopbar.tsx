@@ -17,6 +17,11 @@ export default function AppTopbar() {
       />
 
       <AppTopbarMenuButton
+        label="Tools"
+        onClick={() => {}}
+      />
+
+      <AppTopbarMenuButton
         label="Help"
         onClick={() => {}}
       />
