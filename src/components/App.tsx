@@ -5,7 +5,8 @@ import { DeepReadonly } from "ts-essentials";
 import AppLayout from "./app/layout/AppLayout";
 import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
 import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
-import { WorkspaceGaf, WorkspaceTaf } from "@/lib/gaf-studio/state/workspace";
+import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace-gaf";
+import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
 
 export default function App() {
   const [workspaceState, setWorkspaceState] = React.useState<DeepReadonly<WorkspaceState>>();

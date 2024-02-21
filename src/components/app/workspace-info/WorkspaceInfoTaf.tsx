@@ -1,6 +1,6 @@
 import WorkspaceInfoSourceFile from "@/components/app/workspace-info/WorkspaceInfoSourceFile";
 import WorkspaceInfoValue from "@/components/app/workspace-info/WorkspaceInfoValue";
-import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace";
+import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
 
 type WorkspaceInfoTafProps = {
   workspace: WorkspaceTaf;

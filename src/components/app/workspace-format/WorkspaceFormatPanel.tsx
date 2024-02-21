@@ -2,7 +2,7 @@ import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import WorkspaceSubFormat from '@/components/app/workspace-format/WorkspaceSubFormat';
 import Panel from '@/components/ui/panel/Panel';
 import { TAF_SUB_FORMATS } from '@/lib/gaf-studio/main-format';
-import { WorkspaceTaf } from '@/lib/gaf-studio/state/workspace';
+import { WorkspaceTaf } from '@/lib/gaf-studio/state/workspace-taf';
 import React from 'react';
 
 export default function WorkspaceFormatPanel() {

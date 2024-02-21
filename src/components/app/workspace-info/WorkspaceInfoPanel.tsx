@@ -2,7 +2,7 @@ import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
 import WorkspaceInfoGaf from "@/components/app/workspace-info/WorkspaceInfoGaf";
 import WorkspaceInfoTaf from "@/components/app/workspace-info/WorkspaceInfoTaf";
 import Panel from "@/components/ui/panel/Panel";
-import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace";
+import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace-gaf";
 import { Icons } from "@/lib/react/icons";
 import React from 'react';
 
