@@ -1,112 +1,64 @@
 import WorkspaceFormatPanel from "@/components/app/workspace-format/WorkspaceFormatPanel";
 import WorkspaceInfoPanel from "@/components/app/workspace-info/WorkspaceInfoPanel";
+import ResizablePair from "@/components/ui/misc/ResizablePair";
+import PairSeparator from "@/components/ui/misc/PairSeparator";
 import Panel from "@/components/ui/panel/Panel";
 
 export default function WorkspaceRoot() {
+  const leftPanel = (
+    <div className="grow flex flex-col overflow-hidden">
+      <div className="flex flex-col">
+        <WorkspaceFormatPanel />
+      </div>
+      <PairSeparator dir="V" />
+      <div className="flex flex-col">
+        <WorkspaceInfoPanel />
+      </div>
+      <PairSeparator dir="V" />
+      <div className="grow flex flex-col overflow-hidden">
+        <TempEntryList />
+        {/* <div className="bg-black" style={{ height: 2000 }} /> */}
+      </div>
+    </div>
+  );
+
+  const middlePanel = (
+    <TempControls />
+  );
+
+  const rightPanel = (
+    <TempFrameViewer />
+  );
+
+  const rightPair = (
+    <ResizablePair
+      dir="H"
+      childA={middlePanel}
+      childB={rightPanel}
+      dominantChild="B"
+      subordinateChildMinSize={200}
+      subordinateChildMaxSize="50%"
+    />
+  );
+
   return (
-    // <div className="h-full overflow-auto">
     <div className="h-full flex flex-col">
-      <Row expand>
-        <Col width={250}>
-          <Row>
-            <Col expand>
-              <WorkspaceFormatPanel />
-            </Col>
-          </Row>
-          <RowSeparator />
-          <Row>
-            <Col expand>
-              <WorkspaceInfoPanel />
-            </Col>
-          </Row>
-          <RowSeparator />
-          <Row expand>
-            <Col expand>
-              <TempEntryList />
-            </Col>
-          </Row>
-        </Col>
-        <ColSeparator draggable />
-        <Col width={250}>
-          <TempControls />
-        </Col>
-        <ColSeparator draggable />
-        <Col expand>
-          <TempFrameViewer />
-        </Col>
-      </Row>
+      <div className="grow flex flex-col overflow-hidden">
+        <ResizablePair
+          dir="H"
+          childA={leftPanel}
+          childB={rightPair}
+          dominantChild="B"
+          subordinateChildMinSize={300}
+          subordinateChildMaxSize="50%"
+        />
+      </div>
 
-      <RowSeparator />
+      <PairSeparator dir="V" />
 
-      <Row>
-        <Col expand>
-          <TempFooter />
-        </Col>
-      </Row>
-    </div>
-    // </div>
-  );
-}
-
-function Row({
-  children,
-  expand,
-}: {
-  children: React.ReactNode;
-  expand?: boolean;
-}) {
-  return (
-    <div className={`${expand ? 'grow overflow-hidden' : ''} flex`}>
-      {children}
-    </div>
-  );
-}
-
-function Col({
-  children,
-  expand,
-  width,
-}: {
-  children: React.ReactNode;
-  expand?: boolean;
-  width?: number;
-}) {
-  return (
-    <div
-      className={`${expand ? 'grow overflow-hidden' : ''} flex flex-col`}
-      style={{ minWidth: width }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function RowSeparator({ draggable }: { draggable?: boolean }) {
-  // return (
-  //   <div className={`border-b-4 border-slate-300 ${draggable ? 'cursor-row-resize' : ''}`} />
-  // );
-  const dragCls = draggable ? 'cursor-row-resize' : '';
-  return (
-    <div
-      className={`bg-slate-300 flex justify-center items-center ${dragCls}`}
-      style={{ minWidth: 5, minHeight: 5 }}
-    >
-      {draggable && <div className="bg-white rounded" style={{ width: 20, height: 3}} />}
-    </div>
-  );
-}
-
-function ColSeparator({ draggable }: { draggable?: boolean }) {
-  // return (
-  //   <div className={`border-r-4 border-slate-300 ${draggable ? 'cursor-col-resize' : ''}`} />
-  // );
-  const dragCls = draggable ? 'cursor-col-resize' : '';
-  return (
-    <div
-      className={`bg-slate-300 flex justify-center items-center ${dragCls}`}
-      style={{ minWidth: 5, minHeight: 5 }}
-    >
-      {draggable && <div className="bg-white rounded" style={{ width: 3, height: 20}} />}
+      <div className="flex flex-col">
+        <TempFooter />
+      </div>
     </div>
   );
 }
@@ -144,7 +96,7 @@ function TempFrameViewer() {
 function TempEntryList() {
   return (
     <Panel>
-      <div className="h-full flex flex-col bg-white">
+      <div className="grow flex flex-col overflow-hidden bg-white">
         <div className="text-center mb-1">Entry List</div>
         <div className="grow overflow-auto">
           <table className="text-sm">
@@ -157,7 +109,7 @@ function TempEntryList() {
               </tr>
             </thead>
             <tbody>
-              {Array.from({ length: 20 }).map((_, index) => (
+              {Array.from({ length: 30 }).map((_, index) => (
                 <tr
                   key={index}
                 >
