@@ -1,5 +1,6 @@
 import { MainFormat, TafSubFormat } from '@/lib/gaf-studio/main-format';
 import { CurrentGaf, CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
+import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import * as LibGaf from 'lib-gaf';
 
@@ -9,6 +10,7 @@ export type WorkspaceStateBase<TFormat extends MainFormat> = {
 
 export type WorkspaceStateGaf = WorkspaceStateBase<'gaf'> & {
   currentGaf: CurrentGaf;
+  currentPalette: CurrentPalette | null;
 };
 
 export type WorkspaceStateTaf = WorkspaceStateBase<'taf'> & {
@@ -59,6 +61,7 @@ export namespace WorkspaceState {
       return {
         format: 'gaf',
         currentGaf,
+        currentPalette: null,
       };
     }
 
@@ -87,6 +90,7 @@ export namespace WorkspaceState {
     return {
       format: 'gaf',
       currentGaf,
+      currentPalette: null,
     };
   }
 
@@ -163,6 +167,7 @@ export namespace WorkspaceState {
           kind: 'blank',
           entries: [],
         },
+        currentPalette: null,
       };
     }
 
