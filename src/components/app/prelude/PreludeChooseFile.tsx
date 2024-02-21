@@ -2,11 +2,11 @@ import PreludeChooseFileGafSingle from '@/components/app/prelude/PreludeChooseFi
 import PreludeChooseFileTafPair from '@/components/app/prelude/PreludeChooseFileTafPair';
 import Select from '@/components/ui/select/Select';
 import { MainFormat } from '@/lib/gaf-studio/main-format';
-import { Workspace } from '@/lib/gaf-studio/state/workspace';
+import { WorkspaceState } from '@/lib/gaf-studio/state/workspace-state';
 import React from 'react';
 
 type PreludeChooseFileProps = {
-  onInit: (workspace: Workspace) => void;
+  onInit: (workspaceState: WorkspaceState) => void;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
 };

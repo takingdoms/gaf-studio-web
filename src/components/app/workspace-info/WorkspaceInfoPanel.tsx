@@ -1,20 +1,19 @@
-import { WorkspaceControllerContext } from "@/components/app/logical/WorkspaceControllerContext";
+import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
 import WorkspaceInfoGaf from "@/components/app/workspace-info/WorkspaceInfoGaf";
 import WorkspaceInfoTaf from "@/components/app/workspace-info/WorkspaceInfoTaf";
 import Panel from "@/components/ui/panel/Panel";
+import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace";
 import { Icons } from "@/lib/react/icons";
 import React from 'react';
 
 export default function WorkspaceInfoPanel() {
   const [expanded, setExpanded] = React.useState(true);
 
-  const workspaceController = React.useContext(WorkspaceControllerContext);
+  const workspace = React.useContext(WorkspaceContext);
 
-  if (workspaceController === null) {
+  if (workspace === null) {
     return;
   }
-
-  const workspace = workspaceController.state;
 
   return (
     // <div className="h-full flex flex-col">
@@ -40,9 +39,9 @@ export default function WorkspaceInfoPanel() {
           <div className="grow flex flex-col overflow-hidden bg-white">
             {/* <div style={{ width: 32, height: 3000, background: 'red' }} /> */}
             <div className="p-2 overflow-auto">
-              {workspace.format === 'gaf'
-                ? <WorkspaceInfoGaf workspaceGaf={workspace} />
-                : <WorkspaceInfoTaf workspaceTaf={workspace} />}
+              {workspace instanceof WorkspaceGaf
+                ? <WorkspaceInfoGaf workspaceState={workspace.state} />
+                : <WorkspaceInfoTaf workspaceState={workspace.state} />}
             </div>
           </div>
         )}

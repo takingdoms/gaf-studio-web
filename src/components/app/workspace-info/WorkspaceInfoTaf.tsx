@@ -1,16 +1,16 @@
 import WorkspaceInfoSourceFile from "@/components/app/workspace-info/WorkspaceInfoSourceFile";
 import WorkspaceInfoValue from "@/components/app/workspace-info/WorkspaceInfoValue";
-import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace";
+import { WorkspaceStateTaf } from "@/lib/gaf-studio/state/workspace-state";
 import { DeepReadonly } from "ts-essentials";
 
 type WorkspaceInfoTafProps = {
-  workspaceTaf: DeepReadonly<WorkspaceTaf>;
+  workspaceState: DeepReadonly<WorkspaceStateTaf>;
 };
 
-export default function WorkspaceInfoTaf({ workspaceTaf }: WorkspaceInfoTafProps) {
-  const currentGaf = workspaceTaf.activeSubFormat === null
+export default function WorkspaceInfoTaf({ workspaceState }: WorkspaceInfoTafProps) {
+  const currentGaf = workspaceState.activeSubFormat === null
     ? null
-    : workspaceTaf.currentGafs[workspaceTaf.activeSubFormat];
+    : workspaceState.currentGafs[workspaceState.activeSubFormat];
 
   if (currentGaf === null) {
     return null;

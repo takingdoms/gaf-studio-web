@@ -1,22 +1,42 @@
-import { TafSubFormat } from '@/lib/gaf-studio/main-format';
+import { TAF_SUB_FORMAT_TO_LABEL, TafSubFormat } from '@/lib/gaf-studio/main-format';
 import { WorkspaceTaf } from '@/lib/gaf-studio/state/workspace';
-import { DeepReadonly } from 'ts-essentials';
+import React from 'react';
 
 type WorkspaceSubFormatProps = {
   subFormat: TafSubFormat;
-  workspace: DeepReadonly<WorkspaceTaf>;
-  onClick: () => void;
+  workspace: WorkspaceTaf;
 };
 
 export default function WorkspaceSubFormat({
   subFormat,
   workspace,
-  onClick,
 }: WorkspaceSubFormatProps) {
   let bgCls: string;
 
-  const gafForFormat = workspace.currentGafs[subFormat];
-  const isActive = subFormat === workspace.activeSubFormat;
+  const gafForFormat = workspace.state.currentGafs[subFormat];
+  const isActive = subFormat === workspace.state.activeSubFormat;
+
+  const onClickActivate = React.useCallback(() => {
+    if (workspace === null) {
+      return;
+    }
+
+    const state = workspace.state;
+
+    if (state.currentGafs[subFormat] === null) {
+      const subFormatLabel = TAF_SUB_FORMAT_TO_LABEL[subFormat];
+      const yes = window.confirm(`The workspace does not contain the sub-format`
+        + ` "${subFormatLabel}". Do you want to create a blank one now?`);
+
+      if (yes) {
+        workspace.createSubFormat(subFormat, true);
+      }
+
+      return;
+    }
+
+    workspace.setActiveSubFormat(subFormat);
+  }, [workspace, subFormat]);
 
   if (gafForFormat === null) {
     bgCls = 'border-gray-300 from-gray-50 to-gray-200 text-gray-400 hover:text-gray-500'
@@ -40,7 +60,7 @@ export default function WorkspaceSubFormat({
          + ` transition-colors ${bgCls}`}
       onClick={(ev) => {
         ev.stopPropagation();
-        onClick();
+        onClickActivate();
       }}
     >
       <input

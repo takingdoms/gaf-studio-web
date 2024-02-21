@@ -1,34 +1,36 @@
-import { WorkspaceControllerContext } from "@/components/app/logical/WorkspaceControllerContext";
 import PreludeScreen from "@/components/app/prelude/PreludeScreen";
 import WorkspaceRoot from "@/components/app/workspace-root/WorkspaceRoot";
-import { Workspace } from "@/lib/gaf-studio/state/workspace";
-import { WorkspaceController } from "@/lib/gaf-studio/state/workspace-controller";
 import React from "react";
 import { DeepReadonly } from "ts-essentials";
 import AppLayout from "./app/layout/AppLayout";
+import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
+import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
+import { WorkspaceGaf, WorkspaceTaf } from "@/lib/gaf-studio/state/workspace";
 
 export default function App() {
-  const [workspace, setWorkspace] = React.useState<DeepReadonly<Workspace>>();
+  const [workspaceState, setWorkspaceState] = React.useState<DeepReadonly<WorkspaceState>>();
 
-  const workspaceController = React.useMemo(() => {
-    if (workspace === undefined) {
+  const workspace = React.useMemo(() => {
+    if (workspaceState === undefined) {
       return null;
     }
 
-    return new WorkspaceController(workspace, setWorkspace);
-  }, [workspace]);
+    return workspaceState.format === 'gaf'
+      ? new WorkspaceGaf(workspaceState, setWorkspaceState)
+      : new WorkspaceTaf(workspaceState, setWorkspaceState);
+  }, [workspaceState]);
 
-  if (workspace === undefined) {
+  if (workspaceState === undefined) {
     return (
-      <PreludeScreen onInit={setWorkspace} />
+      <PreludeScreen onInit={setWorkspaceState} />
     );
   }
 
   return (
-    <WorkspaceControllerContext.Provider value={workspaceController}>
+    <WorkspaceContext.Provider value={workspace}>
       <AppLayout>
         <WorkspaceRoot />
       </AppLayout>
-    </WorkspaceControllerContext.Provider>
+    </WorkspaceContext.Provider>
   );
 }
