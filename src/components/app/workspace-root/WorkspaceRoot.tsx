@@ -19,7 +19,7 @@ export default function WorkspaceRoot() {
               <WorkspaceInfoPanel />
             </Col>
           </Row>
-          <RowSeparator draggable />
+          <RowSeparator />
           <Row expand>
             <Col expand>
               <TempEntryList />
@@ -144,8 +144,32 @@ function TempFrameViewer() {
 function TempEntryList() {
   return (
     <Panel>
-      <div className="h-full p-4 flex justify-center items-center bg-white">
-        Entry List
+      <div className="h-full flex flex-col bg-white">
+        <div className="text-center mb-1">Entry List</div>
+        <div className="grow overflow-auto">
+          <table className="text-sm">
+            <thead className="text-xs">
+              <tr>
+                <th className="px-2 py-1">Name</th>
+                <th className="px-2 py-1">Animate</th>
+                <th className="px-2 py-1">Frames</th>
+                <th className="px-2 py-1">Subframes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ length: 20 }).map((_, index) => (
+                <tr
+                  key={index}
+                >
+                  <td className="px-2 py-1">Entry #{index + 1}</td>
+                  <td className="px-2 py-1">Yes</td>
+                  <td className="px-2 py-1">10</td>
+                  <td className="px-2 py-1">20</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </Panel>
   );
