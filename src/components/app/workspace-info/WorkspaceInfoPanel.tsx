@@ -27,7 +27,7 @@ export default function WorkspaceInfoPanel() {
           <div className="grow font-bold truncate text-sm">
             {/* Workspace Information */}
             {/* {workspace.format === 'gaf' ? 'GAF' : 'TAF'} Information */}
-            Information
+            Workspace Configuration
           </div>
 
           {expanded

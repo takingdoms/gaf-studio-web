@@ -7,6 +7,7 @@ type BaseCurrentPalette<TKind extends string> = {
 
 export type CurrentPalette =
   | CurrentPaletteFromRaw
+  | CurrentPaletteFromWorld
   | CurrentPaletteFromCustomFile;
 
 export type CurrentPaletteFromRaw = BaseCurrentPalette<'raw'>;
