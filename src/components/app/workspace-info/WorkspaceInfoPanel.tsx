@@ -40,8 +40,8 @@ export default function WorkspaceInfoPanel() {
             {/* <div style={{ width: 32, height: 3000, background: 'red' }} /> */}
             <div className="p-2 overflow-auto">
               {workspace instanceof WorkspaceGaf
-                ? <WorkspaceInfoGaf workspaceState={workspace.state} />
-                : <WorkspaceInfoTaf workspaceState={workspace.state} />}
+                ? <WorkspaceInfoGaf workspace={workspace} />
+                : <WorkspaceInfoTaf workspace={workspace} />}
             </div>
           </div>
         )}

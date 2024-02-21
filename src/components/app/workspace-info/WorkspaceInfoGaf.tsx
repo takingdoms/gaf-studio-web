@@ -1,14 +1,13 @@
 import WorkspaceInfoSourceFile from "@/components/app/workspace-info/WorkspaceInfoSourceFile";
 import WorkspaceInfoValue from "@/components/app/workspace-info/WorkspaceInfoValue";
-import { WorkspaceStateGaf } from "@/lib/gaf-studio/state/workspace-state";
-import { DeepReadonly } from "ts-essentials";
+import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace";
 
 type WorkspaceInfoGafProps = {
-  workspaceState: DeepReadonly<WorkspaceStateGaf>;
+  workspace: WorkspaceGaf;
 };
 
-export default function WorkspaceInfoGaf({ workspaceState }: WorkspaceInfoGafProps) {
-  const { currentGaf } = workspaceState;
+export default function WorkspaceInfoGaf({ workspace }: WorkspaceInfoGafProps) {
+  const currentGaf = workspace.getCurrentGaf();
 
   return (
     <div className="flex flex-col">
