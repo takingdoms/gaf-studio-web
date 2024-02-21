@@ -25,6 +25,8 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
   }
 
   protected abstract initBlank(): DeepReadonly<TState>;
+
+  abstract getCurrentGaf(): DeepReadonly<CurrentGaf> | null;
 }
 
 export type Workspace = WorkspaceGaf | WorkspaceTaf;
@@ -33,11 +35,23 @@ export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
   protected override initBlank() {
     return WorkspaceState.initBlank('gaf');
   }
+
+  override getCurrentGaf(): DeepReadonly<CurrentGaf> {
+    return this.state.currentGaf;
+  }
 }
 
 export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
   protected override initBlank() {
     return WorkspaceState.initBlank('taf');
+  }
+
+  override getCurrentGaf(): DeepReadonly<CurrentGaf> | null {
+    if (this.state.activeSubFormat === null) {
+      return null;
+    }
+
+    return this.state.currentGafs[this.state.activeSubFormat];
   }
 
   setActiveSubFormat(subFormat: TafSubFormat) {

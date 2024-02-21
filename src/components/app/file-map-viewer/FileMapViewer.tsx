@@ -1,23 +1,24 @@
 import FileMapViewerAreaGroup from '@/components/app/file-map-viewer/FileMapViewerAreaGroup';
 import FileMapViewerInfo from '@/components/app/file-map-viewer/FileMapViewerInfo';
-import { GafResultWrapperContext } from '@/components/app/logical/GafResultWrapperContext';
+import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import { normalizeFileMap } from '@/lib/file-map/file-map';
 import React from 'react';
 
 export default function FileMapViewer() {
   const [labelFilter, setLabelFilter] = React.useState<string[]>();
 
-  const gafResultWrapper = React.useContext(GafResultWrapperContext);
+  const workspace = React.useContext(WorkspaceContext);
+  const currentGaf = workspace?.getCurrentGaf() ?? undefined;
 
   const normFileMap = React.useMemo(() => {
-    if (gafResultWrapper === undefined) {
+    if (currentGaf === undefined || currentGaf.kind !== 'from-file') {
       return null;
     }
 
-    return normalizeFileMap(gafResultWrapper.gafResult.map);
-  }, [gafResultWrapper]);
+    return normalizeFileMap(currentGaf.gafResult.map);
+  }, [currentGaf]);
 
-  if (gafResultWrapper === undefined || normFileMap === null) {
+  if (currentGaf === undefined || currentGaf.kind !== 'from-file' || normFileMap === null) {
     return null;
   }
 
@@ -42,7 +43,7 @@ export default function FileMapViewer() {
               <FileMapViewerAreaGroup
                 key={index}
                 group={areaGroup}
-                fileData={gafResultWrapper.fileData}
+                fileData={currentGaf.fileData}
               />
             );
           })}

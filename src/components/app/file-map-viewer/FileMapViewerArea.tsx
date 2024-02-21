@@ -1,13 +1,13 @@
 import React from 'react';
 import LibGaf from 'lib-gaf';
 import { FILE_MAP_VIEWER_COLORS } from '@/components/app/file-map-viewer/colors';
-import { GafResultWrapper } from '@/components/app/logical/GafResultWrapperContext';
 import { FileMapAreaGroup } from '@/lib/file-map/file-map';
 import { ElementOf } from 'ts-essentials';
+import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
 
 type FileMapViewerAreaProps = {
   area: ElementOf<FileMapAreaGroup['areas']>;
-  fileData: GafResultWrapper['fileData'];
+  fileData: CurrentGafFromFile['fileData'];
 };
 
 export default function FileMapViewerArea({ area, fileData }: FileMapViewerAreaProps) {

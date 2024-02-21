@@ -1,4 +1,5 @@
 import LibGaf from 'lib-gaf';
+import { DeepReadonly } from 'ts-essentials';
 
 type UnknownGapSection = LibGaf.Reader.Mapping.BaseSection<'unknown-gap', null>;
 
@@ -22,7 +23,7 @@ export type FileMapAreaGroup<TLabel extends FileMapLabel = FileMapLabel> = {
 
 //:: Utils -----------------------------------------------------------------------------------------
 
-export function normalizeFileMap(fileMap: Section[]): NormalizedFileMap {
+export function normalizeFileMap(fileMap: DeepReadonly<Section[]>): NormalizedFileMap {
   const areaGroups: FileMapAreaGroup[] = [];
 
   const sortedAreas = [...fileMap];
