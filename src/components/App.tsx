@@ -7,6 +7,7 @@ import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
 import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
 import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace-gaf";
 import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
+import { AppDebugContext } from "@/components/AppDebugContext";
 
 export default function App() {
   const [workspaceState, setWorkspaceState] = React.useState<DeepReadonly<WorkspaceState>>();
@@ -28,10 +29,14 @@ export default function App() {
   }
 
   return (
-    <WorkspaceContext.Provider value={workspace}>
-      <AppLayout>
-        <WorkspaceRoot />
-      </AppLayout>
-    </WorkspaceContext.Provider>
+    <AppDebugContext.Provider value={{
+      resetWorkspace: () => setWorkspaceState(undefined),
+    }}>
+      <WorkspaceContext.Provider value={workspace}>
+        <AppLayout>
+          <WorkspaceRoot />
+        </AppLayout>
+      </WorkspaceContext.Provider>
+    </AppDebugContext.Provider>
   );
 }
