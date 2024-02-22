@@ -3,6 +3,7 @@ import WorkspaceInfoPanel from "@/components/app/workspace-info/WorkspaceInfoPan
 import ResizablePair from "@/components/ui/misc/ResizablePair";
 import PairSeparator from "@/components/ui/misc/PairSeparator";
 import Panel from "@/components/ui/panel/Panel";
+import EntryListPanel from "@/components/app/entry-list/EntryListPanel";
 
 export default function WorkspaceRoot() {
   const leftPanel = (
@@ -16,8 +17,7 @@ export default function WorkspaceRoot() {
       </div>
       <PairSeparator dir="V" />
       <div className="grow flex flex-col overflow-hidden">
-        <TempEntryList />
-        {/* <div className="bg-black" style={{ height: 2000 }} /> */}
+        <EntryListPanel />
       </div>
     </div>
   );
@@ -88,40 +88,6 @@ function TempFrameViewer() {
     <Panel>
       <div className="h-full p-4 flex justify-center items-center bg-white">
         Frames
-      </div>
-    </Panel>
-  );
-}
-
-function TempEntryList() {
-  return (
-    <Panel>
-      <div className="grow flex flex-col overflow-hidden bg-white">
-        <div className="text-center mb-1">Entry List</div>
-        <div className="grow overflow-auto">
-          <table className="text-sm">
-            <thead className="text-xs">
-              <tr>
-                <th className="px-2 py-1">Name</th>
-                <th className="px-2 py-1">Animate</th>
-                <th className="px-2 py-1">Frames</th>
-                <th className="px-2 py-1">Subframes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.from({ length: 30 }).map((_, index) => (
-                <tr
-                  key={index}
-                >
-                  <td className="px-2 py-1">Entry #{index + 1}</td>
-                  <td className="px-2 py-1">Yes</td>
-                  <td className="px-2 py-1">10</td>
-                  <td className="px-2 py-1">20</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </div>
     </Panel>
   );
