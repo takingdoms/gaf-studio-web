@@ -1,9 +1,10 @@
+import EntryListPanel from "@/components/app/entry-list/EntryListPanel";
+import FileMapViewer from "@/components/app/file-map-viewer/FileMapViewer";
 import WorkspaceFormatPanel from "@/components/app/workspace-format/WorkspaceFormatPanel";
 import WorkspaceInfoPanel from "@/components/app/workspace-info/WorkspaceInfoPanel";
-import ResizablePair from "@/components/ui/misc/ResizablePair";
 import PairSeparator from "@/components/ui/misc/PairSeparator";
+import ResizablePair from "@/components/ui/misc/ResizablePair";
 import Panel from "@/components/ui/panel/Panel";
-import EntryListPanel from "@/components/app/entry-list/EntryListPanel";
 
 export default function WorkspaceRoot() {
   const leftPanel = (
@@ -86,8 +87,8 @@ function TempControls() {
 function TempFrameViewer() {
   return (
     <Panel>
-      <div className="h-full p-4 flex justify-center items-center bg-white">
-        Frames
+      <div className="grow flex flex-col overflow-auto bg-white">
+        <FileMapViewer />
       </div>
     </Panel>
   );

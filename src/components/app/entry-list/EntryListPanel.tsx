@@ -16,7 +16,7 @@ export default function EntryListPanel() {
 
     return currentGaf.kind === 'blank'
       ? currentGaf.entries
-      : currentGaf.gafResult.entries;
+      : currentGaf.gafResult.gaf.entries;
   }, [currentGaf]);
 
   const table = React.useMemo(() => {

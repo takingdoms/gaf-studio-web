@@ -23,7 +23,7 @@ export default function FileMapViewer() {
   }
 
   return (
-    <div className="min-h-full flex flex-col items-center p-4 bg-gray-500">
+    <div className="flex flex-col items-center p-4 bg-gray-500~">
       <div className="mb-6 flex justify-center">
         <FileMapViewerInfo
           map={normFileMap}

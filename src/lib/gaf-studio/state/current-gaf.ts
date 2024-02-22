@@ -1,4 +1,4 @@
-import LibGaf from 'lib-gaf';
+import * as LibGaf from 'lib-gaf';
 
 export type CurrentGaf =
   | CurrentGafFromFile

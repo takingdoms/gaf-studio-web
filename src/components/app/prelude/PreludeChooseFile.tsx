@@ -16,7 +16,7 @@ export default function PreludeChooseFile({
   isLoading,
   setIsLoading,
 }: PreludeChooseFileProps) {
-  const [format, setFormat] = React.useState<MainFormat | 'auto' | 'taf-pair'>('taf'); // TODO change to auto
+  const [format, setFormat] = React.useState<MainFormat | 'auto' | 'taf-pair'>('auto'); // TODO change to auto
 
   return (
     <div className="grow flex flex-col space-y-2">

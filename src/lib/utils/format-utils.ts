@@ -1,4 +1,4 @@
-import LibGaf from 'lib-gaf';
+import * as LibGaf from 'lib-gaf';
 
 export type DetectedFormat = {
   mainFormat: 'gaf';
@@ -41,7 +41,7 @@ export namespace FormatUtils {
   export function detectFormatFromResult(
     gafResult: LibGaf.Reader.GafReaderResult,
   ): DetectedFormat | null {
-    for (const entry of gafResult.entries) {
+    for (const entry of gafResult.gaf.entries) {
       for (const frame of entry.frames) {
         const result = detectFrameDataFormat(frame.frameData);
 
