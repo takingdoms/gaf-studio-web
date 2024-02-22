@@ -30,10 +30,10 @@ export default function EntryListPanel() {
       <table className="text-xs">
         <thead className="sticky top-0 bg-white">
           <tr>
-            <th className={thCls}>Name</th>
-            {/* <th className={thCls}>Animate</th> */}
-            <th className={thCls}>Frames</th>
-            <th className={thCls}>Subframes</th>
+            <th className={`${thCls} w-full`}>Name</th>
+            {/* <th className={`${thCls}`}>Animate</th> */}
+            <th className={`${thCls}`}>Frames</th>
+            <th className={`${thCls}`}>Subframes</th>
           </tr>
         </thead>
         <tbody>
