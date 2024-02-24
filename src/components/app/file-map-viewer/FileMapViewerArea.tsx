@@ -8,10 +8,16 @@ import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
 type FileMapViewerAreaProps = {
   area: ElementOf<FileMapAreaGroup['areas']>;
   fileData: CurrentGafFromFile['fileData'];
+  index: number;
   isAlone: boolean;
 };
 
-export default function FileMapViewerArea({ area, fileData, isAlone }: FileMapViewerAreaProps) {
+export default function FileMapViewerArea({
+  area,
+  fileData,
+  index,
+  isAlone,
+}: FileMapViewerAreaProps) {
   const [expanded, setExpanded] = React.useState(false);
 
   const { label, content, offset, length } = area;
@@ -66,7 +72,7 @@ export default function FileMapViewerArea({ area, fileData, isAlone }: FileMapVi
     <div className={`border ${colorCls} font-mono`}>
       <div className="bg-[#FFFFFF10] px-4 py-2">
         <div className="font-medium mb-1.5">
-          {label}
+          {label} ({index + 1})
         </div>
         <div>
           <span>{offset}</span>&nbsp;
