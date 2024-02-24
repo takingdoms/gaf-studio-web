@@ -51,6 +51,7 @@ export default function FileMapViewerAreaGroup({
                 key={index}
                 area={area}
                 fileData={fileData}
+                isAlone={areas.length === 1}
               />
             ))}
           </div>

@@ -8,14 +8,13 @@ import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
 type FileMapViewerAreaProps = {
   area: ElementOf<FileMapAreaGroup['areas']>;
   fileData: CurrentGafFromFile['fileData'];
+  isAlone: boolean;
 };
 
-export default function FileMapViewerArea({ area, fileData }: FileMapViewerAreaProps) {
+export default function FileMapViewerArea({ area, fileData, isAlone }: FileMapViewerAreaProps) {
   const [expanded, setExpanded] = React.useState(false);
 
   const { label, content, offset, length } = area;
-
-  const colorCls = FILE_MAP_VIEWER_COLORS[label] ?? 'bg-black border-gray-600';
 
   let data: any = content;
 
@@ -43,6 +42,26 @@ export default function FileMapViewerArea({ area, fileData }: FileMapViewerAreaP
     dataStr = JSON.stringify(data, null, 2);
   }
 
+  const dataDiv = (
+    <div
+      className="bg-slate-700 text-white border border-dashed border-slate-500
+        whitespace-pre-wrap px-2 py-1"
+    >
+      <div
+        className="inline-block break-all"
+        style={{ maxWidth: 250 }}
+      >
+        {dataStr}
+      </div>
+    </div>
+  );
+
+  if (isAlone) {
+    return dataDiv;
+  }
+
+  const colorCls = FILE_MAP_VIEWER_COLORS[label] ?? 'bg-black border-gray-600';
+
   return (
     <div className={`border ${colorCls} font-mono`}>
       <div className="bg-[#FFFFFF10] px-4 py-2">
@@ -63,19 +82,7 @@ export default function FileMapViewerArea({ area, fileData }: FileMapViewerAreaP
               {expanded ? '[Hide data]' : '[Show data]'}
             </button>
 
-            {expanded && (
-              <div
-                className="bg-slate-700 text-white border border-dashed border-slate-500
-                  whitespace-pre-wrap px-2 py-1"
-              >
-                <div
-                  className="inline-block break-all"
-                  style={{ maxWidth: 250 }}
-                >
-                  {dataStr}
-                </div>
-              </div>
-            )}
+            {expanded && dataDiv}
           </div>
         </div>
       </div>
