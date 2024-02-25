@@ -1,7 +1,7 @@
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
-type UnknownGapSection = LibGaf.Reader.Mapping.BaseSection<'unknown-gap', null>;
+type UnknownGapSection = LibGaf.Reader.Mapping.BaseSection<'unknown-gap', LibGaf.Reader.Mapping.RawBytes>;
 
 type Section = LibGaf.Reader.Mapping.Section
 type SectionExtra = Section | UnknownGapSection;
@@ -86,7 +86,7 @@ export function normalizeFileMap(fileMap: DeepReadonly<Section[]>): NormalizedFi
           areas: [
             {
               label: 'unknown-gap',
-              content: null,
+              content: LibGaf.Reader.Mapping.RawBytes,
               offset: prevGroupEnd,
               length: currGroupStart - prevGroupEnd,
             },

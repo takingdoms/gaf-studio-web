@@ -36,28 +36,26 @@ export default function FileMapViewerAreaGroup({
         <span>{end}</span>&nbsp;
         <span>({end - start} bytes)</span>
       </div>
-      {label !== 'unknown-gap' && (
-        <div className="flex flex-col items-start">
-          <button
-            className="hover:underline mb-2"
-            onClick={() => setExpanded(!expanded)}
-          >
-            {expanded ? '[Collapse]' : '[Expand]'}
-          </button>
+      <div className="flex flex-col items-start">
+        <button
+          className="hover:underline mb-2"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? '[Collapse]' : '[Expand]'}
+        </button>
 
-          <div className="inline-flex flex-col space-y-2">
-            {expanded && areas.map((area, index) => (
-              <FileMapViewerArea
-                key={index}
-                area={area}
-                fileData={fileData}
-                index={index}
-                isAlone={areas.length === 1}
-              />
-            ))}
-          </div>
+        <div className="inline-flex flex-col space-y-2">
+          {expanded && areas.map((area, index) => (
+            <FileMapViewerArea
+              key={index}
+              area={area}
+              fileData={fileData}
+              index={index}
+              isAlone={areas.length === 1}
+            />
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
