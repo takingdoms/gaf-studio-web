@@ -2,7 +2,7 @@ import { MainFormat } from '@/lib/gaf-studio/main-format';
 import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
 import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
 import { FormatUtils } from '@/lib/utils/format-utils';
-import * as LibGaf from 'lib-gaf';
+import LibGaf from 'lib-gaf';
 
 export namespace WorkspaceStateUtils {
   async function readGafResult(fileData: Uint8Array): Promise<LibGaf.Reader.GafReaderResult> {

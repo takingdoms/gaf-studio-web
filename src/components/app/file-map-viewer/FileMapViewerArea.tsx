@@ -1,5 +1,5 @@
 import React from 'react';
-import * as LibGaf from 'lib-gaf';
+import LibGaf from 'lib-gaf';
 import { FILE_MAP_VIEWER_COLORS } from '@/components/app/file-map-viewer/colors';
 import { FileMapAreaGroup } from '@/lib/file-map/file-map';
 import { ElementOf } from 'ts-essentials';

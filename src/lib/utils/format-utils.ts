@@ -1,4 +1,4 @@
-import * as LibGaf from 'lib-gaf';
+import LibGaf from 'lib-gaf';
 
 export type DetectedFormat = {
   mainFormat: 'gaf';
