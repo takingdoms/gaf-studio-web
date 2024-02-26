@@ -2,6 +2,7 @@ import { CurrentGaf } from "@/lib/gaf-studio/state/current-gaf";
 import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace-gaf";
 import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
 import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
+import LibGaf from "lib-gaf";
 import { DeepReadonly } from "ts-essentials";
 
 // TODO eventually create a WriteableBaseWorkspace that exposes a method to replace the
@@ -20,14 +21,23 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     return this._state;
   }
 
+  protected abstract initBlank(): DeepReadonly<TState>;
+
+  abstract getCurrentGaf(): DeepReadonly<CurrentGaf> | null;
+
   createNew() {
     const newState = this.initBlank();
     this.setState(newState);
   }
 
-  protected abstract initBlank(): DeepReadonly<TState>;
-
-  abstract getCurrentGaf(): DeepReadonly<CurrentGaf> | null;
+  setActiveEntry(activeEntry: DeepReadonly<LibGaf.GafEntry> | undefined) {
+    if (activeEntry !== this.state.activeEntry) {
+      this.setState({
+        ...this.state,
+        activeEntry,
+      });
+    }
+  }
 }
 
 export type Workspace = WorkspaceGaf | WorkspaceTaf;
