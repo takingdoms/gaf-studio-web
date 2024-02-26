@@ -13,13 +13,13 @@ export default function WorkspaceFormatPanel() {
   }
 
   const bgCls = workspace.state.format === 'gaf'
-    ? 'border-orange-300 from-orange-200 to-orange-300 text-orange-800'
-    : 'border-violet-300 from-violet-200 to-violet-300 text-violet-800';
+    ? 'border-orange-300 bg-orange-200 text-orange-700'
+    : 'border-violet-300 bg-violet-200 text-violet-700';
 
   return (
     <Panel>
       <div
-        className={`p-2 text-center text-sm font-bold bg-gradient-to-b border ${bgCls}`}
+        className={`p-2 text-center text-sm font-bold bg-gradient-to-b border-2 ${bgCls}`}
       >
         <span>Current format:{' '}</span>
         <span>{workspace.state.format === 'gaf' ? 'GAF' : 'TAF'}</span>
