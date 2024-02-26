@@ -1,5 +1,5 @@
 import EntryListPanel from "@/components/app/entry-list/EntryListPanel";
-import FileMapViewer from "@/components/app/file-map-viewer/FileMapViewer";
+import FrameViewerPanel from "@/components/app/frame-viewer/FrameViewerPanel";
 import WorkspaceFormatPanel from "@/components/app/workspace-format/WorkspaceFormatPanel";
 import WorkspaceInfoPanel from "@/components/app/workspace-info/WorkspaceInfoPanel";
 import PairSeparator from "@/components/ui/misc/PairSeparator";
@@ -28,7 +28,7 @@ export default function WorkspaceRoot() {
   );
 
   const rightPanel = (
-    <TempFrameViewer />
+    <FrameViewerPanel />
   );
 
   const rightPair = (
@@ -79,16 +79,6 @@ function TempControls() {
     <Panel>
       <div className="h-full p-4 flex justify-center items-center bg-white">
         Controls
-      </div>
-    </Panel>
-  );
-}
-
-function TempFrameViewer() {
-  return (
-    <Panel>
-      <div className="grow flex flex-col overflow-auto bg-white">
-        <FileMapViewer />
       </div>
     </Panel>
   );
