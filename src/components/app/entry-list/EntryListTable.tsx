@@ -40,11 +40,11 @@ export default function EntryListTable({
           let bgCls: string;
 
           if (isActive) {
-            bgCls = 'bg-yellow-200';
+            bgCls = 'bg-sky-200';
           } else {
             bgCls = index % 2 === 0
-              ? 'bg-white hover:bg-yellow-100'
-              : 'bg-gray-50 hover:bg-yellow-100';
+              ? 'bg-white hover:bg-sky-100'
+              : 'bg-gray-50 hover:bg-sky-100';
           }
 
           return (
