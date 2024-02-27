@@ -65,7 +65,7 @@ export default function WorkspaceSubFormat({
     >
       <input
         className="cursor-pointer"
-        type="checkbox"
+        type="radio"
         checked={isActive}
         onChange={() => {
           // do nothing (the button does it)
