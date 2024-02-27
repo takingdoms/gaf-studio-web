@@ -1,9 +1,9 @@
 import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
 import WorkspaceInfoGaf from "@/components/app/workspace-info/WorkspaceInfoGaf";
 import WorkspaceInfoTaf from "@/components/app/workspace-info/WorkspaceInfoTaf";
+import CollapsibleHeader from "@/components/ui/collapsible/CollapsibleHeader";
 import Panel from "@/components/ui/panel/Panel";
 import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace-gaf";
-import { Icons } from "@/lib/react/icons";
 import React from 'react';
 
 export default function WorkspaceInfoPanel() {
@@ -18,22 +18,12 @@ export default function WorkspaceInfoPanel() {
   return (
     // <div className="h-full flex flex-col">
       <Panel>
-        <button
-          className="flex items-center border border-gray-300 p-2
-            bg-gradient-to-br from-slate-50 to-slate-200 text-slate-600
-            hover:border-slate-400 hover:text-slate-700 transition-colors"
-          onClick={() => setExpanded(!expanded)}
+        <CollapsibleHeader
+          expanded={expanded}
+          setExpanded={setExpanded}
         >
-          <div className="grow font-bold truncate text-sm">
-            {/* Workspace Information */}
-            {/* {workspace.format === 'gaf' ? 'GAF' : 'TAF'} Information */}
-            Workspace Configuration
-          </div>
-
-          {expanded
-            ? <Icons.CaretDown />
-            : <Icons.CaretUp />}
-        </button>
+          Workspace Configuration
+        </CollapsibleHeader>
 
         {expanded && (
           <div className="grow flex flex-col overflow-hidden bg-white">

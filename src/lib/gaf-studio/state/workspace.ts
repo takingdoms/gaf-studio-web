@@ -24,19 +24,63 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
   protected abstract initBlank(): DeepReadonly<TState>;
 
   abstract getCurrentGaf(): DeepReadonly<CurrentGaf> | null;
+  abstract getEntries(): DeepReadonly<LibGaf.GafEntry[]> | null;
 
   createNew() {
     const newState = this.initBlank();
     this.setState(newState);
   }
 
-  setActiveEntry(activeEntry: DeepReadonly<LibGaf.GafEntry> | undefined) {
-    if (activeEntry !== this.state.activeEntry) {
+  getActiveEntry(): DeepReadonly<LibGaf.GafEntry> | null {
+    if (this.state.activeEntryIndex === null) {
+      return null;
+    }
+
+    const entries = this.getEntries();
+
+    if (entries === null) {
+      return null;
+    }
+
+    return entries[this.state.activeEntryIndex];
+  }
+
+  setActiveEntryIndex(index: number | null) {
+    const entries = this.getEntries();
+
+    if (entries === null) {
+      throw new Error(`Can't set active entry index when there are no entries.`);
+    }
+
+    if (index === null) {
       this.setState({
         ...this.state,
-        activeEntry,
+        activeEntryIndex: null,
+        activeFrameIndex: null,
       });
+
+      return;
     }
+
+    const nextEntry = entries[index];
+    const activeFrameIndex = nextEntry.frames.length === 0 ? null : 0;
+
+    this.setState({
+      ...this.state,
+      activeEntryIndex: index,
+      activeFrameIndex,
+    });
+  }
+
+  setActiveFrameIndex(index: number | null) {
+    if (this.state.activeEntryIndex === null) {
+      throw new Error(`Can't set active frame index when there's no entry selected.`);
+    }
+
+    this.setState({
+      ...this.state,
+      activeFrameIndex: index,
+    });
   }
 }
 

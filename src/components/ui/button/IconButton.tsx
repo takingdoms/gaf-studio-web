@@ -4,12 +4,14 @@ type IconButtonProps = {
   icon: IconFunc;
   onClick: () => void;
   disabled?: boolean;
+  size?: number;
 };
 
 export default function IconButton({
   onClick,
   disabled,
-  ...props
+  size,
+  icon: Icon,
 }: IconButtonProps) {
   const cls = disabled
     ? 'text-orange-600 opacity-50'
@@ -26,7 +28,7 @@ export default function IconButton({
       }}
       disabled={disabled}
     >
-      <props.icon />
+      <Icon size={size} />
     </button>
   );
 }

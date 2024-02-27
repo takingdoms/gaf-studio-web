@@ -10,15 +10,11 @@ export default function EntryListPanel() {
     return;
   }
 
-  const currentGaf = workspace.getCurrentGaf();
+  const entries = workspace.getEntries();
 
-  if (currentGaf === null) {
+  if (entries === null) {
     return;
   }
-
-  const entries = currentGaf.kind === 'blank'
-    ? currentGaf.entries
-    : currentGaf.gafResult.gaf.entries;
 
   return (
     <Panel>
@@ -28,8 +24,8 @@ export default function EntryListPanel() {
           <div className="relative">
             <EntryListTable
               entries={entries}
-              activeEntry={workspace.state.activeEntry}
-              setActiveEntry={(entry) => workspace.setActiveEntry(entry)}
+              activeEntryIndex={workspace.state.activeEntryIndex}
+              setActiveEntryIndex={(index) => workspace.setActiveEntryIndex(index)}
             />
           </div>
         </div>

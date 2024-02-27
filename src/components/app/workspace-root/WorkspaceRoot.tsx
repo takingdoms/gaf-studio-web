@@ -1,3 +1,4 @@
+import ControlsPanel from "@/components/app/controls/ControlsPanel";
 import EntryListPanel from "@/components/app/entry-list/EntryListPanel";
 import FrameViewerPanel from "@/components/app/frame-viewer/FrameViewerPanel";
 import WorkspaceFormatPanel from "@/components/app/workspace-format/WorkspaceFormatPanel";
@@ -24,7 +25,7 @@ export default function WorkspaceRoot() {
   );
 
   const middlePanel = (
-    <TempControls />
+    <ControlsPanel />
   );
 
   const rightPanel = (
@@ -69,16 +70,6 @@ function TempFooter() {
     <Panel>
       <div className="h-full p-4 flex justify-center items-center bg-white">
         Footer
-      </div>
-    </Panel>
-  );
-}
-
-function TempControls() {
-  return (
-    <Panel>
-      <div className="h-full p-4 flex justify-center items-center bg-white">
-        Controls
       </div>
     </Panel>
   );

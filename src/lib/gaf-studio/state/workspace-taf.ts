@@ -3,6 +3,7 @@ import { CurrentGaf } from '@/lib/gaf-studio/state/current-gaf';
 import { BaseWorkspace } from '@/lib/gaf-studio/state/workspace';
 import { WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
 import { WorkspaceStateUtils } from '@/lib/gaf-studio/state/workspace-state-utils';
+import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
@@ -16,6 +17,18 @@ export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
     }
 
     return this.state.currentGafs[this.state.activeSubFormat];
+  }
+
+  override getEntries(): DeepReadonly<LibGaf.GafEntry[]> | null {
+    const currentGaf = this.getCurrentGaf();
+
+    if (currentGaf === null) {
+      return null;
+    }
+
+    return currentGaf.kind === 'blank'
+      ? currentGaf.entries
+      : currentGaf.gafResult.gaf.entries;
   }
 
   setActiveSubFormat(subFormat: TafSubFormat) {

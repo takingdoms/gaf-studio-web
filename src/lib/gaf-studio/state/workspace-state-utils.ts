@@ -42,7 +42,8 @@ export namespace WorkspaceStateUtils {
         format: 'gaf',
         currentGaf,
         currentPalette: null,
-        activeEntry: undefined,
+        activeEntryIndex: null,
+        activeFrameIndex: null,
       };
     }
 
@@ -55,7 +56,8 @@ export namespace WorkspaceStateUtils {
         'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
       },
       activeSubFormat: detectedFormat.subFormat,
-      activeEntry: undefined,
+      activeEntryIndex: null,
+      activeFrameIndex: null,
     };
   }
 
@@ -73,7 +75,8 @@ export namespace WorkspaceStateUtils {
       format: 'gaf',
       currentGaf,
       currentPalette: null,
-      activeEntry: undefined,
+      activeEntryIndex: null,
+      activeFrameIndex: null,
     };
   }
 
@@ -99,7 +102,8 @@ export namespace WorkspaceStateUtils {
         'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
       },
       activeSubFormat: detectedFormat.subFormat,
-      activeEntry: undefined,
+      activeEntryIndex: null,
+      activeFrameIndex: null,
     };
   }
 
@@ -138,7 +142,8 @@ export namespace WorkspaceStateUtils {
         'taf_4444': currentGaf4444,
       },
       activeSubFormat: null,
-      activeEntry: undefined,
+      activeEntryIndex: null,
+      activeFrameIndex: null,
     };
   }
 
@@ -153,7 +158,8 @@ export namespace WorkspaceStateUtils {
           entries: [],
         },
         currentPalette: null,
-        activeEntry: undefined,
+        activeEntryIndex: null,
+        activeFrameIndex: null,
       };
     }
 
@@ -170,7 +176,8 @@ export namespace WorkspaceStateUtils {
         },
       },
       activeSubFormat: null,
-      activeEntry: undefined,
+      activeEntryIndex: null,
+      activeFrameIndex: null,
     };
   }
 }

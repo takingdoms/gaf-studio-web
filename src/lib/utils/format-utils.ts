@@ -8,6 +8,10 @@ export type DetectedFormat = {
 };
 
 export namespace FormatUtils {
+  export function hex(num: number): string {
+    return '0x' + num.toString(16).toUpperCase();
+  }
+
   export function getFileExtension(fileName: string): string {
     const parts = fileName.split('.');
     return parts[parts.length - 1];

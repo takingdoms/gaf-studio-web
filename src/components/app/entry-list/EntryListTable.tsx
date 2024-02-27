@@ -3,8 +3,8 @@ import { DeepReadonly } from 'ts-essentials';
 
 type EntryListTableProps = DeepReadonly<{
   entries: LibGaf.GafEntry[];
-  activeEntry: LibGaf.GafEntry | undefined;
-  setActiveEntry: (entry: DeepReadonly<LibGaf.GafEntry> | undefined) => void;
+  activeEntryIndex: number | null;
+  setActiveEntryIndex: (index: number | null) => void;
 }>;
 
 const thCls = 'px-2 py-1 text-left border~ border-gray-300';
@@ -12,8 +12,8 @@ const tdCls = 'px-2 py-1';
 
 export default function EntryListTable({
   entries,
-  activeEntry,
-  setActiveEntry,
+  activeEntryIndex,
+  setActiveEntryIndex,
 }: EntryListTableProps) {
   return (
     <table className="text-xs text-black">
@@ -27,7 +27,7 @@ export default function EntryListTable({
       </thead>
       <tbody>
         {entries.map((entry, index) => {
-          const isActive = entry === activeEntry;
+          const isActive = index === activeEntryIndex;
 
           const subFrames = entry.frames.reduce((total, next) => {
             const nextSubFrames = next.frameData.kind === 'multi'
@@ -52,7 +52,7 @@ export default function EntryListTable({
               key={index}
               className={`${bgCls} cursor-pointer`}
               onClick={() => {
-                setActiveEntry(entry);
+                setActiveEntryIndex(index);
               }}
             >
               <td

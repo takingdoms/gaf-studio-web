@@ -1,11 +1,11 @@
 import { MainFormat, TafSubFormat } from '@/lib/gaf-studio/main-format';
 import { CurrentGaf } from '@/lib/gaf-studio/state/current-gaf';
 import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
-import LibGaf from 'lib-gaf';
 
 export type WorkspaceStateBase<TFormat extends MainFormat> = {
   format: TFormat;
-  activeEntry: LibGaf.GafEntry | undefined;
+  activeEntryIndex: number | null;
+  activeFrameIndex: number | null;
 };
 
 export type WorkspaceStateGaf = WorkspaceStateBase<'gaf'> & {
@@ -14,8 +14,6 @@ export type WorkspaceStateGaf = WorkspaceStateBase<'gaf'> & {
 };
 
 export type WorkspaceStateTaf = WorkspaceStateBase<'taf'> & {
-  // currentTaf1555: CurrentGaf | null;
-  // currentTaf4444: CurrentGaf | null;
   currentGafs: Record<TafSubFormat, CurrentGaf | null>;
   activeSubFormat: TafSubFormat | null;
 };
