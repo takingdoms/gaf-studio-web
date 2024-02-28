@@ -1,5 +1,6 @@
 import ActiveFrameInput from '@/components/app/controls/ActiveFrameInput';
 import FrameDataControls from '@/components/app/controls/FrameDataControls';
+import { SHOW_MULTI_LAYER_FRAME_DATA_CONTROLS } from '@/lib/constants';
 import { IconCaretDownFilled } from '@tabler/icons-react';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
@@ -23,6 +24,9 @@ export default function MultiFrameControls({
 
   return (
     <div className="flex flex-col">
+      {SHOW_MULTI_LAYER_FRAME_DATA_CONTROLS
+        && <FrameDataControls frameData={frameData} />}
+
       <div className="flex items-center space-x-2 border-dashed border-gray-300 rounded-sm">
         <div className="truncate">
           Selected subframe:

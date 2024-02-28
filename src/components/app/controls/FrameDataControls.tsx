@@ -2,7 +2,7 @@ import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type FrameDataControlsProps = DeepReadonly<{
-  frameData: LibGaf.GafFrameDataSingleLayer;
+  frameData: LibGaf.GafFrameData;
 }>;
 
 const thCls = 'text-left px-1 py-1 text-gray-700';
