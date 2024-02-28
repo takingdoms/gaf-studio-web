@@ -111,7 +111,7 @@ export default function ResizablePair({
       {/* child B */}
       <div
         ref={dominantChild !== 'B' ? subordinateChildRef : undefined}
-        className={`${dominantChild === 'B' ? 'grow' : ''} max-w-full flex flex-col overflow-hidden`}
+        className={`${dominantChild === 'B' ? 'grow basis-0' : ''} max-w-full flex flex-col overflow-hidden`}
         style={{
           minWidth:   dominantChild !== 'B' && dir === 'H' ? subordinateChildMinSize : undefined,
           minHeight:  dominantChild !== 'B' && dir === 'V' ? subordinateChildMinSize : undefined,
