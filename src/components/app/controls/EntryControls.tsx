@@ -58,7 +58,7 @@ export default function EntryControls() {
           </div>
           <div className="whitespace-nowrap">
             <ActiveFrameInput
-              activeFrameIndex={workspace.state.activeFrameIndex}
+              activeFrameIndex={workspace.state.cursor.frameIndex}
               setActiveFrameIndex={(index) => workspace.setActiveFrameIndex(index)}
               minFrameIndex={0}
               maxFrameIndex={activeEntry.frames.length - 1}

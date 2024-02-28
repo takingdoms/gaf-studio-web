@@ -38,7 +38,7 @@ export default function FrameControls() {
       ) : (
         <MultiFrameControls
           frameData={activeFrame.frameData}
-          activeSubframeIndex={workspace.state.activeSubframeIndex}
+          activeSubframeIndex={workspace.state.cursor.subframeIndex}
           setActiveSubframeIndex={(index) => workspace.setActiveSubframeIndex(index)}
         />
       )}

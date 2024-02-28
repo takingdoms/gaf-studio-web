@@ -24,7 +24,7 @@ export default function EntryListPanel() {
           <div className="relative">
             <EntryListTable
               entries={entries}
-              activeEntryIndex={workspace.state.activeEntryIndex}
+              activeEntryIndex={workspace.state.cursor.entryIndex}
               setActiveEntryIndex={(index) => workspace.setActiveEntryIndex(index)}
             />
           </div>

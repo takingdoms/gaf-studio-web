@@ -5,7 +5,7 @@ import WorkspaceFormatPanel from "@/components/app/workspace-format/WorkspaceFor
 import WorkspaceInfoPanel from "@/components/app/workspace-info/WorkspaceInfoPanel";
 import PairSeparator from "@/components/ui/misc/PairSeparator";
 import ResizablePair from "@/components/ui/misc/ResizablePair";
-import Panel from "@/components/ui/panel/Panel";
+// import Panel from "@/components/ui/panel/Panel";
 
 export default function WorkspaceRoot() {
   const leftPanel = (
@@ -65,7 +65,7 @@ export default function WorkspaceRoot() {
   );
 }
 
-function TempFooter() {
+/*function TempFooter() {
   return (
     <Panel>
       <div className="h-full p-4 flex justify-center items-center bg-white">
@@ -73,4 +73,4 @@ function TempFooter() {
       </div>
     </Panel>
   );
-}
+}*/

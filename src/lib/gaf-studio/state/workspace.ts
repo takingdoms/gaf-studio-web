@@ -32,7 +32,9 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
   }
 
   getActiveEntry(): DeepReadonly<LibGaf.GafEntry> | null {
-    if (this.state.activeEntryIndex === null) {
+    const { entryIndex } = this.state.cursor;
+
+    if (entryIndex === null) {
       return null;
     }
 
@@ -42,39 +44,34 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
       return null;
     }
 
-    return entries[this.state.activeEntryIndex];
+    return entries[entryIndex];
   }
 
   getActiveFrame(): DeepReadonly<LibGaf.GafFrame> | null {
-    if (this.state.activeFrameIndex === null) {
+    const { frameIndex } = this.state.cursor;
+
+    if (frameIndex === null) {
       return null;
     }
 
-    const activeEntry = this.getActiveEntry();
-
-    if (activeEntry === null) {
-      return null;
-    }
-
-    return activeEntry.frames[this.state.activeFrameIndex];
+    const activeEntry = this.getActiveEntry()!;
+    return activeEntry.frames[frameIndex];
   }
 
   getActiveSubframe(): DeepReadonly<LibGaf.GafFrameDataSingleLayer> | null {
-    const activeFrame = this.getActiveFrame();
+    const { subframeIndex } = this.state.cursor;
 
-    if (activeFrame === null) {
-      throw new Error(`Can't get active subframe when there's no active frame.`);
-    }
-
-    if (this.state.activeSubframeIndex === null) {
+    if (subframeIndex === null) {
       return null;
     }
+
+    const activeFrame = this.getActiveFrame()!;
 
     if (activeFrame.frameData.kind === 'single') {
       throw new Error(`Current frame is not multi-layered.`);
     }
 
-    return activeFrame.frameData.layers[this.state.activeSubframeIndex];
+    return activeFrame.frameData.layers[subframeIndex];
   }
 
   setActiveEntryIndex(index: number | null) {
@@ -87,55 +84,99 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     if (index === null) {
       this.setState({
         ...this.state,
-        activeEntryIndex: null,
-        activeFrameIndex: null,
-        activeSubframeIndex: null,
+        cursor: {
+          entryIndex: null,
+          frameIndex: null,
+          subframeIndex: null,
+        },
       });
 
       return;
     }
 
     const nextEntry = entries[index];
-    const activeFrameIndex = nextEntry.frames.length === 0 ? null : 0;
+    const activeFrameIndex = nextEntry.frames.length > 0 ? 0 : null;
+
+    if (activeFrameIndex === null) {
+      this.setState({
+        ...this.state,
+        cursor: {
+          entryIndex: index,
+          frameIndex: null,
+          subframeIndex: null,
+        },
+      });
+
+      return;
+    }
+
+    const activeFrame = nextEntry.frames[activeFrameIndex];
+    const activeSubframeIndex =
+      activeFrame.frameData.kind === 'multi' && activeFrame.frameData.layers.length > 0
+        ? 0 : null;
 
     this.setState({
       ...this.state,
-      activeEntryIndex: index,
-      activeFrameIndex,
-      activeSubframeIndex: null, // TODO auto-set to 0 or null
+      cursor: {
+        entryIndex: index,
+        frameIndex: activeFrameIndex,
+        subframeIndex: activeSubframeIndex,
+      },
     });
   }
 
   setActiveFrameIndex(index: number | null) {
-    if (this.state.activeEntryIndex === null) {
+    const { entryIndex } = this.state.cursor;
+
+    if (entryIndex === null) {
       throw new Error(`Can't set active frame index when there's no active entry.`);
     }
 
+    if (index === null) {
+      this.setState({
+        ...this.state,
+        cursor: {
+          entryIndex,
+          frameIndex: null,
+          subframeIndex: null,
+        },
+      });
+
+      return;
+    }
+
+    const entry = this.getActiveEntry()!;
+    const nextFrame = entry.frames[index];
+    const activeSubframeIndex =
+      nextFrame.frameData.kind === 'multi' && nextFrame.frameData.layers.length > 0
+        ? 0 : null;
+
     this.setState({
       ...this.state,
-      activeFrameIndex: index,
-      activeSubframeIndex: null, // TODO auto-set to 0 or null
+      cursor: {
+        entryIndex,
+        frameIndex: index,
+        subframeIndex: activeSubframeIndex,
+      },
     });
   }
 
   setActiveSubframeIndex(index: number | null) {
-    if (this.state.activeFrameIndex === null) {
-      throw new Error(`Can't set active subframe index when there's no actie frame.`);
+    const { entryIndex, frameIndex } = this.state.cursor;
+
+    if (frameIndex === null) {
+      throw new Error(`Can't set active subframe index when there's no active frame.`);
     }
 
     this.setState({
       ...this.state,
-      activeSubframeIndex: index,
+      cursor: {
+        entryIndex,
+        frameIndex,
+        subframeIndex: index,
+      },
     });
   }
-
-  /*private getFirstFrameIndex(entry: DeepReadonly<LibGaf.GafEntry>): number | null {
-    return entry.frames.length === 0 ? null : 0;
-  }
-
-  private getFirstSubframeIndex(entry: DeepReadonly<LibGaf.GafEntry>): number | null {
-    if (entry.)
-  }*/
 }
 
 export type Workspace = WorkspaceGaf | WorkspaceTaf;

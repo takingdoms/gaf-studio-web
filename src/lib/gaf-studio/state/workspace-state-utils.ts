@@ -1,8 +1,10 @@
 import { MainFormat } from '@/lib/gaf-studio/main-format';
 import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
+import { WorkspaceCursor } from '@/lib/gaf-studio/state/workspace-cursor';
 import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import LibGaf from 'lib-gaf';
+import { DeepReadonly } from 'ts-essentials';
 
 export namespace WorkspaceStateUtils {
   async function readGafResult(fileData: Uint8Array): Promise<LibGaf.Reader.GafReaderResult> {
@@ -27,6 +29,14 @@ export namespace WorkspaceStateUtils {
     };
   }
 
+  function emptyCursor(): DeepReadonly<WorkspaceCursor> {
+    return {
+      entryIndex: null,
+      frameIndex: null,
+      subframeIndex: null,
+    };
+  }
+
   export async function initFromAnyFile(file: File): Promise<WorkspaceState> {
     const currentGaf = await loadCurrentGaf(file);
 
@@ -42,9 +52,7 @@ export namespace WorkspaceStateUtils {
         format: 'gaf',
         currentGaf,
         currentPalette: null,
-        activeEntryIndex: null,
-        activeFrameIndex: null,
-        activeSubframeIndex: null,
+        cursor: emptyCursor(),
       };
     }
 
@@ -57,9 +65,7 @@ export namespace WorkspaceStateUtils {
         'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
       },
       activeSubFormat: detectedFormat.subFormat,
-      activeEntryIndex: null,
-      activeFrameIndex: null,
-      activeSubframeIndex: null,
+      cursor: emptyCursor(),
     };
   }
 
@@ -77,9 +83,7 @@ export namespace WorkspaceStateUtils {
       format: 'gaf',
       currentGaf,
       currentPalette: null,
-      activeEntryIndex: null,
-      activeFrameIndex: null,
-      activeSubframeIndex: null,
+      cursor: emptyCursor(),
     };
   }
 
@@ -105,9 +109,7 @@ export namespace WorkspaceStateUtils {
         'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
       },
       activeSubFormat: detectedFormat.subFormat,
-      activeEntryIndex: null,
-      activeFrameIndex: null,
-      activeSubframeIndex: null,
+      cursor: emptyCursor(),
     };
   }
 
@@ -146,9 +148,7 @@ export namespace WorkspaceStateUtils {
         'taf_4444': currentGaf4444,
       },
       activeSubFormat: null,
-      activeEntryIndex: null,
-      activeFrameIndex: null,
-      activeSubframeIndex: null,
+      cursor: emptyCursor(),
     };
   }
 
@@ -163,9 +163,7 @@ export namespace WorkspaceStateUtils {
           entries: [],
         },
         currentPalette: null,
-        activeEntryIndex: null,
-        activeFrameIndex: null,
-        activeSubframeIndex: null,
+        cursor: emptyCursor(),
       };
     }
 
@@ -182,9 +180,7 @@ export namespace WorkspaceStateUtils {
         },
       },
       activeSubFormat: null,
-      activeEntryIndex: null,
-      activeFrameIndex: null,
-      activeSubframeIndex: null,
+      cursor: emptyCursor(),
     };
   }
 }
