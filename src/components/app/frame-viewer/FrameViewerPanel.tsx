@@ -9,9 +9,9 @@ export default function FrameViewerPanel() {
     return;
   }
 
-  const activeEntry = workspace.state.activeEntry;
+  const activeEntry = workspace.getActiveEntry();
 
-  if (activeEntry === undefined) {
+  if (activeEntry === null) {
     return;
   }
 

@@ -23,9 +23,9 @@ export default function EntryControls() {
   const hasFrames = activeEntry.frames.length > 0;
 
   return (
-    <div className="grow flex flex-col overflow-y-auto overflow-x-hidden bg-white space-y-2 py-2">
-      <div className="flex flex-col text-center mx-2">
-        <div className="font-bold">Entry selected:</div>
+    <div className="grow flex flex-col overflow-y-auto overflow-x-hidden bg-white space-y-2 px-4 py-2">
+      <div className="flex flex-col text-center">
+        <div className="font-bold text-gray-700">Entry selected:</div>
         <div className="whitespace-nowrap overflow-auto font-mono">
           {activeEntry.name}
         </div>
@@ -33,7 +33,8 @@ export default function EntryControls() {
 
       <div className="self-center border-b border-dotted border-slate-500 w-1/2" />
 
-      <div className="flex flex-col mx-2 space-y-1">
+      {/* TODO make this a table */}
+      <div className="flex flex-col space-y-1">
         <div className="flex items-baseline">
           <div>Unknown1:</div>
           <div className="grow font-mono">
@@ -51,7 +52,7 @@ export default function EntryControls() {
       <div className="self-center border-b border-dotted border-slate-500 w-1/2" />
 
       {hasFrames && (
-        <div className="flex items-center space-x-2 border-dashed border-gray-300 rounded-sm mx-2">
+        <div className="flex items-center space-x-2 border-dashed border-gray-300 rounded-sm">
           <div className="truncate">
             Selected frame:
           </div>
@@ -60,7 +61,7 @@ export default function EntryControls() {
               activeFrameIndex={workspace.state.activeFrameIndex}
               setActiveFrameIndex={(index) => workspace.setActiveFrameIndex(index)}
               minFrameIndex={0}
-              maxFrameIndex={activeEntry.frames.length}
+              maxFrameIndex={activeEntry.frames.length - 1}
             /> / {activeEntry.frames.length}
           </div>
         </div>

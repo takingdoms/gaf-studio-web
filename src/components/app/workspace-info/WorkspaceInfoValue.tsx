@@ -10,7 +10,7 @@ export default function WorkspaceInfoValue({ label, children, isLast }: Workspac
   return (
     <div className="flex flex-col text-sm max-w-full">
       <div className="px-1 text-center">
-        <span className="truncate font-bold">
+        <span className="truncate font-bold text-gray-700">
           {label}:
         </span>
       </div>

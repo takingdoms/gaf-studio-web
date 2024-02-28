@@ -38,7 +38,7 @@ export default function WorkspaceRoot() {
       childA={middlePanel}
       childB={rightPanel}
       dominantChild="B"
-      subordinateChildMinSize={200}
+      subordinateChildMinSize={260}
       subordinateChildMaxSize="50%"
     />
   );
@@ -51,16 +51,16 @@ export default function WorkspaceRoot() {
           childA={leftPanel}
           childB={rightPair}
           dominantChild="B"
-          subordinateChildMinSize={300}
+          subordinateChildMinSize={320}
           subordinateChildMaxSize="50%"
         />
       </div>
 
-      <PairSeparator dir="V" />
+      {/* <PairSeparator dir="V" />
 
       <div className="flex flex-col">
         <TempFooter />
-      </div>
+      </div> */}
     </div>
   );
 }

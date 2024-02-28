@@ -11,8 +11,6 @@ export default function ActiveFrameInput({
   minFrameIndex,
   maxFrameIndex,
 }: ActiveFrameInputProps) {
-  console.log(activeFrameIndex);
-
   return (
     <input
       type="number"
@@ -33,9 +31,11 @@ export default function ActiveFrameInput({
           return;
         }
 
+        value -= 1; // converts from 1-index to 0-index
+
         value = Math.min(value, maxFrameIndex);
         value = Math.max(value, minFrameIndex);
-        setActiveFrameIndex(value - 1); // converts from 1-index to 0-index
+        setActiveFrameIndex(value);
       }}
     />
   );

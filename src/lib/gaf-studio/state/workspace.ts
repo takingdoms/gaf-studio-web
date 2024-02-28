@@ -45,6 +45,38 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     return entries[this.state.activeEntryIndex];
   }
 
+  getActiveFrame(): DeepReadonly<LibGaf.GafFrame> | null {
+    if (this.state.activeFrameIndex === null) {
+      return null;
+    }
+
+    const activeEntry = this.getActiveEntry();
+
+    if (activeEntry === null) {
+      return null;
+    }
+
+    return activeEntry.frames[this.state.activeFrameIndex];
+  }
+
+  getActiveSubframe(): DeepReadonly<LibGaf.GafFrameDataSingleLayer> | null {
+    const activeFrame = this.getActiveFrame();
+
+    if (activeFrame === null) {
+      throw new Error(`Can't get active subframe when there's no active frame.`);
+    }
+
+    if (this.state.activeSubframeIndex === null) {
+      return null;
+    }
+
+    if (activeFrame.frameData.kind === 'single') {
+      throw new Error(`Current frame is not multi-layered.`);
+    }
+
+    return activeFrame.frameData.layers[this.state.activeSubframeIndex];
+  }
+
   setActiveEntryIndex(index: number | null) {
     const entries = this.getEntries();
 
@@ -57,6 +89,7 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
         ...this.state,
         activeEntryIndex: null,
         activeFrameIndex: null,
+        activeSubframeIndex: null,
       });
 
       return;
@@ -69,19 +102,40 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
       ...this.state,
       activeEntryIndex: index,
       activeFrameIndex,
+      activeSubframeIndex: null, // TODO auto-set to 0 or null
     });
   }
 
   setActiveFrameIndex(index: number | null) {
     if (this.state.activeEntryIndex === null) {
-      throw new Error(`Can't set active frame index when there's no entry selected.`);
+      throw new Error(`Can't set active frame index when there's no active entry.`);
     }
 
     this.setState({
       ...this.state,
       activeFrameIndex: index,
+      activeSubframeIndex: null, // TODO auto-set to 0 or null
     });
   }
+
+  setActiveSubframeIndex(index: number | null) {
+    if (this.state.activeFrameIndex === null) {
+      throw new Error(`Can't set active subframe index when there's no actie frame.`);
+    }
+
+    this.setState({
+      ...this.state,
+      activeSubframeIndex: index,
+    });
+  }
+
+  /*private getFirstFrameIndex(entry: DeepReadonly<LibGaf.GafEntry>): number | null {
+    return entry.frames.length === 0 ? null : 0;
+  }
+
+  private getFirstSubframeIndex(entry: DeepReadonly<LibGaf.GafEntry>): number | null {
+    if (entry.)
+  }*/
 }
 
 export type Workspace = WorkspaceGaf | WorkspaceTaf;

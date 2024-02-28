@@ -44,6 +44,7 @@ export namespace WorkspaceStateUtils {
         currentPalette: null,
         activeEntryIndex: null,
         activeFrameIndex: null,
+        activeSubframeIndex: null,
       };
     }
 
@@ -58,6 +59,7 @@ export namespace WorkspaceStateUtils {
       activeSubFormat: detectedFormat.subFormat,
       activeEntryIndex: null,
       activeFrameIndex: null,
+      activeSubframeIndex: null,
     };
   }
 
@@ -77,6 +79,7 @@ export namespace WorkspaceStateUtils {
       currentPalette: null,
       activeEntryIndex: null,
       activeFrameIndex: null,
+      activeSubframeIndex: null,
     };
   }
 
@@ -104,6 +107,7 @@ export namespace WorkspaceStateUtils {
       activeSubFormat: detectedFormat.subFormat,
       activeEntryIndex: null,
       activeFrameIndex: null,
+      activeSubframeIndex: null,
     };
   }
 
@@ -144,6 +148,7 @@ export namespace WorkspaceStateUtils {
       activeSubFormat: null,
       activeEntryIndex: null,
       activeFrameIndex: null,
+      activeSubframeIndex: null,
     };
   }
 
@@ -160,6 +165,7 @@ export namespace WorkspaceStateUtils {
         currentPalette: null,
         activeEntryIndex: null,
         activeFrameIndex: null,
+        activeSubframeIndex: null,
       };
     }
 
@@ -178,6 +184,7 @@ export namespace WorkspaceStateUtils {
       activeSubFormat: null,
       activeEntryIndex: null,
       activeFrameIndex: null,
+      activeSubframeIndex: null,
     };
   }
 }

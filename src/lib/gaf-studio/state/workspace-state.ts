@@ -6,6 +6,7 @@ export type WorkspaceStateBase<TFormat extends MainFormat> = {
   format: TFormat;
   activeEntryIndex: number | null;
   activeFrameIndex: number | null;
+  activeSubframeIndex: number | null;
 };
 
 export type WorkspaceStateGaf = WorkspaceStateBase<'gaf'> & {
