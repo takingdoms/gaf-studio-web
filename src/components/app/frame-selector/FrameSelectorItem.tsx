@@ -1,0 +1,34 @@
+import { FRAME_SELECTOR_ITEM_HEIGHT, FRAME_SELECTOR_ITEM_WIDTH } from '@/lib/constants';
+
+type FrameSelectorItemProps = {
+  index: number;
+  isSelected: boolean;
+  onClick: () => void;
+};
+
+export default function FrameSelectorItem({
+  index,
+  isSelected,
+  onClick,
+}: FrameSelectorItemProps) {
+  const borderCls = isSelected ? 'border-blue-500' : 'border-gray-300';
+  const textCls = isSelected ? 'text-blue-500' : 'text-slate-400';
+  const cursorCls = isSelected ? 'cursor-default' : 'cursor-pointer';
+
+  return (
+    <div
+      className={`shrink-0 bg-white border-2 ${borderCls} ${cursorCls}`}
+      style={{
+        width: FRAME_SELECTOR_ITEM_WIDTH,
+        height: FRAME_SELECTOR_ITEM_HEIGHT,
+      }}
+      onClick={onClick}
+    >
+      <div className="w-full h-full flex justify-center items-center">
+        <span className={`font-bold font-mono ${textCls} text-lg`}>
+          {index + 1}
+        </span>
+      </div>
+    </div>
+  );
+}

@@ -1,3 +1,4 @@
+import { SEPARATOR_WIDTH, SEPARATOR_INNER_WIDTH, SEPARATOR_INNER_LENGTH } from '@/lib/constants';
 import React from 'react';
 
 type PairSeparatorProps = {
@@ -5,10 +6,6 @@ type PairSeparatorProps = {
   resizable?: boolean;
   handleRef?: React.RefObject<HTMLDivElement>;
 };
-
-const SEP_WIDTH = 7;
-const SEP_INNER_WIDTH = 3;
-const SEP_INNER_LENGTH = 20;
 
 export default function PairSeparator({
   dir,
@@ -23,14 +20,14 @@ export default function PairSeparator({
     <div
       ref={handleRef}
       className={`${cls} flex justify-center items-center bg-slate-300`}
-      style={{ minWidth: SEP_WIDTH, minHeight: SEP_WIDTH }}
+      style={{ minWidth: SEPARATOR_WIDTH, minHeight: SEPARATOR_WIDTH }}
     >
       {resizable && (
         <div
           className="bg-white rounded-sm"
           style={{
-            width: dir === 'H' ? SEP_INNER_WIDTH : SEP_INNER_LENGTH,
-            height: dir === 'H' ? SEP_INNER_LENGTH : SEP_INNER_WIDTH,
+            width: dir === 'H' ? SEPARATOR_INNER_WIDTH : SEPARATOR_INNER_LENGTH,
+            height: dir === 'H' ? SEPARATOR_INNER_LENGTH : SEPARATOR_INNER_WIDTH,
           }}
         />
       )}
