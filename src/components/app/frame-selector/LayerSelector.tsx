@@ -10,6 +10,7 @@ type LayerSelectorProps = DeepReadonly<{
   setSelectedIndex: (index: number | null) => void;
 }>;
 
+// TODO reuse code from FrameSelector?
 export default function LayerSelector({
   layers,
   selectedIndex,
@@ -18,7 +19,7 @@ export default function LayerSelector({
   return (
     <div className="w-full flex flex-col">
       <div className="font-bold text-sm text-gray-700 mb-0.5">
-        Subframes:
+        Subframe:
       </div>
 
       <div

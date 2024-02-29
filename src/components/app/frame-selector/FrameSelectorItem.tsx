@@ -22,7 +22,7 @@ export default function FrameSelectorItem({
         width: FRAME_SELECTOR_ITEM_WIDTH,
         height: FRAME_SELECTOR_ITEM_HEIGHT,
       }}
-      onClick={onClick}
+      onClick={isSelected ? undefined : onClick}
     >
       <div className="w-full h-full flex justify-center items-center">
         <span className={`font-bold font-mono ${textCls} text-lg`}>

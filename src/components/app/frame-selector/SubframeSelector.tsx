@@ -18,7 +18,13 @@ export default function SubframeSelector() {
   const frameData = activeFrame.frameData;
 
   if (frameData.kind === 'single') {
-    return null;
+    return (
+      <LayerSelector
+        layers={[]}
+        selectedIndex={workspace.state.cursor.subframeIndex}
+        setSelectedIndex={(index) => workspace.setActiveSubframeIndex(index)}
+      />
+    );
   }
 
   return (

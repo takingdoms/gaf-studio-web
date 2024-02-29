@@ -5,6 +5,7 @@ type CompositeFrameSelectorItemProps = {
   onClick: () => void;
 };
 
+// TODO reuse code from FrameSelectorItem
 export default function CompositeFrameSelectorItem({
   isSelected,
   onClick,
@@ -20,11 +21,11 @@ export default function CompositeFrameSelectorItem({
         width: FRAME_SELECTOR_ITEM_WIDTH,
         height: FRAME_SELECTOR_ITEM_HEIGHT,
       }}
-      onClick={onClick}
+      onClick={isSelected ? undefined : onClick}
     >
       <div className="w-full h-full flex justify-center items-center">
         <span className={`font-bold font-mono ${textCls} text-xs text-center`}>
-          (Composite subframes)
+          (None)
         </span>
       </div>
     </div>

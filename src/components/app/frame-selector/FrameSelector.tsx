@@ -17,7 +17,7 @@ export default function FrameSelector({
   return (
     <div className="w-full flex flex-col">
       <div className="font-bold text-sm text-gray-700 mb-0.5">
-        Frames:
+        Frame:
       </div>
 
       <div
