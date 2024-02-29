@@ -2,9 +2,17 @@ import FrameCanvasWrapper from '@/components/app/frame-canvas/FrameCanvasWrapper
 import MainFrameSelector from '@/components/app/frame-selector/MainFrameSelector';
 import SubframeSelector from '@/components/app/frame-selector/SubframeSelector';
 import FrameViewerSeparator from '@/components/app/frame-viewer/FrameViewerSeparator';
+import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
+import React from 'react';
 
 export default function FrameViewerContent() {
-  const subframeSelector = <SubframeSelector />;
+  const workspace = React.useContext(WorkspaceContext);
+
+  if (workspace === null) {
+    return;
+  }
+
+  const showSubframeSelector = workspace.getActiveFrame()?.frameData.kind === 'multi';
 
   return (<>
     <div className="flex flex-col">
@@ -13,11 +21,10 @@ export default function FrameViewerContent() {
 
     <FrameViewerSeparator />
 
-    {subframeSelector !== null && (<>
+    {showSubframeSelector && (<>
       <div className="flex flex-col">
-        {subframeSelector}
+        <SubframeSelector />
       </div>
-
       <FrameViewerSeparator />
     </>)}
 
