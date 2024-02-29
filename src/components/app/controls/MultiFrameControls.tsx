@@ -1,6 +1,5 @@
 import ActiveFrameInput from '@/components/app/controls/ActiveFrameInput';
 import FrameDataControls from '@/components/app/controls/FrameDataControls';
-import { IconCaretDownFilled } from '@tabler/icons-react';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
@@ -16,10 +15,6 @@ export default function MultiFrameControls({
   setActiveSubframeIndex,
 }: MultiFrameControlsProps) {
   const hasSubFrames = frameData.layers.length > 0;
-
-  const activeSubFrame = activeSubframeIndex !== null
-    ? frameData.layers[activeSubframeIndex]
-    : null;
 
   return (
     <div className="flex flex-col">
@@ -47,19 +42,6 @@ export default function MultiFrameControls({
           </div>
         )}
       </div>
-
-      {hasSubFrames && (
-        <div className="self-center">
-          <IconCaretDownFilled className="text-gray-600" />
-        </div>
-      )}
-
-      {activeSubFrame && (
-        <FrameDataControls
-          frameData={activeSubFrame}
-          isSubframe={true}
-        />
-      )}
     </div>
   );
 }
