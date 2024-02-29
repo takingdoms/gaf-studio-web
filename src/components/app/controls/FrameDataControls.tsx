@@ -3,17 +3,22 @@ import { DeepReadonly } from 'ts-essentials';
 
 type FrameDataControlsProps = DeepReadonly<{
   frameData: LibGaf.GafFrameData;
+  isSubframe: boolean;
 }>;
 
 const thCls = 'text-left px-1 py-1 text-gray-700';
-const tdCls = 'px-1 py-0.5 font-mono';
+const tdCls = 'w-full px-1 py-0.5 font-mono';
 
-export default function FrameDataControls({ frameData }: FrameDataControlsProps) {
+export default function FrameDataControls({ frameData, isSubframe }: FrameDataControlsProps) {
   return (
     <div className="flex flex-col space-y-2">
-      <div className="text-base text-center font-bold text-gray-700">Frame Data</div>
+      <div className="text-base text-center font-bold text-gray-700">
+        {isSubframe
+          ? 'Subframe Data'
+          : 'Frame Data'}
+      </div>
 
-      <table className="self-center">
+      <table className="">
         <tbody>
           <tr>
             <th className={thCls}>Width:</th>

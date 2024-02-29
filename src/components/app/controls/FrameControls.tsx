@@ -34,7 +34,7 @@ export default function FrameControls() {
       <div className="self-center border-b border-dotted border-slate-500 w-1/2" />
 
       {activeFrame.frameData.kind === 'single' ? (
-        <FrameDataControls frameData={activeFrame.frameData} />
+        <FrameDataControls frameData={activeFrame.frameData} isSubframe={false} />
       ) : (
         <MultiFrameControls
           frameData={activeFrame.frameData}

@@ -74,6 +74,7 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     return activeFrame.frameData.layers[subframeIndex];
   }
 
+  // TODO prevent redundant index from being set
   setActiveEntryIndex(index: number | null) {
     const entries = this.getEntries();
 
@@ -125,6 +126,7 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     });
   }
 
+  // TODO prevent redundant index from being set
   setActiveFrameIndex(index: number | null) {
     const { entryIndex } = this.state.cursor;
 
@@ -161,6 +163,7 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     });
   }
 
+  // TODO prevent redundant index from being set
   setActiveSubframeIndex(index: number | null) {
     const { entryIndex, frameIndex } = this.state.cursor;
 
