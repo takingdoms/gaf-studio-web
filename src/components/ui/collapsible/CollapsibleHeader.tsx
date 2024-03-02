@@ -12,13 +12,19 @@ export default function CollapsibleHeader({
   expanded,
   setExpanded,
 }: CollapsibleHeaderProps) {
+  const borderCls = expanded ? 'border-slate-400' : 'border-slate-300';
+
   return (
     <button
-      className="flex items-center border border-gray-300 p-2
-        bg-gradient-to-br from-slate-50 to-slate-200 text-slate-600
-        hover:border-slate-400 hover:text-slate-700 transition-colors"
+      className={`flex items-center border ${borderCls} p-1`
+        + ` bg-gradient-to-br from-slate-50 to-slate-200 text-slate-600`
+        + ` hover:border-slate-400 hover:text-slate-700 transition-colors`}
       onClick={() => setExpanded(!expanded)}
     >
+      {expanded
+        ? <Icons.CaretDown className="invisible" />
+        : <Icons.CaretUp className="invisible" />}
+
       <div className="grow font-bold truncate text-sm">
         {children}
       </div>
