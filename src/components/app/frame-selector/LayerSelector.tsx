@@ -1,11 +1,12 @@
 import CompositeFrameSelectorItem from '@/components/app/frame-selector/CompositeFrameSelectorItem';
 import FrameSelectorItem from '@/components/app/frame-selector/FrameSelectorItem';
+import SelectorWrapper from '@/components/app/frame-selector/SelectorWrapper';
 import { FRAME_SELECTOR_ITEM_HEIGHT } from '@/lib/constants';
-import LibGaf from 'lib-gaf';
+import { VirtualGafFrameDataSingleLayer } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type LayerSelectorProps = DeepReadonly<{
-  layers: LibGaf.GafFrameDataSingleLayer[];
+  layers: VirtualGafFrameDataSingleLayer[];
   selectedIndex: number | null;
   setSelectedIndex: (index: number | null) => void;
 }>;
@@ -17,31 +18,23 @@ export default function LayerSelector({
   setSelectedIndex,
 }: LayerSelectorProps) {
   return (
-    <div className="w-full flex flex-col">
-      <div className="font-bold text-sm text-gray-700 mb-0.5">
-        Subframe:
-      </div>
+    <SelectorWrapper label="Subframe">
+      <CompositeFrameSelectorItem
+        isSelected={selectedIndex === null}
+        onClick={() => setSelectedIndex(null)}
+      />
 
-      <div
-        className="grow flex overflow-x-scroll space-x-1.5 pb-1"
-        style={{ minHeight: FRAME_SELECTOR_ITEM_HEIGHT }}
-      >
-        <CompositeFrameSelectorItem
-          isSelected={selectedIndex === null}
-          onClick={() => setSelectedIndex(null)}
-        />
-
-        {layers.map((layer, index) => {
-          return (
-            <FrameSelectorItem
-              key={index}
-              index={index}
-              isSelected={index === selectedIndex}
-              onClick={() => setSelectedIndex(index)}
-            />
-          );
-        })}
-      </div>
-    </div>
+      {layers.map((layer, index) => {
+        return (
+          <FrameSelectorItem
+            key={index}
+            index={index}
+            frameData={layer}
+            isSelected={index === selectedIndex}
+            onClick={() => setSelectedIndex(index)}
+          />
+        );
+      })}
+    </SelectorWrapper>
   );
 }

@@ -2,23 +2,18 @@ import { CurrentGaf } from '@/lib/gaf-studio/state/current-gaf';
 import { BaseWorkspace } from '@/lib/gaf-studio/state/workspace';
 import { WorkspaceStateGaf } from '@/lib/gaf-studio/state/workspace-state';
 import { WorkspaceStateUtils } from '@/lib/gaf-studio/state/workspace-state-utils';
-import LibGaf from 'lib-gaf';
-import { DeepReadonly } from 'ts-essentials';
+import { VirtualGafEntry } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 
 export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
   protected override initBlank() {
     return WorkspaceStateUtils.initBlank('gaf');
   }
 
-  override getCurrentGaf(): DeepReadonly<CurrentGaf> {
+  override getCurrentGaf(): CurrentGaf {
     return this.state.currentGaf;
   }
 
-  override getEntries(): DeepReadonly<LibGaf.GafEntry[]> {
-    const currentGaf = this.getCurrentGaf();
-
-    return currentGaf.kind === 'blank'
-      ? currentGaf.entries
-      : currentGaf.gafResult.gaf.entries;
+  override getEntries(): VirtualGafEntry[] {
+    return this.state.currentGaf.virtualGaf.entries;
   }
 }

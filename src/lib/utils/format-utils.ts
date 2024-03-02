@@ -43,9 +43,9 @@ export namespace FormatUtils {
 
   /** Returns null if there's no frame to infer format information. */
   export function detectFormatFromResult(
-    gafResult: LibGaf.Reader.GafReaderResult,
+    gaf: LibGaf.GafResult,
   ): DetectedFormat | null {
-    for (const entry of gafResult.gaf.entries) {
+    for (const entry of gaf.entries) {
       for (const frame of entry.frames) {
         const result = detectFrameDataFormat(frame.frameData);
 

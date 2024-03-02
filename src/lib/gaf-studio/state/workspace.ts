@@ -2,8 +2,7 @@ import { CurrentGaf } from "@/lib/gaf-studio/state/current-gaf";
 import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace-gaf";
 import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
 import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
-import LibGaf from "lib-gaf";
-import { DeepReadonly } from "ts-essentials";
+import { VirtualGafEntry, VirtualGafFrame, VirtualGafFrameDataSingleLayer } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
 
 // TODO eventually create a WriteableBaseWorkspace that exposes a method to replace the
 // internal _state variable. Then I could use this class ONLY inside the App to avoid
@@ -13,25 +12,25 @@ import { DeepReadonly } from "ts-essentials";
 
 export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceState> {
   constructor(
-    private readonly _state: DeepReadonly<TState>,
-    protected readonly setState: (newState: DeepReadonly<TState>) => void,
+    private readonly _state: TState,
+    protected readonly setState: (newState: TState) => void,
   ) {}
 
-  get state(): DeepReadonly<TState> {
+  get state(): TState {
     return this._state;
   }
 
-  protected abstract initBlank(): DeepReadonly<TState>;
+  protected abstract initBlank(): TState;
 
-  abstract getCurrentGaf(): DeepReadonly<CurrentGaf> | null;
-  abstract getEntries(): DeepReadonly<LibGaf.GafEntry[]> | null;
+  abstract getCurrentGaf(): CurrentGaf | null;
+  abstract getEntries(): VirtualGafEntry[] | null;
 
   createNew() {
     const newState = this.initBlank();
     this.setState(newState);
   }
 
-  getActiveEntry(): DeepReadonly<LibGaf.GafEntry> | null {
+  getActiveEntry(): VirtualGafEntry | null {
     const { entryIndex } = this.state.cursor;
 
     if (entryIndex === null) {
@@ -47,7 +46,7 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     return entries[entryIndex];
   }
 
-  getActiveFrame(): DeepReadonly<LibGaf.GafFrame> | null {
+  getActiveFrame(): VirtualGafFrame | null {
     const { frameIndex } = this.state.cursor;
 
     if (frameIndex === null) {
@@ -58,7 +57,7 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     return activeEntry.frames[frameIndex];
   }
 
-  getActiveSubframe(): DeepReadonly<LibGaf.GafFrameDataSingleLayer> | null {
+  getActiveSubframe(): VirtualGafFrameDataSingleLayer | null {
     const { subframeIndex } = this.state.cursor;
 
     if (subframeIndex === null) {

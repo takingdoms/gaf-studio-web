@@ -2,6 +2,8 @@ import { MainFormat } from '@/lib/gaf-studio/main-format';
 import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
 import { WorkspaceCursor } from '@/lib/gaf-studio/state/workspace-cursor';
 import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
+import { VirtualGaf } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
+import { makeVirtualGafFromCanvas } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/make-virtual-gaf-from-canvas';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
@@ -15,6 +17,16 @@ export namespace WorkspaceStateUtils {
     }
   }
 
+  function makeVirtualGaf(source: LibGaf.GafResult): VirtualGaf {
+    return makeVirtualGafFromCanvas(source);
+  }
+
+  function makeEmptyVirtualGaf(): VirtualGaf {
+    return {
+      entries: [],
+    };
+  }
+
   async function loadCurrentGaf(file: File): Promise<CurrentGafFromFile> {
     const fileName = file.name;
     const arrayBuffer = await file.arrayBuffer();
@@ -25,7 +37,9 @@ export namespace WorkspaceStateUtils {
       kind: 'from-file',
       fileName,
       fileData,
-      gafResult,
+      originalGaf: gafResult,
+      compiledGaf: gafResult.gaf,
+      virtualGaf: makeVirtualGaf(gafResult.gaf),
     };
   }
 
@@ -40,7 +54,7 @@ export namespace WorkspaceStateUtils {
   export async function initFromAnyFile(file: File): Promise<WorkspaceState> {
     const currentGaf = await loadCurrentGaf(file);
 
-    const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.gafResult)
+    const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf.fileName);
 
     if (detectedFormat === null) {
@@ -72,7 +86,7 @@ export namespace WorkspaceStateUtils {
   export async function initFromGafFile(file: File): Promise<WorkspaceStateGaf> {
     const currentGaf = await loadCurrentGaf(file);
 
-    const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.gafResult)
+    const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf.fileName);
 
     if (detectedFormat !== null && detectedFormat.mainFormat === 'taf') {
@@ -90,7 +104,7 @@ export namespace WorkspaceStateUtils {
   export async function initFromTafFile(file: File): Promise<WorkspaceStateTaf> {
     const currentGaf = await loadCurrentGaf(file);
 
-    const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.gafResult)
+    const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf.fileName);
 
     if (detectedFormat === null) {
@@ -117,10 +131,10 @@ export namespace WorkspaceStateUtils {
     const currentGaf1555 = await loadCurrentGaf(file1555);
     const currentGaf4444 = await loadCurrentGaf(file4444);
 
-    const detectedFormat1555 = FormatUtils.detectFormatFromResult(currentGaf1555.gafResult)
+    const detectedFormat1555 = FormatUtils.detectFormatFromResult(currentGaf1555.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf1555.fileName);
 
-    const detectedFormat4444 = FormatUtils.detectFormatFromResult(currentGaf4444.gafResult)
+    const detectedFormat4444 = FormatUtils.detectFormatFromResult(currentGaf4444.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf4444.fileName);
 
     if (detectedFormat1555?.mainFormat === 'gaf' || detectedFormat4444?.mainFormat === 'gaf') {
@@ -160,7 +174,8 @@ export namespace WorkspaceStateUtils {
         format,
         currentGaf: {
           kind: 'blank',
-          entries: [],
+          compiledGaf: null,
+          virtualGaf: makeEmptyVirtualGaf(),
         },
         currentPalette: null,
         cursor: emptyCursor(),
@@ -172,11 +187,13 @@ export namespace WorkspaceStateUtils {
       currentGafs: {
         'taf_1555': {
           kind: 'blank',
-          entries: [],
+          compiledGaf: null,
+          virtualGaf: makeEmptyVirtualGaf(),
         },
         'taf_4444': {
           kind: 'blank',
-          entries: [],
+          compiledGaf: null,
+          virtualGaf: makeEmptyVirtualGaf(),
         },
       },
       activeSubFormat: null,

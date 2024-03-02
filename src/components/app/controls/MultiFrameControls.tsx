@@ -1,10 +1,10 @@
 import ActiveFrameInput from '@/components/app/controls/ActiveFrameInput';
 import FrameDataControls from '@/components/app/controls/FrameDataControls';
-import LibGaf from 'lib-gaf';
+import { VirtualGafFrameDataMultiLayer } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type MultiFrameControlsProps = DeepReadonly<{
-  frameData: LibGaf.GafFrameDataMultiLayer;
+  frameData: VirtualGafFrameDataMultiLayer;
   activeSubframeIndex: number | null;
   setActiveSubframeIndex: (index: number | null) => void;
 }>;

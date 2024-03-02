@@ -1,8 +1,8 @@
-import LibGaf from 'lib-gaf';
+import { VirtualGafEntry } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type EntryListTableProps = DeepReadonly<{
-  entries: LibGaf.GafEntry[];
+  entries: VirtualGafEntry[];
   activeEntryIndex: number | null;
   setActiveEntryIndex: (index: number | null) => void;
 }>;

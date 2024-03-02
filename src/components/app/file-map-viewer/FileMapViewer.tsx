@@ -15,7 +15,7 @@ export default function FileMapViewer() {
       return null;
     }
 
-    return normalizeFileMap(currentGaf.gafResult.map);
+    return normalizeFileMap(currentGaf.originalGaf.map);
   }, [currentGaf]);
 
   if (currentGaf === undefined || currentGaf.kind !== 'from-file' || normFileMap === null) {

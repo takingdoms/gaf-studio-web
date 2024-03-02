@@ -1,8 +1,8 @@
-import LibGaf from 'lib-gaf';
+import { VirtualGafFrameData } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type FrameDataControlsProps = DeepReadonly<{
-  frameData: LibGaf.GafFrameData;
+  frameData: VirtualGafFrameData;
   isSubframe: boolean;
 }>;
 

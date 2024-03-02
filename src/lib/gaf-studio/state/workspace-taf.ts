@@ -3,15 +3,14 @@ import { CurrentGaf } from '@/lib/gaf-studio/state/current-gaf';
 import { BaseWorkspace } from '@/lib/gaf-studio/state/workspace';
 import { WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
 import { WorkspaceStateUtils } from '@/lib/gaf-studio/state/workspace-state-utils';
-import LibGaf from 'lib-gaf';
-import { DeepReadonly } from 'ts-essentials';
+import { VirtualGafEntry } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 
 export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
   protected override initBlank() {
     return WorkspaceStateUtils.initBlank('taf');
   }
 
-  override getCurrentGaf(): DeepReadonly<CurrentGaf> | null {
+  override getCurrentGaf(): CurrentGaf | null {
     if (this.state.activeSubFormat === null) {
       return null;
     }
@@ -19,16 +18,14 @@ export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
     return this.state.currentGafs[this.state.activeSubFormat];
   }
 
-  override getEntries(): DeepReadonly<LibGaf.GafEntry[]> | null {
+  override getEntries(): VirtualGafEntry[] | null {
     const currentGaf = this.getCurrentGaf();
 
     if (currentGaf === null) {
       return null;
     }
 
-    return currentGaf.kind === 'blank'
-      ? currentGaf.entries
-      : currentGaf.gafResult.gaf.entries;
+    return currentGaf.virtualGaf.entries;
   }
 
   setActiveSubFormat(subFormat: TafSubFormat) {
@@ -39,6 +36,11 @@ export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
     this.setState({
       ...this.state,
       activeSubFormat: subFormat,
+      cursor: {
+        entryIndex: null,
+        frameIndex: null,
+        subframeIndex: null,
+      },
     });
   }
 
@@ -49,7 +51,10 @@ export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
 
     const newGaf: CurrentGaf = {
       kind: 'blank',
-      entries: [],
+      compiledGaf: null,
+      virtualGaf: {
+        entries: [],
+      },
     };
 
     this.setState({
@@ -59,6 +64,11 @@ export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
         [subFormat]: newGaf,
       },
       activeSubFormat: setAsActive ? subFormat : this.state.activeSubFormat,
+      cursor: setAsActive ? {
+        entryIndex: null,
+        frameIndex: null,
+        subframeIndex: null,
+      } : this.state.cursor,
     });
   }
 }
