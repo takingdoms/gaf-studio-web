@@ -3,7 +3,7 @@ import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
 import { WorkspaceCursor } from '@/lib/gaf-studio/state/workspace-cursor';
 import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
 import { VirtualGaf } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
-import { makeVirtualGafFromCanvas } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/make-virtual-gaf-from-canvas';
+import { canvasedVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/canvased-virtual-gaf-builder';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
@@ -18,7 +18,9 @@ export namespace WorkspaceStateUtils {
   }
 
   function makeVirtualGaf(source: LibGaf.GafResult): VirtualGaf {
-    return makeVirtualGafFromCanvas(source);
+    // TODO pass palette from parameter ^
+    const palette = undefined;
+    return canvasedVirtualGafBuilder({ palette })(source);
   }
 
   function makeEmptyVirtualGaf(): VirtualGaf {

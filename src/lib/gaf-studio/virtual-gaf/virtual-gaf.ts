@@ -1,4 +1,4 @@
-import { ColoredImageResource, PalettedImageResource } from '@/lib/gaf-studio/image-resource/image-resource';
+import { PalettedImageResource, ColoredImageResource } from '@/lib/image/image-resource';
 import LibGaf from 'lib-gaf';
 
 export type VirtualGaf = {

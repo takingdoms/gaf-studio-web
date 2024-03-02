@@ -1,43 +1,57 @@
-import { ActualImage } from "@/lib/gaf-studio/image-resource/image-resource";
 import { BaseVirtualGafFrameData, VirtualGafEntry, VirtualGafFrame, VirtualGafFrameData, VirtualGafFrameDataMultiLayer, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
 import { MakeVirtualGaf } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion"
+import { ActualImage } from "@/lib/image/image-resource";
+import { Palette } from "@/lib/image/palette/palette";
+import { PaletteUtils } from "@/lib/image/palette/palette-utils";
 import LibGaf from "lib-gaf";
 
-export const makeVirtualGafFromCanvas: MakeVirtualGaf = (src) => {
+type Config = {
+  palette?: Palette; // not used for tafs
+};
+
+type Context = {
+  config: Config;
+};
+
+export const canvasedVirtualGafBuilder = (config: Config): MakeVirtualGaf => (src) => {
+  const ctx = { config };
+
   return {
-    entries: makeEntries(src.entries),
+    entries: makeEntries(ctx, src.entries),
   };
 };
 
-function makeEntries(srcEntries: LibGaf.GafEntry[]): VirtualGafEntry[] {
+function makeEntries(ctx: Context, srcEntries: LibGaf.GafEntry[]): VirtualGafEntry[] {
   return srcEntries.map((srcEntry) => {
     return {
       key: Symbol(),
       name: srcEntry.name,
       unknown1: srcEntry.unknown1,
       unknown2: srcEntry.unknown2,
-      frames: makeFrames(srcEntry.frames),
+      frames: makeFrames(ctx, srcEntry.frames),
     };
   });
 }
 
-function makeFrames(srcFrames: LibGaf.GafFrame[]): VirtualGafFrame[] {
+function makeFrames(ctx: Context, srcFrames: LibGaf.GafFrame[]): VirtualGafFrame[] {
   return srcFrames.map((srcFrame) => {
     return {
       key: Symbol(),
       duration: srcFrame.duration,
-      frameData: makeFrameData(srcFrame.frameData),
+      frameData: makeFrameData(ctx, srcFrame.frameData),
     };
   });
 }
 
-function makeFrameData(srcFrameData: LibGaf.GafFrameDataSingleLayer):
+function makeFrameData(ctx: Context, srcFrameData: LibGaf.GafFrameDataSingleLayer):
   VirtualGafFrameDataSingleLayer;
-function makeFrameData(srcFrameData: LibGaf.GafFrameDataMultiLayer):
+function makeFrameData(ctx: Context, srcFrameData: LibGaf.GafFrameDataMultiLayer):
   VirtualGafFrameDataMultiLayer;
-function makeFrameData(srcFrameData: LibGaf.GafFrameDataSingleLayer | LibGaf.GafFrameDataMultiLayer):
-  VirtualGafFrameDataSingleLayer | VirtualGafFrameDataMultiLayer;
-function makeFrameData(srcFrameData: LibGaf.GafFrameData): VirtualGafFrameData {
+function makeFrameData(
+  ctx: Context,
+  srcFrameData: LibGaf.GafFrameDataSingleLayer | LibGaf.GafFrameDataMultiLayer,
+): VirtualGafFrameDataSingleLayer | VirtualGafFrameDataMultiLayer;
+function makeFrameData(ctx: Context, srcFrameData: LibGaf.GafFrameData): VirtualGafFrameData {
   const baseData: BaseVirtualGafFrameData = {
     width: srcFrameData.width,
     height: srcFrameData.height,
@@ -53,14 +67,14 @@ function makeFrameData(srcFrameData: LibGaf.GafFrameData): VirtualGafFrameData {
       ...baseData,
       kind: 'single',
       key: Symbol(),
-      layerData: makeLayerData(srcFrameData.layerData, baseData),
+      layerData: makeLayerData(ctx, srcFrameData.layerData, baseData),
     };
   }
 
   return {
     ...baseData,
     kind: 'multi',
-    layers: srcFrameData.layers.map((layer) => makeFrameData(layer)),
+    layers: srcFrameData.layers.map((layer) => makeFrameData(ctx, layer)),
   };
 }
 
@@ -72,8 +86,9 @@ function isFormat<T extends LibGaf.ColorDataFormat>(colorData: LibGaf.ColorData,
 }
 
 function makeLayerData(
+  ctx: Context,
   srcLayerData: LibGaf.GafLayerData,
-  { width, height }: LibGaf.BaseGafFrameData,
+  { width, height, transparencyIndex }: LibGaf.BaseGafFrameData,
 ): VirtualGafLayerData {
   if (srcLayerData.kind === 'raw-colors') {
     const colorData = srcLayerData.colorData;
@@ -104,13 +119,34 @@ function makeLayerData(
     };
   }
 
+  const noPaletteImage = compileImageFromIndices(
+    width,
+    height,
+    transparencyIndex,
+    srcLayerData.indices,
+    null,
+  );
+
+  let compiledImage = noPaletteImage;
+
+  if (ctx.config.palette !== undefined) {
+    compiledImage = compileImageFromIndices(
+      width,
+      height,
+      transparencyIndex,
+      srcLayerData.indices,
+      ctx.config.palette,
+    );
+  }
+
   return {
     kind: 'palette-idx',
     compress: srcLayerData.decompressed,
     wrappedImages: {
       kind: 'paletted',
       paletteIndices: srcLayerData.indices,
-      compiledImage: compileImageFromIndices(),
+      noPaletteImage,
+      compiledImage,
     },
   };
 }
@@ -130,7 +166,7 @@ function compileImageFromColors(
   imageData.data.set(data.bytes);
 
   ctx.putImageData(imageData, 0, 0);
-  const dataURL = canvas.toDataURL('image/png');
+  const dataURL = canvas.toDataURL('image/png', 1);
 
   /*const img = new Image();
   img.src = dataURL;
@@ -139,6 +175,20 @@ function compileImageFromColors(
   return dataURL;
 }
 
-function compileImageFromIndices(): ActualImage {
-  throw 'TODO compileImageFromIndices';
+function compileImageFromIndices(
+  width: number,
+  height: number,
+  transparencyIndex: number,
+  indices: Uint8Array,
+  palette: Palette | null,
+): ActualImage {
+  const colorData = PaletteUtils.createColorData(
+    width,
+    height,
+    transparencyIndex,
+    indices,
+    palette
+  );
+
+  return compileImageFromColors(width, height, colorData);
 }
