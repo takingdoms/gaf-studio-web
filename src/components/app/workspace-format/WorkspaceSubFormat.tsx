@@ -56,7 +56,7 @@ export default function WorkspaceSubFormat({
 
   return (
     <button
-      className={`p-2 flex items-stretch text-xs font-bold bg-gradient-to-b border`
+      className={`p-1 flex items-stretch text-xs font-bold bg-gradient-to-b border`
          + ` transition-colors ${bgCls}`}
       onClick={(ev) => {
         ev.stopPropagation();

@@ -19,7 +19,7 @@ export default function WorkspaceFormatPanel() {
   return (
     <Panel>
       <div
-        className={`p-2 text-center text-sm font-bold bg-gradient-to-b border-2 ${bgCls}`}
+        className={`p-1 text-center text-sm font-bold bg-gradient-to-b border-2 ${bgCls}`}
       >
         <span>Current format:{' '}</span>
         <span>{workspace.state.format === 'gaf' ? 'GAF' : 'TAF'}</span>
