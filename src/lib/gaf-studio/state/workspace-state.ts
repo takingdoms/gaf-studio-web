@@ -10,7 +10,7 @@ export type WorkspaceStateBase<TFormat extends MainFormat> = {
 
 export type WorkspaceStateGaf = WorkspaceStateBase<'gaf'> & {
   currentGaf: CurrentGaf;
-  currentPalette: CurrentPalette | null;
+  currentPalette: CurrentPalette;
 };
 
 export type WorkspaceStateTaf = WorkspaceStateBase<'taf'> & {

@@ -1,18 +1,21 @@
 import { BaseVirtualGafFrameData, VirtualGafEntry, VirtualGafFrame, VirtualGafFrameData, VirtualGafFrameDataMultiLayer, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
 import { MakeVirtualGaf } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion"
+import { ImageCompiler } from "@/lib/image/image-compiler";
 import { ActualImage } from "@/lib/image/image-resource";
 import { Palette } from "@/lib/image/palette/palette";
 import { PaletteUtils } from "@/lib/image/palette/palette-utils";
 import LibGaf from "lib-gaf";
 
 type Config = {
-  palette?: Palette; // not used for tafs
+  imgCompiler: ImageCompiler;
+  palette?: Palette; // not used for tafs (TODO refactor since this prop is MANADATORY when for gafs)
 };
 
 type Context = {
   config: Config;
 };
 
+// TODO split into one for gafs (with palette) and one without palette
 export const canvasedVirtualGafBuilder = (config: Config): MakeVirtualGaf => (src) => {
   const ctx = { config };
 
@@ -105,6 +108,7 @@ function makeLayerData(
     }
 
     const compiledImage = compileImageFromColors(
+      ctx,
       width,
       height,
       convertedData,
@@ -119,25 +123,21 @@ function makeLayerData(
     };
   }
 
-  const noPaletteImage = compileImageFromIndices(
+  // TODO eventually make Palette a required prop of config
+  // In order to do this, there'll be two Config types (and builder function types),
+  // one for gafs and one for tafs
+  if (ctx.config.palette === undefined) {
+    throw new Error(`No palette provided.`);
+  }
+
+  const compiledImage = compileImageFromIndices(
+    ctx,
     width,
     height,
     transparencyIndex,
     srcLayerData.indices,
-    null,
+    ctx.config.palette,
   );
-
-  let compiledImage = noPaletteImage;
-
-  if (ctx.config.palette !== undefined) {
-    compiledImage = compileImageFromIndices(
-      width,
-      height,
-      transparencyIndex,
-      srcLayerData.indices,
-      ctx.config.palette,
-    );
-  }
 
   return {
     kind: 'palette-idx',
@@ -145,7 +145,6 @@ function makeLayerData(
     wrappedImages: {
       kind: 'paletted',
       paletteIndices: srcLayerData.indices,
-      noPaletteImage,
       compiledImage,
     },
   };
@@ -153,42 +152,29 @@ function makeLayerData(
 
 // TODO make something that isn't extremely inneficient
 function compileImageFromColors(
+  ctx: Context,
   width: number,
   height: number,
   data: LibGaf.ColorData<'rgba8888'>,
 ): ActualImage {
-  const canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-
-  const ctx = canvas.getContext('2d')!;
-  const imageData = ctx.createImageData(width, height);
-  imageData.data.set(data.bytes);
-
-  ctx.putImageData(imageData, 0, 0);
-  const dataURL = canvas.toDataURL('image/png', 1);
-
-  /*const img = new Image();
-  img.src = dataURL;
-
-  return img;*/
-  return dataURL;
+  return ctx.config.imgCompiler.compileImage(width, height, data);
 }
 
 function compileImageFromIndices(
+  ctx: Context,
   width: number,
   height: number,
   transparencyIndex: number,
   indices: Uint8Array,
-  palette: Palette | null,
+  palette: Palette,
 ): ActualImage {
   const colorData = PaletteUtils.createColorData(
     width,
     height,
     transparencyIndex,
     indices,
-    palette
+    palette,
   );
 
-  return compileImageFromColors(width, height, colorData);
+  return compileImageFromColors(ctx, width, height, colorData);
 }

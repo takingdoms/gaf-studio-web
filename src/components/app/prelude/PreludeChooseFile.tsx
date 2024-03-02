@@ -2,6 +2,7 @@ import PreludeChooseFileGafSingle from '@/components/app/prelude/PreludeChooseFi
 import PreludeChooseFileTafPair from '@/components/app/prelude/PreludeChooseFileTafPair';
 import Select from '@/components/ui/select/Select';
 import { MainFormat } from '@/lib/gaf-studio/main-format';
+import { PaletteStore } from '@/lib/gaf-studio/state/palette-store';
 import { WorkspaceState } from '@/lib/gaf-studio/state/workspace-state';
 import React from 'react';
 
@@ -9,12 +10,14 @@ type PreludeChooseFileProps = {
   onInit: (workspaceState: WorkspaceState) => void;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
+  paletteStore: PaletteStore;
 };
 
 export default function PreludeChooseFile({
   onInit,
   isLoading,
   setIsLoading,
+  paletteStore,
 }: PreludeChooseFileProps) {
   const [format, setFormat] = React.useState<MainFormat | 'auto' | 'taf-pair'>('auto'); // TODO change to auto
 
@@ -46,6 +49,7 @@ export default function PreludeChooseFile({
           onInit={onInit}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
+          paletteStore={paletteStore}
         />
       )}
     </div>

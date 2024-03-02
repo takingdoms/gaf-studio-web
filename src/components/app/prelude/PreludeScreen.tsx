@@ -1,3 +1,4 @@
+import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
 import PreludeButton from "@/components/app/prelude/PreludeButton";
 import PreludeChooseFile from "@/components/app/prelude/PreludeChooseFile";
 import PreludeHeader from "@/components/app/prelude/PreludeHeader";
@@ -13,6 +14,12 @@ type PreludeScreenProps = {
 export default function PreludeScreen({ onInit }: PreludeScreenProps) {
   const [isLoading, setIsLoading] = React.useState(false);
 
+  const paletteStore = React.useContext(PaletteStoreContext);
+
+  if (paletteStore === null) {
+    return 'No palette store provided.';
+  }
+
   return (
     <Body>
       <div className="grow flex flex-col justify-center items-center overflow-auto bg-gray-300">
@@ -24,6 +31,7 @@ export default function PreludeScreen({ onInit }: PreludeScreenProps) {
               onInit={onInit}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
+              paletteStore={paletteStore}
             />
           </div>
 
@@ -35,10 +43,15 @@ export default function PreludeScreen({ onInit }: PreludeScreenProps) {
               className="flex flex-col space-y-2"
               style={{ minHeight: 200 }}
             >
-              <PreludeButton onClick={() => onInit(WorkspaceStateUtils.initBlank('taf')) }>
+              <PreludeButton onClick={() => {
+                onInit(WorkspaceStateUtils.initBlank('taf'));
+              }}>
                 TAF
               </PreludeButton>
-              <PreludeButton onClick={() => onInit(WorkspaceStateUtils.initBlank('gaf')) }>
+              <PreludeButton onClick={() => {
+                const defaultPalette = paletteStore.grayscale;
+                onInit(WorkspaceStateUtils.initBlank('gaf', defaultPalette));
+              }}>
                 GAF
               </PreludeButton>
             </div>

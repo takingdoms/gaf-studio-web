@@ -7,9 +7,15 @@ import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
 import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
+import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
+import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
 
 export default function App() {
   const [workspaceState, setWorkspaceState] = React.useState<WorkspaceState>();
+
+  const paletteStore = React.useMemo(() => {
+    return createTakPaletteStore();
+  }, []);
 
   const workspace = React.useMemo(() => {
     if (workspaceState === undefined) {
@@ -23,7 +29,9 @@ export default function App() {
 
   if (workspaceState === undefined) {
     return (
-      <PreludeScreen onInit={setWorkspaceState} />
+      <PaletteStoreContext.Provider value={paletteStore}>
+        <PreludeScreen onInit={setWorkspaceState} />
+      </PaletteStoreContext.Provider>
     );
   }
 
@@ -31,11 +39,13 @@ export default function App() {
     <AppDebugContext.Provider value={{
       resetWorkspace: () => setWorkspaceState(undefined),
     }}>
-      <WorkspaceContext.Provider value={workspace}>
-        <AppLayout>
-          <WorkspaceRoot />
-        </AppLayout>
-      </WorkspaceContext.Provider>
+      <PaletteStoreContext.Provider value={paletteStore}>
+        <WorkspaceContext.Provider value={workspace}>
+          <AppLayout>
+            <WorkspaceRoot />
+          </AppLayout>
+        </WorkspaceContext.Provider>
+      </PaletteStoreContext.Provider>
     </AppDebugContext.Provider>
   );
 }

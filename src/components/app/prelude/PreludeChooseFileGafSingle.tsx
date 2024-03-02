@@ -1,4 +1,5 @@
 import PreludeButton from '@/components/app/prelude/PreludeButton';
+import { PaletteStore } from '@/lib/gaf-studio/state/palette-store';
 import { WorkspaceState } from '@/lib/gaf-studio/state/workspace-state';
 import { WorkspaceStateUtils } from "@/lib/gaf-studio/state/workspace-state-utils";
 import React from 'react';
@@ -8,6 +9,7 @@ type PreludeChooseFileSingleProps = {
   onInit: (workspaceState: WorkspaceState) => void;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
+  paletteStore: PaletteStore;
 };
 
 export default function PreludeChooseFileSingle({
@@ -15,6 +17,7 @@ export default function PreludeChooseFileSingle({
   onInit,
   isLoading,
   setIsLoading,
+  paletteStore,
 }: PreludeChooseFileSingleProps) {
   const inputFileRef = React.useRef<HTMLInputElement>(null);
 
@@ -39,10 +42,12 @@ export default function PreludeChooseFileSingle({
 
     setIsLoading(true);
 
+    const defaultPalette = paletteStore.grayscale;
+
     const promise
-      = format === 'gaf' ? WorkspaceStateUtils.initFromGafFile(files[0])
+      = format === 'gaf' ? WorkspaceStateUtils.initFromGafFile(files[0], defaultPalette)
       : format === 'taf' ? WorkspaceStateUtils.initFromTafFile(files[0])
-      : WorkspaceStateUtils.initFromAnyFile(files[0]);
+      : WorkspaceStateUtils.initFromAnyFile(files[0], defaultPalette);
 
     promise
       .then(onInit)
@@ -51,7 +56,7 @@ export default function PreludeChooseFileSingle({
         console.error(err);
         setIsLoading(false);
       });
-  }, [isLoading, setIsLoading, onInit, format]);
+  }, [isLoading, setIsLoading, onInit, format, paletteStore]);
 
   return (<>
     <div className="grow flex flex-col">

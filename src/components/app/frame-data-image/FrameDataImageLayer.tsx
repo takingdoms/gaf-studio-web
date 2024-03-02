@@ -1,4 +1,4 @@
-import { ActualImage } from '@/lib/image-resource/image-resource';
+import { ActualImage } from "@/lib/image/image-resource";
 
 type FrameDataImageLayerProps = {
   image: ActualImage;

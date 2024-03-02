@@ -31,7 +31,7 @@ export namespace PaletteUtils {
     height: number,
     transparencyIndex: number,
     indices: Uint8Array,
-    palette: Palette | null,
+    palette: Palette,
   ): LibGaf.ColorData<'rgba8888'> {
     if (indices.length !== width * height) {
       throw new Error(`indices.length !== width * height`);
@@ -51,13 +51,14 @@ export namespace PaletteUtils {
         continue;
       }
 
-      if (palette === null) { // grayscale
+      // commented because grayscale is now an actual built-in palette
+      /*if (palette === null) { // grayscale
         bytes[pos + 0] = nextIndex;
         bytes[pos + 1] = nextIndex;
         bytes[pos + 2] = nextIndex;
         bytes[pos + 3] = 255;
         continue;
-      }
+      }*/
 
       const paletteColors = palette.rgbData;
       const paletteOffset = nextIndex * 3;

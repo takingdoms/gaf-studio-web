@@ -1,14 +1,20 @@
 import { MainFormat } from '@/lib/gaf-studio/main-format';
 import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
+import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
 import { WorkspaceCursor } from '@/lib/gaf-studio/state/workspace-cursor';
 import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
 import { VirtualGaf } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { canvasedVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/canvased-virtual-gaf-builder';
+import { CanvasedImageCompiler } from '@/lib/image/canvased-image-compiler';
+import { Palette } from '@/lib/image/palette/palette';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
+// TODO refactor this entire mess
 export namespace WorkspaceStateUtils {
+  const canvasedImageCompiler = new CanvasedImageCompiler();
+
   async function readGafResult(fileData: Uint8Array): Promise<LibGaf.Reader.GafReaderResult> {
     try {
       return LibGaf.Reader.readFromBuffer(fileData);
@@ -17,23 +23,22 @@ export namespace WorkspaceStateUtils {
     }
   }
 
-  function makeVirtualGaf(source: LibGaf.GafResult): VirtualGaf {
-    // TODO pass palette from parameter ^
-    const palette = undefined;
-    return canvasedVirtualGafBuilder({ palette })(source);
-  }
-
   function makeEmptyVirtualGaf(): VirtualGaf {
     return {
       entries: [],
     };
   }
 
-  async function loadCurrentGaf(file: File): Promise<CurrentGafFromFile> {
+  async function loadCurrentGaf(file: File, palette: Palette): Promise<CurrentGafFromFile> {
     const fileName = file.name;
     const arrayBuffer = await file.arrayBuffer();
     const fileData = new Uint8Array(arrayBuffer);
     const gafResult = await readGafResult(fileData);
+
+    const virtualGaf = canvasedVirtualGafBuilder({
+      palette,
+      imgCompiler: canvasedImageCompiler,
+    })(gafResult.gaf);
 
     return {
       kind: 'from-file',
@@ -41,7 +46,28 @@ export namespace WorkspaceStateUtils {
       fileData,
       originalGaf: gafResult,
       compiledGaf: gafResult.gaf,
-      virtualGaf: makeVirtualGaf(gafResult.gaf),
+      virtualGaf,
+    };
+  }
+
+  async function loadCurrentGafForTaf(file: File): Promise<CurrentGafFromFile> {
+    const fileName = file.name;
+    const arrayBuffer = await file.arrayBuffer();
+    const fileData = new Uint8Array(arrayBuffer);
+    const gafResult = await readGafResult(fileData);
+
+    const virtualGaf = canvasedVirtualGafBuilder({
+      palette: undefined,
+      imgCompiler: canvasedImageCompiler,
+    })(gafResult.gaf);
+
+    return {
+      kind: 'from-file',
+      fileName,
+      fileData,
+      originalGaf: gafResult,
+      compiledGaf: gafResult.gaf,
+      virtualGaf,
     };
   }
 
@@ -53,8 +79,11 @@ export namespace WorkspaceStateUtils {
     };
   }
 
-  export async function initFromAnyFile(file: File): Promise<WorkspaceState> {
-    const currentGaf = await loadCurrentGaf(file);
+  export async function initFromAnyFile(
+    file: File,
+    defaultPalette: CurrentPalette,
+  ): Promise<WorkspaceState> {
+    const currentGaf = await loadCurrentGaf(file, defaultPalette.palette);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf.fileName);
@@ -67,7 +96,7 @@ export namespace WorkspaceStateUtils {
       return {
         format: 'gaf',
         currentGaf,
-        currentPalette: null,
+        currentPalette: defaultPalette,
         cursor: emptyCursor(),
       };
     }
@@ -85,8 +114,11 @@ export namespace WorkspaceStateUtils {
     };
   }
 
-  export async function initFromGafFile(file: File): Promise<WorkspaceStateGaf> {
-    const currentGaf = await loadCurrentGaf(file);
+  export async function initFromGafFile(
+    file: File,
+    currentPalette: CurrentPalette,
+  ): Promise<WorkspaceStateGaf> {
+    const currentGaf = await loadCurrentGaf(file, currentPalette.palette);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf.fileName);
@@ -98,13 +130,13 @@ export namespace WorkspaceStateUtils {
     return {
       format: 'gaf',
       currentGaf,
-      currentPalette: null,
+      currentPalette,
       cursor: emptyCursor(),
     };
   }
 
   export async function initFromTafFile(file: File): Promise<WorkspaceStateTaf> {
-    const currentGaf = await loadCurrentGaf(file);
+    const currentGaf = await loadCurrentGafForTaf(file);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf.fileName);
@@ -130,8 +162,8 @@ export namespace WorkspaceStateUtils {
   }
 
   export async function initFromTafPair(file1555: File, file4444: File): Promise<WorkspaceStateTaf> {
-    const currentGaf1555 = await loadCurrentGaf(file1555);
-    const currentGaf4444 = await loadCurrentGaf(file4444);
+    const currentGaf1555 = await loadCurrentGafForTaf(file1555);
+    const currentGaf4444 = await loadCurrentGafForTaf(file4444);
 
     const detectedFormat1555 = FormatUtils.detectFormatFromResult(currentGaf1555.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf1555.fileName);
@@ -168,10 +200,16 @@ export namespace WorkspaceStateUtils {
     };
   }
 
-  export function initBlank(format: 'gaf'): WorkspaceStateGaf;
-  export function initBlank(format: 'taf'): WorkspaceStateTaf;
-  export function initBlank(format: MainFormat): WorkspaceStateGaf | WorkspaceStateTaf {
+  export function initBlank(format: 'gaf', defaultPalette: CurrentPalette): WorkspaceStateGaf;
+  export function initBlank(format: 'taf', defaultPalette?: undefined): WorkspaceStateTaf;
+  export function initBlank(format: MainFormat, defaultPalette?: CurrentPalette):
+    WorkspaceStateGaf | WorkspaceStateTaf
+  {
     if (format === 'gaf') {
+      if (defaultPalette === undefined) {
+        throw new Error(`No defaultPalette provided.`);
+      }
+
       return {
         format,
         currentGaf: {
@@ -179,7 +217,7 @@ export namespace WorkspaceStateUtils {
           compiledGaf: null,
           virtualGaf: makeEmptyVirtualGaf(),
         },
-        currentPalette: null,
+        currentPalette: defaultPalette,
         cursor: emptyCursor(),
       };
     }
