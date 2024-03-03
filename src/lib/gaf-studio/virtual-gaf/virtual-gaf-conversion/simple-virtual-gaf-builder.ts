@@ -5,8 +5,14 @@ import LibGaf from "lib-gaf";
 
 export abstract class SimpleVirtualGafBuilder<T extends MainFormat> implements VirtualGafMaker<T> {
   makeVirtualGaf(source: LibGaf.GafResult<T>): VirtualGaf<T> {
+    const startMs = performance.now();
+    const entries = this.makeEntries(source.entries);
+    const deltaMs = performance.now() - startMs;
+
+    console.log(`Took ${deltaMs}ms to create the Virtual Gaf tree.`);
+
     return {
-      entries: this.makeEntries(source.entries),
+      entries,
     };
   }
 

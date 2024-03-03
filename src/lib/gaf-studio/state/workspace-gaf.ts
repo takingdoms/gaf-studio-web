@@ -31,6 +31,8 @@ export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
       return;
     }
 
+    const startMs = performance.now();
+
     const newVirtualGaf: VirtualGaf<'gaf'> = {
       ...this.state.currentGaf.virtualGaf,
       entries: recompileVirtualGafEntries({
@@ -38,6 +40,10 @@ export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
         imageCompiler: this.imageCompiler,
       }, this.state.currentGaf.virtualGaf.entries),
     };
+
+    const deltaMs = performance.now() - startMs;
+
+    console.log(`Took ${deltaMs}ms to create recompile the Virtual Gaf tree.`);
 
     this.setState({
       format: this.state.format, // unchanged
