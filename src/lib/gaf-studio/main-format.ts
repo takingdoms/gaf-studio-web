@@ -1,3 +1,4 @@
+import LibGaf from 'lib-gaf';
 import { ElementOf } from 'ts-essentials';
 
 /*
@@ -5,12 +6,12 @@ import { ElementOf } from 'ts-essentials';
   In other words, TAF is a subset of GAF.
 */
 
-export const MAIN_FORMATS = [
+export const MAIN_FORMATS: LibGaf.GafFormat[] = [
   'gaf',
   'taf',
-] as const satisfies string[];
+];
 
-export type MainFormat = ElementOf<typeof MAIN_FORMATS>;
+export type MainFormat = LibGaf.GafFormat;
 
 export const TAF_SUB_FORMATS = [
   'taf_1555',

@@ -4,7 +4,8 @@ import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
 import { WorkspaceCursor } from '@/lib/gaf-studio/state/workspace-cursor';
 import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
 import { VirtualGaf } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
-import { canvasedVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/canvased-virtual-gaf-builder';
+import { ColoredVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/colored-virtual-gaf-builder';
+import { PalettedVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/paletted-virtual-gaf-builder';
 import { CanvasedImageCompiler } from '@/lib/image/canvased-image-compiler';
 import { Palette } from '@/lib/image/palette/palette';
 import { FormatUtils } from '@/lib/utils/format-utils';
@@ -29,37 +30,47 @@ export namespace WorkspaceStateUtils {
     };
   }
 
-  async function loadCurrentGaf(file: File, palette: Palette): Promise<CurrentGafFromFile> {
+  async function loadCurrentGaf<T extends 'gaf'>
+    (file: File, palette: Palette, format: T): Promise<CurrentGafFromFile<T>>;
+  async function loadCurrentGaf<T extends 'taf'>
+    (file: File, palette?: Palette, format?: T): Promise<CurrentGafFromFile<T>>;
+  async function loadCurrentGaf<T extends MainFormat>
+    (file: File, palette?: Palette, format?: T): Promise<CurrentGafFromFile<T>>
+  {
     const fileName = file.name;
     const arrayBuffer = await file.arrayBuffer();
     const fileData = new Uint8Array(arrayBuffer);
     const gafResult = await readGafResult(fileData);
 
-    const virtualGaf = canvasedVirtualGafBuilder({
-      palette,
-      imgCompiler: canvasedImageCompiler,
-    })(gafResult.gaf);
+    const detectedFormat = FormatUtils.detectFormatFromResult(gafResult.gaf);
 
-    return {
-      kind: 'from-file',
-      fileName,
-      fileData,
-      originalGaf: gafResult,
-      compiledGaf: gafResult.gaf,
-      virtualGaf,
-    };
-  }
+    if (detectedFormat === null) {
+      if (format === undefined) {
+        throw new Error(`Could not automatically identify whether the file is a GAF or a TAF.`);
+      }
+    }
+    else { // detectedFormat !== null
+      if (format === undefined) {
+        format = detectedFormat.mainFormat as T;
+      }
+      else if (format !== detectedFormat.mainFormat) {
+        throw new Error(`Expected a "${format}" but got a "${detectedFormat.mainFormat}"`);
+      }
+    }
 
-  async function loadCurrentGafForTaf(file: File): Promise<CurrentGafFromFile> {
-    const fileName = file.name;
-    const arrayBuffer = await file.arrayBuffer();
-    const fileData = new Uint8Array(arrayBuffer);
-    const gafResult = await readGafResult(fileData);
+    let virtualGaf: VirtualGaf;
 
-    const virtualGaf = canvasedVirtualGafBuilder({
-      palette: undefined,
-      imgCompiler: canvasedImageCompiler,
-    })(gafResult.gaf);
+    if (format === 'gaf') {
+      if (palette === undefined) {
+        throw new Error(`No palette provided.`);
+      }
+
+      const builder = new PalettedVirtualGafBuilder(canvasedImageCompiler, palette);
+      virtualGaf = builder.makeVirtualGaf(gafResult.gaf);
+    } else {
+      const builder = new ColoredVirtualGafBuilder(canvasedImageCompiler);
+      virtualGaf = builder.makeVirtualGaf(gafResult.gaf);
+    }
 
     return {
       kind: 'from-file',
@@ -136,7 +147,7 @@ export namespace WorkspaceStateUtils {
   }
 
   export async function initFromTafFile(file: File): Promise<WorkspaceStateTaf> {
-    const currentGaf = await loadCurrentGafForTaf(file);
+    const currentGaf = await loadCurrentGaf(file);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf.fileName);
@@ -162,8 +173,8 @@ export namespace WorkspaceStateUtils {
   }
 
   export async function initFromTafPair(file1555: File, file4444: File): Promise<WorkspaceStateTaf> {
-    const currentGaf1555 = await loadCurrentGafForTaf(file1555);
-    const currentGaf4444 = await loadCurrentGafForTaf(file4444);
+    const currentGaf1555 = await loadCurrentGaf(file1555);
+    const currentGaf4444 = await loadCurrentGaf(file4444);
 
     const detectedFormat1555 = FormatUtils.detectFormatFromResult(currentGaf1555.originalGaf.gaf)
       ?? FormatUtils.detectFormatFromFileName(currentGaf1555.fileName);
