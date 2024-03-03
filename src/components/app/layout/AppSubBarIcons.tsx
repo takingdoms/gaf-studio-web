@@ -1,24 +1,22 @@
 import { Icons } from "@/lib/react/icons";
-import AppIconbarButton from "./AppIconbarButton";
+import AppSubBarIconButton from "./AppSubBarIconButton";
 import React from "react";
 import { AppDebugContext } from "@/components/AppDebugContext";
 
-export default function AppIconbar() {
+export default function AppSubBarIcons() {
   const appDebug = React.useContext(AppDebugContext);
 
   return (
-    <div
-      className="flex items-stretch w-full overflow-x-auto overflow-y-hidden bg-slate-200 p-0.5"
-    >
-      <AppIconbarButton
+    <div className="flex items-center p-0.5">
+      <AppSubBarIconButton
         icon={Icons.NewFile}
         onClick={appDebug.resetWorkspace}
       />
-      <AppIconbarButton
+      <AppSubBarIconButton
         icon={Icons.OpenFile}
         onClick={() => {}}
       />
-      <AppIconbarButton
+      <AppSubBarIconButton
         icon={Icons.SaveFile}
         onClick={() => {}}
         disabled

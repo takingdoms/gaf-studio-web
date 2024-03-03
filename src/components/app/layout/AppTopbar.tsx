@@ -1,33 +1,33 @@
-import AppTopbarHeader from "./AppTopbarHeader";
-import AppTopbarMenuButton from "./AppTopbarMenuButton";
+import AppTopBarHeader from "./AppTopBarHeader";
+import AppTopBarMenuButton from "./AppTopBarMenuButton";
 
 export default function AppTopbar() {
   return (
     <div
       className="flex items-stretch w-full overflow-x-auto overflow-y-hidden bg-slate-100 p-0.5"
     >
-      <AppTopbarMenuButton
+      <AppTopBarMenuButton
         label="File"
         onClick={() => {}}
       />
 
-      <AppTopbarMenuButton
+      <AppTopBarMenuButton
         label="Options"
         onClick={() => {}}
       />
 
-      <AppTopbarMenuButton
+      <AppTopBarMenuButton
         label="Tools"
         onClick={() => {}}
       />
 
-      <AppTopbarMenuButton
+      <AppTopBarMenuButton
         label="Help"
         onClick={() => {}}
       />
 
       <div className="grow flex justify-end">
-        <AppTopbarHeader label="GAF Studio v0.0.0" />
+        <AppTopBarHeader label="GAF Studio v0.0.0" />
       </div>
     </div>
   );

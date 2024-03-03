@@ -1,6 +1,6 @@
+import AppSubBar from "@/components/app/layout/AppSubBar";
 import Body from "../../ui/layout/Body";
-import AppIconbar from "./AppIconbar";
-import AppTopbar from "./AppTopbar";
+import AppTopBar from "./AppTopBar";
 
 type AppLayoutProps = {
   children: React.ReactNode;
@@ -13,9 +13,9 @@ export default function AppLayout({ children }: AppLayoutProps) {
         className="grow flex flex-col justify-start items-stretch overflow-hidden"
       >
         <div>
-          <AppTopbar />
+          <AppTopBar />
           <div className="border-b border-slate-300" />
-          <AppIconbar />
+          <AppSubBar />
           <div className="border-b border-slate-400" />
         </div>
         <div className="grow overflow-hidden bg-window-panel">

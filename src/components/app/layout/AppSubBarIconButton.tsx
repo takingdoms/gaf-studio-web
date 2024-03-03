@@ -1,19 +1,19 @@
 import { IconFunc } from "@/lib/react/icons";
 
-type AppIconbarButtonProps = {
+type AppSubBarIconButtonProps = {
   icon: IconFunc;
   disabled?: boolean;
   onClick: () => void;
 };
 
-export default function AppIconbarButton({
+export default function AppSubBarIconButton({
   icon: Icon,
   disabled,
   onClick,
-}: AppIconbarButtonProps) {
+}: AppSubBarIconButtonProps) {
   const colorCls = disabled
-    ? 'text-slate-400 bg-slate-200'
-    : 'text-slate-500 bg-slate-200 hover:bg-slate-300 active:bg-slate-300';
+    ? 'text-slate-400'
+    : 'text-slate-500 hover:bg-slate-300 active:bg-slate-300';
 
   return (
     <button
