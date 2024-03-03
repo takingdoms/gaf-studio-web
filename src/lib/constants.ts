@@ -8,9 +8,11 @@ export const SEPARATOR_INNER_LENGTH = 20;
 export const FRAME_SELECTOR_ITEM_HEIGHT = 132;
 export const FRAME_SELECTOR_ITEM_WIDTH = FRAME_SELECTOR_ITEM_HEIGHT;
 
-export const PREVIEW_IMAGE_WIDTH = 256;
-export const PREVIEW_IMAGE_HEIGHT = 1;
+export type PalettePreviewMode = 'square' | 'stripe';
+export const PALETTE_PREVIEW_MODE: PalettePreviewMode = 'stripe' as PalettePreviewMode;
+export const PALETTE_PREVIEW_WIDTH = PALETTE_PREVIEW_MODE === 'square' ? 16 : 256;
+export const PALETTE_PREVIEW_HEIGHT = PALETTE_PREVIEW_MODE === 'square' ? 16 : 1;
 
-if (PREVIEW_IMAGE_WIDTH * PREVIEW_IMAGE_HEIGHT !== 256) {
+if (PALETTE_PREVIEW_WIDTH * PALETTE_PREVIEW_HEIGHT !== 256) {
   throw new Error(`Palette preview should have 256 pixels.`);
 }

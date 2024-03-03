@@ -1,4 +1,4 @@
-import { PREVIEW_IMAGE_HEIGHT, PREVIEW_IMAGE_WIDTH } from "@/lib/constants";
+import { PALETTE_PREVIEW_HEIGHT, PALETTE_PREVIEW_WIDTH } from "@/lib/constants";
 import { CurrentPalette } from "@/lib/gaf-studio/state/current-palette";
 import { CanvasedImageCompiler } from "@/lib/image/canvased-image-compiler";
 import { ImageCompiler } from "@/lib/image/image-compiler";
@@ -102,8 +102,8 @@ export namespace PaletteUtils {
   export function compilePreviewImage(
     palette: Palette,
     imageCompiler?: ImageCompiler,
-    width = PREVIEW_IMAGE_WIDTH,
-    height = PREVIEW_IMAGE_HEIGHT,
+    width = PALETTE_PREVIEW_WIDTH,
+    height = PALETTE_PREVIEW_HEIGHT,
   ): CurrentPalette['previewImage'] {
     imageCompiler ??= fallbackImageCompiler;
 
