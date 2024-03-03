@@ -28,7 +28,7 @@ export default function ControlsPanel() {
               expanded={entryExpanded}
               setExpanded={setEntryExpanded}
             >
-              Entry Control
+              Sequence Control
             </CollapsibleHeader>
             {entryExpanded && <EntryControls />}
           </div>

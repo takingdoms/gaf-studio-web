@@ -15,7 +15,7 @@ export default function EntryControls() {
   if (activeEntry === null) {
     return (
       <div className="text-center text-gray-400 bg-white p-2">
-        (No entry selected)
+        (No sequence selected)
       </div>
     );
   }
@@ -25,7 +25,7 @@ export default function EntryControls() {
   return (
     <div className="grow flex flex-col overflow-y-auto overflow-x-hidden bg-white space-y-2 px-4 py-2">
       <div className="flex flex-col text-center">
-        <div className="font-bold text-gray-700">Entry selected:</div>
+        <div className="font-bold text-gray-700">Sequence selected:</div>
         <div className="whitespace-nowrap overflow-auto font-mono">
           {activeEntry.name}
         </div>
