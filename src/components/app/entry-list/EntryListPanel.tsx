@@ -19,7 +19,9 @@ export default function EntryListPanel() {
   return (
     <Panel>
       <div className="grow flex flex-col overflow-hidden bg-white">
-        <div className="text-center text-sm font-bold text-slate-600 py-1">Sequences</div>
+        <div className="text-center text-sm font-bold text-slate-600 py-1">
+          Sequences ({entries.length})
+        </div>
         <div className="grow overflow-auto">
           <div className="relative">
             <EntryListTable
