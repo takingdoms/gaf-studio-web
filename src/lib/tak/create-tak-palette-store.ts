@@ -53,7 +53,7 @@ function makeRawPalette(
   return {
     kind: 'raw',
     palette,
-    previewImage: PaletteUtils.compilePreviewImage(16, 16, palette, imageCompiler),
+    previewImage: PaletteUtils.compilePreviewImage(palette, imageCompiler),
     customName: name,
   };
 }

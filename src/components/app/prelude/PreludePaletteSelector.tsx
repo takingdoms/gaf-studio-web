@@ -24,7 +24,7 @@ export default function PreludePaletteSelector({
 
     try {
       const palette = await PaletteUtils.loadFromPcxFile(file);
-      const previewImage = PaletteUtils.compilePreviewImage(16, 16, palette);
+      const previewImage = PaletteUtils.compilePreviewImage(palette);
 
       setSelected({
         kind: 'custom-file',

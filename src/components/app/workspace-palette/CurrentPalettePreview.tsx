@@ -6,15 +6,15 @@ type CurrentPalettePreviewProps = {
 };
 
 export default function CurrentPalettePreview({ currentPalette }: CurrentPalettePreviewProps) {
-  const scaleX: number = 2;
-  const scaleY: number = 2;
+  const scaleX: number = 1;
+  const scaleY: number = 10;
 
   return (
     <div className="flex flex-col">
       <div className="flex justify-center mb-1">
         <span className="font-bold text-xs">
           {/* Preview{scale === 1 ? '' : ` (x${scale})`} */}
-          Preview (x2)
+          Preview
         </span>
       </div>
 

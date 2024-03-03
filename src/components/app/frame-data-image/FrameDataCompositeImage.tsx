@@ -19,6 +19,7 @@ export default function FrameDataCompositeImage({ frameData }: FrameDataComposit
             image={layer.layerData.wrappedImages.compiledImage}
             width={layer.width}
             height={layer.height}
+            keepAspectRatio
           />
         );
       })}

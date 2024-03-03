@@ -24,6 +24,7 @@ export default function PalettePreviewImage({
         image={image}
         width={width * scaleX}
         height={height * scaleY}
+        keepAspectRatio={false}
       />
     </FrameDataImageContainer>
   );

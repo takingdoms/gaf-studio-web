@@ -8,15 +8,15 @@ type WorkspacePaletteProps = {
 
 export default function WorkspacePalette({ currentPalette }: WorkspacePaletteProps) {
   return (
-    <div className="flex flex-col overflow-auto">
-      <div className="flex flex-wrap">
-        <div className="m-2">
+    <div className="flex flex-col overflow-auto px-2 py-2">
+      {/* <div className="flex flex-wrap"> */}
+        <div className="mb-2">
           <CurrentPaletteInfo currentPalette={currentPalette} />
         </div>
-        <div className="m-2">
+        <div className="">
           <CurrentPalettePreview currentPalette={currentPalette} />
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

@@ -16,6 +16,7 @@ export default function FrameDataImage({ frameData }: FrameDataImageProps) {
         image={frameData.layerData.wrappedImages.compiledImage}
         width={frameData.width}
         height={frameData.height}
+        keepAspectRatio
       />
     </FrameDataImageContainer>
   );
