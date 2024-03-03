@@ -14,7 +14,11 @@ export default function FrameDataImageLayer({ image, width, height }: FrameDataI
         src={image}
         width={width}
         height={height}
-        style={{ imageRendering: 'pixelated' }}
+        style={{
+          imageRendering: 'pixelated',
+          width: width,
+          height: height,
+        }}
       />
     </div>
   );

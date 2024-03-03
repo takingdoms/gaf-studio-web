@@ -4,24 +4,26 @@ import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
 
 type PalettePreviewImageProps = {
   currentPalette: CurrentPalette;
-  scale: number;
+  scaleX: number;
+  scaleY: number;
 };
 
 export default function PalettePreviewImage({
   currentPalette,
-  scale,
+  scaleX,
+  scaleY,
 }: PalettePreviewImageProps) {
-  const size = 16 * scale;
+  const { width, height, image } = currentPalette.previewImage;
 
   return (
     <FrameDataImageContainer
-      width={size}
-      height={size}
+      width={width * scaleX}
+      height={height * scaleY}
     >
       <FrameDataImageLayer
-        image={currentPalette.previewImage}
-        width={size}
-        height={size}
+        image={image}
+        width={width * scaleX}
+        height={height * scaleY}
       />
     </FrameDataImageContainer>
   );

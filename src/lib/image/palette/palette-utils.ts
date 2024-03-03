@@ -1,3 +1,4 @@
+import { CurrentPalette } from "@/lib/gaf-studio/state/current-palette";
 import { CanvasedImageCompiler } from "@/lib/image/canvased-image-compiler";
 import { ImageCompiler } from "@/lib/image/image-compiler";
 import { ActualImage } from "@/lib/image/image-resource";
@@ -97,14 +98,20 @@ export namespace PaletteUtils {
     return rgba;
   }
 
-  export function compileImage(
+  export function compilePreviewImage(
+    width: number,
+    height: number,
     palette: Palette,
     imageCompiler?: ImageCompiler,
-  ): ActualImage {
+  ): CurrentPalette['previewImage'] {
     imageCompiler ??= fallbackImageCompiler;
 
     const rgbaBytes = paletteToRgbaBytes(palette);
 
-    return imageCompiler.compileImage(16, 16, { format: 'rgba8888', bytes: rgbaBytes });
+    return {
+      width,
+      height,
+      image: imageCompiler.compileImage(width, height, { format: 'rgba8888', bytes: rgbaBytes }),
+    };
   }
 }

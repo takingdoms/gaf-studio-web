@@ -4,7 +4,11 @@ import { Palette } from "@/lib/image/palette/palette";
 type BaseCurrentPalette<TKind extends string> = {
   kind: TKind;
   palette: Palette;
-  previewImage: ActualImage;
+  previewImage: {
+    width: number;
+    height: number;
+    image: ActualImage;
+  };
 };
 
 export type CurrentPalette =
