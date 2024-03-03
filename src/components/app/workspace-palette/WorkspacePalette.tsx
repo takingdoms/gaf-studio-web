@@ -4,14 +4,21 @@ import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
 
 type WorkspacePaletteProps = {
   currentPalette: CurrentPalette;
+  setCurrentPalette: (pal: CurrentPalette) => void;
 };
 
-export default function WorkspacePalette({ currentPalette }: WorkspacePaletteProps) {
+export default function WorkspacePalette({
+  currentPalette,
+  setCurrentPalette,
+}: WorkspacePaletteProps) {
   return (
     <div className="flex flex-col overflow-auto p-1">
       <div className={`flex flex-wrap`}>
         <div className="m-1">
-          <CurrentPaletteInfo currentPalette={currentPalette} />
+          <CurrentPaletteInfo
+            currentPalette={currentPalette}
+            setCurrentPalette={setCurrentPalette}
+          />
         </div>
         <div className="m-1">
           <CurrentPalettePreview currentPalette={currentPalette} />

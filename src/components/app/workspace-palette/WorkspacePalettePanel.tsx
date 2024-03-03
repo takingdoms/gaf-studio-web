@@ -27,6 +27,7 @@ export default function WorkspacePalettePanel() {
         <div className="grow flex flex-col overflow-hidden bg-white">
           <WorkspacePalette
             currentPalette={workspace.state.currentPalette}
+            setCurrentPalette={(pal) => workspace.setCurrentPalette(pal)}
           />
         </div>
       )}
