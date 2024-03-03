@@ -22,9 +22,11 @@ export default function PalettePreviewImage({
     >
       <FrameDataImageLayer
         image={image}
-        width={width * scaleX}
-        height={height * scaleY}
+        width={width}
+        height={height}
         keepAspectRatio={false}
+        scaleX={scaleX}
+        scaleY={scaleY}
       />
     </FrameDataImageContainer>
   );
