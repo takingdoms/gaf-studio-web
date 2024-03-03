@@ -25,7 +25,7 @@ export default function CompositeFrameSelectorItem({
     >
       <div className="w-full h-full flex justify-center items-center">
         <span className={`font-bold font-mono ${textCls} text-xs text-center`}>
-          (None)
+          None<br />(composite)
         </span>
       </div>
     </div>
