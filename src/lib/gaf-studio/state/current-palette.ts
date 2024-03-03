@@ -12,16 +12,12 @@ export type CurrentPalette =
   | CurrentPaletteFromWorld
   | CurrentPaletteFromCustomFile;
 
-export type CurrentPaletteFromRaw = BaseCurrentPalette<'raw'> & {
-  palette: Palette;
-};
+export type CurrentPaletteFromRaw = BaseCurrentPalette<'raw'>;
 
 export type CurrentPaletteFromWorld = BaseCurrentPalette<'world'> & {
-  palette: Palette;
   world: string; // TODO custom type for the world
 };
 
 export type CurrentPaletteFromCustomFile = BaseCurrentPalette<'custom-file'> & {
-  palette: Palette;
   originFile: File;
 };
