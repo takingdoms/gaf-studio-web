@@ -1,12 +1,12 @@
 import { CurrentPaletteFromRaw } from "@/lib/gaf-studio/state/current-palette";
 import { PaletteStore } from "@/lib/gaf-studio/state/palette-store";
-import { CanvasedImageCompiler } from "@/lib/image/canvased-image-compiler";
 import { ImageCompiler } from "@/lib/image/image-compiler";
 import { Palette } from "@/lib/image/palette/palette";
 import { PaletteUtils } from "@/lib/image/palette/palette-utils";
+import { SimpleImageCompiler } from "@/lib/image/simple-image-compiler";
 
 export function createTakPaletteStore(): PaletteStore {
-  const canvasedImageCompiler = new CanvasedImageCompiler();
+  const simpleImageCompiler = new SimpleImageCompiler();
 
   const grayscalePalette = makeGrayscalePalette(false);
   const grayscaleReversePalette = makeGrayscalePalette(true);
@@ -14,13 +14,13 @@ export function createTakPaletteStore(): PaletteStore {
   const grayscale = makeRawPalette(
     'Black-to-white',
     grayscalePalette,
-    canvasedImageCompiler,
+    simpleImageCompiler,
   );
 
   const grayscaleReverse = makeRawPalette(
     'White-to-black',
     grayscaleReversePalette,
-    canvasedImageCompiler,
+    simpleImageCompiler,
   );
 
   return {

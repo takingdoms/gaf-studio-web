@@ -1,4 +1,5 @@
 import { ActualImage } from "@/lib/image/image-resource";
+import React from "react";
 
 type FrameDataImageLayerProps = {
   image: ActualImage;
@@ -13,6 +14,19 @@ export default function FrameDataImageLayer({
   height,
   keepAspectRatio,
 }: FrameDataImageLayerProps) {
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+
+    if (canvas === null) {
+      return;
+    }
+
+    const ctx = canvas.getContext('2d')!;
+    ctx.putImageData(image, 0, 0);
+  }, [image]);
+
   const style: React.CSSProperties = keepAspectRatio ? {
     imageRendering: 'pixelated',
   } : {
@@ -25,9 +39,8 @@ export default function FrameDataImageLayer({
 
   return (
     <div className="absolute inset-0 flex justify-center items-center overflow-hidden">
-      <img
-        alt="Frame Data Image"
-        src={image}
+      <canvas
+        ref={canvasRef}
         width={width}
         height={height}
         style={style}

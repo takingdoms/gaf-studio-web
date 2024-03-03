@@ -1,14 +1,14 @@
 import { CurrentPalette } from "@/lib/gaf-studio/state/current-palette";
-import { CanvasedImageCompiler } from "@/lib/image/canvased-image-compiler";
 import { ImageCompiler } from "@/lib/image/image-compiler";
 import { Palette } from "@/lib/image/palette/palette";
+import { SimpleImageCompiler } from "@/lib/image/simple-image-compiler";
 import LibGaf from "lib-gaf";
 
 // const EXPECTED_PCX_SIZE = 999; // TODO!
 const RGB_DATA_LENGTH = 256 * 3; // 256 colors, 3 bytes per color
 
 export namespace PaletteUtils {
-  const fallbackImageCompiler = new CanvasedImageCompiler();
+  const fallbackImageCompiler = new SimpleImageCompiler();
 
   export async function loadFromPcxFile(file: File): Promise<Palette> {
     const arrayBuffer = await file.arrayBuffer();

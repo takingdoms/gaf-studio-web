@@ -4,13 +4,13 @@ import { BaseWorkspace } from '@/lib/gaf-studio/state/workspace';
 import { WorkspaceStateGaf } from '@/lib/gaf-studio/state/workspace-state';
 import { WorkspaceStateUtils } from '@/lib/gaf-studio/state/workspace-state-utils';
 import { BaseVirtualGafFrameData, VirtualGaf, VirtualGafEntry, VirtualGafFrameDataMultiLayer, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
-import { CanvasedImageCompiler } from '@/lib/image/canvased-image-compiler';
 import { ImageCompiler } from '@/lib/image/image-compiler';
 import { Palette } from '@/lib/image/palette/palette';
 import { PaletteUtils } from '@/lib/image/palette/palette-utils';
+import { SimpleImageCompiler } from '@/lib/image/simple-image-compiler';
 
 export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
-  private readonly imageCompiler = new CanvasedImageCompiler();
+  private readonly imageCompiler = new SimpleImageCompiler();
 
   protected override initBlank(defaultPalette?: CurrentPalette) {
     return WorkspaceStateUtils.initBlank('gaf', defaultPalette ?? this.state.currentPalette);

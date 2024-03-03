@@ -6,15 +6,15 @@ import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/gaf-
 import { VirtualGaf } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { ColoredVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/colored-virtual-gaf-builder';
 import { PalettedVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/paletted-virtual-gaf-builder';
-import { CanvasedImageCompiler } from '@/lib/image/canvased-image-compiler';
 import { Palette } from '@/lib/image/palette/palette';
+import { SimpleImageCompiler } from '@/lib/image/simple-image-compiler';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 // TODO refactor this entire mess
 export namespace WorkspaceStateUtils {
-  const canvasedImageCompiler = new CanvasedImageCompiler();
+  const imageCompiler = new SimpleImageCompiler();
 
   async function readGafResult(fileData: Uint8Array): Promise<LibGaf.Reader.GafReaderResult> {
     try {
@@ -65,10 +65,10 @@ export namespace WorkspaceStateUtils {
         throw new Error(`No palette provided.`);
       }
 
-      const builder = new PalettedVirtualGafBuilder(canvasedImageCompiler, palette);
+      const builder = new PalettedVirtualGafBuilder(imageCompiler, palette);
       virtualGaf = builder.makeVirtualGaf(gafResult.gaf);
     } else {
-      const builder = new ColoredVirtualGafBuilder(canvasedImageCompiler);
+      const builder = new ColoredVirtualGafBuilder(imageCompiler);
       virtualGaf = builder.makeVirtualGaf(gafResult.gaf);
     }
 

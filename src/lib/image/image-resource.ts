@@ -1,6 +1,6 @@
 import LibGaf from "lib-gaf";
 
-export type ActualImage = string; // base64urlencoded // TODO different type probably
+export type ActualImage = ImageData;
 
 export type PalettedImageResource = {
   kind: 'paletted';
