@@ -10,7 +10,7 @@ export default function FrameCanvasWrapperMultiComposite({
   frameData,
 }: FrameCanvasWrapperMultiCompositeProps) {
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full h-full flex flex-col justify-center items-center bg-gray-100">
       {/* <div><b>Selected Frame (multi):</b></div> */}
       <FrameDataCompositeImage frameData={frameData} />
     </div>

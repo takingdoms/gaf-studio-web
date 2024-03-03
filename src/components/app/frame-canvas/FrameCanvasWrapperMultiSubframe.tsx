@@ -10,7 +10,7 @@ export default function FrameCanvasWrapperMultiSubframe({
   subframeData,
 }: FrameCanvasWrapperMultiSubframeProps) {
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full h-full flex flex-col justify-center items-center bg-gray-100">
       {/* <div><b>Selected Subframe:</b></div> */}
       <FrameDataImage frameData={subframeData} />
     </div>
