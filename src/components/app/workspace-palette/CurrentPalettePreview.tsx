@@ -1,5 +1,4 @@
 import PalettePreviewImage from '@/components/app/workspace-palette/PalettePreviewImage';
-import { PALETTE_PREVIEW_MODE } from '@/lib/constants';
 import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
 
 type CurrentPalettePreviewProps = {
@@ -7,8 +6,7 @@ type CurrentPalettePreviewProps = {
 };
 
 export default function CurrentPalettePreview({ currentPalette }: CurrentPalettePreviewProps) {
-  const scaleX: number = PALETTE_PREVIEW_MODE === 'square' ? 2 : 1;
-  const scaleY: number = PALETTE_PREVIEW_MODE === 'square' ? 2 : 10;
+  const scale: number = 2;
 
   return (
     <div className="flex flex-col">
@@ -21,8 +19,8 @@ export default function CurrentPalettePreview({ currentPalette }: CurrentPalette
       <div className="flex justify-center">
         <PalettePreviewImage
           currentPalette={currentPalette}
-          scaleX={scaleX}
-          scaleY={scaleY}
+          scaleX={scale}
+          scaleY={scale}
         />
       </div>
     </div>

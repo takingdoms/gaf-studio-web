@@ -1,8 +1,6 @@
-import { PALETTE_PREVIEW_HEIGHT, PALETTE_PREVIEW_WIDTH } from "@/lib/constants";
 import { CurrentPalette } from "@/lib/gaf-studio/state/current-palette";
 import { CanvasedImageCompiler } from "@/lib/image/canvased-image-compiler";
 import { ImageCompiler } from "@/lib/image/image-compiler";
-import { ActualImage } from "@/lib/image/image-resource";
 import { Palette } from "@/lib/image/palette/palette";
 import LibGaf from "lib-gaf";
 
@@ -102,17 +100,15 @@ export namespace PaletteUtils {
   export function compilePreviewImage(
     palette: Palette,
     imageCompiler?: ImageCompiler,
-    width = PALETTE_PREVIEW_WIDTH,
-    height = PALETTE_PREVIEW_HEIGHT,
   ): CurrentPalette['previewImage'] {
     imageCompiler ??= fallbackImageCompiler;
 
     const rgbaBytes = paletteToRgbaBytes(palette);
 
     return {
-      width,
-      height,
-      image: imageCompiler.compileImage(width, height, { format: 'rgba8888', bytes: rgbaBytes }),
+      width: 16,
+      height: 16,
+      image: imageCompiler.compileImage(16, 16, { format: 'rgba8888', bytes: rgbaBytes }),
     };
   }
 }
