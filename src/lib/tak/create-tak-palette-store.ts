@@ -11,8 +11,17 @@ export function createTakPaletteStore(): PaletteStore {
   const grayscalePalette = makeGrayscalePalette(false);
   const grayscaleReversePalette = makeGrayscalePalette(true);
 
-  const grayscale = makeRawPalette(grayscalePalette, canvasedImageCompiler);
-  const grayscaleReverse = makeRawPalette(grayscaleReversePalette, canvasedImageCompiler);
+  const grayscale = makeRawPalette(
+    'Black-to-white',
+    grayscalePalette,
+    canvasedImageCompiler,
+  );
+
+  const grayscaleReverse = makeRawPalette(
+    'White-to-black',
+    grayscaleReversePalette,
+    canvasedImageCompiler,
+  );
 
   return {
     grayscale,
@@ -37,6 +46,7 @@ function makeGrayscalePalette(reverse: boolean): Palette {
 }
 
 function makeRawPalette(
+  name: string,
   palette: Palette,
   imageCompiler: ImageCompiler,
 ): CurrentPaletteFromRaw {
@@ -44,5 +54,6 @@ function makeRawPalette(
     kind: 'raw',
     palette,
     previewImage: PaletteUtils.compileImage(palette, imageCompiler),
+    customName: name,
   };
 }
