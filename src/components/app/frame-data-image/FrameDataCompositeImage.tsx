@@ -16,7 +16,7 @@ export default function FrameDataCompositeImage({ frameData }: FrameDataComposit
         return (
           <FrameDataImageLayer
             key={index}
-            image={layer.layerData.wrappedImages.compiledImage}
+            image={layer.layerData.imageResource.compiledImage}
             width={layer.width}
             height={layer.height}
             keepAspectRatio

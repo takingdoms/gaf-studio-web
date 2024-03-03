@@ -30,7 +30,7 @@ export class PalettedVirtualGafBuilder extends SimpleVirtualGafBuilder<'gaf'> {
     return {
       kind: 'palette-idx',
       compress: srcLayerData.decompressed,
-      wrappedImages: {
+      imageResource: {
         kind: 'paletted',
         paletteIndices: srcLayerData.indices,
         compiledImage,

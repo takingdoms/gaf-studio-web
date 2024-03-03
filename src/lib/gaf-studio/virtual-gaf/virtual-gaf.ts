@@ -47,10 +47,10 @@ export type VirtualGafLayerData<T extends MainFormat = MainFormat> =
 export type VirtualGafLayerDataPaletteIndices = {
   kind: 'palette-idx';
   compress: boolean;
-  wrappedImages: PalettedImageResource;
+  imageResource: PalettedImageResource;
 };
 
 export type VirtualGafLayerDataRawColors = {
   kind: 'raw-colors';
-  wrappedImages: ColoredImageResource;
+  imageResource: ColoredImageResource;
 };

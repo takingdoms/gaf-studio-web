@@ -31,7 +31,7 @@ export class ColoredVirtualGafBuilder extends SimpleVirtualGafBuilder<'taf'> {
 
     return {
       kind: 'raw-colors',
-      wrappedImages: {
+      imageResource: {
         kind: 'colored',
         compiledImage,
       },

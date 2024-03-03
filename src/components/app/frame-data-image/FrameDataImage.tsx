@@ -13,7 +13,7 @@ export default function FrameDataImage({ frameData }: FrameDataImageProps) {
       height={frameData.height}
     >
       <FrameDataImageLayer
-        image={frameData.layerData.wrappedImages.compiledImage}
+        image={frameData.layerData.imageResource.compiledImage}
         width={frameData.width}
         height={frameData.height}
         keepAspectRatio

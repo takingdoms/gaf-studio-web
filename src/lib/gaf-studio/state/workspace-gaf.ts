@@ -106,7 +106,7 @@ function recompileVirtualLayerData(
     width,
     height,
     transparencyIndex,
-    layerData.wrappedImages.paletteIndices,
+    layerData.imageResource.paletteIndices,
     config.palette,
   );
 
@@ -114,8 +114,8 @@ function recompileVirtualLayerData(
 
   return {
     ...layerData,
-    wrappedImages: {
-      ...layerData.wrappedImages,
+    imageResource: {
+      ...layerData.imageResource,
       compiledImage: recompiledImage,
     },
   };
