@@ -1,4 +1,6 @@
 import PreludeButton from '@/components/app/prelude/PreludeButton';
+import PreludePaletteSelector from '@/components/app/prelude/PreludePaletteSelector';
+import { CurrentPaletteFromCustomFile } from '@/lib/gaf-studio/state/current-palette';
 import { PaletteStore } from '@/lib/gaf-studio/state/palette-store';
 import { WorkspaceState } from '@/lib/gaf-studio/state/workspace-state';
 import { WorkspaceStateUtils } from "@/lib/gaf-studio/state/workspace-state-utils";
@@ -19,6 +21,8 @@ export default function PreludeChooseFileSingle({
   setIsLoading,
   paletteStore,
 }: PreludeChooseFileSingleProps) {
+  const [customPalette, setCustomPalette] = React.useState<CurrentPaletteFromCustomFile>();
+
   const inputFileRef = React.useRef<HTMLInputElement>(null);
 
   const selectInputFile = React.useCallback(() => {
@@ -42,7 +46,8 @@ export default function PreludeChooseFileSingle({
 
     setIsLoading(true);
 
-    const defaultPalette = paletteStore.grayscale;
+    // TODO auto-detect palette at some point and under some condition
+    const defaultPalette = customPalette ?? paletteStore.grayscale;
 
     const promise
       = format === 'gaf' ? WorkspaceStateUtils.initFromGafFile(files[0], defaultPalette)
@@ -56,15 +61,26 @@ export default function PreludeChooseFileSingle({
         console.error(err);
         setIsLoading(false);
       });
-  }, [isLoading, setIsLoading, onInit, format, paletteStore]);
+  }, [isLoading, setIsLoading, onInit, format, paletteStore, customPalette]);
 
   return (<>
     <div className="grow flex flex-col">
+      {format === 'gaf' && (
+        <div className="mb-2">
+          <PreludePaletteSelector
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            selected={customPalette}
+            setSelected={setCustomPalette}
+          />
+        </div>
+      )}
+
       <PreludeButton onClick={selectInputFile}>
         {
-          format === 'gaf' ? 'Select GAF file' :
-          format === 'taf' ? 'Select TAF file' :
-          'Select file'
+          format === 'gaf' ? 'Load GAF file' :
+          format === 'taf' ? 'Load TAF file' :
+          'Load file'
         }
       </PreludeButton>
     </div>

@@ -1,3 +1,6 @@
+import { CanvasedImageCompiler } from "@/lib/image/canvased-image-compiler";
+import { ImageCompiler } from "@/lib/image/image-compiler";
+import { ActualImage } from "@/lib/image/image-resource";
 import { Palette } from "@/lib/image/palette/palette";
 import LibGaf from "lib-gaf";
 
@@ -5,6 +8,8 @@ import LibGaf from "lib-gaf";
 const RGB_DATA_LENGTH = 256 * 3; // 256 colors, 3 bytes per color
 
 export namespace PaletteUtils {
+  const fallbackImageCompiler = new CanvasedImageCompiler();
+
   export async function loadFromPcxFile(file: File): Promise<Palette> {
     const arrayBuffer = await file.arrayBuffer();
     const fileData = new Uint8Array(arrayBuffer);
@@ -77,5 +82,29 @@ export namespace PaletteUtils {
       format: 'rgba8888',
       bytes,
     };
+  }
+
+  export function paletteToRgbaBytes(palette: Palette): Uint8Array {
+    const rgba = new Uint8Array(256 * 4);
+
+    for (let i = 0; i < 256; i++) {
+      rgba[i * 4 + 0] = palette.rgbData[i * 3 + 0];
+      rgba[i * 4 + 1] = palette.rgbData[i * 3 + 1];
+      rgba[i * 4 + 2] = palette.rgbData[i * 3 + 2];
+      rgba[i * 4 + 3] = 255;
+    }
+
+    return rgba;
+  }
+
+  export function compileImage(
+    palette: Palette,
+    imageCompiler?: ImageCompiler,
+  ): ActualImage {
+    imageCompiler ??= fallbackImageCompiler;
+
+    const rgbaBytes = paletteToRgbaBytes(palette);
+
+    return imageCompiler.compileImage(16, 16, { format: 'rgba8888', bytes: rgbaBytes });
   }
 }
