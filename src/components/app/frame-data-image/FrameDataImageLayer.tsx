@@ -33,43 +33,34 @@ export default function FrameDataImageLayer({
     const ctx = canvas.getContext('2d')!;
     ctx.imageSmoothingEnabled = false;
 
-    if (scaleX === 1 && scaleY === 1) {
-      ctx.putImageData(image, 0, 0);
-      return;
-    }
+    ctx.putImageData(image, 0, 0);
+  }, [image]);
 
-    const tempCanvas = document.createElement('canvas');
-    const tempCtx = tempCanvas.getContext('2d')!;
-    tempCtx.imageSmoothingEnabled = false;
+  let scale: string | undefined = undefined;
 
-    tempCanvas.width = image.width;
-    tempCanvas.height = image.height;
-
-    tempCtx.putImageData(image, 0, 0);
-
-    ctx.drawImage(
-      tempCanvas,
-      0, 0, tempCanvas.width, tempCanvas.height,
-      0, 0, ctx.canvas.width, ctx.canvas.height,
-    );
-  }, [image, scaleX, scaleY]);
+  if (scaleX !== 1 || scaleY !== 1) {
+    scale = `${scaleX} ${scaleY}`;
+  }
 
   const style: React.CSSProperties = keepAspectRatio ? {
     imageRendering: 'pixelated',
+    maxWidth: '100%',
+    height: 'auto',
   } : {
     imageRendering: 'pixelated',
-    width: width * scaleX,
-    height: height * scaleY,
-    maxWidth: width * scaleX,
-    maxHeight: height * scaleY,
+    width,
+    height,
+    maxWidth: width,
+    maxHeight: height,
+    scale,
   };
 
   return (
     <div className="absolute inset-0 flex justify-center items-center overflow-hidden">
       <canvas
         ref={canvasRef}
-        width={width * scaleX}
-        height={height * scaleY}
+        width={width}
+        height={height}
         style={style}
       />
     </div>
