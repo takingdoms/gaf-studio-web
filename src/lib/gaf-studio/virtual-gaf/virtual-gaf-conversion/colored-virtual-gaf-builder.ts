@@ -14,17 +14,17 @@ export class ColoredVirtualGafBuilder extends SimpleVirtualGafBuilder<'taf'> {
     srcLayerData: LibGaf.GafLayerData<'taf'>,
     { width, height }: BaseVirtualGafFrameData,
   ): VirtualGafLayerData<'taf'> {
-    const colorData = srcLayerData.colorData;
+    const srcColorData = srcLayerData.colorData;
     let convertedData: LibGaf.ColorData<'rgba8888'>;
 
-    if (isFormat(colorData, 'argb1555')) {
-      convertedData = LibGaf.ColorUtils.convertARGB1555ToRGBA8888(colorData, width, height, {});
+    if (isFormat(srcColorData, 'argb1555')) {
+      convertedData = LibGaf.ColorUtils.convertARGB1555ToRGBA8888(srcColorData, width, height, {});
     }
-    else if (isFormat(colorData, 'argb4444')) {
-      convertedData = LibGaf.ColorUtils.convertARGB4444ToRGBA8888(colorData, width, height, {});
+    else if (isFormat(srcColorData, 'argb4444')) {
+      convertedData = LibGaf.ColorUtils.convertARGB4444ToRGBA8888(srcColorData, width, height, {});
     }
     else {
-      throw new Error(`Unexpected color format: ${colorData.format}`);
+      throw new Error(`Unexpected color format: ${srcColorData.format}`);
     }
 
     const compiledImage = this.imageCompiler.compileImage(width, height, convertedData);
@@ -34,6 +34,7 @@ export class ColoredVirtualGafBuilder extends SimpleVirtualGafBuilder<'taf'> {
       imageResource: {
         kind: 'colored',
         compiledImage,
+        colorData: srcColorData,
       },
     };
   }
