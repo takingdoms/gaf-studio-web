@@ -37,10 +37,14 @@ export default function FrameSelectorItem({
           {frameData.kind === 'single' ? (
             <FrameDataImage
               frameData={frameData}
+              contain={true}
+              smoothing={false}
             />
           ) : (
             <FrameDataCompositeImage
               frameData={frameData}
+              contain={true}
+              smoothing={false}
             />
           )}
         </div>

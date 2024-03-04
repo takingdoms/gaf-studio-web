@@ -1,8 +1,6 @@
 import FrameSelectorItem from "@/components/app/frame-selector/FrameSelectorItem";
 import SelectorWrapper from "@/components/app/frame-selector/SelectorWrapper";
-import { FRAME_SELECTOR_ITEM_HEIGHT } from "@/lib/constants";
 import { VirtualGafFrame } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
-import { DeepReadonly } from "ts-essentials";
 
 type FrameSelectorProps = {
   frames: VirtualGafFrame[];

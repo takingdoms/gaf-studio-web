@@ -1,5 +1,4 @@
 import FrameCanvasWrapperMultiComposite from '@/components/app/frame-canvas/FrameCanvasWrapperMultiComposite';
-import FrameCanvasWrapperMultiSubframe from '@/components/app/frame-canvas/FrameCanvasWrapperMultiSubframe';
 import FrameCanvasWrapperSingle from '@/components/app/frame-canvas/FrameCanvasWrapperSingle';
 import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import React from 'react';
@@ -44,8 +43,8 @@ export default function FrameCanvasWrapper() {
   const subframeData = frameData.layers[activeSubframeIndex];
 
   return (
-    <FrameCanvasWrapperMultiSubframe
-      subframeData={subframeData}
+    <FrameCanvasWrapperSingle
+      frameData={subframeData}
     />
   );
 }

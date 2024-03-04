@@ -1,23 +1,24 @@
-import FrameDataImageContainer from '@/components/app/frame-data-image/FrameDataImageContainer';
-import FrameDataImageLayer from '@/components/app/frame-data-image/FrameDataImageLayer';
+import AbsoluteImageRenderer from '@/components/app/image-renderer/AbsoluteImageRenderer';
 import { VirtualGafFrameDataSingleLayer } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 
 type FrameDataImageProps = {
   frameData: VirtualGafFrameDataSingleLayer;
+  contain: boolean;
+  smoothing: boolean;
 };
 
-export default function FrameDataImage({ frameData }: FrameDataImageProps) {
+export default function FrameDataImage({
+  frameData,
+  contain,
+  smoothing,
+}: FrameDataImageProps) {
   return (
-    <FrameDataImageContainer
+    <AbsoluteImageRenderer
+      image={frameData.layerData.imageResource.compiledImage}
       width={frameData.width}
       height={frameData.height}
-    >
-      <FrameDataImageLayer
-        image={frameData.layerData.imageResource.compiledImage}
-        width={frameData.width}
-        height={frameData.height}
-        keepAspectRatio
-      />
-    </FrameDataImageContainer>
+      contain={contain}
+      smoothing={smoothing}
+    />
   );
 }

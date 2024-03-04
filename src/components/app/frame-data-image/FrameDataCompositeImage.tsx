@@ -1,28 +1,40 @@
-import FrameDataImageContainer from '@/components/app/frame-data-image/FrameDataImageContainer';
-import FrameDataImageLayer from '@/components/app/frame-data-image/FrameDataImageLayer';
+import AbsoluteImageRendererContainer from '@/components/app/image-renderer/AbsoluteImageRendererContainer';
+import ImageRenderer from '@/components/app/image-renderer/ImageRenderer';
 import { VirtualGafFrameDataMultiLayer } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 
 type FrameDataCompositeImageProps = {
   frameData: VirtualGafFrameDataMultiLayer;
+  contain: boolean;
+  smoothing: boolean;
 };
 
-export default function FrameDataCompositeImage({ frameData }: FrameDataCompositeImageProps) {
+export default function FrameDataCompositeImage({
+  frameData,
+  contain,
+  smoothing,
+}: FrameDataCompositeImageProps) {
   return (
-    <FrameDataImageContainer
+    <AbsoluteImageRendererContainer
       width={frameData.width}
       height={frameData.height}
+      contain={contain}
     >
       {frameData.layers.map((layer, index) => {
         return (
-          <FrameDataImageLayer
+          <div
             key={index}
-            image={layer.layerData.imageResource.compiledImage}
-            width={layer.width}
-            height={layer.height}
-            keepAspectRatio
-          />
+            className="absolute inset-0 flex justify-center items-center overflow-hidden"
+          >
+            <ImageRenderer
+              image={layer.layerData.imageResource.compiledImage}
+              width={frameData.width}
+              height={frameData.height}
+              contain={contain}
+              smoothing={smoothing}
+            />
+          </div>
         );
       })}
-    </FrameDataImageContainer>
+    </AbsoluteImageRendererContainer>
   );
 }

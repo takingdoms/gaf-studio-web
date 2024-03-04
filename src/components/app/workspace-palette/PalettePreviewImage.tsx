@@ -1,5 +1,4 @@
-import FrameDataImageContainer from '@/components/app/frame-data-image/FrameDataImageContainer';
-import FrameDataImageLayer from '@/components/app/frame-data-image/FrameDataImageLayer';
+import AbsoluteImageRenderer from '@/components/app/image-renderer/AbsoluteImageRenderer';
 import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
 
 type PalettePreviewImageProps = {
@@ -16,18 +15,14 @@ export default function PalettePreviewImage({
   const { width, height, image } = currentPalette.previewImage;
 
   return (
-    <FrameDataImageContainer
-      width={width * scaleX}
-      height={height * scaleY}
-    >
-      <FrameDataImageLayer
-        image={image}
-        width={width}
-        height={height}
-        keepAspectRatio={false}
-        scaleX={scaleX}
-        scaleY={scaleY}
-      />
-    </FrameDataImageContainer>
+    <AbsoluteImageRenderer
+      image={image}
+      width={width}
+      height={height}
+      contain={false}
+      smoothing={false}
+      scaleX={scaleX}
+      scaleY={scaleY}
+    />
   );
 }
