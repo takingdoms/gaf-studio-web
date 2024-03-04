@@ -1,5 +1,6 @@
 import ActiveFrameInput from '@/components/app/controls/ActiveFrameInput';
 import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
+import NumberControl from '@/components/ui/control/NumberControl';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import React from 'react';
 
@@ -22,8 +23,12 @@ export default function EntryControls() {
 
   const hasFrames = activeEntry.frames.length > 0;
 
+  const currentFrameIndex = workspace.state.cursor.frameIndex;
+
   return (
-    <div className="grow flex flex-col overflow-y-auto overflow-x-hidden bg-white space-y-2 px-4 py-2">
+    <div
+      className="grow flex flex-col overflow-y-auto overflow-x-hidden bg-white space-y-2 px-4 py-2"
+    >
       <div className="flex flex-col text-center">
         <div className="font-bold text-gray-700">Sequence selected:</div>
         <div className="whitespace-nowrap overflow-auto font-mono">
@@ -33,7 +38,7 @@ export default function EntryControls() {
 
       <div className="self-center border-b border-dotted border-slate-500 w-1/2" />
 
-      {/* TODO make this a table */}
+      {/* TODO make this a table (reuse the same table from FrameDataControls) */}
       <div className="flex flex-col space-y-1">
         <div className="flex items-baseline">
           <div>Unknown1:</div>
@@ -56,13 +61,23 @@ export default function EntryControls() {
           <div className="truncate">
             Selected frame:
           </div>
-          <div className="whitespace-nowrap">
-            <ActiveFrameInput
+          <div className="flex items-center whitespace-nowrap">
+            {/* <ActiveFrameInput
               activeFrameIndex={workspace.state.cursor.frameIndex}
               setActiveFrameIndex={(index) => workspace.setActiveFrameIndex(index)}
               minFrameIndex={0}
               maxFrameIndex={activeEntry.frames.length - 1}
-            /> / {activeEntry.frames.length}
+            /> */}
+            <NumberControl
+              value={currentFrameIndex !== null ? (currentFrameIndex + 1) : null}
+              setValue={(value) => workspace.setActiveFrameIndex(value - 1)}
+              min={1}
+              max={activeEntry.frames.length}
+            />
+            <span className="font-mono">
+              &nbsp;/&nbsp;
+              {activeEntry.frames.length}
+            </span>
           </div>
         </div>
       )}
