@@ -41,6 +41,8 @@ export default function FrameSelectorItem({
               smoothing={false}
             />
           ) : (
+            // TODO draw the first sub-frame by default instead of a composition of the frameData
+            // ... either that ^ or workspace cursor should select empty sub-frame by default!!!
             <FrameDataCompositeImage
               frameData={frameData}
               contain={true}
