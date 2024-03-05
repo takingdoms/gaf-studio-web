@@ -37,12 +37,14 @@ export default function FrameControls() {
         <FrameDataControls
           frameData={activeFrame.frameData}
           isSubframe={false}
+          isGaf={workspace.state.format === 'gaf'}
         />
       ) : (
         <MultiFrameControls
           frameData={activeFrame.frameData}
           activeSubframeIndex={workspace.state.cursor.subframeIndex}
           setActiveSubframeIndex={(index) => workspace.setActiveSubframeIndex(index)}
+          isGaf={workspace.state.format === 'gaf'}
         />
       )}
     </div>

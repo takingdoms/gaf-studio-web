@@ -30,6 +30,7 @@ export default function SubframeControls() {
       <FrameDataControls
         frameData={activeSubframe}
         isSubframe={true}
+        isGaf={workspace.state.format === 'gaf'}
       />
     </div>
   );

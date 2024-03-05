@@ -1,11 +1,10 @@
 import NumberControlInput from '@/components/ui/control/NumberControlInput';
 import { NumberControlSideButton } from '@/components/ui/control/NumberControlSideButton';
-import { IconFunc, Icons } from '@/lib/react/icons';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
 type NumberControlProps = {
   value: number | null;
-  setValue: (value: number) => void;
+  setValue?: (value: number) => void; // if undefined, the NumberControls is "read-only"
   min?: number;
   max?: number;
 };
@@ -17,7 +16,7 @@ export default function NumberControl({
   max,
 }: NumberControlProps) {
   const onClickDecrease = React.useCallback(() => {
-    if (value === null) {
+    if (value === null || setValue === undefined) {
       return;
     }
 
@@ -31,7 +30,7 @@ export default function NumberControl({
   }, [min, value, setValue]);
 
   const onClickIncrease = React.useCallback(() => {
-    if (value === null) {
+    if (value === null || setValue === undefined) {
       return;
     }
 
@@ -45,10 +44,10 @@ export default function NumberControl({
   }, [max, value, setValue]);
 
   return (
-    <div className="inline-flex items-center">
+    <div className="inline-flex items-center space-x-0.5">
       <NumberControlSideButton
         icon="-"
-        onClick={onClickDecrease}
+        onClick={setValue ? onClickDecrease : undefined}
       />
       <NumberControlInput
         value={value}
@@ -58,7 +57,7 @@ export default function NumberControl({
       />
       <NumberControlSideButton
         icon="+"
-        onClick={onClickIncrease}
+        onClick={setValue ? onClickIncrease : undefined}
       />
     </div>
   );

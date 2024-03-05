@@ -5,12 +5,14 @@ export function NumberControlSideButton({
   onClick,
 }: {
   icon: string;
-  onClick: () => void;
+  onClick?: () => void;
 }) {
+  const hoverCls = onClick ? 'hover:bg-slate-100' : '';
+
   return (
     <button
-      className="flex justify-center items-center p-0.5 bg-slate-200 hover:bg-slate-100
-        border border-slate-300 font-mono"
+      className={`flex justify-center items-center p-0.5 bg-slate-200 ${hoverCls}`
+        + ` border border-slate-300 font-mono`}
       style={{ width: CONTROL_INPUT_HEIGHT, height: CONTROL_INPUT_HEIGHT }}
       onClick={onClick}
     >

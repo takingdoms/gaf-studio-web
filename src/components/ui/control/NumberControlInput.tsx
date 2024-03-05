@@ -3,7 +3,7 @@ import React from 'react';
 
 type NumberControlInputProps = {
   value: number | null;
-  setValue: (value: number) => void;
+  setValue?: (value: number) => void; // if undefined, the NumberControls is "read-only"
   min?: number;
   max?: number;
 };
@@ -16,6 +16,10 @@ export default function NumberControlInput({
 }: NumberControlInputProps) {
   const onChange = React.useCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
     ev.preventDefault();
+
+    if (setValue === undefined) {
+      return;
+    }
 
     let newValue = parseInt(ev.target.value);
 
@@ -34,10 +38,12 @@ export default function NumberControlInput({
     setValue(newValue);
   }, [min, max, setValue]);
 
+  const borderCls = setValue ? 'border-gray-300' : 'border-transparent';
+
   return (
     <input
       type="number"
-      className="w-auto font-mono border border-gray-300 hide-spin-button px-0.5 py-0 mx-0.5"
+      className={`hide-spin-button w-auto font-mono border ${borderCls} px-0.5 py-0`}
       style={{ width: CONTROL_INPUT_WIDTH, height: CONTROL_INPUT_HEIGHT }}
       value={value ?? ''}
       onChange={onChange}
