@@ -3,40 +3,40 @@ import { PalettedImageResource, ColoredImageResource } from '@/lib/image/image-r
 import LibGaf from 'lib-gaf';
 
 export type VirtualGaf<T extends MainFormat = MainFormat> = {
-  entries: VirtualGafEntry<T>[];
+  readonly entries: readonly VirtualGafEntry<T>[];
 };
 
 export type VirtualGafEntry<T extends MainFormat = MainFormat> = {
-  key: symbol;
-  name: string;
-  unknown1: number;
-  unknown2: number;
-  frames: VirtualGafFrame<T>[];
+  readonly key: symbol;
+  readonly name: string;
+  readonly unknown1: number;
+  readonly unknown2: number;
+  readonly frames: readonly VirtualGafFrame<T>[];
 };
 
 export type VirtualGafFrame<T extends MainFormat = MainFormat> = {
-  key: symbol;
-  duration: number;
-  frameData: VirtualGafFrameData<T>;
+  readonly key: symbol;
+  readonly duration: number;
+  readonly frameData: VirtualGafFrameData<T>;
 };
 
 export type VirtualGafFrameData<T extends MainFormat = MainFormat> =
   | VirtualGafFrameDataSingleLayer<T>
   | VirtualGafFrameDataMultiLayer<T>;
 
-export type BaseVirtualGafFrameData = LibGaf.BaseGafFrameData;
+export type BaseVirtualGafFrameData = Readonly<LibGaf.BaseGafFrameData>;
 
 export type VirtualGafFrameDataSingleLayer<T extends MainFormat = MainFormat> =
   BaseVirtualGafFrameData & {
-    key: symbol;
-    kind: 'single';
-    layerData: VirtualGafLayerData<T>;
+    readonly key: symbol;
+    readonly kind: 'single';
+    readonly layerData: VirtualGafLayerData<T>;
   };
 
 export type VirtualGafFrameDataMultiLayer<T extends MainFormat = MainFormat> =
   BaseVirtualGafFrameData & {
-    kind: 'multi';
-    layers: VirtualGafFrameDataSingleLayer<T>[];
+    readonly kind: 'multi';
+    readonly layers: readonly VirtualGafFrameDataSingleLayer<T>[];
   };
 
 export type VirtualGafLayerData<T extends MainFormat = MainFormat> =
@@ -45,12 +45,12 @@ export type VirtualGafLayerData<T extends MainFormat = MainFormat> =
   never;
 
 export type VirtualGafLayerDataPaletteIndices = {
-  kind: 'palette-idx';
-  compress: boolean;
-  imageResource: PalettedImageResource;
+  readonly kind: 'palette-idx';
+  readonly compress: boolean;
+  readonly imageResource: PalettedImageResource;
 };
 
 export type VirtualGafLayerDataRawColors = {
-  kind: 'raw-colors';
-  imageResource: ColoredImageResource;
+  readonly kind: 'raw-colors';
+  readonly imageResource: ColoredImageResource;
 };

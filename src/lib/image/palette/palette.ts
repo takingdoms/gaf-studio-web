@@ -1,3 +1,3 @@
 export type Palette = {
-  rgbData: Uint8Array; // length should ALWAYS be 256
+  readonly rgbData: Uint8Array; // length should ALWAYS be 256
 }

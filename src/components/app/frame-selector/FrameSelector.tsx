@@ -3,7 +3,7 @@ import SelectorWrapper from "@/components/app/frame-selector/SelectorWrapper";
 import { VirtualGafFrame } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
 
 type FrameSelectorProps = {
-  frames: VirtualGafFrame[];
+  frames: readonly VirtualGafFrame[];
   selectedIndex: number | null;
   setSelectedIndex: (index: number | null) => void;
 };

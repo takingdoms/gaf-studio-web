@@ -20,7 +20,7 @@ export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
     return this.state.currentGaf;
   }
 
-  override getEntries(): VirtualGafEntry[] {
+  override getEntries(): readonly VirtualGafEntry[] {
     return this.state.currentGaf.virtualGaf.entries;
   }
 
@@ -76,7 +76,7 @@ type Config = {
 
 function recompileVirtualGafEntries(
   config: Config,
-  entries: VirtualGafEntry<'gaf'>[],
+  entries: readonly VirtualGafEntry<'gaf'>[],
 ): VirtualGafEntry<'gaf'>[] {
   return entries.map((entry) => {
     return {

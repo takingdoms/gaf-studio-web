@@ -18,7 +18,7 @@ export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
     return this.state.currentGafs[this.state.activeSubFormat];
   }
 
-  override getEntries(): VirtualGafEntry[] | null {
+  override getEntries(): readonly VirtualGafEntry[] | null {
     const currentGaf = this.getCurrentGaf();
 
     if (currentGaf === null) {

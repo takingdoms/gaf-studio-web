@@ -1,3 +1,4 @@
+import { ReadonlyRecord } from '@/lib/utils/utility-types';
 import LibGaf from 'lib-gaf';
 import { ElementOf } from 'ts-essentials';
 
@@ -20,7 +21,7 @@ export const TAF_SUB_FORMATS = [
 
 export type TafSubFormat = ElementOf<typeof TAF_SUB_FORMATS>;
 
-export const TAF_SUB_FORMAT_TO_LABEL: Record<TafSubFormat, string> = {
+export const TAF_SUB_FORMAT_TO_LABEL: ReadonlyRecord<TafSubFormat, string> = {
   'taf_1555': '1555',
   'taf_4444': '4444',
 };

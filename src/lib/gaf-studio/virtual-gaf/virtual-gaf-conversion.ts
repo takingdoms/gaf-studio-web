@@ -11,9 +11,9 @@ export type CommitVirtualGaf<T extends MainFormat = MainFormat> =
 // wrapper types:
 
 export type VirtualGafMaker<T extends MainFormat = MainFormat> = {
-  makeVirtualGaf: MakeVirtualGaf<T>;
+  readonly makeVirtualGaf: MakeVirtualGaf<T>;
 };
 
 export type VirtualGafCommiter<T extends MainFormat = MainFormat> = {
-  commitVirtualGaf: CommitVirtualGaf<T>;
+  readonly commitVirtualGaf: CommitVirtualGaf<T>;
 };

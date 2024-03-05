@@ -1,10 +1,10 @@
 import LibGaf from 'lib-gaf';
 
 export type DetectedFormat = {
-  mainFormat: 'gaf';
+  readonly mainFormat: 'gaf';
 } | {
-  mainFormat: 'taf';
-  subFormat: 'taf_1555' | 'taf_4444';
+  readonly mainFormat: 'taf';
+  readonly subFormat: 'taf_1555' | 'taf_4444';
 };
 
 export namespace FormatUtils {

@@ -12,6 +12,7 @@ import { ElementOf } from "ts-essentials";
 // instantiating a new Workspace class on each re-render.
 // Every component that uses WorkspaceContext would remain unchanged since they're completely
 // unaware of the WriteableBaseWorkspace even existing.
+// The unchanging Workspace class instance would probably live inside a Ref.
 
 export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceState> {
   constructor(
@@ -22,7 +23,7 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
   protected abstract initBlank(): TState;
 
   abstract getCurrentGaf(): CurrentGaf | null;
-  abstract getEntries(): VirtualGafEntry[] | null;
+  abstract getEntries(): readonly VirtualGafEntry[] | null;
   abstract setEntries(entries: VirtualGafEntry[]): void;
 
   createNew() {

@@ -1,17 +1,17 @@
 export type WorkspaceCursor = {
-  entryIndex: null;
-  frameIndex: null;
-  subframeIndex: null;
+  readonly entryIndex: null;
+  readonly frameIndex: null;
+  readonly subframeIndex: null;
 } | {
-  entryIndex: number;
-  frameIndex: null;
-  subframeIndex: null;
+  readonly entryIndex: number;
+  readonly frameIndex: null;
+  readonly subframeIndex: null;
 } | {
-  entryIndex: number;
-  frameIndex: number;
-  subframeIndex: null;
+  readonly entryIndex: number;
+  readonly frameIndex: number;
+  readonly subframeIndex: null;
 } | {
-  entryIndex: number;
-  frameIndex: number;
-  subframeIndex: number;
+  readonly entryIndex: number;
+  readonly frameIndex: number;
+  readonly subframeIndex: number;
 };

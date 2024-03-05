@@ -8,5 +8,5 @@ export type CompileImage = (
 ) => ActualImage;
 
 export interface ImageCompiler {
-  compileImage: CompileImage;
+  readonly compileImage: CompileImage;
 }
