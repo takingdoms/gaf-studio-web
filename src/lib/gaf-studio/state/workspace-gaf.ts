@@ -24,6 +24,18 @@ export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
     return this.state.currentGaf.virtualGaf.entries;
   }
 
+  override setEntries(entries: VirtualGafEntry[]): void {
+    this.setState({
+      ...this.state,
+      currentGaf: {
+        ...this.state.currentGaf,
+        virtualGaf: {
+          entries,
+        },
+      },
+    });
+  }
+
   setCurrentPalette(newPalette: CurrentPalette) {
     const prevPalette = this.state.currentPalette;
 

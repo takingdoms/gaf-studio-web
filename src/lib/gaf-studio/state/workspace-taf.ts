@@ -28,6 +28,37 @@ export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
     return currentGaf.virtualGaf.entries;
   }
 
+  override setEntries(entries: VirtualGafEntry[]): void {
+    const activeSubFormat = this.state.activeSubFormat;
+
+    if (activeSubFormat === null) {
+      throw new Error(`No active subFormat.`);
+    }
+
+    const currentGaf = this.state.currentGafs[activeSubFormat];
+
+    if (currentGaf === null) {
+      throw new Error(`No gaf.`);
+    }
+
+    const newCurrentGafs = {
+      ...this.state.currentGafs,
+    };
+
+    newCurrentGafs[activeSubFormat] = {
+      ...currentGaf,
+      virtualGaf: {
+        ...currentGaf.virtualGaf,
+        entries,
+      },
+    };
+
+    this.setState({
+      ...this.state,
+      currentGafs: newCurrentGafs,
+    });
+  }
+
   setActiveSubFormat(subFormat: TafSubFormat) {
     if (subFormat === this.state.activeSubFormat) {
       return; // nothing to do
