@@ -16,7 +16,15 @@ export default function NumberControl({
   max,
 }: NumberControlProps) {
   const onClickDecrease = React.useCallback(() => {
-    if (value === null || setValue === undefined) {
+    if (setValue === undefined) {
+      return;
+    }
+
+    if (value === null) {
+      if (max !== undefined) {
+        setValue(max);
+      }
+
       return;
     }
 
@@ -27,10 +35,18 @@ export default function NumberControl({
     }
 
     setValue(newValue);
-  }, [min, value, setValue]);
+  }, [min, max, value, setValue]);
 
   const onClickIncrease = React.useCallback(() => {
-    if (value === null || setValue === undefined) {
+    if (setValue === undefined) {
+      return;
+    }
+
+    if (value === null) {
+      if (min !== undefined) {
+        setValue(min);
+      }
+
       return;
     }
 
@@ -41,7 +57,7 @@ export default function NumberControl({
     }
 
     setValue(newValue);
-  }, [max, value, setValue]);
+  }, [min, max, value, setValue]);
 
   return (
     <div className="inline-flex items-center space-x-0.5">
