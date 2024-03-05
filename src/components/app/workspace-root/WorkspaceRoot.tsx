@@ -22,7 +22,7 @@ export default function WorkspaceRoot() {
       childA={middlePanel}
       childB={rightPanel}
       dominantChild="B"
-      subordinateChildMinSize={260}
+      subordinateChildMinSize={300}
       subordinateChildMaxSize="50%"
     />
   );

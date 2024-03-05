@@ -1,5 +1,6 @@
 import ActiveFrameInput from '@/components/app/controls/ActiveFrameInput';
 import FrameDataControls from '@/components/app/controls/FrameDataControls';
+import NumberControl from '@/components/ui/control/NumberControl';
 import { VirtualGafFrameDataMultiLayer } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
@@ -34,13 +35,17 @@ export default function MultiFrameControls({
           Selected subframe:
         </div>
         {hasSubFrames ? (
-          <div className="whitespace-nowrap">
-            <ActiveFrameInput
-              activeFrameIndex={activeSubframeIndex}
-              setActiveFrameIndex={setActiveSubframeIndex}
-              minFrameIndex={0}
-              maxFrameIndex={frameData.layers.length - 1}
-            /> / {frameData.layers.length}
+          <div className="flex items-center whitespace-nowrap">
+            <NumberControl
+              value={activeSubframeIndex !== null ? (activeSubframeIndex + 1) : null}
+              setValue={(value) => setActiveSubframeIndex(value - 1)}
+              min={1}
+              max={frameData.layers.length}
+            />
+            <span className="font-mono">
+              &nbsp;/&nbsp;
+              {frameData.layers.length}
+            </span>
           </div>
         ) : (
           <div className="whitespace-nowrap text-gray-400">

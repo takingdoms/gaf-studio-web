@@ -62,12 +62,6 @@ export default function EntryControls() {
             Selected frame:
           </div>
           <div className="flex items-center whitespace-nowrap">
-            {/* <ActiveFrameInput
-              activeFrameIndex={workspace.state.cursor.frameIndex}
-              setActiveFrameIndex={(index) => workspace.setActiveFrameIndex(index)}
-              minFrameIndex={0}
-              maxFrameIndex={activeEntry.frames.length - 1}
-            /> */}
             <NumberControl
               value={currentFrameIndex !== null ? (currentFrameIndex + 1) : null}
               setValue={(value) => workspace.setActiveFrameIndex(value - 1)}
