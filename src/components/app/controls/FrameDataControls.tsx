@@ -1,6 +1,4 @@
 import NumberControl from '@/components/ui/control/NumberControl';
-import NumberControlInput from '@/components/ui/control/NumberControlInput';
-import { NumberControlSideButton } from '@/components/ui/control/NumberControlSideButton';
 import { VirtualGafFrameData } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
@@ -8,6 +6,7 @@ type FrameDataControlsProps = DeepReadonly<{
   frameData: VirtualGafFrameData;
   isSubframe: boolean;
   isGaf: boolean;
+  modify: (mod: Pick<VirtualGafFrameData, 'xOffset' | 'yOffset'>) => void;
 }>;
 
 const thCls = 'w-1/2 text-left px-1 py-1 text-gray-700 whitespace-nowrap';
@@ -17,7 +16,16 @@ export default function FrameDataControls({
   frameData,
   isSubframe,
   isGaf,
+  modify,
 }: FrameDataControlsProps) {
+  const setXOffset = (newOffset: number) => {
+    modify({ xOffset: newOffset, yOffset: frameData.yOffset });
+  };
+
+  const setYOffset = (newOffset: number) => {
+    modify({ xOffset: frameData.xOffset, yOffset: newOffset });
+  };
+
   return (
     <div className="flex flex-col items-center space-y-2">
       <div className="text-base text-center font-bold text-gray-700">
@@ -45,7 +53,7 @@ export default function FrameDataControls({
             <td className={tdCls}>
               <NumberControl
                 value={frameData.xOffset}
-                setValue={() => {}}
+                setValue={setXOffset}
               />
             </td>
           </tr>
@@ -54,7 +62,7 @@ export default function FrameDataControls({
             <td className={tdCls}>
               <NumberControl
                 value={frameData.yOffset}
-                setValue={() => {}}
+                setValue={setYOffset}
               />
             </td>
           </tr>

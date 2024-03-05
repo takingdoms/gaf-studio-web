@@ -31,6 +31,7 @@ export default function SubframeControls() {
         frameData={activeSubframe}
         isSubframe={true}
         isGaf={workspace.state.format === 'gaf'}
+        modify={(mod) => workspace.modifyActiveSubframe(mod)}
       />
     </div>
   );

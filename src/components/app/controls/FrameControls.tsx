@@ -38,6 +38,7 @@ export default function FrameControls() {
           frameData={activeFrame.frameData}
           isSubframe={false}
           isGaf={workspace.state.format === 'gaf'}
+          modify={(mod) => workspace.modifyActiveFrameData(mod)}
         />
       ) : (
         <MultiFrameControls
@@ -45,6 +46,7 @@ export default function FrameControls() {
           activeSubframeIndex={workspace.state.cursor.subframeIndex}
           setActiveSubframeIndex={(index) => workspace.setActiveSubframeIndex(index)}
           isGaf={workspace.state.format === 'gaf'}
+          modify={(mod) => workspace.modifyActiveFrameData(mod)}
         />
       )}
     </div>

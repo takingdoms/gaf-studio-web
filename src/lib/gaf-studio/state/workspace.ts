@@ -2,7 +2,7 @@ import { CurrentGaf } from "@/lib/gaf-studio/state/current-gaf";
 import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace-gaf";
 import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
 import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
-import { VirtualGafEntry, VirtualGafFrame, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
+import { BaseVirtualGafFrameData, VirtualGafEntry, VirtualGafFrame, VirtualGafFrameData, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
 import { VirtualGafUtils } from "@/lib/gaf-studio/virtual-gaf/virutal-gaf-utils";
 import { ObjectUtils } from "@/lib/utils/object-utils";
 import { ElementOf } from "ts-essentials";
@@ -228,6 +228,39 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     this.replaceActiveFrame(mod);
   }
 
+  private replaceActiveFrameData(mod: Partial<BaseVirtualGafFrameData>) {
+    const activeFrameIndex = this.state.cursor.frameIndex;
+
+    if (activeFrameIndex === null) {
+      throw new Error(`No active frame.`);
+    }
+
+    const activeEntry = this.getActiveEntry()!;
+    const frames = activeEntry.frames;
+    const activeFrame = frames[activeFrameIndex];
+
+    const newActiveFrame: typeof activeFrame = {
+      ...activeFrame,
+      frameData: {
+        ...activeFrame.frameData,
+        ...mod,
+      },
+    };
+
+    const newFrames = [...frames];
+    newFrames[activeFrameIndex] = newActiveFrame;
+
+    this.replaceActiveEntry({
+      ...activeEntry,
+      frames: newFrames,
+    });
+  }
+
+  modifyActiveFrameData(mod: Partial<Pick<VirtualGafFrameData, AllowedBaseFrameDataModKeys>>) {
+    mod = ObjectUtils.select(mod, ALLOWED_BASE_FRAME_DATA_MOD_KEYS);
+    this.replaceActiveFrameData(mod);
+  }
+
   private replaceActiveSubframe(mod: Partial<VirtualGafFrameDataSingleLayer>) {
     const activeSubframeIndex = this.state.cursor.subframeIndex;
 
@@ -258,9 +291,9 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
   }
 
   modifyActiveSubframe(
-    mod: Partial<Pick<VirtualGafFrameDataSingleLayer, AllowedFrameDataSingleLayerModKeys>>,
+    mod: Partial<Pick<VirtualGafFrameDataSingleLayer, AllowedBaseFrameDataModKeys>>,
   ) {
-    mod = ObjectUtils.select(mod, ALLOWED_FRAME_DATA_SINGLE_LAYER_MOD_KEYS);
+    mod = ObjectUtils.select(mod, ALLOWED_BASE_FRAME_DATA_MOD_KEYS);
     return this.replaceActiveSubframe(mod);
   }
 
@@ -343,13 +376,13 @@ const ALLOWED_FRAME_MOD_KEYS = [
 
 type AllowedFrameModKeys = ElementOf<typeof ALLOWED_FRAME_MOD_KEYS>;
 
-const ALLOWED_FRAME_DATA_SINGLE_LAYER_MOD_KEYS = [
+const ALLOWED_BASE_FRAME_DATA_MOD_KEYS = [
   'xOffset',
   'yOffset',
   'unknown2',
   'unknown3',
   'transparencyIndex',
-] as const satisfies (keyof VirtualGafFrameDataSingleLayer)[];
+] as const satisfies (keyof BaseVirtualGafFrameData)[];
 
-type AllowedFrameDataSingleLayerModKeys =
-  ElementOf<typeof ALLOWED_FRAME_DATA_SINGLE_LAYER_MOD_KEYS>;
+type AllowedBaseFrameDataModKeys =
+  ElementOf<typeof ALLOWED_BASE_FRAME_DATA_MOD_KEYS>;

@@ -8,6 +8,7 @@ type MultiFrameControlsProps = DeepReadonly<{
   activeSubframeIndex: number | null;
   setActiveSubframeIndex: (index: number | null) => void;
   isGaf: boolean;
+  modify: (mod: Pick<VirtualGafFrameDataMultiLayer, 'xOffset' | 'yOffset'>) => void;
 }>;
 
 export default function MultiFrameControls({
@@ -15,6 +16,7 @@ export default function MultiFrameControls({
   activeSubframeIndex,
   setActiveSubframeIndex,
   isGaf,
+  modify,
 }: MultiFrameControlsProps) {
   const hasSubFrames = frameData.layers.length > 0;
 
@@ -24,6 +26,7 @@ export default function MultiFrameControls({
         frameData={frameData}
         isSubframe={false}
         isGaf={isGaf}
+        modify={modify}
       />
 
       <div className="mt-2 flex items-center space-x-2 border-dashed border-gray-300 rounded-sm">
