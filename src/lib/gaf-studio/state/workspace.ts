@@ -311,7 +311,7 @@ export abstract class BaseWorkspace<TState extends WorkspaceState = WorkspaceSta
     this.setEntries(newEntries);
   }
 
-  protected replaceLayerData(
+  replaceLayerData(
     layerData: VirtualGafLayerData,
     entryIndex: number,
     frameIndex: number,

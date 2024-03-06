@@ -18,10 +18,20 @@ export class ColoredVirtualGafBuilder extends SimpleVirtualGafBuilder<'taf'> {
     let convertedData: LibGaf.ColorData<'rgba8888'>;
 
     if (isFormat(srcColorData, 'argb1555')) {
-      convertedData = LibGaf.ColorUtils.convertARGB1555ToRGBA8888(srcColorData, width, height, {});
+      convertedData = LibGaf.ColorUtils.convertARGB1555ToRGBA8888(
+        srcColorData,
+        width,
+        height,
+        {}, // purposefuly empty so it uses the built-in round function
+      );
     }
     else if (isFormat(srcColorData, 'argb4444')) {
-      convertedData = LibGaf.ColorUtils.convertARGB4444ToRGBA8888(srcColorData, width, height, {});
+      convertedData = LibGaf.ColorUtils.convertARGB4444ToRGBA8888(
+        srcColorData,
+        width,
+        height,
+        {}, // purposefuly empty so it uses the built-in round function
+      );
     }
     else {
       throw new Error(`Unexpected color format: ${srcColorData.format}`);

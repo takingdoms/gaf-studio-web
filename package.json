@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@stevebel/png": "^1.5.1",
     "@tabler/icons-react": "^2.47.0",
     "lib-gaf": "file:../prototype",
     "react": "^18.2.0",

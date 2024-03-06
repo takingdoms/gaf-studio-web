@@ -35,6 +35,9 @@ export default function ImageRenderer({
     const ctx = canvas.getContext('2d')!;
     ctx.imageSmoothingEnabled = smoothing;
 
+    // TODO make this rendering COMPLETELY lossless
+    // maybe the true solution would be to convert to a png image using something like pngjs
+    // then render like a normal HTMLImageElement
     ctx.putImageData(image, 0, 0);
   }, [image, smoothing]);
 
