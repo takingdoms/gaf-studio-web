@@ -1,5 +1,5 @@
-import { CurrentPaletteFromCustomFile } from '@/lib/gaf-studio/state/current-palette';
 import { PaletteUtils } from '@/lib/image/palette/palette-utils';
+import { CurrentPaletteFromCustomFile } from '@/lib/state/gaf-studio/current-palette';
 import React from 'react';
 
 type PreludePaletteSelectorProps = {

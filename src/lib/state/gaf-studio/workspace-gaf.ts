@@ -1,13 +1,13 @@
-import { CurrentGaf } from '@/lib/gaf-studio/state/current-gaf';
-import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
-import { BaseWorkspace } from '@/lib/gaf-studio/state/workspace';
-import { WorkspaceStateGaf } from '@/lib/gaf-studio/state/workspace-state';
-import { WorkspaceStateUtils } from '@/lib/gaf-studio/state/workspace-state-utils';
-import { BaseVirtualGafFrameData, VirtualGaf, VirtualGafEntry, VirtualGafFrameDataMultiLayer, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { ImageCompiler } from '@/lib/image/compiler/image-compiler';
 import { SimpleImageCompiler } from '@/lib/image/compiler/simple-image-compiler';
 import { Palette } from '@/lib/image/palette/palette';
 import { PaletteUtils } from '@/lib/image/palette/palette-utils';
+import { CurrentGaf } from '@/lib/state/gaf-studio/current-gaf';
+import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
+import { BaseWorkspace } from '@/lib/state/gaf-studio/workspace';
+import { WorkspaceStateGaf } from '@/lib/state/gaf-studio/workspace-state';
+import { WorkspaceStateUtils } from '@/lib/state/utils/workspace-state-utils';
+import { VirtualGafEntry, VirtualGaf, VirtualGafFrameDataSingleLayer, VirtualGafFrameDataMultiLayer, VirtualGafLayerData, BaseVirtualGafFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
 export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
   private readonly imageCompiler = new SimpleImageCompiler();

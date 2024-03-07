@@ -1,6 +1,6 @@
 import FrameSelectorItem from "@/components/app/frame-selector/FrameSelectorItem";
 import SelectorWrapper from "@/components/app/frame-selector/SelectorWrapper";
-import { VirtualGafFrame } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
+import { VirtualGafFrame } from "@/lib/virtual-gaf/virtual-gaf";
 
 type FrameSelectorProps = {
   frames: readonly VirtualGafFrame[];

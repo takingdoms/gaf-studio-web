@@ -1,10 +1,10 @@
-import { CurrentGaf } from "@/lib/gaf-studio/state/current-gaf";
-import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace-gaf";
-import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
-import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
-import { BaseVirtualGafFrameData, VirtualGafEntry, VirtualGafFrame, VirtualGafFrameData, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
-import { VirtualGafUtils } from "@/lib/gaf-studio/virtual-gaf/virutal-gaf-utils";
+import { CurrentGaf } from "@/lib/state/gaf-studio/current-gaf";
+import { WorkspaceGaf } from "@/lib/state/gaf-studio/workspace-gaf";
+import { WorkspaceState } from "@/lib/state/gaf-studio/workspace-state";
+import { WorkspaceTaf } from "@/lib/state/gaf-studio/workspace-taf";
 import { ObjectUtils } from "@/lib/utils/object-utils";
+import { VirtualGafEntry, VirtualGafFrame, VirtualGafFrameDataSingleLayer, BaseVirtualGafFrameData, VirtualGafFrameData, VirtualGafLayerData } from "@/lib/virtual-gaf/virtual-gaf";
+import { VirtualGafUtils } from "@/lib/virtual-gaf/virutal-gaf-utils";
 import { ElementOf } from "ts-essentials";
 
 // TODO eventually create a WriteableBaseWorkspace that exposes a method to replace the

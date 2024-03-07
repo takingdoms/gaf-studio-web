@@ -3,7 +3,7 @@ import LibGaf from 'lib-gaf';
 import { FILE_MAP_VIEWER_COLORS } from '@/components/app/file-map-viewer/colors';
 import { FileMapAreaGroup } from '@/lib/file-map/file-map';
 import { ElementOf } from 'ts-essentials';
-import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
+import { CurrentGafFromFile } from '@/lib/state/gaf-studio/current-gaf';
 
 type FileMapViewerAreaProps = {
   area: ElementOf<FileMapAreaGroup['areas']>;

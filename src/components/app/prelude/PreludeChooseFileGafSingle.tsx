@@ -1,9 +1,9 @@
 import PreludeButton from '@/components/app/prelude/PreludeButton';
 import PreludePaletteSelector from '@/components/app/prelude/PreludePaletteSelector';
-import { CurrentPaletteFromCustomFile } from '@/lib/gaf-studio/state/current-palette';
-import { PaletteStore } from '@/lib/gaf-studio/state/palette-store';
-import { WorkspaceState } from '@/lib/gaf-studio/state/workspace-state';
-import { WorkspaceStateUtils } from "@/lib/gaf-studio/state/workspace-state-utils";
+import { CurrentPaletteFromCustomFile } from '@/lib/state/gaf-studio/current-palette';
+import { PaletteStore } from '@/lib/state/gaf-studio/palette-store';
+import { WorkspaceState } from '@/lib/state/gaf-studio/workspace-state';
+import { WorkspaceStateUtils } from '@/lib/state/utils/workspace-state-utils';
 import React from 'react';
 
 type PreludeChooseFileSingleProps = {

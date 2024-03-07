@@ -1,6 +1,6 @@
 import CurrentPaletteInfo from '@/components/app/workspace-palette/CurrentPaletteInfo';
 import CurrentPalettePreview from '@/components/app/workspace-palette/CurrentPalettePreview';
-import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
+import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
 
 type WorkspacePaletteProps = {
   currentPalette: CurrentPalette;

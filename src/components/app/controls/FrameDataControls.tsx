@@ -1,5 +1,5 @@
 import NumberControl from '@/components/ui/control/NumberControl';
-import { VirtualGafFrameData } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
+import { VirtualGafFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type FrameDataControlsProps = DeepReadonly<{

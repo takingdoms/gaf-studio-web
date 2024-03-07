@@ -1,5 +1,5 @@
-import { MainFormat } from "@/lib/gaf-studio/main-format";
-import { VirtualGaf } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
+import { MainFormat } from "@/lib/main-format";
+import { VirtualGaf } from "@/lib/virtual-gaf/virtual-gaf";
 import LibGaf from "lib-gaf";
 
 export type MakeVirtualGaf<T extends MainFormat = MainFormat> =

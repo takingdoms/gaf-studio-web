@@ -3,7 +3,7 @@ import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import WorkspaceFormatPanel from '@/components/app/workspace-format/WorkspaceFormatPanel';
 import WorkspacePalettePanel from '@/components/app/workspace-palette/WorkspacePalettePanel';
 import PairSeparator from '@/components/ui/misc/PairSeparator';
-import { WorkspaceGaf } from '@/lib/gaf-studio/state/workspace-gaf';
+import { WorkspaceGaf } from '@/lib/state/gaf-studio/workspace-gaf';
 import React from 'react';
 
 export default function WorkspaceAndEntriesPanel() {

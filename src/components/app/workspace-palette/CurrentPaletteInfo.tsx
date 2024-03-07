@@ -1,7 +1,7 @@
 import Anchor from '@/components/ui/anchor/Anchor';
 import TextButton from '@/components/ui/button/TextButton';
-import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
 import { PaletteUtils } from '@/lib/image/palette/palette-utils';
+import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
 import React from 'react';
 
 type CurrentPaletteInfoProps = {

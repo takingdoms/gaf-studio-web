@@ -1,4 +1,4 @@
-import { VirtualGafEntry } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
+import { VirtualGafEntry } from '@/lib/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type EntryListTableProps = DeepReadonly<{

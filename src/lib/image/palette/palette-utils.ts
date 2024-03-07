@@ -1,7 +1,7 @@
-import { CurrentPalette } from "@/lib/gaf-studio/state/current-palette";
 import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { SimpleImageCompiler } from "@/lib/image/compiler/simple-image-compiler";
 import { Palette } from "@/lib/image/palette/palette";
+import { CurrentPalette } from "@/lib/state/gaf-studio/current-palette";
 import LibGaf from "lib-gaf";
 
 // const EXPECTED_PCX_SIZE = 999; // TODO!

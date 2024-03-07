@@ -2,7 +2,7 @@ import React from 'react';
 import FileMapViewerArea from '@/components/app/file-map-viewer/FileMapViewerArea';
 import { FILE_MAP_VIEWER_COLORS } from '@/components/app/file-map-viewer/colors';
 import { FileMapAreaGroup } from '@/lib/file-map/file-map';
-import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
+import { CurrentGafFromFile } from '@/lib/state/gaf-studio/current-gaf';
 
 type FileMapViewerAreaGroupProps = {
   group: FileMapAreaGroup;

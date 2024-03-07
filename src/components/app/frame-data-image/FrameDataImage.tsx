@@ -1,5 +1,5 @@
 import AbsoluteImageRenderer from '@/components/app/image-renderer/AbsoluteImageRenderer';
-import { VirtualGafFrameDataSingleLayer } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
+import { VirtualGafFrameDataSingleLayer } from '@/lib/virtual-gaf/virtual-gaf';
 
 type FrameDataImageProps = {
   frameData: VirtualGafFrameDataSingleLayer;

@@ -2,11 +2,6 @@ import { ReadonlyRecord } from '@/lib/utils/utility-types';
 import LibGaf from 'lib-gaf';
 import { ElementOf } from 'ts-essentials';
 
-/*
-  Note: Every TAF is a GAF, but not every GAF is a TAF.
-  In other words, TAF is a subset of GAF.
-*/
-
 export const MAIN_FORMATS: LibGaf.GafFormat[] = [
   'gaf',
   'taf',

@@ -1,5 +1,5 @@
 import AbsoluteImageRenderer from '@/components/app/image-renderer/AbsoluteImageRenderer';
-import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
+import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
 
 type PalettePreviewImageProps = {
   currentPalette: CurrentPalette;

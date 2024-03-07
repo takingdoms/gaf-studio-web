@@ -2,13 +2,13 @@ import { AppDebugContext } from "@/components/AppDebugContext";
 import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
 import PreludeScreen from "@/components/app/prelude/PreludeScreen";
 import WorkspaceRoot from "@/components/app/workspace-root/WorkspaceRoot";
-import { WorkspaceGaf } from "@/lib/gaf-studio/state/workspace-gaf";
-import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
-import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
 import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
 import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
+import { WorkspaceState } from "@/lib/state/gaf-studio/workspace-state";
+import { WorkspaceGaf } from "@/lib/state/gaf-studio/workspace-gaf";
+import { WorkspaceTaf } from "@/lib/state/gaf-studio/workspace-taf";
 
 export default function App() {
   const [workspaceState, setWorkspaceState] = React.useState<WorkspaceState>();

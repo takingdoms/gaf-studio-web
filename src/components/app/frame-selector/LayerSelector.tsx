@@ -1,7 +1,7 @@
 import CompositeFrameSelectorItem from '@/components/app/frame-selector/CompositeFrameSelectorItem';
 import FrameSelectorItem from '@/components/app/frame-selector/FrameSelectorItem';
 import SelectorWrapper from '@/components/app/frame-selector/SelectorWrapper';
-import { VirtualGafFrameDataSingleLayer } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
+import { VirtualGafFrameDataSingleLayer } from '@/lib/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type LayerSelectorProps = DeepReadonly<{

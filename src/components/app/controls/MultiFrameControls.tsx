@@ -1,7 +1,6 @@
-import ActiveFrameInput from '@/components/app/controls/ActiveFrameInput';
 import FrameDataControls from '@/components/app/controls/FrameDataControls';
 import NumberControl from '@/components/ui/control/NumberControl';
-import { VirtualGafFrameDataMultiLayer } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
+import { VirtualGafFrameDataMultiLayer } from '@/lib/virtual-gaf/virtual-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type MultiFrameControlsProps = DeepReadonly<{

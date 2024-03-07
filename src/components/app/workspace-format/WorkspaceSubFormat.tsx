@@ -1,5 +1,5 @@
-import { TAF_SUB_FORMAT_TO_LABEL, TafSubFormat } from '@/lib/gaf-studio/main-format';
-import { WorkspaceTaf } from '@/lib/gaf-studio/state/workspace-taf';
+import { TafSubFormat, TAF_SUB_FORMAT_TO_LABEL } from '@/lib/main-format';
+import { WorkspaceTaf } from '@/lib/state/gaf-studio/workspace-taf';
 import React from 'react';
 
 type WorkspaceSubFormatProps = {

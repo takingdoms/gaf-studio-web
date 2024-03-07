@@ -1,5 +1,5 @@
-import { MainFormat } from '@/lib/gaf-studio/main-format';
 import { PalettedImageResource, ColoredImageResource } from '@/lib/image/image-resource';
+import { MainFormat } from '@/lib/main-format';
 import LibGaf from 'lib-gaf';
 
 export type VirtualGaf<T extends MainFormat = MainFormat> = {

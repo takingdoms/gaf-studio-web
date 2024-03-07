@@ -2,7 +2,7 @@ import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
 import WorkspacePalette from "@/components/app/workspace-palette/WorkspacePalette";
 import CollapsibleHeader from "@/components/ui/collapsible/CollapsibleHeader";
 import Panel from "@/components/ui/panel/Panel";
-import { WorkspaceTaf } from "@/lib/gaf-studio/state/workspace-taf";
+import { WorkspaceTaf } from "@/lib/state/gaf-studio/workspace-taf";
 import React from 'react';
 
 export default function WorkspacePalettePanel() {

@@ -3,8 +3,8 @@ import PreludeButton from "@/components/app/prelude/PreludeButton";
 import PreludeChooseFile from "@/components/app/prelude/PreludeChooseFile";
 import PreludeHeader from "@/components/app/prelude/PreludeHeader";
 import Body from "@/components/ui/layout/Body";
-import { WorkspaceState } from "@/lib/gaf-studio/state/workspace-state";
-import { WorkspaceStateUtils } from "@/lib/gaf-studio/state/workspace-state-utils";
+import { WorkspaceState } from "@/lib/state/gaf-studio/workspace-state";
+import { WorkspaceStateUtils } from "@/lib/state/utils/workspace-state-utils";
 import React from "react";
 
 type PreludeScreenProps = {

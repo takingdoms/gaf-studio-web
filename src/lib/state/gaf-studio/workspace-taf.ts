@@ -1,9 +1,9 @@
-import { TafSubFormat } from '@/lib/gaf-studio/main-format';
-import { CurrentGaf } from '@/lib/gaf-studio/state/current-gaf';
-import { BaseWorkspace } from '@/lib/gaf-studio/state/workspace';
-import { WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
-import { WorkspaceStateUtils } from '@/lib/gaf-studio/state/workspace-state-utils';
-import { VirtualGafEntry } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
+import { TafSubFormat } from "@/lib/main-format";
+import { CurrentGaf } from "@/lib/state/gaf-studio/current-gaf";
+import { BaseWorkspace } from "@/lib/state/gaf-studio/workspace";
+import { WorkspaceStateTaf } from "@/lib/state/gaf-studio/workspace-state";
+import { WorkspaceStateUtils } from "@/lib/state/utils/workspace-state-utils";
+import { VirtualGafEntry } from "@/lib/virtual-gaf/virtual-gaf";
 
 export class WorkspaceTaf extends BaseWorkspace<WorkspaceStateTaf> {
   protected override initBlank() {

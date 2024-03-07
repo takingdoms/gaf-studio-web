@@ -1,4 +1,3 @@
-import ActiveFrameInput from '@/components/app/controls/ActiveFrameInput';
 import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import NumberControl from '@/components/ui/control/NumberControl';
 import { FormatUtils } from '@/lib/utils/format-utils';

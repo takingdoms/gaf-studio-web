@@ -1,4 +1,4 @@
-import { CurrentPalette, CurrentPaletteFromRaw } from "@/lib/gaf-studio/state/current-palette";
+import { CurrentPaletteFromRaw } from "@/lib/state/gaf-studio/current-palette";
 
 export type PaletteStore = {
   readonly grayscale: CurrentPaletteFromRaw;

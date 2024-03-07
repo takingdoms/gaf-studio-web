@@ -1,6 +1,6 @@
-import { MainFormat } from "@/lib/gaf-studio/main-format";
-import { BaseVirtualGafFrameData, VirtualGaf, VirtualGafEntry, VirtualGafFrame, VirtualGafFrameDataMultiLayer, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
-import { VirtualGafMaker } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion";
+import { MainFormat } from "@/lib/main-format";
+import { BaseVirtualGafFrameData, VirtualGaf, VirtualGafEntry, VirtualGafFrame, VirtualGafFrameDataMultiLayer, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from "@/lib/virtual-gaf/virtual-gaf";
+import { VirtualGafMaker } from "@/lib/virtual-gaf/virtual-gaf-conversion";
 import LibGaf from "lib-gaf";
 
 export abstract class SimpleVirtualGafBuilder<T extends MainFormat> implements VirtualGafMaker<T> {

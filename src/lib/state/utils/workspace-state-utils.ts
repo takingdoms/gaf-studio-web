@@ -1,14 +1,14 @@
-import { MainFormat } from '@/lib/gaf-studio/main-format';
-import { CurrentGafFromFile } from '@/lib/gaf-studio/state/current-gaf';
-import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
-import { WorkspaceCursor } from '@/lib/gaf-studio/state/workspace-cursor';
-import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/gaf-studio/state/workspace-state';
-import { VirtualGaf } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
-import { ColoredVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/colored-virtual-gaf-builder';
-import { PalettedVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/paletted-virtual-gaf-builder';
 import { SimpleImageCompiler } from '@/lib/image/compiler/simple-image-compiler';
 import { Palette } from '@/lib/image/palette/palette';
+import { MainFormat } from '@/lib/main-format';
+import { CurrentGafFromFile } from '@/lib/state/gaf-studio/current-gaf';
+import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
+import { WorkspaceCursor } from '@/lib/state/gaf-studio/workspace-cursor';
+import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/state/gaf-studio/workspace-state';
 import { FormatUtils } from '@/lib/utils/format-utils';
+import { VirtualGaf } from '@/lib/virtual-gaf/virtual-gaf';
+import { ColoredVirtualGafBuilder } from '@/lib/virtual-gaf/virtual-gaf-conversion/colored-virtual-gaf-builder';
+import { PalettedVirtualGafBuilder } from '@/lib/virtual-gaf/virtual-gaf-conversion/paletted-virtual-gaf-builder';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
 

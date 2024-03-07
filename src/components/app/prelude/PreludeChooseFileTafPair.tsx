@@ -1,7 +1,7 @@
 import PreludeButton from '@/components/app/prelude/PreludeButton';
 import PreludeChooseFileInput from '@/components/app/prelude/PreludeChooseFileInput';
-import { WorkspaceState } from '@/lib/gaf-studio/state/workspace-state';
-import { WorkspaceStateUtils } from "@/lib/gaf-studio/state/workspace-state-utils";
+import { WorkspaceState } from '@/lib/state/gaf-studio/workspace-state';
+import { WorkspaceStateUtils } from '@/lib/state/utils/workspace-state-utils';
 import React from 'react';
 
 type PreludeChooseFileTafPairProps = {

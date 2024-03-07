@@ -1,4 +1,4 @@
-import { VirtualGafEntry, VirtualGafFrame, VirtualGafFrameDataMultiLayer, VirtualGafFrameDataSingleLayer } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
+import { VirtualGafEntry, VirtualGafFrame, VirtualGafFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
 
 export namespace VirtualGafUtils {
   export function replaceFrame(

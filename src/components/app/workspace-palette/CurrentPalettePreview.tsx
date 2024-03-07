@@ -1,5 +1,5 @@
 import PalettePreviewImage from '@/components/app/workspace-palette/PalettePreviewImage';
-import { CurrentPalette } from '@/lib/gaf-studio/state/current-palette';
+import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
 
 type CurrentPalettePreviewProps = {
   currentPalette: CurrentPalette;
