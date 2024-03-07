@@ -4,10 +4,10 @@ import { BaseWorkspace } from '@/lib/gaf-studio/state/workspace';
 import { WorkspaceStateGaf } from '@/lib/gaf-studio/state/workspace-state';
 import { WorkspaceStateUtils } from '@/lib/gaf-studio/state/workspace-state-utils';
 import { BaseVirtualGafFrameData, VirtualGaf, VirtualGafEntry, VirtualGafFrameDataMultiLayer, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
-import { ImageCompiler } from '@/lib/image/image-compiler';
+import { ImageCompiler } from '@/lib/image/compiler/image-compiler';
+import { SimpleImageCompiler } from '@/lib/image/compiler/simple-image-compiler';
 import { Palette } from '@/lib/image/palette/palette';
 import { PaletteUtils } from '@/lib/image/palette/palette-utils';
-import { SimpleImageCompiler } from '@/lib/image/simple-image-compiler';
 
 export class WorkspaceGaf extends BaseWorkspace<WorkspaceStateGaf> {
   private readonly imageCompiler = new SimpleImageCompiler();

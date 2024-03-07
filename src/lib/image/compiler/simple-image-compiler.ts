@@ -1,4 +1,4 @@
-import { ImageCompiler } from "@/lib/image/image-compiler";
+import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { ActualImage } from "@/lib/image/image-resource";
 import LibGaf from "lib-gaf";
 

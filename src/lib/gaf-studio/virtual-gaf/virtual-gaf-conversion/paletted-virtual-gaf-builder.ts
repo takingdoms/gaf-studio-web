@@ -1,6 +1,6 @@
 import { BaseVirtualGafFrameData, VirtualGafLayerData } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
 import { SimpleVirtualGafBuilder } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/simple-virtual-gaf-builder";
-import { ImageCompiler } from "@/lib/image/image-compiler";
+import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { Palette } from "@/lib/image/palette/palette";
 import { PaletteUtils } from "@/lib/image/palette/palette-utils";
 import LibGaf from "lib-gaf";

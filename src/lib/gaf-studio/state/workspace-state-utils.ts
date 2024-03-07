@@ -6,8 +6,8 @@ import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/gaf-
 import { VirtualGaf } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf';
 import { ColoredVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/colored-virtual-gaf-builder';
 import { PalettedVirtualGafBuilder } from '@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/paletted-virtual-gaf-builder';
+import { SimpleImageCompiler } from '@/lib/image/compiler/simple-image-compiler';
 import { Palette } from '@/lib/image/palette/palette';
-import { SimpleImageCompiler } from '@/lib/image/simple-image-compiler';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';

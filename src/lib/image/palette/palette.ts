@@ -1,3 +1,5 @@
+import { ReadonlyUint8Array } from "@/lib/utils/utility-types";
+
 export type Palette = {
-  readonly rgbData: Uint8Array; // length should ALWAYS be 256
+  readonly rgbData: ReadonlyUint8Array; // length should ALWAYS be 256
 }

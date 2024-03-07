@@ -1,6 +1,6 @@
 import { BaseVirtualGafFrameData, VirtualGafLayerData } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf";
 import { SimpleVirtualGafBuilder } from "@/lib/gaf-studio/virtual-gaf/virtual-gaf-conversion/simple-virtual-gaf-builder";
-import { ImageCompiler } from "@/lib/image/image-compiler";
+import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import LibGaf from "lib-gaf";
 
 export class ColoredVirtualGafBuilder extends SimpleVirtualGafBuilder<'taf'> {
@@ -22,7 +22,10 @@ export class ColoredVirtualGafBuilder extends SimpleVirtualGafBuilder<'taf'> {
         srcColorData,
         width,
         height,
-        {}, // purposefuly empty so it uses the built-in round function
+        {
+          depthConvert1to8: LibGaf.ColorUtils.DepthConverters.round1to8,
+          depthConvert5to8: LibGaf.ColorUtils.DepthConverters.round5to8,
+        },
       );
     }
     else if (isFormat(srcColorData, 'argb4444')) {

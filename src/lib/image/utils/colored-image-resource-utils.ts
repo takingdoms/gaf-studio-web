@@ -1,5 +1,5 @@
 import { ColoredImageResource } from "@/lib/image/image-resource";
-import { SimpleImageCompiler } from "@/lib/image/simple-image-compiler";
+import { SimpleImageCompiler } from "@/lib/image/compiler/simple-image-compiler";
 import LibGaf from "lib-gaf";
 
 /**
@@ -33,7 +33,9 @@ export namespace ColoredImageResourceUtils {
       convertedData16,
       width,
       height,
-      {}, // purposefuly empty so it uses the built-in round function
+      {
+        depthConvert4to8: LibGaf.ColorUtils.DepthConverters.round4to8,
+      },
     );
 
     return {
@@ -69,7 +71,10 @@ export namespace ColoredImageResourceUtils {
       convertedData16,
       width,
       height,
-      {}, // purposefuly empty so it uses the built-in round function
+      {
+        depthConvert1to8: LibGaf.ColorUtils.DepthConverters.round1to8,
+        depthConvert5to8: LibGaf.ColorUtils.DepthConverters.round5to8,
+      },
     );
 
     return {
