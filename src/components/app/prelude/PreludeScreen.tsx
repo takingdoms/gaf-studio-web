@@ -3,12 +3,12 @@ import PreludeButton from "@/components/app/prelude/PreludeButton";
 import PreludeChooseFile from "@/components/app/prelude/PreludeChooseFile";
 import PreludeHeader from "@/components/app/prelude/PreludeHeader";
 import Body from "@/components/ui/layout/Body";
-import { WorkspaceState } from "@/lib/state/gaf-studio/workspace-state";
+import { WorkspaceStoreInitialState } from "@/lib/state/store/workspace-store";
 import { WorkspaceStateUtils } from "@/lib/state/utils/workspace-state-utils";
 import React from "react";
 
 type PreludeScreenProps = {
-  onInit: (workspaceState: WorkspaceState) => void;
+  onInit: (initialState: WorkspaceStoreInitialState) => void;
 };
 
 export default function PreludeScreen({ onInit }: PreludeScreenProps) {
@@ -27,12 +27,12 @@ export default function PreludeScreen({ onInit }: PreludeScreenProps) {
 
           <div className="flex flex-col space-y-2 m-4">
             <PreludeHeader>Open existing file</PreludeHeader>
-            <PreludeChooseFile
+            {/*<PreludeChooseFile
               onInit={onInit}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
               paletteStore={paletteStore}
-            />
+            />*/}
           </div>
 
           <div className="border border-dashed border-gray-400 my-4 mx-8" />
@@ -44,13 +44,21 @@ export default function PreludeScreen({ onInit }: PreludeScreenProps) {
               style={{ minHeight: 200 }}
             >
               <PreludeButton onClick={() => {
-                onInit(WorkspaceStateUtils.initBlank('taf'));
+                // onInit(WorkspaceStateUtils.initBlank('taf'));
+                onInit({
+                  format: 'taf',
+                  colorData: [0, 1, 2],
+                });
               }}>
                 TAF
               </PreludeButton>
               <PreludeButton onClick={() => {
                 const defaultPalette = paletteStore.grayscale;
-                onInit(WorkspaceStateUtils.initBlank('gaf', defaultPalette));
+                // onInit(WorkspaceStateUtils.initBlank('gaf', defaultPalette));
+                onInit({
+                  format: 'gaf',
+                  palette: 'some cool pal',
+                });
               }}>
                 GAF
               </PreludeButton>

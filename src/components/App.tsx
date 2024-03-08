@@ -1,50 +1,55 @@
 import { AppDebugContext } from "@/components/AppDebugContext";
-import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
+import BetaWorkspaceRoot from "@/components/app/beta/BetaWorkspaceRoot";
+import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
 import PreludeScreen from "@/components/app/prelude/PreludeScreen";
-import WorkspaceRoot from "@/components/app/workspace-root/WorkspaceRoot";
+import { createGafWorkspaceStore } from "@/lib/state/store/gaf-workspace-store";
+import { createTafWorkspaceStore } from "@/lib/state/store/taf-workspace-store";
+import { WorkspaceStoreInitialState } from "@/lib/state/store/workspace-store";
+import { WorkspaceStoreWrapper, WorkspaceStoreWrapperContext } from "@/lib/state/store/workspace-store-wrapper-context";
+import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
-import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
-import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
-import { WorkspaceState } from "@/lib/state/gaf-studio/workspace-state";
-import { WorkspaceGaf } from "@/lib/state/gaf-studio/workspace-gaf";
-import { WorkspaceTaf } from "@/lib/state/gaf-studio/workspace-taf";
 
 export default function App() {
-  const [workspaceState, setWorkspaceState] = React.useState<WorkspaceState>();
+  const [storeWrapper, setStoreWrapper] = React.useState<WorkspaceStoreWrapper>();
 
   const paletteStore = React.useMemo(() => {
     return createTakPaletteStore();
   }, []);
 
-  const workspace = React.useMemo(() => {
-    if (workspaceState === undefined) {
-      return null;
+  const onInit = React.useCallback((initialState: WorkspaceStoreInitialState) => {
+    if (initialState.format === 'gaf') {
+      setStoreWrapper({
+        format: 'gaf',
+        store: createGafWorkspaceStore(initialState),
+      });
     }
+    else {
+      setStoreWrapper({
+        format: 'taf',
+        store: createTafWorkspaceStore(initialState),
+      });
+    }
+  }, []);
 
-    return workspaceState.format === 'gaf'
-      ? new WorkspaceGaf(workspaceState, setWorkspaceState)
-      : new WorkspaceTaf(workspaceState, setWorkspaceState);
-  }, [workspaceState]);
-
-  if (workspaceState === undefined) {
+  if (storeWrapper === undefined) {
     return (
       <PaletteStoreContext.Provider value={paletteStore}>
-        <PreludeScreen onInit={setWorkspaceState} />
+        <PreludeScreen onInit={onInit} />
       </PaletteStoreContext.Provider>
     );
   }
 
   return (
     <AppDebugContext.Provider value={{
-      resetWorkspace: () => setWorkspaceState(undefined),
+      resetWorkspace: () => setStoreWrapper(undefined),
     }}>
       <PaletteStoreContext.Provider value={paletteStore}>
-        <WorkspaceContext.Provider value={workspace}>
+        <WorkspaceStoreWrapperContext.Provider value={storeWrapper}>
           <AppLayout>
-            <WorkspaceRoot />
+            <BetaWorkspaceRoot />
           </AppLayout>
-        </WorkspaceContext.Provider>
+        </WorkspaceStoreWrapperContext.Provider>
       </PaletteStoreContext.Provider>
     </AppDebugContext.Provider>
   );
