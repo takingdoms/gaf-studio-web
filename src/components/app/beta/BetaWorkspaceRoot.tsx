@@ -1,6 +1,6 @@
+import BetaEntries from "@/components/app/beta/BetaEntries";
 import BetaTafChanger from "@/components/app/beta/BetaTafChanger";
 import BetaTafViewer from "@/components/app/beta/BetaTafViewer";
-import BetaTafViewerStandalone from "@/components/app/beta/BetaTafViewerStandalone";
 import { useWorkspaceStore } from "@/lib/state/store/use-workspace-store";
 
 export default function BetaWorkspaceRoot() {
@@ -12,7 +12,7 @@ export default function BetaWorkspaceRoot() {
   const useGafStore = useWorkspaceStore('gaf');
 
   return (
-    <div>
+    <div className="h-full p-4 overflow-auto">
       <div className="mb-4">
         <b>Format:</b> {format}
       </div>
@@ -32,8 +32,10 @@ export default function BetaWorkspaceRoot() {
         )}
       </div>
 
-      <div className="mb-4">
-        <BetaTafViewerStandalone />
+      <div className="border border-slate-300 p-4 mb-4">
+        <div className="mb-2 font-bold">Entries</div>
+
+        <BetaEntries />
       </div>
     </div>
   );
