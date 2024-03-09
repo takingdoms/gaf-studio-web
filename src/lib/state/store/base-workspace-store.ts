@@ -4,12 +4,12 @@ import { ArrayUtils } from "@/lib/utils/array-utils";
 import { StateCreator } from "zustand";
 
 export type TestFrame = {
-  xOffset: number;
-  yOffset: number;
+  readonly xOffset: number;
+  readonly yOffset: number;
 };
 
 export type TestEntry = {
-  name: string;
+  readonly name: string;
   readonly frames: readonly TestFrame[];
 };
 
