@@ -1,7 +1,5 @@
 import BetaFrame from '@/components/app/beta/BetaFrame';
-import { useWorkspaceStore } from '@/lib/state/store/use-workspace-store';
-import React from 'react';
-import { useShallow } from 'zustand/react/shallow';
+import { S } from '@/lib/state/store/store-helper';
 
 type BetaEntryProps = {
   entryIndex: number;
@@ -10,22 +8,18 @@ type BetaEntryProps = {
 export default function BetaEntry({ entryIndex }: BetaEntryProps) {
   console.log('Rendering BetaEntry ' + entryIndex);
 
-  const entryName = useWorkspaceStore()((state) => state.entries[entryIndex].name);
-
-  const frames = useWorkspaceStore()(
-    useShallow((state) => Object.keys(state.entries[entryIndex].frames))
-  );
+  const { name, framesLength } = S.useEntryProps(entryIndex);
 
   return (
     <div className="border border-dotted border-red-500 px-2 py-1 mb-1">
-      #{entryIndex} - {entryName} - {frames.length} frames
+      #{entryIndex} - {name} - {framesLength} frames
 
       <ul className="list-disc pl-4">
-        {frames.map((frameKey, index) => (
+        {Array.from({ length: framesLength }).map((_, frameIndex) => (
           <BetaFrame
-            key={index}
+            key={frameIndex}
             entryIndex={entryIndex}
-            frameIndex={+frameKey}
+            frameIndex={frameIndex}
           />
         ))}
       </ul>

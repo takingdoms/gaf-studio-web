@@ -1,18 +1,17 @@
 import BetaEntry from '@/components/app/beta/BetaEntry';
-import { useWorkspaceStore } from '@/lib/state/store/use-workspace-store';
-import { useShallow } from 'zustand/react/shallow';
+import { S } from '@/lib/state/store/store-helper';
 
 export default function BetaEntries() {
   console.log('Rendering BetaEntries');
 
-  const entries = useWorkspaceStore()(useShallow((state) => Object.keys(state.entries)));
+  const entriesLength = S.useEntriesLength();
 
   return (
     <ul className="list-disc pl-4">
-      {entries.map((entryKey, index) => (
+      {Array.from({ length: entriesLength }).map((_, entryIndex) => (
         <BetaEntry
-          key={index}
-          entryIndex={+entryKey}
+          key={entryIndex}
+          entryIndex={entryIndex}
         />
       ))}
     </ul>

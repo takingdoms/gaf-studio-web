@@ -1,6 +1,4 @@
-import { useWorkspaceStore } from '@/lib/state/store/use-workspace-store';
-import React from 'react';
-import { useShallow } from 'zustand/react/shallow';
+import { S } from '@/lib/state/store/store-helper';
 
 type BetaFrameProps = {
   entryIndex: number;
@@ -10,8 +8,8 @@ type BetaFrameProps = {
 export default function BetaFrame({ entryIndex, frameIndex }: BetaFrameProps) {
   console.log('Rendering BetaFrame ' + entryIndex + ' ' + frameIndex);
 
-  const frame = useWorkspaceStore()((state) => state.entries[entryIndex].frames[frameIndex]);
-  const setFrame = useWorkspaceStore()((state) => state.setFrame);
+  const frame = S.useFrame(entryIndex, frameIndex);
+  const setFrame = S.useSetFrame();
 
   return (
     <div className="border border-dotted border-blue-500 px-2 py-1 mb-1">
