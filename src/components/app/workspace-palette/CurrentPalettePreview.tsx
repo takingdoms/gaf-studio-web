@@ -6,6 +6,8 @@ type CurrentPalettePreviewProps = {
 };
 
 export default function CurrentPalettePreview({ currentPalette }: CurrentPalettePreviewProps) {
+  // console.log('Rendering CurrentPalettePreview');
+
   const scale: number = 2;
 
   return (

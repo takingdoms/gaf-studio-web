@@ -1,16 +1,26 @@
 import { SimpleImageCompiler } from '@/lib/image/compiler/simple-image-compiler';
 import { Palette } from '@/lib/image/palette/palette';
 import { MainFormat } from '@/lib/main-format';
-import { CurrentGafFromFile } from '@/lib/state/gaf-studio/current-gaf';
+import { CurrentGaf, CurrentGafFromFile } from '@/lib/state/gaf-studio/current-gaf';
+import { CurrentGafs } from '@/lib/state/gaf-studio/current-gafs';
 import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
 import { WorkspaceCursor } from '@/lib/state/gaf-studio/workspace-cursor';
-import { WorkspaceState, WorkspaceStateGaf, WorkspaceStateTaf } from '@/lib/state/gaf-studio/workspace-state';
+import { GafWorkspaceSliceConfig, TafWorkspaceSliceConfig, WorkspaceSliceConfig } from '@/lib/state/store/workspace-slice-configs';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import { VirtualGaf } from '@/lib/virtual-gaf/virtual-gaf';
 import { ColoredVirtualGafBuilder } from '@/lib/virtual-gaf/virtual-gaf-conversion/colored-virtual-gaf-builder';
 import { PalettedVirtualGafBuilder } from '@/lib/virtual-gaf/virtual-gaf-conversion/paletted-virtual-gaf-builder';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
+
+const BLANK_CURRENT_GAF: CurrentGaf = {
+  kind: 'blank',
+  compiledGaf: null,
+  virtualGaf: {
+    entries: [],
+  },
+};
+
 
 // TODO refactor this entire mess
 export namespace WorkspaceStateUtils {
@@ -93,7 +103,7 @@ export namespace WorkspaceStateUtils {
   export async function initFromAnyFile(
     file: File,
     defaultPalette: CurrentPalette,
-  ): Promise<WorkspaceState> {
+  ): Promise<WorkspaceSliceConfig> {
     const currentGaf = await loadCurrentGaf(file, defaultPalette.palette);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
@@ -106,29 +116,25 @@ export namespace WorkspaceStateUtils {
     if (detectedFormat.mainFormat === 'gaf') {
       return {
         format: 'gaf',
-        currentGaf,
-        currentPalette: defaultPalette,
-        cursor: emptyCursor(),
+        initialGaf: currentGaf,
+        initialPalette: defaultPalette,
       };
     }
 
     return {
       format: 'taf',
-      // currentTaf1555: detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
-      // currentTaf4444: detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
-      currentGafs: {
+      initialGafs: {
         'taf_1555': detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
         'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
-      },
-      activeSubFormat: detectedFormat.subFormat,
-      cursor: emptyCursor(),
+      } as CurrentGafs,
+      initialSubFormat: detectedFormat.subFormat,
     };
   }
 
   export async function initFromGafFile(
     file: File,
     currentPalette: CurrentPalette,
-  ): Promise<WorkspaceStateGaf> {
+  ): Promise<GafWorkspaceSliceConfig> {
     const currentGaf = await loadCurrentGaf(file, currentPalette.palette);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
@@ -140,13 +146,12 @@ export namespace WorkspaceStateUtils {
 
     return {
       format: 'gaf',
-      currentGaf,
-      currentPalette,
-      cursor: emptyCursor(),
+      initialGaf: currentGaf,
+      initialPalette: currentPalette,
     };
   }
 
-  export async function initFromTafFile(file: File): Promise<WorkspaceStateTaf> {
+  export async function initFromTafFile(file: File): Promise<TafWorkspaceSliceConfig> {
     const currentGaf = await loadCurrentGaf(file);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
@@ -163,16 +168,15 @@ export namespace WorkspaceStateUtils {
       format: 'taf',
       // currentTaf1555: detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
       // currentTaf4444: detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
-      currentGafs: {
+      initialGafs: {
         'taf_1555': detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
         'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
-      },
-      activeSubFormat: detectedFormat.subFormat,
-      cursor: emptyCursor(),
+      } as CurrentGafs,
+      initialSubFormat: detectedFormat.subFormat,
     };
   }
 
-  export async function initFromTafPair(file1555: File, file4444: File): Promise<WorkspaceStateTaf> {
+  export async function initFromTafPair(file1555: File, file4444: File): Promise<TafWorkspaceSliceConfig> {
     const currentGaf1555 = await loadCurrentGaf(file1555);
     const currentGaf4444 = await loadCurrentGaf(file4444);
 
@@ -200,21 +204,18 @@ export namespace WorkspaceStateUtils {
 
     return {
       format: 'taf',
-      // currentTaf1555: currentGaf1555,
-      // currentTaf4444: currentGaf4444,
-      currentGafs: {
+      initialGafs: {
         'taf_1555': currentGaf1555,
         'taf_4444': currentGaf4444,
       },
-      activeSubFormat: null,
-      cursor: emptyCursor(),
+      initialSubFormat: 'taf_1555',
     };
   }
 
-  export function initBlank(format: 'gaf', defaultPalette: CurrentPalette): WorkspaceStateGaf;
-  export function initBlank(format: 'taf', defaultPalette?: undefined): WorkspaceStateTaf;
+  export function initBlank(format: 'gaf', defaultPalette: CurrentPalette): GafWorkspaceSliceConfig;
+  export function initBlank(format: 'taf', defaultPalette?: undefined): TafWorkspaceSliceConfig;
   export function initBlank(format: MainFormat, defaultPalette?: CurrentPalette):
-    WorkspaceStateGaf | WorkspaceStateTaf
+    GafWorkspaceSliceConfig | TafWorkspaceSliceConfig
   {
     if (format === 'gaf') {
       if (defaultPalette === undefined) {
@@ -223,19 +224,18 @@ export namespace WorkspaceStateUtils {
 
       return {
         format,
-        currentGaf: {
+        initialGaf: {
           kind: 'blank',
           compiledGaf: null,
           virtualGaf: makeEmptyVirtualGaf(),
         },
-        currentPalette: defaultPalette,
-        cursor: emptyCursor(),
+        initialPalette: defaultPalette,
       };
     }
 
     return {
       format,
-      currentGafs: {
+      initialGafs: {
         'taf_1555': {
           kind: 'blank',
           compiledGaf: null,
@@ -247,8 +247,7 @@ export namespace WorkspaceStateUtils {
           virtualGaf: makeEmptyVirtualGaf(),
         },
       },
-      activeSubFormat: null,
-      cursor: emptyCursor(),
+      initialSubFormat: 'taf_1555',
     };
   }
 }

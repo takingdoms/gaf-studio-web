@@ -21,6 +21,8 @@ export default function FrameSelectorItem({
   isSelected,
   onClick,
 }: FrameSelectorItemProps) {
+  // console.log('Rendering FrameSelectorItem');
+
   const borderCls = isSelected ? 'border-blue-500' : 'border-gray-300';
   const textCls = isSelected ? 'text-blue-500' : 'text-gray-400';
   const cursorCls = isSelected ? 'cursor-default' : 'cursor-pointer';

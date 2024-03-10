@@ -1,14 +1,13 @@
 import { AppDebugContext } from "@/components/AppDebugContext";
-import BetaWorkspaceRoot from "@/components/app/beta/BetaWorkspaceRoot";
 import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
 import PreludeScreen from "@/components/app/prelude/PreludeScreen";
-import { createGafWorkspaceStore } from "@/lib/state/store/gaf-workspace-store";
-import { createTafWorkspaceStore } from "@/lib/state/store/taf-workspace-store";
-import { WorkspaceStoreInitialState } from "@/lib/state/store/workspace-store";
-import { WorkspaceStoreWrapper, WorkspaceStoreWrapperContext } from "@/lib/state/store/workspace-store-wrapper-context";
+import { WorkspaceStoreWrapper, WorkspaceStoreWrapperContext } from "@/lib/react/workspace-store-context";
+import { WorkspaceSliceConfig } from "@/lib/state/store/workspace-slice-configs";
 import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
+import { createBoundGafStore, createBoundTafStore } from "@/lib/state/store/workspace-slices";
+import WorkspaceRoot from "@/components/app/workspace-root/WorkspaceRoot";
 
 export default function App() {
   const [storeWrapper, setStoreWrapper] = React.useState<WorkspaceStoreWrapper>();
@@ -17,17 +16,17 @@ export default function App() {
     return createTakPaletteStore();
   }, []);
 
-  const onInit = React.useCallback((initialState: WorkspaceStoreInitialState) => {
-    if (initialState.format === 'gaf') {
+  const onInit = React.useCallback((config: WorkspaceSliceConfig) => {
+    if (config.format === 'gaf') {
       setStoreWrapper({
         format: 'gaf',
-        store: createGafWorkspaceStore(initialState),
+        store: createBoundGafStore(config),
       });
     }
     else {
       setStoreWrapper({
         format: 'taf',
-        store: createTafWorkspaceStore(initialState),
+        store: createBoundTafStore(config),
       });
     }
   }, []);
@@ -47,7 +46,7 @@ export default function App() {
       <PaletteStoreContext.Provider value={paletteStore}>
         <WorkspaceStoreWrapperContext.Provider value={storeWrapper}>
           <AppLayout>
-            <BetaWorkspaceRoot />
+            <WorkspaceRoot />
           </AppLayout>
         </WorkspaceStoreWrapperContext.Provider>
       </PaletteStoreContext.Provider>

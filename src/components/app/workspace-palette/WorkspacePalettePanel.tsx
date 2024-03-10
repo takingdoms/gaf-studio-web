@@ -1,16 +1,17 @@
-import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
 import WorkspacePalette from "@/components/app/workspace-palette/WorkspacePalette";
 import CollapsibleHeader from "@/components/ui/collapsible/CollapsibleHeader";
 import Panel from "@/components/ui/panel/Panel";
-import { WorkspaceTaf } from "@/lib/state/gaf-studio/workspace-taf";
+import { useWorkspaceStore } from "@/lib/react/use-workspace-store";
 import React from 'react';
 
 export default function WorkspacePalettePanel() {
+  // console.log('Rendering WorkspacePalettePanel');
+
   const [expanded, setExpanded] = React.useState(true);
 
-  const workspace = React.useContext(WorkspaceContext);
+  const useGafStore = useWorkspaceStore('gaf');
 
-  if (workspace === null || workspace instanceof WorkspaceTaf) {
+  if (useGafStore === null) {
     return;
   }
 
@@ -25,10 +26,7 @@ export default function WorkspacePalettePanel() {
 
       {expanded && (
         <div className="grow flex flex-col overflow-hidden bg-white">
-          <WorkspacePalette
-            currentPalette={workspace.state.currentPalette}
-            setCurrentPalette={(pal) => workspace.setCurrentPalette(pal)}
-          />
+          <WorkspacePalette useGafStore={useGafStore} />
         </div>
       )}
     </Panel>

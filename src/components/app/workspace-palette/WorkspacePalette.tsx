@@ -1,16 +1,17 @@
 import CurrentPaletteInfo from '@/components/app/workspace-palette/CurrentPaletteInfo';
 import CurrentPalettePreview from '@/components/app/workspace-palette/CurrentPalettePreview';
-import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
+import { GafWorkspaceStore } from '@/lib/react/workspace-store-context';
 
 type WorkspacePaletteProps = {
-  currentPalette: CurrentPalette;
-  setCurrentPalette: (pal: CurrentPalette) => void;
+  useGafStore: GafWorkspaceStore;
 };
 
-export default function WorkspacePalette({
-  currentPalette,
-  setCurrentPalette,
-}: WorkspacePaletteProps) {
+export default function WorkspacePalette({ useGafStore }: WorkspacePaletteProps) {
+  // console.log('Rendering WorkspacePalette');
+
+  const currentPalette = useGafStore((state) => state.currentPalette);
+  const setCurrentPalette = useGafStore((state) => state.setCurrentPalette);
+
   return (
     <div className="flex flex-col overflow-auto p-1">
       <div className={`flex flex-wrap`}>

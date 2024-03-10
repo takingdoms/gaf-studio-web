@@ -1,18 +1,15 @@
-import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import WorkspaceSubFormat from '@/components/app/workspace-format/WorkspaceSubFormat';
 import Panel from '@/components/ui/panel/Panel';
 import { TAF_SUB_FORMATS } from '@/lib/main-format';
-import { WorkspaceTaf } from '@/lib/state/gaf-studio/workspace-taf';
-import React from 'react';
+import { useWorkspaceStore } from '@/lib/react/use-workspace-store';
 
 export default function WorkspaceFormatPanel() {
-  const workspace = React.useContext(WorkspaceContext);
+  // console.log('Rendering WorkspaceFormatPanel');
 
-  if (workspace === null) {
-    return;
-  }
+  const useTafStore = useWorkspaceStore('taf');
+  const isGaf = useTafStore === null;
 
-  const bgCls = workspace.state.format === 'gaf'
+  const bgCls = isGaf
     ? 'border-orange-300 bg-orange-200 text-orange-700'
     : 'border-violet-300 bg-violet-200 text-violet-700';
 
@@ -22,9 +19,9 @@ export default function WorkspaceFormatPanel() {
         className={`p-1 text-center text-sm font-bold bg-gradient-to-b border-2 ${bgCls}`}
       >
         <span>Current format:{' '}</span>
-        <span>{workspace.state.format === 'gaf' ? 'GAF' : 'TAF'}</span>
+        <span>{isGaf ? 'GAF' : 'TAF'}</span>
       </div>
-      {workspace instanceof WorkspaceTaf && (<>
+      {useTafStore && (<>
         <div className="p-1 text-xs text-center text-slate-500 font-bold uppercase~">
           View sub-format:
         </div>
@@ -36,7 +33,7 @@ export default function WorkspaceFormatPanel() {
             >
               <WorkspaceSubFormat
                 subFormat={subFormat}
-                workspace={workspace}
+                useTafStore={useTafStore}
               />
             </div>
           ))}

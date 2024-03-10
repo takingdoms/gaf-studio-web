@@ -39,6 +39,8 @@ export default function ImageRenderer({
     // maybe the true solution would be to convert to a png image using something like pngjs
     // then render like a normal HTMLImageElement
     ctx.putImageData(image, 0, 0);
+
+    console.log('Drawing to canvas! @@@@@@@@@@@');
   }, [image, smoothing]);
 
   let scale: string | undefined = undefined;

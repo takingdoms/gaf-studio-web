@@ -1,31 +1,22 @@
-import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
-import React from "react";
+import { S } from "@/lib/state/store/store-helper";
 
 export default function AppSubBarStatus() {
-  const workspace = React.useContext(WorkspaceContext);
+  const currentGafFileName = S.useStore()((state) => {
+    const currentGaf = state.getCurrentGaf();
 
-  if (workspace === null) {
-    return;
-  }
-
-  const currentGaf = workspace.getCurrentGaf();
-
-  if (currentGaf === null) {
-    return;
-  }
-
-  const sourceFile = currentGaf.kind === 'from-file'
-    ? currentGaf.fileName
-    : undefined;
+    return currentGaf.kind === 'from-file'
+      ? currentGaf.fileName
+      : null;
+  });
 
   return (
     <div className="flex items-center px-1 py-0.5">
       <div className="text-xs">
         <span className="text-slate-500 font-medium">Loaded from file:{' '}</span>
-        {sourceFile === undefined ? (
+        {currentGafFileName === null ? (
           <span className="text-slate-400 italic">(None)</span>
         ) : (
-          <span className="text-slate-500">{sourceFile}</span>
+          <span className="text-slate-500">{currentGafFileName}</span>
         )}
       </div>
     </div>

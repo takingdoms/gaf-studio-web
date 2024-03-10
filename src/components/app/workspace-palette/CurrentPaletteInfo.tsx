@@ -16,6 +16,8 @@ export default function CurrentPaletteInfo({
   currentPalette,
   setCurrentPalette,
 }: CurrentPaletteInfoProps) {
+  // console.log('Rendering CurrentPaletteInfo');
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   const inputRef = React.useRef<HTMLInputElement>(null);

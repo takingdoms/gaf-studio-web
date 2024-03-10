@@ -1,13 +1,13 @@
 import NumberControl from '@/components/ui/control/NumberControl';
-import { VirtualGafFrameData } from '@/lib/virtual-gaf/virtual-gaf';
-import { DeepReadonly } from 'ts-essentials';
+import { AllowedFrameDataModification } from '@/lib/state/store/mods';
+import { BaseVirtualGafFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
-type FrameDataControlsProps = DeepReadonly<{
-  frameData: VirtualGafFrameData;
+type FrameDataControlsProps = {
+  frameData: BaseVirtualGafFrameData;
   isSubframe: boolean;
   isGaf: boolean;
-  modify: (mod: Pick<VirtualGafFrameData, 'xOffset' | 'yOffset'>) => void;
-}>;
+  modify: (mod: AllowedFrameDataModification) => void;
+};
 
 const thCls = 'w-1/2 text-left px-1 py-1 text-gray-700 whitespace-nowrap';
 const tdCls = 'w-1/2 text-left px-1 py-1 font-mono';
@@ -18,6 +18,9 @@ export default function FrameDataControls({
   isGaf,
   modify,
 }: FrameDataControlsProps) {
+  // TODO shouldn't re-render when the activeSubframeIndex changes
+  // console.log('Rendering FrameDataControls');
+
   const setXOffset = (newOffset: number) => {
     modify({ xOffset: newOffset, yOffset: frameData.yOffset });
   };

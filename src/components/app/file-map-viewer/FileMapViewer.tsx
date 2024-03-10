@@ -1,14 +1,13 @@
 import FileMapViewerAreaGroup from '@/components/app/file-map-viewer/FileMapViewerAreaGroup';
 import FileMapViewerInfo from '@/components/app/file-map-viewer/FileMapViewerInfo';
-import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import { normalizeFileMap } from '@/lib/file-map/file-map';
+import { S } from '@/lib/state/store/store-helper';
 import React from 'react';
 
 export default function FileMapViewer() {
   const [labelFilter, setLabelFilter] = React.useState<string[]>();
 
-  const workspace = React.useContext(WorkspaceContext);
-  const currentGaf = workspace?.getCurrentGaf() ?? undefined;
+  const currentGaf = S.useStore()((state) => state.getCurrentGaf());
 
   const normFileMap = React.useMemo(() => {
     if (currentGaf === undefined || currentGaf.kind !== 'from-file') {
@@ -18,7 +17,7 @@ export default function FileMapViewer() {
     return normalizeFileMap(currentGaf.originalGaf.map);
   }, [currentGaf]);
 
-  if (currentGaf === undefined || currentGaf.kind !== 'from-file' || normFileMap === null) {
+  if (currentGaf.kind !== 'from-file' || normFileMap === null) {
     return null;
   }
 

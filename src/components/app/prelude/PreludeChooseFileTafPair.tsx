@@ -1,11 +1,11 @@
 import PreludeButton from '@/components/app/prelude/PreludeButton';
 import PreludeChooseFileInput from '@/components/app/prelude/PreludeChooseFileInput';
-import { WorkspaceState } from '@/lib/state/gaf-studio/workspace-state';
+import { WorkspaceSliceConfig } from '@/lib/state/store/workspace-slice-configs';
 import { WorkspaceStateUtils } from '@/lib/state/utils/workspace-state-utils';
 import React from 'react';
 
 type PreludeChooseFileTafPairProps = {
-  onInit: (workspaceState: WorkspaceState) => void;
+  onInit: (config: WorkspaceSliceConfig) => void;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
 };

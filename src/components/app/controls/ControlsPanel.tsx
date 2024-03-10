@@ -1,23 +1,24 @@
 import EntryControls from '@/components/app/controls/EntryControls';
 import FrameControls from '@/components/app/controls/FrameControls';
 import SubframeControls from '@/components/app/controls/SubframeControls';
-import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import CollapsibleHeader from '@/components/ui/collapsible/CollapsibleHeader';
 import Panel from '@/components/ui/panel/Panel';
+import { useWorkspaceStore } from '@/lib/react/use-workspace-store';
 import React from 'react';
 
 export default function ControlsPanel() {
+  // console.log('Rendering ControlsPanel');
+
   const [entryExpanded, setEntryExpanded] = React.useState(true);
   const [frameExpanded, setFrameExpanded] = React.useState(true);
   const [subframeExpanded, setSubframeExpanded] = React.useState(true);
 
-  const workspace = React.useContext(WorkspaceContext);
+  const showFrameControls = useWorkspaceStore()((state) => state.cursor.entryIndex !== null);
 
-  if (workspace === null) {
-    return;
-  }
-
-  const showSubframeControls = workspace.getActiveFrame()?.frameData.kind === 'multi';
+  const showSubframeControls = useWorkspaceStore()((state) => (
+    state.cursor.entryIndex !== null &&
+    state.getActiveFrame()?.frameData.kind === 'multi'
+  ));
 
   return (
     <Panel>
@@ -40,7 +41,7 @@ export default function ControlsPanel() {
             >
               Frame Control
             </CollapsibleHeader>
-            {frameExpanded && <FrameControls />}
+            {showFrameControls && frameExpanded && <FrameControls />}
           </div>
 
           {showSubframeControls && (

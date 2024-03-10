@@ -1,31 +1,27 @@
-import FrameSelectorItem from "@/components/app/frame-selector/FrameSelectorItem";
-import SelectorWrapper from "@/components/app/frame-selector/SelectorWrapper";
-import { VirtualGafFrame } from "@/lib/virtual-gaf/virtual-gaf";
+import FrameSelectorItem from '@/components/app/frame-selector/FrameSelectorItem';
+import { S } from '@/lib/state/store/store-helper';
 
 type FrameSelectorProps = {
-  frames: readonly VirtualGafFrame[];
-  selectedIndex: number | null;
-  setSelectedIndex: (index: number | null) => void;
+  frameIndex: number;
+  setActiveFrameIndex: (frameIndex: number) => void;
 };
 
 export default function FrameSelector({
-  frames,
-  selectedIndex,
-  setSelectedIndex,
+  frameIndex,
+  setActiveFrameIndex,
 }: FrameSelectorProps) {
+  // console.log('Rendering FrameSelector');
+
+  // TODO make a helper function for this inside S
+  const frameData = S.useStore()((state) => state.getActiveEntry()!.frames[frameIndex].frameData);
+  const isSelected = S.useStore()((state) => state.cursor.frameIndex === frameIndex);
+
   return (
-    <SelectorWrapper label="Frame">
-      {frames.map((frame, index) => {
-        return (
-          <FrameSelectorItem
-            key={index}
-            index={index}
-            frameData={frame.frameData}
-            isSelected={index === selectedIndex}
-            onClick={() => setSelectedIndex(index)}
-          />
-        );
-      })}
-    </SelectorWrapper>
+    <FrameSelectorItem
+      index={frameIndex}
+      frameData={frameData}
+      isSelected={isSelected}
+      onClick={() => setActiveFrameIndex(frameIndex)}
+    />
   );
 }

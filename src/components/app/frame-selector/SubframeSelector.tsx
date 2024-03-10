@@ -1,37 +1,37 @@
-import LayerSelector from "@/components/app/frame-selector/LayerSelector";
-import { WorkspaceContext } from "@/components/app/logical/WorkspaceContext";
-import React from "react";
+import FrameSelectorItem from '@/components/app/frame-selector/FrameSelectorItem';
+import { S } from '@/lib/state/store/store-helper';
 
-export default function SubframeSelector() {
-  const workspace = React.useContext(WorkspaceContext);
+type SubframeSelectorRealProps = {
+  frameIndex: number;
+  subframeIndex: number;
+  setActiveSubframeIndex: (subframeIndex: number) => void;
+};
 
-  if (workspace === null) {
-    return null;
-  }
+// TODO rename the current FrameSelector to FrameSelectorList and this one to FrameSelector
+export default function SubframeSelector({
+  frameIndex,
+  subframeIndex,
+  setActiveSubframeIndex,
+}: SubframeSelectorRealProps) {
+  // console.log('Rendering SubframeSelector');
 
-  const activeFrame = workspace.getActiveFrame();
+  // TODO make a helper function for this inside S
+  const frameData = S.useStore()((state) => {
+    const frameData = state.getActiveEntry()!.frames[frameIndex].frameData;
+    if (frameData.kind === 'single') {
+      throw new Error(`Can't use this component for single-layered frameData.`);
+    }
+    return frameData.layers[subframeIndex];
+  });
 
-  if (activeFrame === null) {
-    return null;
-  }
-
-  const frameData = activeFrame.frameData;
-
-  if (frameData.kind === 'single') {
-    return (
-      <LayerSelector
-        layers={[]}
-        selectedIndex={workspace.state.cursor.subframeIndex}
-        setSelectedIndex={(index) => workspace.setActiveSubframeIndex(index)}
-      />
-    );
-  }
+  const isSelected = S.useStore()((state) => state.cursor.subframeIndex === subframeIndex);
 
   return (
-    <LayerSelector
-      layers={frameData.layers}
-      selectedIndex={workspace.state.cursor.subframeIndex}
-      setSelectedIndex={(index) => workspace.setActiveSubframeIndex(index)}
+    <FrameSelectorItem
+      index={frameIndex}
+      frameData={frameData}
+      isSelected={isSelected}
+      onClick={() => setActiveSubframeIndex(subframeIndex)}
     />
   );
 }

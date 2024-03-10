@@ -1,16 +1,14 @@
 import FrameCanvasWrapperMultiComposite from '@/components/app/frame-canvas/FrameCanvasWrapperMultiComposite';
 import FrameCanvasWrapperSingle from '@/components/app/frame-canvas/FrameCanvasWrapperSingle';
-import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
-import React from 'react';
+import { S } from '@/lib/state/store/store-helper';
 
 export default function FrameCanvasWrapper() {
-  const workspace = React.useContext(WorkspaceContext);
+  // console.log('Rendering FrameCanvasWrapper');
 
-  if (workspace === null) {
-    return null;
-  }
-
-  const activeFrame = workspace.getActiveFrame();
+  // TODO use shallow probably or something like useEntryProps
+  // ^ actually nah. whenever the activeFrame changes everything from here and down should re-render anyway
+  const activeFrame = S.useStore()((state) => state.getActiveFrame());
+  const activeSubframeIndex = S.useStore()((state) => state.cursor.subframeIndex);
 
   if (activeFrame === null) {
     return (
@@ -29,8 +27,6 @@ export default function FrameCanvasWrapper() {
       />
     );
   }
-
-  const activeSubframeIndex = workspace.state.cursor.subframeIndex;
 
   if (activeSubframeIndex === null) {
     return (

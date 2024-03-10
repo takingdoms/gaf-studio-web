@@ -1,42 +1,39 @@
 import { TafSubFormat, TAF_SUB_FORMAT_TO_LABEL } from '@/lib/main-format';
-import { WorkspaceTaf } from '@/lib/state/gaf-studio/workspace-taf';
+import { TafWorkspaceStore } from '@/lib/react/workspace-store-context';
 import React from 'react';
 
 type WorkspaceSubFormatProps = {
   subFormat: TafSubFormat;
-  workspace: WorkspaceTaf;
+  useTafStore: TafWorkspaceStore;
 };
 
 export default function WorkspaceSubFormat({
   subFormat,
-  workspace,
+  useTafStore,
 }: WorkspaceSubFormatProps) {
+  // console.log('Rendering WorkspaceSubFormat');
+
   let bgCls: string;
 
-  const gafForFormat = workspace.state.currentGafs[subFormat];
-  const isActive = subFormat === workspace.state.activeSubFormat;
+  // const gafForFormat = workspace.state.currentGafs[subFormat];
+  const currentGafs = useTafStore((state) => state.currentGafs); // TODO useShallow probably
+  const gafForFormat = currentGafs[subFormat];
+  const isActive = subFormat === useTafStore((state) => state.activeSubFormat);
+  const setActiveSubFormat = useTafStore((state) => state.setActiveSubFormat);
 
   const onClickActivate = React.useCallback(() => {
-    if (workspace === null) {
-      return;
-    }
-
-    const state = workspace.state;
-
-    if (state.currentGafs[subFormat] === null) {
+    if (currentGafs[subFormat] === null) {
       const subFormatLabel = TAF_SUB_FORMAT_TO_LABEL[subFormat];
       const yes = window.confirm(`The workspace does not contain the sub-format`
         + ` "${subFormatLabel}". Do you want to create a blank one now?`);
 
-      if (yes) {
-        workspace.createSubFormat(subFormat, true);
+      if (!yes) {
+        return;
       }
-
-      return;
     }
 
-    workspace.setActiveSubFormat(subFormat);
-  }, [workspace, subFormat]);
+    setActiveSubFormat(subFormat);
+  }, [currentGafs, subFormat, setActiveSubFormat]);
 
   if (gafForFormat === null) {
     bgCls = 'border-gray-300 from-gray-50 to-gray-200 text-gray-400 hover:text-gray-500'

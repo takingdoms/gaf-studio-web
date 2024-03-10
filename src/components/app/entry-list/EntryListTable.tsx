@@ -1,26 +1,21 @@
-import { VirtualGafEntry } from '@/lib/virtual-gaf/virtual-gaf';
-import { DeepReadonly } from 'ts-essentials';
-
-type EntryListTableProps = DeepReadonly<{
-  entries: VirtualGafEntry[];
-  activeEntryIndex: number | null;
-  setActiveEntryIndex: (index: number | null) => void;
-}>;
+import { S } from "@/lib/state/store/store-helper";
 
 const thCls = 'px-2 py-1 text-left border~ border-gray-300';
 const tdCls = 'px-2 py-1';
 
-export default function EntryListTable({
-  entries,
-  activeEntryIndex,
-  setActiveEntryIndex,
-}: EntryListTableProps) {
+export default function EntryListTable() {
+  // console.log('Rendering EntryListTable');
+
+  // this component is probably cheap enough to re-render every time entries is changed
+  const entries = S.useStore()((state) => state.getEntries());
+  const activeEntryIndex = S.useStore()((state) => state.cursor.entryIndex);
+  const setActiveEntryIndex = S.useStore()((state) => state.setActiveEntryIndex);
+
   return (
     <table className="text-xs text-black">
       <thead className="sticky top-0 bg-white">
         <tr>
           <th className={`${thCls} w-full`}>Name</th>
-          {/* <th className={`${thCls}`}>Animate</th> */}
           <th className={`${thCls}`}>Frames</th>
           <th className={`${thCls}`}>Subframes</th>
         </tr>
@@ -62,7 +57,6 @@ export default function EntryListTable({
               >
                 {entry.name}
               </td>
-              {/* <td className={`${tdCls}`}>{entry.frames.length > 1 ? 'Yes' : 'No'}</td> */}
               <td className={`${tdCls}`}>{entry.frames.length}</td>
               <td className={`${tdCls}`}>{subFrames}</td>
             </tr>

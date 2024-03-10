@@ -1,13 +1,11 @@
 import EntryListPanel from '@/components/app/entry-list/EntryListPanel';
-import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import WorkspaceFormatPanel from '@/components/app/workspace-format/WorkspaceFormatPanel';
 import WorkspacePalettePanel from '@/components/app/workspace-palette/WorkspacePalettePanel';
 import PairSeparator from '@/components/ui/misc/PairSeparator';
-import { WorkspaceGaf } from '@/lib/state/gaf-studio/workspace-gaf';
-import React from 'react';
+import { S } from '@/lib/state/store/store-helper';
 
 export default function WorkspaceAndEntriesPanel() {
-  const isGaf = React.useContext(WorkspaceContext) instanceof WorkspaceGaf;
+  const isGaf = S.useFormat() === 'gaf';
 
   return (
     <div className="grow flex flex-col overflow-hidden">

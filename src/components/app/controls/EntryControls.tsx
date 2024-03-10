@@ -1,18 +1,15 @@
-import { WorkspaceContext } from '@/components/app/logical/WorkspaceContext';
 import NumberControl from '@/components/ui/control/NumberControl';
+import { S } from '@/lib/state/store/store-helper';
 import { FormatUtils } from '@/lib/utils/format-utils';
-import React from 'react';
 
 export default function EntryControls() {
-  const workspace = React.useContext(WorkspaceContext);
+  // console.log('Rendering EntryControls');
 
-  if (workspace === null) {
-    return;
-  }
+  const activeEntryProps = S.useActiveEntryProps();
+  const activeFrameIndex = S.useStore()((state) => state.cursor.frameIndex);
+  const setActiveFrameIndex = S.useStore()((state) => state.setActiveFrameIndex);
 
-  const activeEntry = workspace.getActiveEntry();
-
-  if (activeEntry === null) {
+  if (activeEntryProps === null) {
     return (
       <div className="text-center text-gray-400 bg-white p-2">
         (No sequence selected)
@@ -20,9 +17,7 @@ export default function EntryControls() {
     );
   }
 
-  const hasFrames = activeEntry.frames.length > 0;
-
-  const currentFrameIndex = workspace.state.cursor.frameIndex;
+  const hasFrames = activeEntryProps.framesLength > 0;
 
   return (
     <div
@@ -31,7 +26,7 @@ export default function EntryControls() {
       <div className="flex flex-col text-center">
         <div className="font-bold text-gray-700">Sequence selected:</div>
         <div className="whitespace-nowrap overflow-auto font-mono">
-          {activeEntry.name}
+          {activeEntryProps.name}
         </div>
       </div>
 
@@ -42,13 +37,13 @@ export default function EntryControls() {
         <div className="flex items-baseline">
           <div>Unknown1:</div>
           <div className="grow font-mono">
-            &nbsp;{activeEntry.unknown1} ({FormatUtils.hex(activeEntry.unknown1)})
+            &nbsp;{activeEntryProps.unknown1} ({FormatUtils.hex(activeEntryProps.unknown1)})
           </div>
         </div>
         <div className="flex items-baseline">
           <div>Unknown2:</div>
           <div className="grow font-mono">
-            &nbsp;{activeEntry.unknown2} ({FormatUtils.hex(activeEntry.unknown2)})
+            &nbsp;{activeEntryProps.unknown2} ({FormatUtils.hex(activeEntryProps.unknown2)})
           </div>
         </div>
       </div>
@@ -62,14 +57,14 @@ export default function EntryControls() {
           </div>
           <div className="flex items-center whitespace-nowrap">
             <NumberControl
-              value={currentFrameIndex !== null ? (currentFrameIndex + 1) : null}
-              setValue={(value) => workspace.setActiveFrameIndex(value - 1)}
+              value={activeFrameIndex !== null ? (activeFrameIndex + 1) : null}
+              setValue={(value) => setActiveFrameIndex(value - 1)}
               min={1}
-              max={activeEntry.frames.length}
+              max={activeEntryProps.framesLength}
             />
             <span className="font-mono">
               &nbsp;/&nbsp;
-              {activeEntry.frames.length}
+              {activeEntryProps.framesLength}
             </span>
           </div>
         </div>

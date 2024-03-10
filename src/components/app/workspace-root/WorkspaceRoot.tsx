@@ -4,6 +4,8 @@ import WorkspaceAndEntriesPanel from "@/components/app/workspace-root/WorkspaceA
 import ResizablePair from "@/components/ui/misc/ResizablePair";
 
 export default function WorkspaceRoot() {
+  // console.log('Rendering WorkspaceRoot');
+
   const leftPanel = (
     <WorkspaceAndEntriesPanel />
   );
