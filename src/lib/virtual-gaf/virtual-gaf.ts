@@ -3,54 +3,54 @@ import { MainFormat } from '@/lib/main-format';
 import LibGaf from 'lib-gaf';
 
 export type VirtualGaf<T extends MainFormat = MainFormat> = {
-  readonly entries: readonly VirtualGafEntry<T>[];
+  readonly entries: readonly VirtualEntry<T>[];
 };
 
-export type VirtualGafEntry<T extends MainFormat = MainFormat> = {
+export type VirtualEntry<T extends MainFormat = MainFormat> = {
   readonly key: symbol;
   readonly name: string;
   readonly unknown1: number;
   readonly unknown2: number;
-  readonly frames: readonly VirtualGafFrame<T>[];
+  readonly frames: readonly VirtualFrame<T>[];
 };
 
-export type VirtualGafFrame<T extends MainFormat = MainFormat> = {
+export type VirtualFrame<T extends MainFormat = MainFormat> = {
   readonly key: symbol;
   readonly duration: number;
-  readonly frameData: VirtualGafFrameData<T>;
+  readonly frameData: VirtualFrameData<T>;
 };
 
-export type VirtualGafFrameData<T extends MainFormat = MainFormat> =
-  | VirtualGafFrameDataSingleLayer<T>
-  | VirtualGafFrameDataMultiLayer<T>;
+export type VirtualFrameData<T extends MainFormat = MainFormat> =
+  | VirtualFrameDataSingleLayer<T>
+  | VirtualFrameDataMultiLayer<T>;
 
 export type BaseVirtualGafFrameData = Readonly<LibGaf.BaseGafFrameData>;
 
-export type VirtualGafFrameDataSingleLayer<T extends MainFormat = MainFormat> =
+export type VirtualFrameDataSingleLayer<T extends MainFormat = MainFormat> =
   BaseVirtualGafFrameData & {
     readonly key: symbol;
     readonly kind: 'single';
-    readonly layerData: VirtualGafLayerData<T>;
+    readonly layerData: VirtualLayerData<T>;
   };
 
-export type VirtualGafFrameDataMultiLayer<T extends MainFormat = MainFormat> =
+export type VirtualFrameDataMultiLayer<T extends MainFormat = MainFormat> =
   BaseVirtualGafFrameData & {
     readonly kind: 'multi';
-    readonly layers: readonly VirtualGafFrameDataSingleLayer<T>[];
+    readonly layers: readonly VirtualFrameDataSingleLayer<T>[];
   };
 
-export type VirtualGafLayerData<T extends MainFormat = MainFormat> =
-  T extends 'gaf' ? VirtualGafLayerDataPaletteIndices :
-  T extends 'taf' ? VirtualGafLayerDataRawColors :
+export type VirtualLayerData<T extends MainFormat = MainFormat> =
+  T extends 'gaf' ? VirtualLayerDataPaletteIndices :
+  T extends 'taf' ? VirtualLayerDataRawColors :
   never;
 
-export type VirtualGafLayerDataPaletteIndices = {
+export type VirtualLayerDataPaletteIndices = {
   readonly kind: 'palette-idx';
   readonly compress: boolean;
   readonly imageResource: PalettedImageResource;
 };
 
-export type VirtualGafLayerDataRawColors = {
+export type VirtualLayerDataRawColors = {
   readonly kind: 'raw-colors';
   readonly imageResource: ColoredImageResource;
 };

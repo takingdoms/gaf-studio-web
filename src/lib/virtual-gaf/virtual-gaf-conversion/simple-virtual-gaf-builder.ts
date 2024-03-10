@@ -1,5 +1,5 @@
 import { MainFormat } from "@/lib/main-format";
-import { BaseVirtualGafFrameData, VirtualGaf, VirtualGafEntry, VirtualGafFrame, VirtualGafFrameDataMultiLayer, VirtualGafFrameDataSingleLayer, VirtualGafLayerData } from "@/lib/virtual-gaf/virtual-gaf";
+import { BaseVirtualGafFrameData, VirtualGaf, VirtualEntry, VirtualFrame, VirtualFrameDataMultiLayer, VirtualFrameDataSingleLayer, VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
 import { VirtualGafMaker } from "@/lib/virtual-gaf/virtual-gaf-conversion";
 import LibGaf from "lib-gaf";
 
@@ -16,7 +16,7 @@ export abstract class SimpleVirtualGafBuilder<T extends MainFormat> implements V
     };
   }
 
-  private makeEntries(srcEntries: LibGaf.GafEntry<T>[]): VirtualGafEntry<T>[] {
+  private makeEntries(srcEntries: LibGaf.GafEntry<T>[]): VirtualEntry<T>[] {
     return srcEntries.map((srcEntry) => {
       return {
         key: Symbol(),
@@ -28,7 +28,7 @@ export abstract class SimpleVirtualGafBuilder<T extends MainFormat> implements V
     });
   }
 
-  private makeFrames(srcFrames: LibGaf.GafFrame<T>[]): VirtualGafFrame<T>[] {
+  private makeFrames(srcFrames: LibGaf.GafFrame<T>[]): VirtualFrame<T>[] {
     return srcFrames.map((srcFrame) => {
       const frameData = srcFrame.frameData;
 
@@ -43,7 +43,7 @@ export abstract class SimpleVirtualGafBuilder<T extends MainFormat> implements V
   }
 
   private makeFrameDataSingle(srcFrameData: LibGaf.GafFrameDataSingleLayer<T>):
-    VirtualGafFrameDataSingleLayer<T>
+    VirtualFrameDataSingleLayer<T>
   {
     const baseData = this.makeBaseFrameData(srcFrameData);
 
@@ -56,7 +56,7 @@ export abstract class SimpleVirtualGafBuilder<T extends MainFormat> implements V
   }
 
   private makeFrameDataMulti(srcFrameData: LibGaf.GafFrameDataMultiLayer<T>):
-    VirtualGafFrameDataMultiLayer<T>
+    VirtualFrameDataMultiLayer<T>
   {
     return {
       ...this.makeBaseFrameData(srcFrameData),
@@ -80,5 +80,5 @@ export abstract class SimpleVirtualGafBuilder<T extends MainFormat> implements V
   protected abstract makeLayerData(
     srcLayerData: LibGaf.GafLayerData<T>,
     baseGafFrameData: BaseVirtualGafFrameData,
-  ): VirtualGafLayerData<T>;
+  ): VirtualLayerData<T>;
 }

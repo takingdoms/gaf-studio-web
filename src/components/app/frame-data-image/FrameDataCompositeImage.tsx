@@ -1,9 +1,9 @@
 import AbsoluteImageRendererContainer from '@/components/app/image-renderer/AbsoluteImageRendererContainer';
 import ImageRenderer from '@/components/app/image-renderer/ImageRenderer';
-import { VirtualGafFrameDataMultiLayer } from '@/lib/virtual-gaf/virtual-gaf';
+import { VirtualFrameDataMultiLayer } from '@/lib/virtual-gaf/virtual-gaf';
 
 type FrameDataCompositeImageProps = {
-  frameData: VirtualGafFrameDataMultiLayer;
+  frameData: VirtualFrameDataMultiLayer;
   contain: boolean;
   smoothing: boolean;
 };

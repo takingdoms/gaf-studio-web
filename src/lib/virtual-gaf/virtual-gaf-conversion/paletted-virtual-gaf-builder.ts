@@ -1,7 +1,7 @@
 import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { Palette } from "@/lib/image/palette/palette";
 import { PaletteUtils } from "@/lib/image/palette/palette-utils";
-import { BaseVirtualGafFrameData, VirtualGafLayerData } from "@/lib/virtual-gaf/virtual-gaf";
+import { BaseVirtualGafFrameData, VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
 import { SimpleVirtualGafBuilder } from "@/lib/virtual-gaf/virtual-gaf-conversion/simple-virtual-gaf-builder";
 import LibGaf from "lib-gaf";
 
@@ -16,7 +16,7 @@ export class PalettedVirtualGafBuilder extends SimpleVirtualGafBuilder<'gaf'> {
   protected override makeLayerData(
     srcLayerData: LibGaf.GafLayerData<'gaf'>,
     { width, height, transparencyIndex }: BaseVirtualGafFrameData,
-  ): VirtualGafLayerData<'gaf'> {
+  ): VirtualLayerData<'gaf'> {
     const colorData = PaletteUtils.createColorData(
       width,
       height,

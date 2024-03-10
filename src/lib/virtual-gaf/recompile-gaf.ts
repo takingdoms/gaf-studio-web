@@ -1,7 +1,7 @@
 import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { Palette } from "@/lib/image/palette/palette";
 import { PaletteUtils } from "@/lib/image/palette/palette-utils";
-import { VirtualGafEntry, VirtualGafFrameDataSingleLayer, VirtualGafFrameDataMultiLayer, VirtualGafLayerData, BaseVirtualGafFrameData } from "@/lib/virtual-gaf/virtual-gaf";
+import { VirtualEntry, VirtualFrameDataSingleLayer, VirtualFrameDataMultiLayer, VirtualLayerData, BaseVirtualGafFrameData } from "@/lib/virtual-gaf/virtual-gaf";
 
 export namespace RecompileGaf {
   export type Config = {
@@ -11,8 +11,8 @@ export namespace RecompileGaf {
 
   export function recompileVirtualGafEntries(
     config: Config,
-    entries: readonly VirtualGafEntry<'gaf'>[],
-  ): VirtualGafEntry<'gaf'>[] {
+    entries: readonly VirtualEntry<'gaf'>[],
+  ): VirtualEntry<'gaf'>[] {
     return entries.map((entry) => {
       return {
         ...entry,
@@ -30,7 +30,7 @@ export namespace RecompileGaf {
 
   function recompileVirtualGafFrameSingle(
     config: Config,
-    frame: VirtualGafFrameDataSingleLayer<'gaf'>,
+    frame: VirtualFrameDataSingleLayer<'gaf'>,
   ): typeof frame {
     return {
       ...frame,
@@ -40,7 +40,7 @@ export namespace RecompileGaf {
 
   function recompileVirtualGafFrameMulti(
     config: Config,
-    frame: VirtualGafFrameDataMultiLayer<'gaf'>,
+    frame: VirtualFrameDataMultiLayer<'gaf'>,
   ):
     typeof frame
   {
@@ -52,7 +52,7 @@ export namespace RecompileGaf {
 
   function recompileVirtualLayerData(
     config: Config,
-    layerData: VirtualGafLayerData<'gaf'>,
+    layerData: VirtualLayerData<'gaf'>,
     { width, height, transparencyIndex }: BaseVirtualGafFrameData,
   ): typeof layerData {
     const colorData = PaletteUtils.createColorData(

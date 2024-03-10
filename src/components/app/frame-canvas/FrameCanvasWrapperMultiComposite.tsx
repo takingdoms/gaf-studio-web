@@ -1,8 +1,8 @@
 import FrameDataCompositeImage from '@/components/app/frame-data-image/FrameDataCompositeImage';
-import { VirtualGafFrameDataMultiLayer } from '@/lib/virtual-gaf/virtual-gaf';
+import { VirtualFrameDataMultiLayer } from '@/lib/virtual-gaf/virtual-gaf';
 
 type FrameCanvasWrapperMultiCompositeProps = {
-  frameData: VirtualGafFrameDataMultiLayer;
+  frameData: VirtualFrameDataMultiLayer;
 };
 
 export default function FrameCanvasWrapperMultiComposite({

@@ -1,11 +1,11 @@
-import { VirtualGafEntry, VirtualGafFrame, VirtualGafFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
+import { VirtualEntry, VirtualFrame, VirtualFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
 
 export namespace VirtualGafUtils {
   export function replaceFrame(
-    entry: VirtualGafEntry,
+    entry: VirtualEntry,
     frameIndex: number,
-    frame: VirtualGafFrame,
-  ): VirtualGafEntry {
+    frame: VirtualFrame,
+  ): VirtualEntry {
     const newFrames = [...entry.frames];
     newFrames[frameIndex] = frame;
 
@@ -16,10 +16,10 @@ export namespace VirtualGafUtils {
   }
 
   export function replaceSubframe(
-    frame: VirtualGafFrame,
+    frame: VirtualFrame,
     subframeIndex: number,
-    subframe: VirtualGafFrameDataSingleLayer,
-  ): VirtualGafFrame {
+    subframe: VirtualFrameDataSingleLayer,
+  ): VirtualFrame {
     if (frame.frameData.kind !== 'multi') {
       throw new Error(`Frame doesn't have subframes.`);
     }

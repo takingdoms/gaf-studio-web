@@ -1,6 +1,6 @@
 import { useWorkspaceStore } from "@/lib/react/use-workspace-store";
 import { AnyWorkspaceStore } from "@/lib/react/workspace-store-context";
-import { BaseVirtualGafFrameData, VirtualGafEntry, VirtualGafFrame } from "@/lib/virtual-gaf/virtual-gaf";
+import { BaseVirtualGafFrameData, VirtualEntry, VirtualFrame } from "@/lib/virtual-gaf/virtual-gaf";
 import { useShallow } from "zustand/react/shallow";
 
 export namespace StoreHelper {
@@ -25,7 +25,7 @@ export namespace StoreHelper {
     return useStore()((state) => state.getEntries()[entryIndex]);
   }
 
-  function entryToProps(entry: VirtualGafEntry) {
+  function entryToProps(entry: VirtualEntry) {
     return {
       name: entry.name,
       unknown1: entry.unknown1,

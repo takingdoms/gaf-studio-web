@@ -1,11 +1,11 @@
 import FrameDataCompositeImage from '@/components/app/frame-data-image/FrameDataCompositeImage';
 import FrameDataImage from '@/components/app/frame-data-image/FrameDataImage';
 import { FRAME_SELECTOR_ITEM_HEIGHT, FRAME_SELECTOR_ITEM_WIDTH } from '@/lib/constants';
-import { VirtualGafFrameData } from '@/lib/virtual-gaf/virtual-gaf';
+import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
 type FrameSelectorItemProps = {
   index: number;
-  frameData: VirtualGafFrameData;
+  frameData: VirtualFrameData;
   isSelected: boolean;
   onClick: () => void;
 };

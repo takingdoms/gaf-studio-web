@@ -1,5 +1,5 @@
 import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
-import { BaseVirtualGafFrameData, VirtualGafLayerData } from "@/lib/virtual-gaf/virtual-gaf";
+import { BaseVirtualGafFrameData, VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
 import { SimpleVirtualGafBuilder } from "@/lib/virtual-gaf/virtual-gaf-conversion/simple-virtual-gaf-builder";
 import LibGaf from "lib-gaf";
 
@@ -13,7 +13,7 @@ export class ColoredVirtualGafBuilder extends SimpleVirtualGafBuilder<'taf'> {
   protected override makeLayerData(
     srcLayerData: LibGaf.GafLayerData<'taf'>,
     { width, height }: BaseVirtualGafFrameData,
-  ): VirtualGafLayerData<'taf'> {
+  ): VirtualLayerData<'taf'> {
     const srcColorData = srcLayerData.colorData;
     let convertedData: LibGaf.ColorData<'rgba8888'>;
 

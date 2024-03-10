@@ -1,8 +1,8 @@
 import FrameDataImage from "@/components/app/frame-data-image/FrameDataImage";
-import { VirtualGafFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
+import { VirtualFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
 
 type FrameCanvasWrapperSingleProps = {
-  frameData: VirtualGafFrameDataSingleLayer;
+  frameData: VirtualFrameDataSingleLayer;
 };
 
 export default function FrameCanvasWrapperSingle({
