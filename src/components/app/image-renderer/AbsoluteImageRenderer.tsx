@@ -1,4 +1,5 @@
 import AbsoluteImageRendererContainer from '@/components/app/image-renderer/AbsoluteImageRendererContainer';
+import AbsoluteImageRendererWrapper from '@/components/app/image-renderer/AbsoluteImageRendererWrapper';
 import ImageRenderer from '@/components/app/image-renderer/ImageRenderer';
 import { ActualImage } from '@/lib/image/image-resource';
 
@@ -6,6 +7,9 @@ type AbsoluteImageRendererProps = {
   image: ActualImage;
   width: number;
   height: number;
+  xOffset: number;
+  yOffset: number;
+  displace: boolean; // whether the x and y offsets are to displace the image
   contain: boolean;
   smoothing: boolean;
   scaleX?: number;
@@ -16,6 +20,9 @@ export default function AbsoluteImageRenderer({
   image,
   width,
   height,
+  xOffset,
+  yOffset,
+  displace,
   contain,
   smoothing,
   scaleX,
@@ -27,7 +34,10 @@ export default function AbsoluteImageRenderer({
       height={height * (scaleY ?? 1)}
       contain={contain}
     >
-      <div className="absolute inset-0 flex justify-center items-center overflow-hidden">
+      <AbsoluteImageRendererWrapper
+        xOffset={displace ? xOffset : 0}
+        yOffset={displace ? yOffset : 0}
+      >
         <ImageRenderer
           image={image}
           width={width}
@@ -37,7 +47,7 @@ export default function AbsoluteImageRenderer({
           scaleX={scaleX}
           scaleY={scaleY}
         />
-      </div>
+      </AbsoluteImageRendererWrapper>
     </AbsoluteImageRendererContainer>
   );
 }

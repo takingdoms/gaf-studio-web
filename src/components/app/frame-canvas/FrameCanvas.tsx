@@ -14,12 +14,14 @@ export default function FrameCanvas({ frameData }: FrameCanvasProps) {
     return frameData.kind === 'single' ? (
       <FrameDataImage
         frameData={frameData}
+        displace={true}
         contain={false}
         smoothing={false}
       />
     ) : (
       <FrameDataCompositeImage
         frameData={frameData}
+        displace={true}
         contain={false}
         smoothing={false}
       />

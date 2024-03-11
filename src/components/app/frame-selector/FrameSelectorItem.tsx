@@ -33,6 +33,7 @@ export default function FrameSelectorItem({
     image = (
       <FrameDataImage
         frameData={frameData}
+        displace={false}
         contain={true}
         smoothing={false}
       />
@@ -43,6 +44,7 @@ export default function FrameSelectorItem({
       image = (
         <FrameDataCompositeImage
           frameData={frameData}
+          displace={false}
           contain={true}
           smoothing={false}
         />
@@ -54,6 +56,7 @@ export default function FrameSelectorItem({
       image = (
         <FrameDataImage
           frameData={firstLayer}
+          displace={false}
           contain={true}
           smoothing={false}
         />
