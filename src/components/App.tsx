@@ -1,13 +1,13 @@
 import { AppDebugContext } from "@/components/AppDebugContext";
-import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
+import CommonProviders from "@/components/app/logical/CommonProviders";
 import PreludeScreen from "@/components/app/prelude/PreludeScreen";
+import WorkspaceRoot from "@/components/app/workspace-root/WorkspaceRoot";
 import { WorkspaceStoreWrapper, WorkspaceStoreWrapperContext } from "@/lib/react/workspace-store-context";
 import { WorkspaceSliceConfig } from "@/lib/state/store/workspace-slice-configs";
+import { createBoundGafStore, createBoundTafStore } from "@/lib/state/store/workspace-slices";
 import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
-import { createBoundGafStore, createBoundTafStore } from "@/lib/state/store/workspace-slices";
-import WorkspaceRoot from "@/components/app/workspace-root/WorkspaceRoot";
 
 export default function App() {
   const [storeWrapper, setStoreWrapper] = React.useState<WorkspaceStoreWrapper>();
@@ -33,9 +33,9 @@ export default function App() {
 
   if (storeWrapper === undefined) {
     return (
-      <PaletteStoreContext.Provider value={paletteStore}>
+      <CommonProviders paletteStore={paletteStore}>
         <PreludeScreen onInit={onInit} />
-      </PaletteStoreContext.Provider>
+      </CommonProviders>
     );
   }
 
@@ -43,13 +43,13 @@ export default function App() {
     <AppDebugContext.Provider value={{
       resetWorkspace: () => setStoreWrapper(undefined),
     }}>
-      <PaletteStoreContext.Provider value={paletteStore}>
-        <WorkspaceStoreWrapperContext.Provider value={storeWrapper}>
+      <WorkspaceStoreWrapperContext.Provider value={storeWrapper}>
+        <CommonProviders paletteStore={paletteStore}>
           <AppLayout>
             <WorkspaceRoot />
           </AppLayout>
-        </WorkspaceStoreWrapperContext.Provider>
-      </PaletteStoreContext.Provider>
+        </CommonProviders>
+      </WorkspaceStoreWrapperContext.Provider>
     </AppDebugContext.Provider>
   );
 }
