@@ -9,8 +9,10 @@ export type CanvasConfigStore = CanvasConfig & {
   };
 };
 
+// TODO persist to localStorage
+
 export const useCanvasConfigStore = create<CanvasConfigStore>()((set) => ({
-  background: CANVAS_BG_OPTIONS[3],
+  background: CANVAS_BG_OPTIONS[4],
   showGridOnTop: false,
 
   actions: {
