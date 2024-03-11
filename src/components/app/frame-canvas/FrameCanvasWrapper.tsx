@@ -1,12 +1,9 @@
-import FrameCanvasWrapperMultiComposite from '@/components/app/frame-canvas/FrameCanvasWrapperMultiComposite';
-import FrameCanvasWrapperSingle from '@/components/app/frame-canvas/FrameCanvasWrapperSingle';
+import FrameCanvas from '@/components/app/frame-canvas/FrameCanvas';
 import { S } from '@/lib/state/store/store-helper';
 
 export default function FrameCanvasWrapper() {
   // console.log('Rendering FrameCanvasWrapper');
 
-  // TODO use shallow probably or something like useEntryProps
-  // ^ actually nah. whenever the activeFrame changes everything from here and down should re-render anyway
   const activeFrame = S.useStore()((state) => state.getActiveFrame());
   const activeSubframeIndex = S.useStore()((state) => state.cursor.subframeIndex);
 
@@ -18,29 +15,13 @@ export default function FrameCanvasWrapper() {
     );
   }
 
-  const frameData = activeFrame.frameData;
+  let frameData = activeFrame.frameData;
 
-  if (frameData.kind === 'single') {
-    return (
-      <FrameCanvasWrapperSingle
-        frameData={frameData}
-      />
-    );
+  if (frameData.kind === 'multi' && activeSubframeIndex !== null) {
+    frameData = frameData.layers[activeSubframeIndex];
   }
-
-  if (activeSubframeIndex === null) {
-    return (
-      <FrameCanvasWrapperMultiComposite
-        frameData={frameData}
-      />
-    );
-  }
-
-  const subframeData = frameData.layers[activeSubframeIndex];
 
   return (
-    <FrameCanvasWrapperSingle
-      frameData={subframeData}
-    />
+    <FrameCanvas frameData={frameData} />
   );
 }

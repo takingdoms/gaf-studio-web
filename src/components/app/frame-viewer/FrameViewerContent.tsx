@@ -19,7 +19,7 @@ export default function FrameViewerContent() {
 
     <FrameViewerSeparator />
 
-    <div className="grow flex flex-col">
+    <div className="grow">
       {showFrameCanvasWrapper && <FrameCanvasWrapper />}
     </div>
 
