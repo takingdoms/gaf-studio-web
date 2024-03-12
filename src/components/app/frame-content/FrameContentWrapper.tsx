@@ -1,8 +1,8 @@
-import FrameCanvas from '@/components/app/frame-canvas/FrameCanvas';
+import FrameContent from '@/components/app/frame-content/FrameContent';
 import { S } from '@/lib/state/store/store-helper';
 
-export default function FrameCanvasWrapper() {
-  // console.log('Rendering FrameCanvasWrapper');
+export default function FrameContentWrapper() {
+  // console.log('Rendering FrameContentWrapper');
 
   const activeFrame = S.useStore()((state) => state.getActiveFrame());
   const activeSubframeIndex = S.useStore()((state) => state.cursor.subframeIndex);
@@ -22,6 +22,6 @@ export default function FrameCanvasWrapper() {
   }
 
   return (
-    <FrameCanvas frameData={frameData} />
+    <FrameContent frameData={frameData} />
   );
 }

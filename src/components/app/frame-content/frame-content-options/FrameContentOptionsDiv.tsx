@@ -1,10 +1,10 @@
-import BgSelectorModalContent from "@/components/app/frame-canvas/frame-canvas-options/BgSelectorModalContent";
-import OptionButton from "@/components/app/frame-canvas/frame-canvas-options/OptionButton";
+import BgSelectorModalContent from "@/components/app/frame-content/frame-content-options/BgSelectorModalContent";
+import OptionButton from "@/components/app/frame-content/frame-content-options/OptionButton";
 import { ModalContext } from "@/components/ui/modal/ModalContext";
 import { Icons } from "@/lib/react/icons";
 import React from "react";
 
-export default function FrameCanvasOptionsDiv() {
+export default function FrameContentOptionsDiv() {
   const modal = React.useContext(ModalContext);
 
   const onClickOptions = React.useCallback(async () => {

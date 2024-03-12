@@ -1,6 +1,8 @@
 import { useCanvasConfigStore } from "@/lib/state/canvas/canvas-config-store";
 
-export default function FrameCanvasBackground() {
+export default function FrameContentBackground() {
+  // console.log('Rendering FrameContentBackground');
+
   const background = useCanvasConfigStore((state) => state.background);
 
   return (
