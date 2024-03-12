@@ -1,4 +1,4 @@
-import AbsoluteImageRenderer from '@/components/app/image-renderer/AbsoluteImageRenderer';
+import ImageRenderer from '@/components/app/image-renderer/ImageRenderer';
 import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
 
 type PalettePreviewImageProps = {
@@ -15,14 +15,22 @@ export default function PalettePreviewImage({
   const { width, height, image } = currentPalette.previewImage;
 
   return (
-    <AbsoluteImageRenderer
-      image={image}
-      width={width}
-      height={height}
-      contain={false}
-      smoothing={false}
-      scaleX={scaleX}
-      scaleY={scaleY}
-    />
+    <div
+      className="flex justify-center items-center"
+      style={{
+        width: width * scaleX,
+        height: height * scaleY,
+      }}
+    >
+      <ImageRenderer
+        image={image}
+        width={width}
+        height={height}
+        contain={false}
+        smoothing={false}
+        scaleX={scaleX}
+        scaleY={scaleY}
+      />
+    </div>
   );
 }

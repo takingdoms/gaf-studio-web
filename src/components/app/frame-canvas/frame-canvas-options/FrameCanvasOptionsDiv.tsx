@@ -10,6 +10,7 @@ export default function FrameCanvasOptionsDiv() {
   const onClickOptions = React.useCallback(async () => {
     // TODO show a dropdown on the OptionButton wih an option saying "Edit Background"
     // upon clicking that option the modal to choose the background is then shown
+    // Other things to put in the bottom: grid checkbox, DRAW_FRAME_BOUNDARIES radio buttons, etc
     const { close } = modal.pushModal({
       title: 'Change Background',
       body: <BgSelectorModalContent close={() => close()} />,

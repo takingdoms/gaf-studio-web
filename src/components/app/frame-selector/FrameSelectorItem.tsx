@@ -1,5 +1,4 @@
-import FrameDataCompositeImage from '@/components/app/frame-data-image/FrameDataCompositeImage';
-import FrameDataImage from '@/components/app/frame-data-image/FrameDataImage';
+import FrameDataImageRenderer from '@/components/app/image-renderer/FrameDataImageRenderer';
 import { FRAME_SELECTOR_ITEM_HEIGHT, FRAME_SELECTOR_ITEM_WIDTH } from '@/lib/constants';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
@@ -31,7 +30,7 @@ export default function FrameSelectorItem({
 
   if (frameData.kind === 'single') {
     image = (
-      <FrameDataImage
+      <FrameDataImageRenderer
         frameData={frameData}
         displace={false}
         contain={true}
@@ -42,7 +41,7 @@ export default function FrameSelectorItem({
   else {
     if (COMPOSITE_MULTI_LAYERS || frameData.layers.length === 0) {
       image = (
-        <FrameDataCompositeImage
+        <FrameDataImageRenderer
           frameData={frameData}
           displace={false}
           contain={true}
@@ -54,7 +53,7 @@ export default function FrameSelectorItem({
       const firstLayer = frameData.layers[0];
 
       image = (
-        <FrameDataImage
+        <FrameDataImageRenderer
           frameData={firstLayer}
           displace={false}
           contain={true}
