@@ -1,8 +1,6 @@
 import ImageRenderer from '@/components/app/image-renderer/ImageRenderer';
+import { useCanvasConfigStore } from '@/lib/state/canvas/canvas-config-store';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
-
-// TODO put this in the canvas-config-store
-const DRAW_FRAME_BOUNDARIES: 'below' | 'above' | null = 'below';
 
 type FrameDataImageRendererProps = {
   frameData: VirtualFrameData;
@@ -17,6 +15,10 @@ export default function FrameDataImageRenderer({
   contain,
   smoothing,
 }: FrameDataImageRendererProps) {
+  const frameBoundary = useCanvasConfigStore((state) => state.frameBoundary);
+  const fbBorderSingle = useCanvasConfigStore((state) => state.frameBoundaryBorderStyleSingle);
+  const fbBorderMulti = useCanvasConfigStore((state) => state.frameBoundaryBorderStyleMulti);
+
   const layers = frameData.kind === 'multi'
     ? frameData.layers
     : [frameData];
@@ -47,13 +49,12 @@ export default function FrameDataImageRenderer({
   let boundaries: React.ReactNode | undefined = undefined;
 
   // disabled when !displace because without displacing the frame boundary display is redundant
-  if (displace && DRAW_FRAME_BOUNDARIES !== null) {
+  if (displace && frameBoundary !== null) {
     boundaries = (
       <div
         className="absolute box-border"
         style={{
-          // TODO configurable colors and style
-          border: '1px solid ' + (frameData.kind === 'single' ? 'blue' : 'red'),
+          border: frameData.kind === 'single' ? fbBorderSingle : fbBorderMulti,
           width: frameData.width,
           height: frameData.height,
           left: 0,
@@ -76,9 +77,9 @@ export default function FrameDataImageRenderer({
         height: frameData.height,
       }}
     >
-      {DRAW_FRAME_BOUNDARIES === 'below' && boundaries}
+      {frameBoundary === 'below' && boundaries}
       {content}
-      {DRAW_FRAME_BOUNDARIES === 'above' && boundaries}
+      {frameBoundary === 'above' && boundaries}
     </div>
   );
 }
