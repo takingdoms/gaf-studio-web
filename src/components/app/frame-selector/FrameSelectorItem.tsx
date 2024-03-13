@@ -1,4 +1,4 @@
-import FrameDataImageRenderer from '@/components/app/image-renderer/FrameDataImageRenderer';
+import FrameSelectorImageRenderer from '@/components/app/image-renderer/FrameSelectorImageRenderer';
 import { FRAME_SELECTOR_ITEM_HEIGHT, FRAME_SELECTOR_ITEM_WIDTH } from '@/lib/constants';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
@@ -29,37 +29,16 @@ export default function FrameSelectorItem({
   let image: React.ReactNode;
 
   if (frameData.kind === 'single') {
-    image = (
-      <FrameDataImageRenderer
-        frameData={frameData}
-        displace={false}
-        contain={true}
-        smoothing={false}
-      />
-    );
+    image = <FrameSelectorImageRenderer frameData={frameData} />;
   }
   else {
     if (COMPOSITE_MULTI_LAYERS || frameData.layers.length === 0) {
-      image = (
-        <FrameDataImageRenderer
-          frameData={frameData}
-          displace={false}
-          contain={true}
-          smoothing={false}
-        />
-      );
+      image = <FrameSelectorImageRenderer frameData={frameData} />;
     }
     else {
       const firstLayer = frameData.layers[0];
 
-      image = (
-        <FrameDataImageRenderer
-          frameData={firstLayer}
-          displace={false}
-          contain={true}
-          smoothing={false}
-        />
-      );
+      image = <FrameSelectorImageRenderer frameData={firstLayer} />;
     }
   }
 
