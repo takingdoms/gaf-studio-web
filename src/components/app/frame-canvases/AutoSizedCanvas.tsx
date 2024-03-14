@@ -44,12 +44,14 @@ export default function AutoSizedCanvas({ onRender }: AutoSizedCanvasProps) {
   }, [onResize]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="w-full h-full"
-      style={{
-        imageRendering: 'pixelated',
-      }}
-    />
+    <div className="absolute inset-0">
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full"
+        style={{
+          imageRendering: 'pixelated',
+        }}
+      />
+    </div>
   );
 }

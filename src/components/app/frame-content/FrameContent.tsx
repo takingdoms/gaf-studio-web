@@ -1,4 +1,4 @@
-import FrameCanvases from '@/components/app/frame-canvas/FrameCanvases';
+import FrameCanvases from '@/components/app/frame-canvases/FrameCanvases';
 import FrameContentBackground from '@/components/app/frame-content/FrameContentBackground';
 import FrameContentOptionsDiv from '@/components/app/frame-content/frame-content-options/FrameContentOptionsDiv';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
