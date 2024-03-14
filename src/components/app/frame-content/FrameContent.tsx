@@ -1,4 +1,4 @@
-import FrameCanvases from '@/components/app/frame-canvases/FrameCanvases';
+import MainCanvases from '@/components/app/main-canvases/MainCanvases';
 import FrameContentBackground from '@/components/app/frame-content/FrameContentBackground';
 import FrameContentOptionsDiv from '@/components/app/frame-content/frame-content-options/FrameContentOptionsDiv';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
@@ -23,7 +23,7 @@ export default function FrameContent({ frameData }: FrameContentProps) {
           }}
         >
           <FrameContentBackground />
-          <FrameCanvases frameData={frameData} />
+          <MainCanvases frameData={frameData} />
         </div>
       </div>
     </div>

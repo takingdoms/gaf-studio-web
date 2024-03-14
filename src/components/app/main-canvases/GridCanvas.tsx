@@ -1,4 +1,4 @@
-import AutoSizedCanvas from "@/components/app/frame-canvases/AutoSizedCanvas";
+import AutoSizedCanvas from "@/components/app/main-canvases/AutoSizedCanvas";
 import { CanvasHelperContext } from "@/lib/canvas/CanvasHelperContext";
 
 export default function GridCanvas() {

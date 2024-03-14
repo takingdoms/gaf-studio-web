@@ -1,16 +1,16 @@
-import BoundsCanvas from '@/components/app/frame-canvases/BoundsCanvas';
-import CrossCanvas from '@/components/app/frame-canvases/CrossCanvas';
-import GridCanvas from '@/components/app/frame-canvases/GridCanvas';
-import ImageCanvas from '@/components/app/frame-canvases/ImageCanvas';
-import OriginBoundsCanvas from '@/components/app/frame-canvases/OriginBoundsCanvas';
+import BoundsCanvas from '@/components/app/main-canvases/BoundsCanvas';
+import CrossCanvas from '@/components/app/main-canvases/CrossCanvas';
+import GridCanvas from '@/components/app/main-canvases/GridCanvas';
+import ImageCanvas from '@/components/app/main-canvases/ImageCanvas';
+import OriginBoundsCanvas from '@/components/app/main-canvases/OriginBoundsCanvas';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 import React from 'react';
 
-type FrameCanvasesProps = {
+type MainCanvasesProps = {
   frameData: VirtualFrameData;
 };
 
-export default function FrameCanvases({ frameData }: FrameCanvasesProps) {
+export default function MainCanvases({ frameData }: MainCanvasesProps) {
   const gridCanvas = React.useMemo(() => <GridCanvas />, []);
   const imageCanvas = React.useMemo(() => <ImageCanvas frameData={frameData} />, [frameData]);
   const crossCanvas = React.useMemo(() => <CrossCanvas />, []);

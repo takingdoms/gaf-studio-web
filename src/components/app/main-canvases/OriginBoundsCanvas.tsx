@@ -1,30 +1,28 @@
-import AutoSizedCanvas from '@/components/app/frame-canvases/AutoSizedCanvas';
+import AutoSizedCanvas from '@/components/app/main-canvases/AutoSizedCanvas';
 import { CanvasHelperContext } from '@/lib/canvas/CanvasHelperContext';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
-type BoundsCanvasProps = {
+type OriginBoundsCanvasProps = {
   frameData: VirtualFrameData;
 };
 
-export default function BoundsCanvas({ frameData }: BoundsCanvasProps) {
-  console.log('Rendering BoundsCanvas');
+export default function OriginBoundsCanvas({ frameData }: OriginBoundsCanvasProps) {
+  console.log('Rendering OriginBoundsCanvas');
 
   // put these elsewhere
-  function drawBounds(
+  function drawOriginBounds(
     ctx: CanvasHelperContext,
     width: number,
     height: number,
-    xOffset: number,
-    yOffset: number,
   ) {
-    const boundaryStyle = '#FF00FFEE';
+    const boundaryStyle = '#0000FFEE';
 
     const centerX = Math.floor(ctx.canvas.width / 2);
     const centerY = Math.floor(ctx.canvas.height / 2);
 
     ctx.pixelPerfectRectangle(
-      centerX - xOffset,
-      centerY - yOffset,
+      centerX,
+      centerY,
       width,
       height,
       boundaryStyle,
@@ -40,7 +38,7 @@ export default function BoundsCanvas({ frameData }: BoundsCanvasProps) {
       const ctx = new CanvasHelperContext(canvas);
 
       layers.forEach((layer) => {
-        drawBounds(ctx, layer.width, layer.height, layer.xOffset, layer.yOffset);
+        drawOriginBounds(ctx, layer.width, layer.height);
       });
     }} />
   );
