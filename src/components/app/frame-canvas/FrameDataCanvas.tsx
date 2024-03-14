@@ -15,14 +15,15 @@ export default function FrameDataCanvas({
   console.log('Rendering FrameDataCanvas');
 
   // put this in a config
-  const drawDisplacedRect = true;
+  const shouldDrawBounds = true;
+  const shouldDrawOriginBounds = true;
 
   const layers = frameData.kind === 'multi'
     ? frameData.layers
     : [frameData];
 
   // put these elsewhere
-  function drawDimensionBoundary(
+  function drawBounds(
     ctx: CanvasHelperContext,
     width: number,
     height: number,
@@ -31,7 +32,36 @@ export default function FrameDataCanvas({
   ) {
     const boundaryStyle = '#FF00FFEE';
 
-    ctx.pixelPerfectRectangle(-xOffset, -yOffset, width, height, boundaryStyle);
+    const centerX = Math.floor(ctx.canvas.width / 2);
+    const centerY = Math.floor(ctx.canvas.height / 2);
+
+    ctx.pixelPerfectRectangle(
+      centerX - xOffset,
+      centerY - yOffset,
+      width,
+      height,
+      boundaryStyle,
+    );
+  }
+
+  // put these elsewhere
+  function drawOriginBounds(
+    ctx: CanvasHelperContext,
+    width: number,
+    height: number,
+  ) {
+    const boundaryStyle = '#0000FFEE';
+
+    const centerX = Math.floor(ctx.canvas.width / 2);
+    const centerY = Math.floor(ctx.canvas.height / 2);
+
+    ctx.pixelPerfectRectangle(
+      centerX,
+      centerY,
+      width,
+      height,
+      boundaryStyle,
+    );
   }
 
   return layers.map((layer, index) => {
@@ -49,20 +79,21 @@ export default function FrameDataCanvas({
           Debug.assertEq(layer.width, image.width);
           Debug.assertEq(layer.height, image.height);
 
+          const centerX = Math.floor(ctx.canvas.width / 2);
+          const centerY = Math.floor(ctx.canvas.height / 2);
+
           ctx.drawImage(
             image,
-            layer.xOffset,
-            layer.yOffset,
+            centerX - layer.xOffset,
+            centerY - layer.yOffset,
           );
 
-          if (drawDisplacedRect) {
-            drawDimensionBoundary(
-              ctx,
-              layer.width,
-              layer.height,
-              layer.xOffset,
-              layer.yOffset,
-            );
+          if (shouldDrawBounds) {
+            drawBounds(ctx, layer.width, layer.height, layer.xOffset, layer.yOffset);
+          }
+
+          if (shouldDrawOriginBounds) {
+            drawOriginBounds(ctx, layer.width, layer.height);
           }
         }} />
       </div>

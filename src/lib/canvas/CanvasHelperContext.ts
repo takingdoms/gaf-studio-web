@@ -50,11 +50,6 @@ export class CanvasHelperContext {
   }
 
   pixelPerfectRectangle(x: number, y: number, w: number, h: number, strokeStyle: string) {
-    const originX = Math.floor(this.canvas.width / 2 - w / 2);
-    const originY = Math.floor(this.canvas.height / 2 - h / 2);
-
-    // console.log('origins:', originX, originY);
-
     this.ctx.save();
     this.ctx.beginPath();
 
@@ -67,24 +62,15 @@ export class CanvasHelperContext {
     }*/
 
     this.ctx.strokeRect(
-      this.getSharpPixel(x + originX, thickness),
-      this.getSharpPixel(y + originY, thickness),
+      this.getSharpPixel(x, thickness),
+      this.getSharpPixel(y, thickness),
       Math.floor(w),
       Math.floor(h),
     );
     this.ctx.restore();
   }
 
-  drawImage(image: ImageData, xOffset: number, yOffset: number) {
-    const originX = Math.floor(this.canvas.width / 2 - image.width / 2);
-    const originY = Math.floor(this.canvas.height / 2 - image.height / 2);
-
-    // console.log('origins:', originX, originY);
-
-    this.ctx.putImageData(
-      image,
-      originX - xOffset,
-      originY - yOffset,
-    );
+  drawImage(image: ImageData, posX: number, posY: number) {
+    this.ctx.putImageData(image, posX, posY);
   }
 }

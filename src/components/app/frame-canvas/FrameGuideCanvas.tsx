@@ -3,21 +3,14 @@ import { CanvasHelperContext } from "@/lib/canvas/CanvasHelperContext";
 
 type FrameGuideCanvasProps = {
   kind: 'below' | 'above';
-  boundsWidth: number;
-  boundsHeight: number;
   containerClassName?: string;
 };
 
 export default function FrameGuideCanvas({
   kind,
-  boundsWidth,
-  boundsHeight,
   containerClassName,
 }: FrameGuideCanvasProps) {
   console.log('Rendering FrameGuideCanvas');
-
-  // put in the configs
-  const snapToImage: boolean = true; // false = snap to canvas (aka 0,0)
 
   // put these elsewhere
   function drawGrid(ctx: CanvasHelperContext) {
@@ -27,22 +20,16 @@ export default function FrameGuideCanvas({
     const canvasW = ctx.canvas.width;
     const canvasH = ctx.canvas.height;
 
-    let offsetX = 0, offsetY = 0;
-
-    if (snapToImage) {
-      offsetX = Math.floor((canvasW - boundsWidth) / 2);
-      offsetY = Math.floor((canvasH - boundsHeight) / 2);
+    // for (let x = 0; x < Math.floor(canvasW / gridSpacing); x++) { // which is right?
+    for (let x = 1; x <= Math.floor(canvasW / gridSpacing); x++) {
+      const pos = x * gridSpacing;
+      ctx.pixelPerfectLine(pos, 0, pos, canvasH, gridLineStyle); // x1, y1, x2, y2
     }
 
-    const startX = offsetX % gridSpacing;
-    const startY = offsetY % gridSpacing;
-
-    for (let x = startX; x <= canvasW; x += gridSpacing) {
-      ctx.pixelPerfectLine(x, 0, x, canvasH, gridLineStyle); // Vertical lines
-    }
-
-    for (let y = startY; y <= canvasH; y += gridSpacing) {
-      ctx.pixelPerfectLine(0, y, canvasW, y, gridLineStyle); // Horizontal lines
+    // for (let y = 0; y < Math.floor(canvasH / gridSpacing); y++) { // which is right?
+    for (let y = 1; y <= Math.floor(canvasH / gridSpacing); y++) {
+      const pos = y * gridSpacing;
+      ctx.pixelPerfectLine(0, pos, canvasW, pos, gridLineStyle); // x1, y1, x2, y2
     }
   }
 
@@ -63,13 +50,6 @@ export default function FrameGuideCanvas({
     ctx.pixelPerfectLine(0, centerY, canvasW, centerY, crossGuideStyle);
   }
 
-  // put these elsewhere
-  function drawDimensionBoundary(ctx: CanvasHelperContext) {
-    const boundaryStyle = '#0000FFEE';
-
-    ctx.pixelPerfectRectangle(0, 0, boundsWidth, boundsHeight, boundaryStyle);
-  }
-
   return (
     <div className={containerClassName}>
       <AutoSizedCanvas onRender={(canvas) => {
@@ -77,7 +57,6 @@ export default function FrameGuideCanvas({
 
         drawGrid(ctx);
         drawCrossGuide(ctx);
-        drawDimensionBoundary(ctx);
       }} />
     </div>
   );
