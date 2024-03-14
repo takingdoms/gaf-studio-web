@@ -1,7 +1,6 @@
+import { MainCanvasLayer } from "@/lib/state/canvas/main-canvas-layer";
+
 export type CanvasConfig = {
   readonly background: string;
-  readonly showGridOnTop: boolean;
-  readonly frameBoundary: 'below' | 'above' | null;
-  readonly frameBoundaryBorderStyleSingle: string;
-  readonly frameBoundaryBorderStyleMulti: string;
+  readonly mainCanvasLayerOrder: ReadonlySet<MainCanvasLayer>;
 };
