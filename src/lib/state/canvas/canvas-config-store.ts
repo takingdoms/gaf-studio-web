@@ -5,6 +5,7 @@ import { create } from "zustand";
 
 export type CanvasConfigStore = CanvasConfig & {
   readonly actions: {
+    readonly setBackground: (background: string) => void;
     readonly setMainCanvasLayerOrder: (order: ReadonlySet<MainCanvasLayer>) => void;
     readonly setGridSpacing: (gridSpacing: number) => void;
     readonly setGridStyle: (gridStyle: string) => void;
@@ -32,6 +33,7 @@ export const useCanvasConfigStore = create<CanvasConfigStore>()((set) => ({
   originBoundsStyle: '#0000FFEE',
 
   actions: {
+    setBackground: (background) => set({ background }),
     setMainCanvasLayerOrder: (mainCanvasLayerOrder) => set({ mainCanvasLayerOrder }),
     setGridSpacing: (gridSpacing) => set({ gridSpacing }),
     setGridStyle: (gridStyle) => set({ gridStyle }),
