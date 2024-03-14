@@ -19,15 +19,6 @@ export default function MainCanvases({ frameData }: MainCanvasesProps) {
   const originBoundsCanvas = React.useMemo(() => <OriginBoundsCanvas frameData={frameData} />, [frameData]);
 
   const order = useCanvasConfigStore((state) => state.mainCanvasLayerOrder);
-  const setOrder = useCanvasConfigStore((state) => state.actions.setMainCanvasLayerOrder);
-
-  /*const exampleChangeOrder = React.useCallback(() => {
-    const arr = [...order];
-    arr.push(arr.shift()!);
-    console.log(arr);
-    const set = new Set(arr);
-    setOrder(set);
-  }, [order, setOrder]);*/
 
   // TODO eventually implement panning (with middle-mouse click maybe)
 

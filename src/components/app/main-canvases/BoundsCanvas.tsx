@@ -1,5 +1,6 @@
 import AutoSizedCanvas from '@/components/app/main-canvases/AutoSizedCanvas';
 import { CanvasHelperContext } from '@/lib/canvas/CanvasHelperContext';
+import { useCanvasConfigStore } from '@/lib/state/canvas/canvas-config-store';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
 type BoundsCanvasProps = {
@@ -9,6 +10,8 @@ type BoundsCanvasProps = {
 export default function BoundsCanvas({ frameData }: BoundsCanvasProps) {
   console.log('Rendering BoundsCanvas');
 
+  const boundsStyle = useCanvasConfigStore((state) => state.boundsStyle);
+
   // put these elsewhere
   function drawBounds(
     ctx: CanvasHelperContext,
@@ -17,8 +20,6 @@ export default function BoundsCanvas({ frameData }: BoundsCanvasProps) {
     xOffset: number,
     yOffset: number,
   ) {
-    const boundaryStyle = '#FF00FFEE';
-
     const centerX = Math.floor(ctx.canvas.width / 2);
     const centerY = Math.floor(ctx.canvas.height / 2);
 
@@ -27,7 +28,7 @@ export default function BoundsCanvas({ frameData }: BoundsCanvasProps) {
       centerY - yOffset,
       width,
       height,
-      boundaryStyle,
+      boundsStyle,
     );
   }
 

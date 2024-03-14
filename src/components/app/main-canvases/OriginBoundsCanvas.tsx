@@ -1,5 +1,6 @@
 import AutoSizedCanvas from '@/components/app/main-canvases/AutoSizedCanvas';
 import { CanvasHelperContext } from '@/lib/canvas/CanvasHelperContext';
+import { useCanvasConfigStore } from '@/lib/state/canvas/canvas-config-store';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
 type OriginBoundsCanvasProps = {
@@ -9,14 +10,14 @@ type OriginBoundsCanvasProps = {
 export default function OriginBoundsCanvas({ frameData }: OriginBoundsCanvasProps) {
   console.log('Rendering OriginBoundsCanvas');
 
+  const originBoundsStyle = useCanvasConfigStore((state) => state.originBoundsStyle);
+
   // put these elsewhere
   function drawOriginBounds(
     ctx: CanvasHelperContext,
     width: number,
     height: number,
   ) {
-    const boundaryStyle = '#0000FFEE';
-
     const centerX = Math.floor(ctx.canvas.width / 2);
     const centerY = Math.floor(ctx.canvas.height / 2);
 
@@ -25,7 +26,7 @@ export default function OriginBoundsCanvas({ frameData }: OriginBoundsCanvasProp
       centerY,
       width,
       height,
-      boundaryStyle,
+      originBoundsStyle,
     );
   }
 
