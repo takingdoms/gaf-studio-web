@@ -13,16 +13,17 @@ export default function ModalWrapper({
   zOffset,
   close,
 }: ModalWrapperProps) {
-  const bgCls = zOffset === 0 ? 'bg-[#00000064]' : 'bg-[#00000032]';
+  const bgCls = zOffset === 0 ? 'bg-[#00000060]' : 'bg-[#0000004F]';
 
   return (
     <div
       style={{ zIndex: BASE_Z_INDEX + zOffset }}
-      className={`absolute inset-0 flex justify-center items-center ${bgCls}`}
+      className={`absolute inset-0 flex flex-col justify-center items-center max-h-screen overflow-hidden`
+        + ` px-4 py-4 ${bgCls}`}
       onClick={close}
     >
       <div
-        className="flex flex-col shadow"
+        className="flex flex-col overflow-hidden shadow"
         onClick={(ev) => ev.stopPropagation()}
       >
         {children}
