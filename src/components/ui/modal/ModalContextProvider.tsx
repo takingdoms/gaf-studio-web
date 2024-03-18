@@ -31,7 +31,7 @@ export default function ModalContextProvider({
   return (<>
     <ModalContext.Provider value={{ pushModal, popModal }}>
       {children}
+      <ModalPortal controllerRef={controllerRef} />
     </ModalContext.Provider>
-    <ModalPortal controllerRef={controllerRef} />
   </>);
 }
