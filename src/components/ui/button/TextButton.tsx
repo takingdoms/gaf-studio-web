@@ -12,17 +12,17 @@ export default function TextButton({
   title,
 }: TextButtonProps) {
   const cls = disabled
-    ? 'text-orange-600 opacity-50'
-    : 'text-orange-600 hover:text-orange-500 active:text-orange-500';
+    ? 'text-sky-600 opacity-50'
+    : 'text-sky-600 hover:text-sky-500 active:text-sky-500';
 
   return (
     <button
-      className={`${cls} inline underline`}
+      className={`${cls} inline`}
       onClick={() => !disabled && onClick()}
       disabled={disabled}
       title={title}
     >
-      {label}
+      [{label}]
     </button>
   );
 }
