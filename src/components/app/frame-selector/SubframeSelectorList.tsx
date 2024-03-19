@@ -1,12 +1,10 @@
-import CompositeFrameSelector from "@/components/app/frame-selector/CompositeFrameSelector";
-import SelectorWrapper from "@/components/app/frame-selector/SelectorWrapper";
-import SubframeSelector from "@/components/app/frame-selector/SubframeSelector";
+import ListWrapper from "@/components/app/frame-selector/ListWrapper";
+import SubframeSelectorListContent from "@/components/app/frame-selector/SubframeSelectorListContent";
 import { S } from "@/lib/state/store/store-helper";
 
 export default function SubframeSelectorList() {
   // console.log('Rendering SubframeSelectorList');
 
-  // TODO S. helper
   const activeFrameLayersLength = S.useStore()((state) => {
     const frame = state.getActiveFrame();
 
@@ -27,19 +25,12 @@ export default function SubframeSelectorList() {
   }
 
   return (
-    <SelectorWrapper type="subframes">
-      <CompositeFrameSelector />
-
-      {Array.from({ length: activeFrameLayersLength ?? 0 }).map((_, layerIndex) => {
-        return (
-          <SubframeSelector
-            key={layerIndex}
-            frameIndex={activeFrameIndex}
-            subframeIndex={layerIndex}
-            setActiveSubframeIndex={setActiveSubframeIndex}
-          />
-        );
-      })}
-    </SelectorWrapper>
+    <ListWrapper type="subframes">
+      <SubframeSelectorListContent
+        activeFrameLayersLength={activeFrameLayersLength}
+        activeFrameIndex={activeFrameIndex}
+        setActiveSubframeIndex={setActiveSubframeIndex}
+      />
+    </ListWrapper>
   );
 }

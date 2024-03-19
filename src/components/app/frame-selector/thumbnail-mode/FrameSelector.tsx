@@ -1,4 +1,4 @@
-import FrameSelectorItem from '@/components/app/frame-selector/FrameSelectorItem';
+import FrameSelectorItem from '@/components/app/frame-selector/thumbnail-mode/FrameSelectorItem';
 import { S } from '@/lib/state/store/store-helper';
 
 type FrameSelectorProps = {

@@ -1,15 +1,14 @@
+import ListModeControls from "@/components/app/frame-selector/ListModeControls";
 import ImportModal from "@/components/app/importer/ImportModal";
-import TextButton from "@/components/ui/button/TextButton";
 import { ModalContext } from "@/components/ui/modal/ModalContext";
-import { FRAME_SELECTOR_ITEM_HEIGHT } from "@/lib/constants";
 import React from "react";
 
-type SelectorWrapperProps = {
+type ListWrapperProps = {
   type: 'frames' | 'subframes';
   children: React.ReactNode;
 };
 
-export default function SelectorWrapper({ type, children }: SelectorWrapperProps) {
+export default function ListWrapper({ type, children }: ListWrapperProps) {
   const modal = React.useContext(ModalContext);
 
   const onClickImport = React.useCallback(() => {
@@ -27,23 +26,15 @@ export default function SelectorWrapper({ type, children }: SelectorWrapperProps
 
   return (
     <div className="w-full flex flex-col">
-      <div className="flex items-center text-sm space-x-1.5  mb-0.5">
+      <div className="flex justify-between~ items-center text-sm space-x-1.5 mb-0.5">
         <div className="font-bold text-gray-700">
-          {type === 'frames' ? 'Frame' : 'Subframe'}:
+          {type === 'frames' ? 'Frames' : 'Subframes'}:
         </div>
 
-        <TextButton
-          label="Import"
-          onClick={onClickImport}
-        />
+        <ListModeControls type={type} />
       </div>
 
-      <div
-        className="grow flex overflow-x-scroll space-x-1.5 pb-1"
-        style={{ minHeight: FRAME_SELECTOR_ITEM_HEIGHT }}
-      >
-        {children}
-      </div>
+      {children}
     </div>
   );
 }

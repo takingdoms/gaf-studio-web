@@ -1,5 +1,5 @@
-import FrameSelector from "@/components/app/frame-selector/FrameSelector";
-import SelectorWrapper from "@/components/app/frame-selector/SelectorWrapper";
+import FrameSelectorListContent from "@/components/app/frame-selector/FrameSelectorListContent";
+import ListWrapper from "@/components/app/frame-selector/ListWrapper";
 import { S } from "@/lib/state/store/store-helper";
 
 export default function FrameSelectorList() {
@@ -13,16 +13,11 @@ export default function FrameSelectorList() {
   }
 
   return (
-    <SelectorWrapper type="frames">
-      {Array.from({ length: activeEntryFramesLength }).map((_, frameIndex) => {
-        return (
-          <FrameSelector
-            key={frameIndex}
-            frameIndex={frameIndex}
-            setActiveFrameIndex={setActiveFrameIndex}
-          />
-        );
-      })}
-    </SelectorWrapper>
+    <ListWrapper type="frames">
+      <FrameSelectorListContent
+        activeEntryFramesLength={activeEntryFramesLength}
+        setActiveFrameIndex={setActiveFrameIndex}
+      />
+    </ListWrapper>
   );
 }

@@ -1,4 +1,4 @@
-import CompositeFrameSelectorItem from '@/components/app/frame-selector/CompositeFrameSelectorItem';
+import CompositeFrameSelectorItem from '@/components/app/frame-selector/thumbnail-mode/CompositeFrameSelectorItem';
 import { S } from '@/lib/state/store/store-helper';
 
 export default function CompositeFrameSelector() {
