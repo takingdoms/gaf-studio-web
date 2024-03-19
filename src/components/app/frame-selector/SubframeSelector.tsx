@@ -28,7 +28,7 @@ export default function SubframeSelector({
 
   return (
     <FrameSelectorItem
-      index={frameIndex}
+      index={subframeIndex}
       frameData={frameData}
       isSelected={isSelected}
       onClick={() => setActiveSubframeIndex(subframeIndex)}
