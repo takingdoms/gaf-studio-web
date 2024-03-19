@@ -156,6 +156,51 @@ export const createSharedSliceWrapper: CreatorMaker = () => (set, get) => ({
     set({ cursor: newCursor });
   },
 
+  addFrames: (entryIndex, newFrames) => {
+    const entry = get().getEntries()[entryIndex];
+
+    const newEntry: typeof entry = {
+      ...entry,
+      frames: [
+        ...entry.frames,
+        ...newFrames,
+      ],
+    };
+
+    get().replaceEntry(entryIndex, newEntry);
+  },
+
+  addFramesToActiveEntry: (newFrames) => {
+    const { entryIndex } = get().cursor;
+    get().addFrames(entryIndex!, newFrames);
+  },
+
+  addSubframes: (entryIndex, frameIndex, newSubframes) => {
+    const frame = get().getEntries()[entryIndex].frames[frameIndex];
+
+    if (frame.frameData.kind === 'single') {
+      throw new Error(`Frame does not have subframes.`);
+    }
+
+    const newFrame: typeof frame = {
+      ...frame,
+      frameData: {
+        ...frame.frameData,
+        layers: [
+          ...frame.frameData.layers,
+          ...newSubframes,
+        ],
+      },
+    };
+
+    get().replaceFrame(entryIndex, frameIndex, newFrame);
+  },
+
+  addSubframesToActiveFrame: (newSubframes) => {
+    const { entryIndex, frameIndex } = get().cursor;
+    get().addSubframes(entryIndex!, frameIndex!, newSubframes);
+  },
+
   replaceEntry: (entryIndex, newEntry) => {
     const entries = get().getEntries();
     const newEntries = ArrayUtils.update(entries, entryIndex, newEntry);

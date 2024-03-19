@@ -34,12 +34,8 @@ export default function SimpleButton({
   return (
     <button
       className={`${cls} border-2 font-bold px-2.5 py-1.5 rounded-sm`}
-      onClick={(ev) => {
-        ev.preventDefault();
-        if (!disabled) {
-          onClick();
-        }
-      }}
+      onClick={() => !disabled && onClick()}
+      disabled={disabled}
     >
       {children}
     </button>

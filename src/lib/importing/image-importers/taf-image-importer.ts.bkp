@@ -1,0 +1,23 @@
+import { ColoredImageResource } from "@/lib/image/image-resource";
+import { ImageImporter, BaseImporterResult } from "@/lib/importing/image-importer";
+
+export type TafImporterConfig<T extends 'taf_1555' | 'taf_4444'> = {
+  subFormat: T;
+  // TODO stuff like bit depth or pixel approximation algorithm
+};
+
+
+export type TafImporterResult<T extends 'argb1555' | 'argb4444'>
+  = BaseImporterResult<ColoredImageResource<T>>;
+
+export type Taf1555ImageImporter = ImageImporter<
+  'taf_1555',
+  TafImporterResult<'argb1555'>,
+  TafImporterConfig<'taf_1555'>
+>;
+
+export type Taf4444ImageImporter = ImageImporter<
+  'taf_4444',
+  TafImporterResult<'argb4444'>,
+  TafImporterConfig<'taf_4444'>
+>;

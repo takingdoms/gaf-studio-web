@@ -7,7 +7,8 @@ export type ModalPromptOptions = {
   text: React.ReactNode;
   confirmLabel?: string;
   rejectLabel?: string;
-  disableCloseActions?: boolean;
+  disableBackgroundClose?: boolean;
+  disableXClose?: boolean;
 };
 
 export type ModalPromptResult = true | false | null; // yes | no | (closed)
@@ -25,7 +26,8 @@ export default function useModalPrompt(): ModalPrompter {
 
       return new Promise((resolve) => {
         const { hasClosed, close } = modalContext.pushModal({
-          disableCloseActions: options.disableCloseActions,
+          disableBackgroundClose: options.disableBackgroundClose,
+          disableXClose: options.disableXClose,
           title: options.title,
           body: (
             <ModalPromptBody

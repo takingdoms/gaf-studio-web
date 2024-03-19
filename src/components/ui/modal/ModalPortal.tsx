@@ -58,19 +58,18 @@ export default function ModalPortal({ controllerRef }: ModalPortalProps) {
   controllerRef.current = { pushModal, popModal };
 
   const modalStackContent = stack.map((configWrapper, index) => {
-    const close = configWrapper.config.disableCloseActions
-      ? undefined
-      : () => removeModal(configWrapper.config);
+    const config = configWrapper.config;
+    const close = () => removeModal(config);
 
     return (
       <ModalWrapper
         key={index}
         zOffset={index}
-        close={close}
+        close={config.disableBackgroundClose ? undefined : close}
       >
         <ModalConfigContent
           config={configWrapper.config}
-          close={close}
+          close={config.disableXClose ? undefined : close}
         />
       </ModalWrapper>
     );

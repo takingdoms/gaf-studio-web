@@ -25,6 +25,8 @@ export default function ModalConfigContent({ config, close }: ModalConfigContent
           <button
             className="flex items-center p-2 hover:bg-[#00000020]"
             onClick={close}
+            // TODO optional prop and dialogue to confirm if the user really wants to close the modal
+            // and lose the current progress on whatever they are doing
           >
             <Icons.Close size={20} />
           </button>

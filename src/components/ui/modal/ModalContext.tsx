@@ -3,7 +3,8 @@ import React from "react";
 export type ModalConfig = {
   title: string;
   body: React.ReactNode;
-  disableCloseActions?: boolean;
+  disableBackgroundClose?: boolean;
+  disableXClose?: boolean;
 };
 
 export type ModalHandle = {

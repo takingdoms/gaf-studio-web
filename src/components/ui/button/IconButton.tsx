@@ -20,12 +20,7 @@ export default function IconButton({
   return (
     <button
       className={`${cls} inline-block`}
-      onClick={(ev) => {
-        ev.preventDefault();
-        if (!disabled) {
-          onClick();
-        }
-      }}
+      onClick={() => !disabled && onClick()}
       disabled={disabled}
     >
       <Icon size={size} />

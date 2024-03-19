@@ -8,7 +8,7 @@ import { createSharedSliceWrapper } from "@/lib/state/store/create-shared-worksp
 import { createTafWorkspaceSliceWrapper } from "@/lib/state/store/create-taf-workspace-slice";
 import { AllowedFrameDataModification } from "@/lib/state/store/mods";
 import { GafWorkspaceSliceConfig, TafWorkspaceSliceConfig } from "@/lib/state/store/workspace-slice-configs";
-import { VirtualEntry, VirtualFrame, VirtualFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
+import { VirtualEntry, VirtualFrame, VirtualFrameData, VirtualFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
 import { create } from "zustand";
 
 export type BaseWorkspaceSlice<T extends MainFormat> = {
@@ -46,6 +46,15 @@ export type SharedWorkspaceSlice<T extends MainFormat> = {
   readonly setActiveEntryIndex: (entryIndex: number | null) => void
   readonly setActiveFrameIndex: (frameIndex: number | null) => void;
   readonly setActiveSubframeIndex: (subframeIndex: number | null) => void;
+
+  readonly addFrames: (entryIndex: number, newFrames: readonly VirtualFrame<T>[]) => void;
+  readonly addFramesToActiveEntry: (newFrames: readonly VirtualFrame<T>[]) => void;
+  readonly addSubframes: (
+    entryIndex: number,
+    frameIndex: number,
+    newSubframes: readonly VirtualFrameDataSingleLayer<T>[],
+  ) => void;
+  readonly addSubframesToActiveFrame: (newSubframes: readonly VirtualFrameDataSingleLayer<T>[]) => void;
 
   readonly replaceEntry: (entryIndex: number, newEntry: VirtualEntry<T>) => void;
   readonly replaceFrame: (

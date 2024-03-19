@@ -13,7 +13,7 @@ export default function FrameSelectorList() {
   }
 
   return (
-    <SelectorWrapper label="Frame">
+    <SelectorWrapper type="frames">
       {Array.from({ length: activeEntryFramesLength }).map((_, frameIndex) => {
         return (
           <FrameSelector

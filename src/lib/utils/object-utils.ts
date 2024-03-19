@@ -1,3 +1,5 @@
+import deepEqual from 'deep-equal';
+
 export namespace ObjectUtils {
   export function remove<T extends object, K extends keyof T>(obj: T, propertyKey: K): Omit<T, K> {
     if (propertyKey in obj) {
@@ -19,5 +21,9 @@ export namespace ObjectUtils {
     }
 
     return result as Pick<T, K>;
+  }
+
+  export function deepCompare(obj1: any, obj2: any): boolean {
+    return deepEqual(obj1, obj2);
   }
 }

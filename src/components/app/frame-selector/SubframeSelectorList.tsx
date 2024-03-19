@@ -27,7 +27,7 @@ export default function SubframeSelectorList() {
   }
 
   return (
-    <SelectorWrapper label="Subframe">
+    <SelectorWrapper type="subframes">
       <CompositeFrameSelector />
 
       {Array.from({ length: activeFrameLayersLength ?? 0 }).map((_, layerIndex) => {

@@ -4,7 +4,7 @@ export function NumberControlSideButton({
   icon,
   onClick,
 }: {
-  icon: string;
+  icon: string | React.ReactNode;
   onClick?: () => void;
 }) {
   const hoverCls = onClick ? 'hover:bg-slate-100' : '';
