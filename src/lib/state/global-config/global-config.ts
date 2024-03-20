@@ -1,4 +1,4 @@
-export type ListMode = 'thumbs' | 'minimal' | 'slider' | 'collapsed';
+export type ListMode = 'thumbs' | 'minimal' | 'collapsed';
 
 export type GlobalConfig = {
   readonly frameListMode: ListMode;
@@ -9,6 +9,5 @@ export type GlobalConfig = {
 export const LIST_MODE_LABEL: Record<ListMode, string> = {
   'thumbs': 'Thumbs',
   'minimal': 'Minimal',
-  'slider': 'Slider',
   'collapsed': 'Collapsed',
 };
