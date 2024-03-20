@@ -11,7 +11,7 @@ export type GlobalConfigStore = GlobalConfig & {
 // TODO persist to localStorage
 
 export const useGlobalConfigStore = create<GlobalConfigStore>()((set) => ({
-  frameListMode: 'collapsed',
+  frameListMode: 'thumbs',
   subframeListMode: 'thumbs',
 
   actions: {

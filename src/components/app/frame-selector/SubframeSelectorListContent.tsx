@@ -1,5 +1,8 @@
+import NotMultiLayered from '@/components/app/frame-selector/NotMultiLayeredItem';
+import CompositeMinimalItem from '@/components/app/frame-selector/minimal-mode/CompositeMinimalItem';
+import MinimalItem from '@/components/app/frame-selector/minimal-mode/MinimalItem';
+import MinimalWrapper from '@/components/app/frame-selector/minimal-mode/MinimalWrapper';
 import CompositeFrameSelector from '@/components/app/frame-selector/thumbnail-mode/CompositeFrameSelector';
-import NotMultiLayered from '@/components/app/frame-selector/thumbnail-mode/NotMultiLayeredItem';
 import SelectorWrapper from '@/components/app/frame-selector/thumbnail-mode/SelectorWrapper';
 import SubframeSelector from '@/components/app/frame-selector/thumbnail-mode/SubframeSelector';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
@@ -36,6 +39,23 @@ export default function SubframeSelectorListContent({
     );
   }
 
-  // collapsed!
+  if (listMode === 'minimal') {
+    return (
+      <MinimalWrapper>
+        {activeFrameLayersLength !== null ? <CompositeMinimalItem /> : <NotMultiLayered />}
+
+        {Array.from({ length: activeFrameLayersLength ?? 0 }).map((_, index) => (
+          <MinimalItem
+            key={index}
+            type="subframe"
+            index={index}
+            onClick={() => setActiveSubframeIndex(index)}
+          />
+        ))}
+      </MinimalWrapper>
+    );
+  }
+
+  // listMode === 'collapsed'
   return null;
 }

@@ -1,4 +1,5 @@
 import ControlsPanel from "@/components/app/controls/ControlsPanel";
+import FileMapViewer from "@/components/app/file-map-viewer/FileMapViewer";
 import FrameViewerPanel from "@/components/app/frame-viewer/FrameViewerPanel";
 import WorkspaceAndEntriesPanel from "@/components/app/workspace-root/WorkspaceAndEntriesPanel";
 import ResizablePair from "@/components/ui/misc/ResizablePair";
@@ -16,6 +17,7 @@ export default function WorkspaceRoot() {
 
   const rightPanel = (
     <FrameViewerPanel />
+    // <div className="grow overflow-auto"><FileMapViewer /></div>
   );
 
   const rightPair = (

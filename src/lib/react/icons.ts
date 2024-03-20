@@ -1,4 +1,4 @@
-import { IconCaretDown, IconCaretUp, IconCircleCaretDown, IconCircleCaretUp, IconCircleCheck, IconCircleOff, IconCircleX, IconDeviceFloppy, IconEdit, IconFile, IconFolderOpen, IconMinus, IconPhotoCancel, IconPhotoCheck, IconPhotoDown, IconPlayerSkipBack, IconPlayerSkipForward, IconPlayerTrackNext, IconPlus, IconSettings, IconX, TablerIconsProps } from '@tabler/icons-react';
+import { IconCaretDown, IconCaretUp, IconCircleCaretDown, IconCircleCaretUp, IconCircleCheck, IconCircleOff, IconCircleX, IconDeviceFloppy, IconEdit, IconFile, IconFolderOpen, IconMinus, IconPhotoCancel, IconPhotoCheck, IconPhotoDown, IconPlayerSkipBack, IconPlayerSkipForward, IconPlayerTrackNext, IconPlus, IconSettings, IconStack, IconX, TablerIconsProps } from '@tabler/icons-react';
 
 export type IconProps = TablerIconsProps;
 export type IconFunc = (props: IconProps) => React.ReactNode;
@@ -25,4 +25,5 @@ export const Icons = {
   PhotoLossy: IconPhotoDown,
   PhotoError: IconPhotoCancel,
   Edit: IconEdit,
+  CompositeSubframes: IconStack,
 } as const satisfies Record<string, IconFunc>;

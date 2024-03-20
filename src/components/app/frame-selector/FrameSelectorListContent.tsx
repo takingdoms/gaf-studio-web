@@ -1,3 +1,5 @@
+import MinimalItem from '@/components/app/frame-selector/minimal-mode/MinimalItem';
+import MinimalWrapper from '@/components/app/frame-selector/minimal-mode/MinimalWrapper';
 import FrameSelector from '@/components/app/frame-selector/thumbnail-mode/FrameSelector';
 import SelectorWrapper from '@/components/app/frame-selector/thumbnail-mode/SelectorWrapper';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
@@ -29,6 +31,21 @@ export default function FrameSelectorListContent({
     );
   }
 
-  // collapsed!
+  if (listMode === 'minimal') {
+    return (
+      <MinimalWrapper>
+        {Array.from({ length: activeEntryFramesLength }).map((_, index) => (
+          <MinimalItem
+            key={index}
+            type="frame"
+            index={index}
+            onClick={() => setActiveFrameIndex(index)}
+          />
+        ))}
+      </MinimalWrapper>
+    );
+  }
+
+  // listMode === 'collapsed'
   return null;
 }
