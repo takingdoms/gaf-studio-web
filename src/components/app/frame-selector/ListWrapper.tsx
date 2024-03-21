@@ -1,5 +1,6 @@
 import ListModeControls from "@/components/app/frame-selector/ListModeControls";
 import ImportModal from "@/components/app/importer/ImportModal";
+import TextButton from "@/components/ui/button/TextButton";
 import { ModalContext } from "@/components/ui/modal/ModalContext";
 import React from "react";
 
@@ -32,6 +33,11 @@ export default function ListWrapper({ type, children }: ListWrapperProps) {
         </div>
 
         <ListModeControls type={type} />
+
+        <TextButton
+          label="Import"
+          onClick={onClickImport}
+        />
       </div>
 
       {children}

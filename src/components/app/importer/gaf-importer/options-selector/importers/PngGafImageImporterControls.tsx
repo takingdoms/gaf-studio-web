@@ -1,10 +1,10 @@
 import TranspIndexStrategyControl from '@/components/app/importer/gaf-importer/options-selector/importers/TranspIndexStrategyControl';
 import TransparencyStrategyControl from '@/components/app/importer/gaf-importer/options-selector/importers/TransparencyStrategyControl';
-import { PngGafImporterConfig } from '@/lib/importing/image-importers/gaf/png-gaf-image-importer';
+import { CommonGafImporterConfig } from '@/lib/importing/image-importers/gaf/common-gaf-importer';
 
 type PngGafImageImporterControlsProps = {
-  config: PngGafImporterConfig;
-  setConfig: (config: PngGafImporterConfig) => void;
+  config: CommonGafImporterConfig;
+  setConfig: (config: CommonGafImporterConfig) => void;
 };
 
 export default function PngGafImageImporterControls({

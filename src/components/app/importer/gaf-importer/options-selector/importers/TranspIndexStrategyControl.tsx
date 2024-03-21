@@ -1,16 +1,13 @@
-import TextButton from "@/components/ui/button/TextButton";
 import ColorTile from "@/components/ui/color/ColorTile";
-import NumberControl from "@/components/ui/control/NumberControl";
-import NumberControlInput from "@/components/ui/control/NumberControlInput";
 import NumberControlWithPrompt from "@/components/ui/control/NumberControlWithPrompt";
 import Select from "@/components/ui/select/Select";
 import { Palette } from "@/lib/image/palette/palette";
-import { PngGafImporterConfig } from "@/lib/importing/image-importers/gaf/png-gaf-image-importer";
+import { CommonGafImporterConfig } from "@/lib/importing/image-importers/gaf/common-gaf-importer";
 import { ColorRgb } from "@/lib/utils/utility-types";
 
 type TranspIndexStrategyControlProps = {
-  transpIndexStrategy: PngGafImporterConfig['transpIndexStrategy'];
-  setTranspIndexStrategy: (transp: PngGafImporterConfig['transpIndexStrategy']) => void;
+  transpIndexStrategy: CommonGafImporterConfig['transpIndexStrategy'];
+  setTranspIndexStrategy: (transp: CommonGafImporterConfig['transpIndexStrategy']) => void;
   palette: Palette;
 };
 
@@ -20,7 +17,7 @@ export default function TranspIndexStrategyControl({
   palette,
 }: TranspIndexStrategyControlProps) {
   const mainOption = (
-    <Select<PngGafImporterConfig['transpIndexStrategy']['kind']>
+    <Select<CommonGafImporterConfig['transpIndexStrategy']['kind']>
       options={[
         {
           id: 'auto-assign',
@@ -33,7 +30,7 @@ export default function TranspIndexStrategyControl({
       ]}
       value={transpIndexStrategy.kind}
       onChange={(value) => {
-        let newTranspIndexStrategy: PngGafImporterConfig['transpIndexStrategy'];
+        let newTranspIndexStrategy: CommonGafImporterConfig['transpIndexStrategy'];
 
         if (value === 'auto-assign') {
           newTranspIndexStrategy = {

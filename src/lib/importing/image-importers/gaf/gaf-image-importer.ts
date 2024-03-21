@@ -1,6 +1,7 @@
 import { PalettedImageResource } from "@/lib/image/image-resource";
 import { Palette } from "@/lib/image/palette/palette";
 import { ImageImporter, ImporterResult } from "@/lib/importing/image-importer";
+import { BMP_GAF_IMAGE_IMPORTER, BmpGafImageImporter } from "@/lib/importing/image-importers/gaf/bmp-gaf-image-importer";
 import { PNG_GAF_IMAGE_IMPORTER, PngGafImageImporter } from "@/lib/importing/image-importers/gaf/png-gaf-image-importer";
 
 export type GafImporterConfig = {
@@ -38,8 +39,10 @@ export type GafImageImporter<
 
 // TODO maybe rename to GafImageImporter
 export type GafImageImporters =
-  | PngGafImageImporter;
+  | PngGafImageImporter
+  | BmpGafImageImporter;
 
 export const GAF_IMAGE_IMPORTERS: ReadonlyArray<GafImageImporters> = [
   PNG_GAF_IMAGE_IMPORTER,
+  BMP_GAF_IMAGE_IMPORTER,
 ];

@@ -20,7 +20,7 @@ export default function GafImporterOptionsControls<T extends GafImageImporters>(
   }, [selectedImporter, setSelectedImporter]);
 
   const content = React.useMemo(() => {
-    if (selectedImporter.importer.subKind === 'png') {
+    if (selectedImporter.importer.subKind === 'png' || selectedImporter.importer.subKind === 'bmp') {
       return (
         <PngGafImageImporterControls
           config={selectedImporter.config}

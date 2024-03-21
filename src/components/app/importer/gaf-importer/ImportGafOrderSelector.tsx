@@ -119,9 +119,15 @@ function SelectedItemPreview({
 
   if (!isDecodedUserFileOk(decodedUserFile)) {
     return (
-      <div className="flex justify-center items-center text-red-600 text-center p-2">
-        {'(File format not supported)'}
-      </div>
+      <button
+        className="flex justify-center items-center text-red-600 text-center p-2 hover:underline"
+        onClick={() => {
+          console.log(decodedUserFile.error);
+          alert(decodedUserFile.error);
+        }}
+      >
+        {`(Couldn't decode file)`}
+      </button>
     );
   }
 

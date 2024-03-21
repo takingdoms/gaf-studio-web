@@ -1,12 +1,12 @@
 import ColorTile from "@/components/ui/color/ColorTile";
 import Select from "@/components/ui/select/Select";
-import { PngGafImporterConfig } from "@/lib/importing/image-importers/gaf/png-gaf-image-importer";
+import { CommonGafImporterConfig } from "@/lib/importing/image-importers/gaf/common-gaf-importer";
 import { ColorRgb, ColorRgba } from "@/lib/utils/utility-types";
 import React from "react";
 
 type TransparencyStrategyControlProps = {
-  transparencyStrategy: PngGafImporterConfig['transparencyStrategy'];
-  setTransparencyStrategy: (transp: PngGafImporterConfig['transparencyStrategy']) => void;
+  transparencyStrategy: CommonGafImporterConfig['transparencyStrategy'];
+  setTransparencyStrategy: (transp: CommonGafImporterConfig['transparencyStrategy']) => void;
 };
 
 export default function TransparencyStrategyControl({
@@ -18,7 +18,7 @@ export default function TransparencyStrategyControl({
   }, []);
 
   const mainSelect = (
-    <Select<PngGafImporterConfig['transparencyStrategy']['kind']>
+    <Select<CommonGafImporterConfig['transparencyStrategy']['kind']>
       options={[
         {
           id: 'auto-alpha',
@@ -31,7 +31,7 @@ export default function TransparencyStrategyControl({
       ]}
       value={transparencyStrategy.kind}
       onChange={(value) => {
-        let newTransparencyStrategy: PngGafImporterConfig['transparencyStrategy'];
+        let newTransparencyStrategy: CommonGafImporterConfig['transparencyStrategy'];
 
         if (value === 'auto-alpha') {
           newTransparencyStrategy = {

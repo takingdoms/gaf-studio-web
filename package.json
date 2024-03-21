@@ -12,6 +12,8 @@
   "dependencies": {
     "@stevebel/png": "^1.5.1",
     "@tabler/icons-react": "^2.47.0",
+    "bmp-ts": "^1.0.3",
+    "buffer": "^6.0.3",
     "deep-equal": "^2.2.3",
     "lib-gaf": "file:../prototype",
     "mime": "^4.0.1",

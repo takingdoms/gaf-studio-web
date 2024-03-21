@@ -1,13 +1,13 @@
 import { GafDecodedUserFile, GafDecodedUserFileOk, GafImportedFile } from "@/components/app/importer/gaf-importer/gaf-importing-types";
 import { Palette } from "@/lib/image/palette/palette";
-import { PngGafImageImporter } from "@/lib/importing/image-importers/gaf/png-gaf-image-importer";
+import { GafImageImporters } from "@/lib/importing/image-importers/gaf/gaf-image-importer";
 import Mime from 'mime';
 
 export namespace GafImportingFunctions {
   export async function decodeImage(
     file: File,
     palette: Palette,
-    availableImporters: readonly PngGafImageImporter[],
+    availableImporters: readonly GafImageImporters[],
   ): Promise<GafDecodedUserFile> {
     const mimeType = Mime.getType(file.name);
 
