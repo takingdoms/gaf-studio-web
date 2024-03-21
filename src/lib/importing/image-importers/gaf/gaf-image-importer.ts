@@ -26,7 +26,7 @@ export type GafImporterResult = ImporterResult<PalettedImageResource> & {
 
 // TODO maybe rename to BaseGafImageImporter
 export type GafImageImporter<
-  TSubKind extends string,
+  TSubKind extends symbol,
   TSubConfig extends GafImporterConfig = GafImporterConfig,
 > = ImageImporter<
   'gaf',

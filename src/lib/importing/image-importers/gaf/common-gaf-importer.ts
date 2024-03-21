@@ -28,7 +28,7 @@ export type CommonGafImporterConfig = GafImporterConfig & {
 
 const imageCompiler = new SimpleImageCompiler();
 
-export function makeCommonGafImageImporter<TSubKind extends string>(
+export function makeCommonGafImageImporter<TSubKind extends symbol>(
   options: {
     subKind: TSubKind;
     title: string;

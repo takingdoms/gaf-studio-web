@@ -1,6 +1,8 @@
 import { GafSelectedImporter } from '@/components/app/importer/gaf-importer/gaf-importing-types';
 import PngGafImageImporterControls from '@/components/app/importer/gaf-importer/options-selector/importers/PngGafImageImporterControls';
+import { BMP_GAF_IMAGE_IMPORTER } from '@/lib/importing/image-importers/gaf/bmp-gaf-image-importer';
 import { GafImageImporters } from '@/lib/importing/image-importers/gaf/gaf-image-importer';
+import { PNG_GAF_IMAGE_IMPORTER } from '@/lib/importing/image-importers/gaf/png-gaf-image-importer';
 import React from 'react';
 
 type GafImporterOptionsControlsProps<T extends GafImageImporters> = {
@@ -20,7 +22,10 @@ export default function GafImporterOptionsControls<T extends GafImageImporters>(
   }, [selectedImporter, setSelectedImporter]);
 
   const content = React.useMemo(() => {
-    if (selectedImporter.importer.subKind === 'png' || selectedImporter.importer.subKind === 'bmp') {
+    if (
+      selectedImporter.importer.subKind === PNG_GAF_IMAGE_IMPORTER.subKind ||
+      selectedImporter.importer.subKind === BMP_GAF_IMAGE_IMPORTER.subKind
+    ) {
       return (
         <PngGafImageImporterControls
           config={selectedImporter.config}
