@@ -35,7 +35,6 @@ export default function ImportGafWizard({
   const [decoding, setDecoding] = React.useState(false);
   const [importedFiles, setImportedFiles] = React.useState<GafImportedFile[]>();
   const [importing, setImporting] = React.useState(false);
-  const [showWorkspaceOptions, setShowWorkspaceOptions] = React.useState(true);
   const [finalResult, setFinalResult] = React.useState<FinalImportResult>();
 
   const onImportFiles = React.useCallback((decFiles: GafDecodedUserFileOk[]) => {
@@ -188,8 +187,6 @@ export default function ImportGafWizard({
         setCurrentPalette={setCurrentPalette}
         onFinish={onOptionsSelected}
         onAbort={onAbort}
-        showWorkspaceOptions={showWorkspaceOptions}
-        setShowWorkspaceOptions={setShowWorkspaceOptions}
       />
     );
   }

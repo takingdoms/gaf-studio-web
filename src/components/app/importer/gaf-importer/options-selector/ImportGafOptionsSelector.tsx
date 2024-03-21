@@ -1,15 +1,13 @@
 import ImportBackground from '@/components/app/importer/common/ImportBackground';
 import ImportContent from '@/components/app/importer/common/ImportContent';
-import ImportHeader from '@/components/app/importer/common/ImportHeader';
 import ImportOptionsStepper from '@/components/app/importer/common/ImportOptionsStepper';
+import ImportGafWorkspaceOptions from '@/components/app/importer/gaf-importer/ImportGafWorkspaceOptions';
 import { GafImportingFunctions } from '@/components/app/importer/gaf-importer/gaf-importing-functions';
 import { GafConfiguredFile, GafImportedFile, GafSelectedImporter } from '@/components/app/importer/gaf-importer/gaf-importing-types';
 import GafImportOptionsForm from '@/components/app/importer/gaf-importer/options-selector/GafImportOptionsForm';
 import GafImporterOptionsControls from '@/components/app/importer/gaf-importer/options-selector/GafImporterOptionsControls';
 import ImportGafCompareImages from '@/components/app/importer/gaf-importer/options-selector/ImportGafCompareImages';
 import ImportGafConversionMessage from '@/components/app/importer/gaf-importer/options-selector/ImportGafConversionMessage';
-import ImportGafPaletteControls from '@/components/app/importer/gaf-importer/options-selector/ImportGafPaletteControls';
-import TextButton from '@/components/ui/button/TextButton';
 import LoadingOverlay from '@/components/ui/overlay/LoadingOverlay';
 import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
 import { AsyncUtils } from '@/lib/utils/async-utils';
@@ -25,8 +23,6 @@ type ImportGafOptionsSelectorProps = {
   setCurrentPalette: (newPal: CurrentPalette) => void;
   onAbort: () => void;
   onFinish: (configedFiles: GafConfiguredFile[]) => void;
-  showWorkspaceOptions: boolean;
-  setShowWorkspaceOptions: (val: boolean) => void;
 };
 
 export default function ImportGafOptionsSelector({
@@ -36,8 +32,6 @@ export default function ImportGafOptionsSelector({
   setCurrentPalette,
   onAbort,
   onFinish,
-  showWorkspaceOptions,
-  setShowWorkspaceOptions,
 }: ImportGafOptionsSelectorProps) {
   if (importedFiles.length === 0) {
     throw new Error(`No files.`);
@@ -243,23 +237,10 @@ export default function ImportGafOptionsSelector({
   return (
     <LoadingOverlay isLoading={isReimporting ? 'Recompiling...' : false}>
       <ImportBackground>
-        <div>
-          <ImportHeader>
-            Workspace Options
-            <span className="ml-1 font-normal">
-              <TextButton
-                label={showWorkspaceOptions ? '[Collapse]' : '[Expand]'}
-                onClick={() => setShowWorkspaceOptions(!showWorkspaceOptions)}
-              />
-            </span>
-          </ImportHeader>
-          {showWorkspaceOptions && (
-            <ImportGafPaletteControls
-              currentPalette={currentPalette}
-              setCurrentPalette={onChangeCurrentPalette}
-            />
-          )}
-        </div>
+        <ImportGafWorkspaceOptions
+          currentPalette={currentPalette}
+          setCurrentPalette={onChangeCurrentPalette}
+        />
 
         <ImportContent header="Importer Options">
           <GafImporterOptionsControls
