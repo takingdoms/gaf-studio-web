@@ -1,3 +1,4 @@
+import { Debug } from "@/lib/debug/debug";
 import { ImageDecoder } from "@/lib/importing/image-decoder";
 import * as png from '@stevebel/png';
 
@@ -9,13 +10,12 @@ export const PNG_IMAGE_DECODER: ImageDecoder = {
       const pngMetadata = png.decode(arrayBuffer);
       const { data, width, height } = pngMetadata;
 
+      Debug.assertEq(width * height * 4, data.length);
+
       const bytes = new Uint8Array(data.length);
 
       for (let i = 0; i < data.length; i++) {
-        bytes[i + 0] = data[i + 0]; // red
-        bytes[i + 1] = data[i + 1]; // green
-        bytes[i + 2] = data[i + 2]; // blue
-        bytes[i + 3] = data[i + 3]; // alpha
+        bytes[i] = data[i];
       }
 
       const clamped = new Uint8ClampedArray(bytes.buffer, bytes.byteOffset, bytes.byteLength);
