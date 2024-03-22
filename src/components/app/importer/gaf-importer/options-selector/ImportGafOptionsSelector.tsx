@@ -130,109 +130,125 @@ export default function ImportGafOptionsSelector({
   }, [isReimporting, currentFile, importedFiles, progress, setImportedFiles, onAbort,
       currentConfigedFile, setCurrentConfigedFile]);
 
-  const onClickNextAll = React.useCallback(() => {
-    if (isReimporting)                return;
-    if (currentConfigedFile === undefined)  return;
+  const onClickApplyAllImporterOptions = React.useCallback(() => {
+    if (isReimporting) {
+      return;
+    }
 
     setIsReimporting(true);
     HtmlUtils.justBlurIt();
 
+    const failList: typeof importedFiles = [];
     const currentImporter = currentFile.selectedImporter;
-    const currentOptions = currentConfigedFile.options;
 
-    const newImportedFiles = [...importedFiles];
-    const newConfigedFiles = [...configedFiles];
+    // TODO? eventually store this as the state, instead of importedFiles and configuedFiles?
+    type Pair = {
+      importedFile: GafImportedFile;
+      configedFile: GafConfiguredFile | undefined;
+    };
 
-    async function doNext(index: number): Promise<void> {
-      setProgress(index);
+    const promises: Promise<Pair>[] = Array.from({ length: importedFiles.length }).map(async (_, index) => {
+      const next = {
+        importedFile: importedFiles[index],
+        configedFile: configedFiles[index],
+      };
 
-      let nextFile = importedFiles[index];
-
-      // TODO maybe this commented line is better? \/
-      // if (nextFile.selectedImporter.importer !== currentImporter.importer) {
-      if (nextFile.selectedImporter.importer.subKind !== currentImporter.importer.subKind) {
-        // this is to prevent an incompatible importer from being applied to the next file
-        // (ex: applying a PngImporter over a bmp file) - TODO test if this works as intended
-        return;
+      if (next.importedFile === currentFile) {
+        return next;
       }
 
-      const isImporterConfigDifferent = !ObjectUtils.deepCompare(
-        nextFile.selectedImporter.config,
+      // this is to prevent an incompatible importer from being applied to the next file
+      // (ex: applying a PngImporter over a bmp file) - TODO test if this works as intended
+      if (next.importedFile.selectedImporter.importer.subKind !== currentImporter.importer.subKind) {
+        failList.push(next.importedFile);
+        return next;
+      }
+
+      const isImporterConfigIdentical = ObjectUtils.deepCompare(
+        next.importedFile.selectedImporter.config,
         currentImporter.config,
       );
 
-      if (isImporterConfigDifferent) {
-        nextFile = {
-          ...nextFile,
-          selectedImporter: currentImporter, // applies current importer settings to nextFile
-        };
+      if (isImporterConfigIdentical) {
+        return next;
       }
 
-      // the blocks below exists to update the old options with the current options early for the UI
-      // and is "technically" unnecessary since these setters are called later anyway
-      if (isImporterConfigDifferent) {
-        newImportedFiles[index] = nextFile;
-        setImportedFiles(newImportedFiles);
-      }
-
-      const oldConfigedFile = newConfigedFiles[index];
-      if (oldConfigedFile !== undefined) {
-        newConfigedFiles[index] = {
-          importedFile: oldConfigedFile.importedFile,
-          options: currentOptions, // applies current options to nextFile
-        };
-        setConfigedFiles(newConfigedFiles);
-      }
-      // ^^^ "technically" unnecessary blocks end here ^^^
-
-      let newImportedFile = newImportedFiles[index];
-
-      if (isImporterConfigDifferent) {
-        newImportedFile = await AsyncUtils.defer(
-          () => GafImportingFunctions.importImage(nextFile)
-        );
-
-        newImportedFiles[index] = newImportedFile;
-      }
-
-      newConfigedFiles[index] = {
-        importedFile: newImportedFile,
-        options: currentOptions, // applies current options to nextFile
+      let newImportedFile: GafImportedFile = {
+        ...next.importedFile,
+        selectedImporter: {
+          ...next.importedFile.selectedImporter,
+          config: currentImporter.config,
+        },
       };
 
-      if (newImportedFile.importerResult.kind === 'error') {
-        alert('Errored out when compiling current image with the current Importer options!');
-        return;
-      }
+      newImportedFile = await AsyncUtils.defer(
+        () => GafImportingFunctions.importImage(newImportedFile)
+      );
 
-      if (index === importedFiles.length - 1) {
-        if (!isImporterConfigDifferent) {
-          // no re-importing was done? then send it in to the onFinish!
-          onFinish(newConfigedFiles.filter(MiscUtils.notEmpty));
-        }
+      const newConfigedFile = newImportedFile.importerResult.kind === 'error'
+        ? undefined
+        : {
+          importedFile: newImportedFile,
+          options: {
+            center: next.configedFile?.options.center ?? false,
+            compress: next.configedFile?.options.compress ?? false,
+            transparencyIndex: newImportedFile.importerResult.result.transparencyIndex,
+          },
+        };
 
-        return;
-      }
-
-      return doNext(index + 1);
-    }
-
-    const promise = AsyncUtils.defer(() => {
-      return doNext(progress);
+      return {
+        importedFile: newImportedFile,
+        configedFile: newConfigedFile,
+      };
     });
 
-    promise
+    Promise.all(promises)
+      .then((result) => {
+        const importedFiles = result.map((r) => r.importedFile);
+        const configedFiles = result.map((r) => r.configedFile);
+
+        setImportedFiles(importedFiles);
+        setConfigedFiles(configedFiles);
+        // TODO show failList on screen
+
+        // TODO replace this alert with a subtle Toast at the bottom right or top right
+        alert('Done!');
+      })
       .catch((err) => {
         console.error(err); // theoretically impossible to reach
         onAbort();
       })
       .finally(() => {
         setIsReimporting(false);
-        setImportedFiles(newImportedFiles);
-        setConfigedFiles(newConfigedFiles);
       });
-  }, [isReimporting, currentConfigedFile, onAbort, configedFiles, currentFile, importedFiles,
-      setImportedFiles, progress, onFinish]);
+  }, [currentFile, importedFiles, setImportedFiles, isReimporting, setIsReimporting, configedFiles,
+      onAbort]);
+
+  const onClickApplyAllFrameOptions = React.useCallback(() => {
+    if (isReimporting)                      return;
+    if (currentConfigedFile === undefined)  return;
+
+    const newConfigedFiles: typeof configedFiles = configedFiles.map((next) => {
+      if (next === currentConfigedFile || next === undefined) {
+        return next;
+      }
+
+      return {
+        ...next,
+        options: currentConfigedFile.options,
+      };
+    });
+
+    setConfigedFiles(newConfigedFiles);
+
+    // TODO replace this alert with a subtle Toast at the bottom right or top right
+    alert('Done!');
+  }, [isReimporting, currentConfigedFile, configedFiles]);
+
+  const onClickFinish = React.useCallback(() => {
+    const nonErroredResults = configedFiles.filter(MiscUtils.notUndefined);
+    onFinish(nonErroredResults);
+  }, [configedFiles, onFinish]);
 
   return (
     <LoadingOverlay isLoading={isReimporting ? 'Recompiling...' : false}>
@@ -246,6 +262,7 @@ export default function ImportGafOptionsSelector({
           <GafImporterOptionsControls
             selectedImporter={currentFile.selectedImporter}
             setSelectedImporter={onChangeSelectedImporter}
+            onClickApplyAll={onClickApplyAllImporterOptions}
           />
         </ImportContent>
 
@@ -262,6 +279,7 @@ export default function ImportGafOptionsSelector({
               importedFile={currentFile}
               currentConfig={currentConfigedFile}
               setCurrentConfig={setCurrentConfigedFile}
+              onClickApplyAll={onClickApplyAllFrameOptions}
             />
           )}
         </ImportContent>
@@ -276,19 +294,12 @@ export default function ImportGafOptionsSelector({
             setProgress(progress - 1);
           }}
           onNext={() => {
-            if (isReimporting)                return;
-            if (currentConfigedFile === undefined)  return;
+            if (isReimporting)                          return;
+            if (progress === configedFiles.length - 1)  return;
 
-            if (progress === configedFiles.length - 1) {
-              // if everything went as normal this array should be identical to the results array
-              const nonErroredResults = configedFiles.filter(MiscUtils.notUndefined);
-              onFinish(nonErroredResults);
-            }
-            else {
-              setProgress(progress + 1);
-            }
+            setProgress(progress + 1);
           }}
-          onNextAll={onClickNextAll}
+          onFinish={onClickFinish}
         />
       </ImportBackground>
     </LoadingOverlay>

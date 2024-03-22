@@ -7,7 +7,7 @@ type ImportOptionsStepperProps = {
   current: number;
   onPrev: () => void;
   onNext: () => void;
-  onNextAll?: () => void;
+  onFinish: () => void;
 };
 
 export default function ImportOptionsStepper({
@@ -15,26 +15,14 @@ export default function ImportOptionsStepper({
   current,
   onPrev,
   onNext,
-  onNextAll,
+  onFinish,
 }: ImportOptionsStepperProps) {
   const isFirst = current === 0;
   const isLast = current === total - 1;
 
   return (
     <div className="flex flex-col">
-      {onNextAll !== undefined && total > 1 && (
-        <div className={`flex justify-end mb-1.5 ${isLast ? 'invisible' : ''}`}>
-          <SolidButton
-            color="success"
-            onClick={onNextAll}
-          >
-            <span className="text-xs">Apply to all remaining&nbsp;</span>
-            <Icons.NextAll size={16} />
-          </SolidButton>
-        </div>
-      )}
-
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-2">
         <SolidButton
           color="default"
           onClick={onPrev}
@@ -50,11 +38,22 @@ export default function ImportOptionsStepper({
         </div>
 
         <SolidButton
-          color="success"
+          color="default"
           onClick={onNext}
+          disabled={isLast}
         >
-          <span className="text-sm">{isLast ? 'Finish' : 'Next'}&nbsp;</span>
+          <span className="text-sm">Next&nbsp;</span>
           <Icons.Next size={18} />
+        </SolidButton>
+      </div>
+
+      <div className="flex justify-end">
+        <SolidButton
+          color="success"
+          onClick={onFinish}
+        >
+          <span className="text-sm">Finish&nbsp;</span>
+          <Icons.NextAll size={18} />
         </SolidButton>
       </div>
     </div>
