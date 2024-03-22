@@ -133,12 +133,12 @@ export default function GafImportOptionsForm({
   return (
     <div className="flex flex-col">
       <div className="flex mb-2">
-        <div className="flex-1 flex flex-col space-y-2">
+        <div className="flex-1 flex flex-col items-start space-y-2">
           {centerControl}
           {compressControl}
         </div>
         <div className="pl-2 mr-2" />
-        <div className="flex-1 flex flex-col space-y-2">
+        <div className="flex-1 flex flex-col items-start space-y-2">
           {transpIndexControl}
         </div>
       </div>
