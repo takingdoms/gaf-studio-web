@@ -12,8 +12,6 @@ export const BMP_IMAGE_DECODER: ImageDecoder = {
 
       const { data, width, height } = bmpData;
 
-      console.log(bmpData);
-
       Debug.assertEq(width * height * 4, data.length);
 
       const bytes = new Uint8Array(data.length);
