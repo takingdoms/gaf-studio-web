@@ -54,8 +54,7 @@ export default function ImportOptionsStepper({
           color="success"
           onClick={onFinish}
         >
-          <span className="text-sm">Finish&nbsp;</span>
-          <Icons.NextAll size={18} />
+          <span className="text-sm">Finish</span>
         </SolidButton>
       </div>
     </div>
