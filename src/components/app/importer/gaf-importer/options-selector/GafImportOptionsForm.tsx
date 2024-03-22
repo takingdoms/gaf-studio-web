@@ -31,6 +31,7 @@ export default function GafImportOptionsForm({
 
     if (num < 0 || num > 255) {
       alert(`Number cannot be < 0 or > 255`);
+      return;
     }
 
     setCurrentConfig({
@@ -113,13 +114,13 @@ export default function GafImportOptionsForm({
       </div>
       <div className="flex flex-wrap space-x-2 text-xs">
         <TextButton
-          label="[Override]"
+          label="Override"
           onClick={onClickOverrideTranspIndex}
           title="Override the value assigned by the Importer with a fixed value"
         />
         {isTranpIndexOverridden && (
           <TextButton
-            label="[Reset]"
+            label="Reset"
             onClick={onClickResetTranspIndex}
             title="Resets the overridden value to the value assigned by the Importer"
             disabled={!isTranpIndexOverridden}
