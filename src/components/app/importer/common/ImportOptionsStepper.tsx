@@ -22,30 +22,32 @@ export default function ImportOptionsStepper({
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between mb-2">
-        <SolidButton
-          color="default"
-          onClick={onPrev}
-          disabled={isFirst}
-        >
-          <Icons.Prev size={18} />
-          <span className="text-sm">&nbsp;Prev</span>
-        </SolidButton>
+      {total > 1 && (
+        <div className="flex justify-between mb-2">
+          <SolidButton
+            color="default"
+            onClick={onPrev}
+            disabled={isFirst}
+          >
+            <Icons.Prev size={18} />
+            <span className="text-sm">&nbsp;Prev</span>
+          </SolidButton>
 
-        <div className="self-center">
-          {/* File{' '} */}
-          <span className="font-mono">{current + 1}/{total}</span>
+          <div className="self-center">
+            {/* File{' '} */}
+            <span className="font-mono">{current + 1}/{total}</span>
+          </div>
+
+          <SolidButton
+            color="default"
+            onClick={onNext}
+            disabled={isLast}
+          >
+            <span className="text-sm">Next&nbsp;</span>
+            <Icons.Next size={18} />
+          </SolidButton>
         </div>
-
-        <SolidButton
-          color="default"
-          onClick={onNext}
-          disabled={isLast}
-        >
-          <span className="text-sm">Next&nbsp;</span>
-          <Icons.Next size={18} />
-        </SolidButton>
-      </div>
+      )}
 
       <div className="flex justify-end">
         <SolidButton

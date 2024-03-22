@@ -9,7 +9,7 @@ import React from 'react';
 type GafImporterOptionsControlsProps<T extends GafImageImporters> = {
   selectedImporter: GafSelectedImporter<T>;
   setSelectedImporter: (newValue: GafSelectedImporter<T>) => void;
-  onClickApplyAll: () => void;
+  onClickApplyAll?: () => void;
 };
 
 export default function GafImporterOptionsControls<T extends GafImageImporters>({
@@ -53,16 +53,18 @@ export default function GafImporterOptionsControls<T extends GafImageImporters>(
         <span className="font-bold">{selectedImporter.importer.title}</span>
       </div>
 
-      <div className="mb-2">
+      <div>
         {content}
       </div>
 
-      <div className="text-center text-xs">
-        <TextButton
-          label="Apply to all images"
-          onClick={onClickApplyAll}
-        />
-      </div>
+      {onClickApplyAll && (
+        <div className="mt-2 text-center text-xs">
+          <TextButton
+            label="Apply to all images"
+            onClick={onClickApplyAll}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -262,7 +262,7 @@ export default function ImportGafOptionsSelector({
           <GafImporterOptionsControls
             selectedImporter={currentFile.selectedImporter}
             setSelectedImporter={onChangeSelectedImporter}
-            onClickApplyAll={onClickApplyAllImporterOptions}
+            onClickApplyAll={importedFiles.length > 1 ? onClickApplyAllImporterOptions : undefined}
           />
         </ImportContent>
 
@@ -279,7 +279,7 @@ export default function ImportGafOptionsSelector({
               importedFile={currentFile}
               currentConfig={currentConfigedFile}
               setCurrentConfig={setCurrentConfigedFile}
-              onClickApplyAll={onClickApplyAllFrameOptions}
+              onClickApplyAll={importedFiles.length > 1 ? onClickApplyAllFrameOptions : undefined}
             />
           )}
         </ImportContent>
