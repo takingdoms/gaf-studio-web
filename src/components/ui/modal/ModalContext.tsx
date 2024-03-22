@@ -1,3 +1,6 @@
+import { ModalConfirmPrompt } from "@/components/ui/modal/helpers/modalConfirmPrompt";
+import { ModalCustomPrompt } from "@/components/ui/modal/helpers/modalCustomPrompt";
+import { ModalNumberPrompt } from "@/components/ui/modal/helpers/modalNumberPrompt";
 import React from "react";
 
 export type ModalConfig = {
@@ -18,3 +21,13 @@ export type ModalController = {
 };
 
 export const ModalContext = React.createContext<ModalController>(undefined!);
+
+// Helpers:
+
+export type ModalHelpers = {
+  customPrompt: ModalCustomPrompt;
+  confirmPrompt: ModalConfirmPrompt;
+  numberPrompt: ModalNumberPrompt;
+};
+
+export const ModalHelpersContext = React.createContext<ModalHelpers>(undefined!);

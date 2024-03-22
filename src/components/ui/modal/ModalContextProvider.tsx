@@ -1,5 +1,8 @@
-import { ModalController, ModalConfig, ModalContext } from '@/components/ui/modal/ModalContext';
+import { ModalController, ModalConfig, ModalContext, ModalHelpers, ModalHelpersContext } from '@/components/ui/modal/ModalContext';
 import ModalPortal from '@/components/ui/modal/ModalPortal';
+import { makeModalConfirmPrompt } from "@/components/ui/modal/helpers/modalConfirmPrompt";
+import { makeModalCustomPrompt } from "@/components/ui/modal/helpers/modalCustomPrompt";
+import { makeModalNumberPrompt } from "@/components/ui/modal/helpers/modalNumberPrompt";
 import React from 'react';
 
 type ModalContextProviderProps = {
@@ -28,10 +31,22 @@ export default function ModalContextProvider({
     }
   }, []);
 
+  const modalHelpers: ModalHelpers = React.useMemo(() => {
+    const modal = { pushModal, popModal };
+
+    return {
+      confirmPrompt: makeModalConfirmPrompt(modal),
+      customPrompt: makeModalCustomPrompt(modal),
+      numberPrompt: makeModalNumberPrompt(modal),
+    };
+  }, [pushModal, popModal]);
+
   return (<>
     <ModalContext.Provider value={{ pushModal, popModal }}>
-      {children}
-      <ModalPortal controllerRef={controllerRef} />
+      <ModalHelpersContext.Provider value={modalHelpers}>
+        {children}
+        <ModalPortal controllerRef={controllerRef} />
+      </ModalHelpersContext.Provider>
     </ModalContext.Provider>
   </>);
 }

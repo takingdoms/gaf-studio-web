@@ -1,5 +1,6 @@
 import { GafConfiguredFile, GafImportedFile } from '@/components/app/importer/gaf-importer/gaf-importing-types';
 import TextButton from '@/components/ui/button/TextButton';
+import { ModalHelpersContext } from '@/components/ui/modal/ModalContext';
 import React from 'react';
 
 type GafImportOptionsFormProps = {
@@ -15,22 +16,18 @@ export default function GafImportOptionsForm({
   setCurrentConfig,
   onClickApplyAll,
 }: GafImportOptionsFormProps) {
-  const onClickOverrideTranspIndex = React.useCallback(() => {
-    const value = window.prompt('Enter the palette index to be used as transparency (advanced).');
+  const { numberPrompt } = React.useContext(ModalHelpersContext);
 
-    if (value === null) {
-      return;
-    }
+  const onClickOverrideTranspIndex = React.useCallback(async () => {
+    const value = await numberPrompt({
+      title: 'Override Transparency Index',
+      label: 'Enter a Transparency Index value:',
+      min: 0,
+      max: 255,
+      defaultValue: currentConfig.options.transparencyIndex,
+    });
 
-    const num = parseInt(value);
-
-    if (Number.isNaN(num)) {
-      alert(`Invalid number.`)
-      return;
-    }
-
-    if (num < 0 || num > 255) {
-      alert(`Number cannot be < 0 or > 255`);
+    if (value === null || value < 0 || value > 255) {
       return;
     }
 
@@ -38,10 +35,10 @@ export default function GafImportOptionsForm({
       ...currentConfig,
       options: {
         ...currentConfig.options,
-        transparencyIndex: num,
+        transparencyIndex: value,
       },
     });
-  }, [currentConfig, setCurrentConfig]);
+  }, [currentConfig, setCurrentConfig, numberPrompt]);
 
   const onClickResetTranspIndex = React.useCallback(() => {
     if (importedFile.importerResult.kind === 'error') {
