@@ -157,9 +157,10 @@ export default function ImportGafOptionsSelector({
         return next;
       }
 
-      // this is to prevent an incompatible importer from being applied to the next file
-      // (ex: applying a PngImporter over a bmp file) - TODO test if this works as intended
-      if (next.importedFile.selectedImporter.importer.subKind !== currentImporter.importer.subKind) {
+      if (
+        next.importedFile.selectedImporter.config.compatibilityKey !==
+        currentImporter.config.compatibilityKey
+      ) {
         failList.push(index);
         return next;
       }

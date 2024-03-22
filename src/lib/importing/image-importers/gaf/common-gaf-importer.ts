@@ -7,7 +7,11 @@ import { ImageDecoder } from "@/lib/importing/image-decoder";
 import { GafImageImporter, GafImporterConfig, GafImporterResult } from "@/lib/importing/image-importers/gaf/gaf-image-importer";
 import { ColorRgb, ColorRgba } from "@/lib/utils/utility-types";
 
+const commonGafConfigKey = Symbol('common');
+
 export type CommonGafImporterConfig = GafImporterConfig & {
+  readonly compatibilityKey: typeof commonGafConfigKey;
+
   readonly transparencyStrategy: {
     // any pixel where alpha < 255 gets interpreted as a transparent pixel
     readonly kind: 'auto-alpha';
@@ -42,6 +46,7 @@ export function makeCommonGafImageImporter<TSubKind extends symbol>(
     title: options.title,
     makeDefaultConfig: (baseConfig) => {
       return {
+        compatibilityKey: commonGafConfigKey,
         palette: baseConfig.palette,
         transparencyStrategy: {
           kind: 'auto-alpha',

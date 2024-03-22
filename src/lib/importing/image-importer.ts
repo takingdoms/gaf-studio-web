@@ -7,9 +7,17 @@ export type ImporterResult<TResource extends ImageResource = ImageResource> = {
   readonly resource: TResource;
 };
 
+export type BaseConfig = {
+  /**
+   * Used to verify whether two configs are compatible with one another.
+   * Used in the "Apply to all" button, pretty much.
+  */
+  readonly compatibilityKey: symbol;
+};
+
 export type ImageImporter<
   TFormat extends ImportFormat,
-  TConfig,
+  TConfig extends BaseConfig,
   TResult extends ImporterResult,
 > = {
   readonly format: TFormat;

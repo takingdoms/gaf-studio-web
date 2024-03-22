@@ -3,8 +3,10 @@ import { Palette } from "@/lib/image/palette/palette";
 import { ImageImporter, ImporterResult } from "@/lib/importing/image-importer";
 import { BMP_GAF_IMAGE_IMPORTER, BmpGafImageImporter } from "@/lib/importing/image-importers/gaf/bmp-gaf-image-importer";
 import { PNG_GAF_IMAGE_IMPORTER, PngGafImageImporter } from "@/lib/importing/image-importers/gaf/png-gaf-image-importer";
+import { StrictOmit } from 'ts-essentials';
 
 export type GafImporterConfig = {
+  readonly compatibilityKey: symbol;
   readonly palette: Palette;
 };
 
@@ -34,7 +36,7 @@ export type GafImageImporter<
   GafImporterResult
 > & {
   readonly subKind: TSubKind;
-  readonly makeDefaultConfig: (baseConfig: GafImporterConfig) => TSubConfig;
+  readonly makeDefaultConfig: (base: StrictOmit<GafImporterConfig, 'compatibilityKey'>) => TSubConfig;
 };
 
 // TODO maybe rename to GafImageImporter
