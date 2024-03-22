@@ -1,5 +1,6 @@
 import NumberControlInput from '@/components/ui/control/NumberControlInput';
 import { NumberControlSideButton } from '@/components/ui/control/NumberControlSideButton';
+import { ModalHelpersContext } from '@/components/ui/modal/ModalContext';
 import { Icons } from '@/lib/react/icons';
 import React from 'react';
 
@@ -18,36 +19,26 @@ export default function NumberControlWithPrompt({
   min,
   max,
 }: NumberControlWithPromptProps) {
-  const onClickEdit = React.useCallback(() => {
+  const { numberPrompt } = React.useContext(ModalHelpersContext);
+
+  const onClickEdit = React.useCallback(async () => {
     if (setValue === undefined) {
       return;
     }
 
-    const value = window.prompt(promptMessage ?? 'Enter a number:');
+    const value = await numberPrompt({
+      title: 'Number prompt',
+      label: promptMessage ?? 'Enter a number:',
+      min,
+      max,
+    });
 
     if (value === null) {
       return;
     }
 
-    const num = parseInt(value);
-
-    if (Number.isNaN(num)) {
-      window.alert(`Value entered is not an integer: ${num}`);
-      return;
-    }
-
-    if (min !== undefined && num < min) {
-      window.alert(`Value entered cannot be smaller than: ${min}`);
-      return;
-    }
-
-    if (max !== undefined && num > max) {
-      window.alert(`Value entered cannot be greater than: ${max}`);
-      return;
-    }
-
-    setValue(num);
-  }, [setValue, promptMessage, min, max]);
+    setValue(value);
+  }, [setValue, promptMessage, min, max, numberPrompt]);
 
   return (
     <div className="inline-flex items-center space-x-0.5">
