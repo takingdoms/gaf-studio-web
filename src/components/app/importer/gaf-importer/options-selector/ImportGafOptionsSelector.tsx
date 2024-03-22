@@ -138,7 +138,7 @@ export default function ImportGafOptionsSelector({
     setIsReimporting(true);
     HtmlUtils.justBlurIt();
 
-    const failList: typeof importedFiles = [];
+    const failList: number[] = []; // list of indices into importedFiles
     const currentImporter = currentFile.selectedImporter;
 
     // TODO? eventually store this as the state, instead of importedFiles and configuedFiles?
@@ -160,7 +160,7 @@ export default function ImportGafOptionsSelector({
       // this is to prevent an incompatible importer from being applied to the next file
       // (ex: applying a PngImporter over a bmp file) - TODO test if this works as intended
       if (next.importedFile.selectedImporter.importer.subKind !== currentImporter.importer.subKind) {
-        failList.push(next.importedFile);
+        failList.push(index);
         return next;
       }
 
@@ -209,10 +209,22 @@ export default function ImportGafOptionsSelector({
 
         setImportedFiles(importedFiles);
         setConfigedFiles(configedFiles);
-        // TODO show failList on screen
 
-        // TODO replace this alert with a subtle Toast at the bottom right or top right
-        alert('Done!');
+        if (failList.length > 0) {
+          const list = failList.map((index) => {
+            const importedFile = importedFiles[index];
+            return `#${index + 1} (${importedFile.file.name})`;
+          });
+
+          // TODO replace this alert with a proper modal component
+          alert(`Done. But it wasn't possible to apply the current importer config to the`
+            + ` following images because their importer/decoder has different options:`
+            + ` ${list.join('; ')}`);
+        }
+        else {
+          // TODO replace this alert with a subtle Toast at the bottom right or top right
+          alert('Done!');
+        }
       })
       .catch((err) => {
         console.error(err); // theoretically impossible to reach
