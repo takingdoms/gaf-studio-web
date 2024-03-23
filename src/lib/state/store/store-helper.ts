@@ -79,7 +79,10 @@ export namespace StoreHelper {
         unknown3: frameData.unknown3,
       };
 
-      return frameDataProps;
+      return {
+        kind: frameData.kind,
+        ...frameDataProps,
+      };
     }));
   }
 

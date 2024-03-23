@@ -1,3 +1,4 @@
+import TextButton from '@/components/ui/button/TextButton';
 import NumberControl from '@/components/ui/control/NumberControl';
 import { AllowedFrameDataModification } from '@/lib/state/store/mods';
 import { BaseVirtualGafFrameData } from '@/lib/virtual-gaf/virtual-gaf';
@@ -7,6 +8,8 @@ type FrameDataControlsProps = {
   isSubframe: boolean;
   isGaf: boolean;
   modify: (mod: AllowedFrameDataModification) => void;
+  collapsed?: boolean;
+  onToggle?: () => void;
 };
 
 const thCls = 'w-1/2 text-left px-1 py-1 text-gray-700 whitespace-nowrap';
@@ -17,6 +20,8 @@ export default function FrameDataControls({
   isSubframe,
   isGaf,
   modify,
+  collapsed,
+  onToggle,
 }: FrameDataControlsProps) {
   // TODO shouldn't re-render when the activeSubframeIndex changes
   // console.log('Rendering FrameDataControls');
@@ -29,15 +34,26 @@ export default function FrameDataControls({
     modify({ xOffset: frameData.xOffset, yOffset: newOffset });
   };
 
+  const tableCls = collapsed !== undefined && collapsed ? 'hidden' : '';
+
   return (
-    <div className="flex flex-col items-center space-y-2">
+    <div className="flex flex-col items-center">
       <div className="text-base text-center font-bold text-gray-700">
         {isSubframe
           ? 'Subframe Data'
           : 'Frame Data'}
+
+          {collapsed !== undefined && onToggle !== undefined && (
+            <div className="text-xs">
+              <TextButton
+                label={collapsed ? 'Expand' : 'Collapse'}
+                onClick={onToggle}
+              />
+            </div>
+          )}
       </div>
 
-      <table className="">
+      <table className={tableCls}>
         <tbody>
           <tr>
             <th className={thCls}>Width:</th>
