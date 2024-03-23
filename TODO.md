@@ -1,8 +1,9 @@
-- [ ] Button to create new Frame.
-  - [ ] Big PLUS square tile at the end of the frame selection list (see manolo's image).
+- [/] Button to create new Frame.
+  - [x] Big PLUS square tile at the end of the frame selection list (see manolo's image).
         Upon being clicked, shows the importer wizard that already exists. This means that button
-        only creates single-layered frames. To create an empty multi-layered frame, the user needs
-        to go to the top menu "Tools" > "Create empty multi-layered frame"
+        only creates single-layered frames.
+  - [ ] To create an empty multi-layered frame, the user needs to go to the top menu "Tools" >
+        "Create empty multi-layered frame"
 
 - [ ] Button to create new Subframe.
   - [ ] Big PLUS square tile at the end of the subframe selection list (see manolo's image).
@@ -41,3 +42,6 @@
   - [ ] Palette selection wizard
 
 - [ ] Result exporting (the end)
+
+- [ ] QOL
+  - [ ] Upon creating a new Frame/Subframe automatically scroll into view of it
