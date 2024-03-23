@@ -1,7 +1,5 @@
-import NotMultiLayered from '@/components/app/frame-selector/NotMultiLayeredItem';
-import CompositeMinimalItem from '@/components/app/frame-selector/minimal-mode/CompositeMinimalItem';
 import MinimalItem from '@/components/app/frame-selector/minimal-mode/MinimalItem';
-import MinimalWrapper from '@/components/app/frame-selector/minimal-mode/MinimalWrapper';
+import MinimalListContent from '@/components/app/frame-selector/minimal-mode/MinimalListContent';
 import SubframeSelector from '@/components/app/frame-selector/thumbnail-mode/SubframeSelector';
 import ThumbnailListContent from '@/components/app/frame-selector/thumbnail-mode/ThumbnailListContent';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
@@ -32,25 +30,26 @@ export default function SubframeSelectorListContent({
             setActiveSubframeIndex={setActiveSubframeIndex}
           />
         )}
-        showCompositeSelector={activeFrameLayersLength !== null}
+        showCompositeItem={activeFrameLayersLength !== null}
       />
     );
   }
 
   if (listMode === 'minimal') {
     return (
-      <MinimalWrapper>
-        {activeFrameLayersLength !== null ? <CompositeMinimalItem /> : <NotMultiLayered />}
-
-        {Array.from({ length: activeFrameLayersLength ?? 0 }).map((_, index) => (
+      <MinimalListContent
+        type="subframes"
+        itemLength={activeFrameLayersLength ?? 0}
+        renderItem={(layerIndex) => (
           <MinimalItem
-            key={index}
+            key={layerIndex}
             type="subframe"
-            index={index}
-            onClick={() => setActiveSubframeIndex(index)}
+            index={layerIndex}
+            onClick={() => setActiveSubframeIndex(layerIndex)}
           />
-        ))}
-      </MinimalWrapper>
+        )}
+        showCompositeItem={activeFrameLayersLength !== null}
+      />
     );
   }
 

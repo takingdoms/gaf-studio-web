@@ -1,5 +1,5 @@
 import MinimalItem from '@/components/app/frame-selector/minimal-mode/MinimalItem';
-import MinimalWrapper from '@/components/app/frame-selector/minimal-mode/MinimalWrapper';
+import MinimalListContent from '@/components/app/frame-selector/minimal-mode/MinimalListContent';
 import FrameSelector from '@/components/app/frame-selector/thumbnail-mode/FrameSelector';
 import ThumbnailListContent from '@/components/app/frame-selector/thumbnail-mode/ThumbnailListContent';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
@@ -33,16 +33,18 @@ export default function FrameSelectorListContent({
 
   if (listMode === 'minimal') {
     return (
-      <MinimalWrapper>
-        {Array.from({ length: activeEntryFramesLength }).map((_, index) => (
+      <MinimalListContent
+        type="frames"
+        itemLength={activeEntryFramesLength}
+        renderItem={(frameIndex) => (
           <MinimalItem
-            key={index}
+            key={frameIndex}
             type="frame"
-            index={index}
-            onClick={() => setActiveFrameIndex(index)}
+            index={frameIndex}
+            onClick={() => setActiveFrameIndex(frameIndex)}
           />
-        ))}
-      </MinimalWrapper>
+        )}
+      />
     );
   }
 

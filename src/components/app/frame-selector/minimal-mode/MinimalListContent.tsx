@@ -1,11 +1,10 @@
-import CompositeFrameSelector from '@/components/app/frame-selector/thumbnail-mode/CompositeFrameSelector';
-import FrameSelector from '@/components/app/frame-selector/thumbnail-mode/FrameSelector';
-import FrameSelectorAdder from '@/components/app/frame-selector/thumbnail-mode/FrameSelectorAdder';
-import SelectorWrapper from '@/components/app/frame-selector/thumbnail-mode/SelectorWrapper';
+import CompositeMinimalItem from '@/components/app/frame-selector/minimal-mode/CompositeMinimalItem';
+import MinimalAdder from '@/components/app/frame-selector/minimal-mode/MinimalAdder';
+import MinimalWrapper from '@/components/app/frame-selector/minimal-mode/MinimalWrapper';
 import SelectorWrapperScroller from '@/components/app/frame-selector/thumbnail-mode/SelectorWrapperScroller';
 import React from 'react';
 
-type ThumbnailListContentProps = {
+type MinimalListContentProps = {
   type: 'frames' | 'subframes';
   itemLength: number;
   renderItem: (index: number) => React.ReactNode;
@@ -21,15 +20,15 @@ type ThumbnailListContentProps = {
   }
 );
 
-export default function ThumbnailListContent({
+export default function MinimalListContent({
   type,
   itemLength,
   renderItem,
   showCompositeItem,
-}: ThumbnailListContentProps) {
+}: MinimalListContentProps) {
   return (
-    <SelectorWrapper>
-      {showCompositeItem && <CompositeFrameSelector />}
+    <MinimalWrapper>
+      {showCompositeItem && <CompositeMinimalItem />}
 
       {itemLength > 0 && (
         <SelectorWrapperScroller>
@@ -37,7 +36,7 @@ export default function ThumbnailListContent({
         </SelectorWrapperScroller>
       )}
 
-      <FrameSelectorAdder type={type} />
-    </SelectorWrapper>
+      <MinimalAdder type={type} />
+    </MinimalWrapper>
   );
 }
