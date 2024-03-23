@@ -8,7 +8,7 @@ type SelectorWrapperProps = {
 export default function SelectorWrapper({ children }: SelectorWrapperProps) {
   return (
     <div
-      className="grow flex overflow-x-scroll space-x-1.5"
+      className="grow flex space-x-1.5"
       style={{ minHeight: FRAME_SELECTOR_ITEM_HEIGHT + 10 }} // 10 = add some space for the scrollbar on firefox
     >
       {children}

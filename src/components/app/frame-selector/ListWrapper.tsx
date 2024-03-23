@@ -1,7 +1,4 @@
 import ListModeControls from "@/components/app/frame-selector/ListModeControls";
-import ImportModal from "@/components/app/importer/ImportModal";
-import TextButton from "@/components/ui/button/TextButton";
-import { ModalContext } from "@/components/ui/modal/ModalContext";
 import React from "react";
 
 type ListWrapperProps = {
@@ -10,21 +7,6 @@ type ListWrapperProps = {
 };
 
 export default function ListWrapper({ type, children }: ListWrapperProps) {
-  const modal = React.useContext(ModalContext);
-
-  const onClickImport = React.useCallback(() => {
-    const { close } = modal.pushModal({
-      title: 'Import Images Wizard',
-      disableBackgroundClose: true,
-      body: (
-        <ImportModal
-          type={type}
-          close={() => close()}
-        />
-      ),
-    });
-  }, [type, modal]);
-
   return (
     <div className="w-full flex flex-col">
       <div className="flex justify-between~ items-center text-sm space-x-1.5 mb-0.5">
@@ -33,11 +15,6 @@ export default function ListWrapper({ type, children }: ListWrapperProps) {
         </div>
 
         <ListModeControls type={type} />
-
-        <TextButton
-          label="Import"
-          onClick={onClickImport}
-        />
       </div>
 
       {children}

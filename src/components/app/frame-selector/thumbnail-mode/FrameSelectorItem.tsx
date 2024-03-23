@@ -2,7 +2,6 @@ import FrameSelectorImageRenderer from '@/components/app/image-renderer/FrameSel
 import { FRAME_SELECTOR_ITEM_HEIGHT, FRAME_SELECTOR_ITEM_WIDTH } from '@/lib/constants';
 import { Icons } from '@/lib/react/icons';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
-import { IconCaretDown } from '@tabler/icons-react';
 
 type FrameSelectorItemProps = {
   index: number;

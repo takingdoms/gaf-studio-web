@@ -1,7 +1,7 @@
 import MinimalItem from '@/components/app/frame-selector/minimal-mode/MinimalItem';
 import MinimalWrapper from '@/components/app/frame-selector/minimal-mode/MinimalWrapper';
 import FrameSelector from '@/components/app/frame-selector/thumbnail-mode/FrameSelector';
-import SelectorWrapper from '@/components/app/frame-selector/thumbnail-mode/SelectorWrapper';
+import ThumbnailListContent from '@/components/app/frame-selector/thumbnail-mode/ThumbnailListContent';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
 
 type FrameSelectorListContentProps = {
@@ -17,17 +17,17 @@ export default function FrameSelectorListContent({
 
   if (listMode === 'thumbs') {
     return (
-      <SelectorWrapper>
-        {Array.from({ length: activeEntryFramesLength }).map((_, frameIndex) => {
-          return (
-            <FrameSelector
-              key={frameIndex}
-              frameIndex={frameIndex}
-              setActiveFrameIndex={setActiveFrameIndex}
-            />
-          );
-        })}
-      </SelectorWrapper>
+      <ThumbnailListContent
+        type="frames"
+        itemLength={activeEntryFramesLength}
+        renderItem={(frameIndex) => (
+          <FrameSelector
+            key={frameIndex}
+            frameIndex={frameIndex}
+            setActiveFrameIndex={setActiveFrameIndex}
+          />
+        )}
+      />
     );
   }
 
