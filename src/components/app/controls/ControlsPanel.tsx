@@ -45,7 +45,7 @@ export default function ControlsPanel() {
           </div>
 
           {showSubframeControls && (
-            <div className="grow flex flex-col overflow-hidden">
+            <div className="flex flex-col overflow-hidden">
               <CollapsibleHeader
                 expanded={subframeExpanded}
                 setExpanded={setSubframeExpanded}
