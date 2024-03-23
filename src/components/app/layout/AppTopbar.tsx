@@ -1,5 +1,7 @@
+import FrameMenu from "@/components/app/layout/top-bar-menus/FrameMenu";
 import AppTopBarHeader from "./AppTopBarHeader";
 import AppTopBarMenuButton from "./AppTopBarMenuButton";
+import ToolsMenu from "@/components/app/layout/top-bar-menus/ToolsMenu";
 
 export default function AppTopbar() {
   return (
@@ -16,10 +18,9 @@ export default function AppTopbar() {
         onClick={() => {}}
       />
 
-      <AppTopBarMenuButton
-        label="Tools"
-        onClick={() => {}}
-      />
+      <FrameMenu />
+
+      <ToolsMenu />
 
       <AppTopBarMenuButton
         label="Help"
