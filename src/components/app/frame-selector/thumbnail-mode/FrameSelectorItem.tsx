@@ -1,6 +1,8 @@
 import FrameSelectorImageRenderer from '@/components/app/image-renderer/FrameSelectorImageRenderer';
 import { FRAME_SELECTOR_ITEM_HEIGHT, FRAME_SELECTOR_ITEM_WIDTH } from '@/lib/constants';
+import { Icons } from '@/lib/react/icons';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
+import { IconCaretDown } from '@tabler/icons-react';
 
 type FrameSelectorItemProps = {
   index: number;
@@ -58,11 +60,21 @@ export default function FrameSelectorItem({
         <div className="basis-0 grow overflow-hidden flex justify-center items-center">
           {image}
         </div>
-        <div className={`${textCls} font-bold font-mono text-xs text-center px-1 py-0.5 truncate`}>
+        <div className={`${textCls} font-bold font-mono text-xs px-1 py-0.5 truncate`}>
           {frameData.kind === 'multi' ? (
-            <span>x{frameData.layers.length}</span>
+            <div
+              className="flex justify-center items-center space-x-1"
+              title="Multi-layered"
+            >
+              <Icons.MultiLayered size={14} /> (x{frameData.layers.length})
+            </div>
           ) : (
-            <span className="invisible">(No subframes)</span>
+            <div
+              className="flex justify-center items-center space-x-1 invisible"
+              title="Single-layered"
+            >
+              <Icons.SingleLayered size={14} />
+            </div>
           )}
         </div>
       </div>
