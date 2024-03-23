@@ -1,3 +1,17 @@
+- [ ] Button to create new Frame.
+  - [ ] Big PLUS square tile at the end of the frame selection list (see manolo's image).
+        Upon being clicked, shows the importer wizard that already exists. This means that button
+        only creates single-layered frames. To create an empty multi-layered frame, the user needs
+        to go to the top menu "Tools" > "Create empty multi-layered frame"
+
+- [ ] Button to create new Subframe.
+  - [ ] Big PLUS square tile at the end of the subframe selection list (see manolo's image).
+        Upon being clicked, opens the existing file import wizard! (for subframes)
+    - [ ] If it's clicked on a Frame that is multi-layered, simply imports the images as subframes.
+    - [ ] If it's clicked on a Frame that is single-layered, the frame is automatically converted
+          to a multi-layered frame, where the existing data is copied as the first sub-frame and
+          the imported images become the subsequent frames.
+
 - [ ] VirtualFrameData conversion: from Single to Multi and vice-versa
   - [ ] Button somewhere to convert the current frame to Single/Multi
         (maybe in the Menu Bar in the Frame topmenu)
@@ -5,18 +19,6 @@
           multi-layered frame.
     - [ ] Multi->Single conversion is only enabled when there is exactly ONE sublayer.
           That one sublayer's frameData is copied as the frameData of the new single-layered frame.
-
-- [ ] Button to create new Frame.
-  - [ ] Big PLUS square tile at the end of the frame selection list (see manolo's image).
-        Upon being clicked, two options are presented:
-      - [ ] One: import image(s) from computer (this opens the existing file import wizard!) and
-            ends up creating one or more single-layered frames.
-      - [ ] Two: create multi-layered frame. This simply creates a multi-layered frame with empty
-            sub-layers. The user will then be able to create sub-layers afterwards (see below).
-
-- [ ] Button to create new Subframe.
-  - [ ] Big PLUS square tile at the end of the subframe selection list (see manolo's image).
-        Upon being clicked, opens the existing file import wizard! (for subframes)
 
 - [ ] Buttons to delete Frames and Subframes.
 
