@@ -8,7 +8,9 @@ export const BMP_IMAGE_DECODER: ImageDecoder = {
     try {
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
-      const bmpData = bmp.decode(buffer, { toRGBA: true });
+      const bmpData = bmp.decode(buffer, { toRGBA: false });
+
+      const hasAlpha = bmpData.bitPP === 32 && 'maskAlpha' in bmpData;
 
       const { data, width, height } = bmpData;
 
@@ -20,8 +22,7 @@ export const BMP_IMAGE_DECODER: ImageDecoder = {
         bytes[i * 4 + 0] = data[i * 4 + 3]; // red
         bytes[i * 4 + 1] = data[i * 4 + 2]; // green
         bytes[i * 4 + 2] = data[i * 4 + 1]; // blue
-        // bytes[i * 4 + 3] = data[i * 4 + 0]; // alpha
-        bytes[i * 4 + 3] = 255;
+        bytes[i * 4 + 3] = hasAlpha ? data[i * 4 + 0] : 255; // alpha
       }
 
       const clamped = new Uint8ClampedArray(bytes.buffer, bytes.byteOffset, bytes.byteLength);
