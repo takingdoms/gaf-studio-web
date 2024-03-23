@@ -2,6 +2,7 @@ import FrameSelectorImageRenderer from '@/components/app/image-renderer/FrameSel
 import { FRAME_SELECTOR_ITEM_HEIGHT, FRAME_SELECTOR_ITEM_WIDTH } from '@/lib/constants';
 import { Icons } from '@/lib/react/icons';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
+import React from 'react';
 
 type FrameSelectorItemProps = {
   index: number;
@@ -22,6 +23,17 @@ export default function FrameSelectorItem({
   onClick,
 }: FrameSelectorItemProps) {
   // console.log('Rendering FrameSelectorItem');
+  const divRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const div = divRef.current;
+
+    if (!isSelected || div === null) {
+      return;
+    }
+
+    div.scrollIntoView({ behavior: 'smooth' });
+  }, [isSelected]);
 
   const borderCls = isSelected ? 'border-blue-500' : 'border-gray-300';
   const textCls = isSelected ? 'text-blue-500' : 'text-gray-400';
@@ -45,6 +57,7 @@ export default function FrameSelectorItem({
 
   return (
     <div
+      ref={divRef}
       className={`shrink-0 bg-white border-2 ${borderCls} ${cursorCls}`}
       style={{
         width: FRAME_SELECTOR_ITEM_WIDTH,

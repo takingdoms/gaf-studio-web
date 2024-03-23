@@ -43,5 +43,6 @@
 
 - [ ] Result exporting (the end)
 
-- [ ] QOL
-  - [ ] Upon creating a new Frame/Subframe automatically scroll into view of it
+- [?] QOL
+  - [x] Upon creating a new Frame/Subframe automatically scroll into view of it
+  - [ ]
