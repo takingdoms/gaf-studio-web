@@ -8,6 +8,7 @@ import { createBoundGafStore, createBoundTafStore } from "@/lib/state/store/work
 import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
+import AdHocWizardsContextProvider from "@/components/app/logical/AdHocWizardsContextProvider";
 
 export default function App() {
   const [storeWrapper, setStoreWrapper] = React.useState<WorkspaceStoreWrapper>();
@@ -45,9 +46,11 @@ export default function App() {
     }}>
       <WorkspaceStoreWrapperContext.Provider value={storeWrapper}>
         <CommonProviders paletteStore={paletteStore}>
-          <AppLayout>
-            <WorkspaceRoot />
-          </AppLayout>
+          <AdHocWizardsContextProvider>
+            <AppLayout>
+              <WorkspaceRoot />
+            </AppLayout>
+          </AdHocWizardsContextProvider>
         </CommonProviders>
       </WorkspaceStoreWrapperContext.Provider>
     </AppDebugContext.Provider>
