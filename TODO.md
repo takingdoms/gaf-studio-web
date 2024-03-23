@@ -5,11 +5,11 @@
   - [ ] To create an empty multi-layered frame, the user needs to go to the top menu "Tools" >
         "Create empty multi-layered frame"
 
-- [ ] Button to create new Subframe.
-  - [ ] Big PLUS square tile at the end of the subframe selection list (see manolo's image).
+- [x] Button to create new Subframe.
+  - [x] Big PLUS square tile at the end of the subframe selection list (see manolo's image).
         Upon being clicked, opens the existing file import wizard! (for subframes)
-    - [ ] If it's clicked on a Frame that is multi-layered, simply imports the images as subframes.
-    - [ ] If it's clicked on a Frame that is single-layered, the frame is automatically converted
+    - [x] If it's clicked on a Frame that is multi-layered, simply imports the images as subframes.
+    - [x] If it's clicked on a Frame that is single-layered, the frame is automatically converted
           to a multi-layered frame, where the existing data is copied as the first sub-frame and
           the imported images become the subsequent frames.
 

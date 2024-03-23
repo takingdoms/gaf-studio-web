@@ -22,17 +22,24 @@ export default function ImportGaf({
 
   const addFramesToActiveEntry = useGafStore((state) => state.addFramesToActiveEntry);
   const addSubframesToActiveFrame = useGafStore((state) => state.addSubframesToActiveFrame);
+  const convertActiveFrameToMultiFrame = useGafStore((state) => state.convertActiveFrameToMultiFrame);
 
   const onFinish = React.useCallback((result: FinalImportResult) => {
     if (result.type === 'frames') {
       addFramesToActiveEntry(result.frames as VirtualFrame<'gaf'>[]);
     }
     else {
+      const didConvert = convertActiveFrameToMultiFrame(true);
       addSubframesToActiveFrame(result.subframes as VirtualFrameDataSingleLayer<'gaf'>[]);
+
+      if (didConvert) {
+        // TODO put this in a nice toaster
+        alert(`The current Frame was automatically converted to a multi-layered Frame.`);
+      }
     }
 
     onEnded();
-  }, [onEnded, addFramesToActiveEntry, addSubframesToActiveFrame]);
+  }, [onEnded, addFramesToActiveEntry, addSubframesToActiveFrame, convertActiveFrameToMultiFrame]);
 
   return (
     <ImportGafWizard

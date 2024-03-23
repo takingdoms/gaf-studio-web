@@ -4,6 +4,7 @@ import { ALLOWED_FRAME_DATA_MOD_KEYS, AllowedFrameDataModification } from "@/lib
 import { BaseWorkspaceSlice, SharedWorkspaceSlice } from "@/lib/state/store/workspace-slices";
 import { ArrayUtils } from "@/lib/utils/array-utils";
 import { ObjectUtils } from "@/lib/utils/object-utils";
+import { VirtualFrame, VirtualFrameDataMultiLayer, VirtualFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
 import { Writable } from "ts-essentials";
 import { StateCreator } from "zustand";
 
@@ -168,6 +169,7 @@ export const createSharedSliceWrapper: CreatorMaker = () => (set, get) => ({
     };
 
     get().replaceEntry(entryIndex, newEntry);
+    get().setActiveFrameIndex(newEntry.frames.length - 1);
   },
 
   addFramesToActiveEntry: (newFrames) => {
@@ -182,18 +184,21 @@ export const createSharedSliceWrapper: CreatorMaker = () => (set, get) => ({
       throw new Error(`Frame does not have subframes.`);
     }
 
+    const newLayers = [
+      ...frame.frameData.layers,
+      ...newSubframes,
+    ];
+
     const newFrame: typeof frame = {
       ...frame,
       frameData: {
         ...frame.frameData,
-        layers: [
-          ...frame.frameData.layers,
-          ...newSubframes,
-        ],
+        layers: newLayers,
       },
     };
 
     get().replaceFrame(entryIndex, frameIndex, newFrame);
+    get().setActiveSubframeIndex(newLayers.length - 1);
   },
 
   addSubframesToActiveFrame: (newSubframes) => {
@@ -287,5 +292,89 @@ export const createSharedSliceWrapper: CreatorMaker = () => (set, get) => ({
     };
 
     get().replaceSubframe(entryIndex, frameIndex, subframeIndex, newSubframe);
+  },
+
+  convertSingleFrameToMultiFrame: (entryIndex, frameIndex) => {
+    const entries = get().getEntries();
+    const entry = entries[entryIndex];
+    const frame = entry.frames[frameIndex];
+
+    if (frame.frameData.kind === 'multi') {
+      throw new Error(`Frame is already multi-layered.`);
+    }
+
+    const newFrameData: VirtualFrameDataMultiLayer = {
+      ...frame.frameData,
+      kind: 'multi',
+      layers: [
+        { ...frame.frameData },
+      ],
+    };
+
+    const newFrame: VirtualFrame = {
+      ...frame,
+      frameData: newFrameData,
+    };
+
+    get().replaceFrame(entryIndex, frameIndex, newFrame);
+  },
+
+  convertMultiFrameToSingleFrame: (entryIndex, frameIndex) => {
+    const entries = get().getEntries();
+    const entry = entries[entryIndex];
+    const frame = entry.frames[frameIndex];
+
+    if (frame.frameData.kind === 'single') {
+      throw new Error(`Frame is already single-layered.`);
+    }
+
+    if (frame.frameData.layers.length !== 1) {
+      throw new Error(`Frame must have exactly 1 subframe to be converted to single-layered.`);
+    }
+
+    const firstLayer = frame.frameData.layers[0];
+
+    const newFrame: VirtualFrame = {
+      ...frame,
+      frameData: firstLayer,
+    };
+
+    get().replaceFrame(entryIndex, frameIndex, newFrame);
+  },
+
+  convertActiveFrameToMultiFrame: (ignoreIfNotNeeded) => {
+    const activeFrame = get().getActiveFrame();
+
+    if (activeFrame === null) {
+      throw new Error(`No active frame.`);
+    }
+
+    const activeFrameAlreadyMulti = activeFrame.frameData.kind === 'multi';
+
+    if (activeFrameAlreadyMulti && ignoreIfNotNeeded) {
+      return false;
+    }
+
+    const { entryIndex, frameIndex } = get().cursor;
+    get().convertSingleFrameToMultiFrame(entryIndex!, frameIndex!);
+    return true;
+  },
+
+  convertActiveFrameToSingleFrame: (ignoreIfNotNeeded) => {
+    const activeFrame = get().getActiveFrame();
+
+    if (activeFrame === null) {
+      throw new Error(`No active frame.`);
+    }
+
+    const activeFrameAlreadySingle = activeFrame.frameData.kind === 'single';
+
+    if (activeFrameAlreadySingle && ignoreIfNotNeeded) {
+      return false;
+    }
+
+    const { entryIndex, frameIndex } = get().cursor;
+    get().convertMultiFrameToSingleFrame(entryIndex!, frameIndex!);
+    return true;
   },
 });

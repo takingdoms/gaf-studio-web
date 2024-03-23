@@ -72,6 +72,11 @@ export type SharedWorkspaceSlice<T extends MainFormat> = {
 
   readonly modifyActiveFrameData: (mod: AllowedFrameDataModification) => void;
   readonly modifyActiveSubframeData: (mod: AllowedFrameDataModification) => void;
+
+  readonly convertSingleFrameToMultiFrame: (entryIndex: number, frameIndex: number) => void;
+  readonly convertMultiFrameToSingleFrame: (entryIndex: number, frameIndex: number) => void;
+  readonly convertActiveFrameToMultiFrame: (ignoreIfNotNeeded: boolean) => boolean; // return if was needed
+  readonly convertActiveFrameToSingleFrame: (ignoreIfNotNeeded: boolean) => boolean; // return if was needed
 };
 
 export const createBoundTafStore = (tafConfig: TafWorkspaceSliceConfig) =>
