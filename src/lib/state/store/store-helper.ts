@@ -1,6 +1,5 @@
 import { useWorkspaceStore } from "@/lib/react/use-workspace-store";
-import { AnyWorkspaceStore } from "@/lib/react/workspace-store-context";
-import { BaseVirtualGafFrameData, VirtualEntry, VirtualFrame } from "@/lib/virtual-gaf/virtual-gaf";
+import { BaseVirtualGafFrameData, VirtualEntry } from "@/lib/virtual-gaf/virtual-gaf";
 import { useShallow } from "zustand/react/shallow";
 
 export namespace StoreHelper {
@@ -10,7 +9,7 @@ export namespace StoreHelper {
     return useStore()((state) => state.format);
   }
 
-  /// Warning: listen to changes in any part of the cursor
+  /// Warning: listens to changes in any part of the cursor
   export function useCursor() {
     return useStore()(useShallow((state) => {
       return state.cursor;
@@ -180,6 +179,18 @@ export namespace StoreHelper {
   /*export function useSetFrame() {
     return useX()((state) => state.setFrame);
   }*/
+
+  export function useActiveFrameDataKind() {
+    return useStore()((state) => {
+      const activeFrame = state.getActiveFrame();
+
+      if (activeFrame === null) {
+        return null;
+      }
+
+      return activeFrame.frameData.kind;
+    });
+  }
 }
 
 export { StoreHelper as S };
