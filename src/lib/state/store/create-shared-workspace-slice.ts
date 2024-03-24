@@ -318,10 +318,8 @@ export const createSharedSliceWrapper: CreatorMaker = () => (set, get) => ({
 
     get().replaceFrame(entryIndex, frameIndex, newFrame);
 
-    set({
-      // auto-selects the first subframe of the new multi-layered frame (not really necessary)
-      cursor: { entryIndex, frameIndex, subframeIndex: 0 },
-    });
+    // auto-selects the first subframe of the new multi-layered frame (not really necessary)
+    get().setCursor({ entryIndex, frameIndex, subframeIndex: 0 });
   },
 
   convertMultiFrameToSingleFrame: (entryIndex, frameIndex) => {
@@ -346,10 +344,8 @@ export const createSharedSliceWrapper: CreatorMaker = () => (set, get) => ({
 
     get().replaceFrame(entryIndex, frameIndex, newFrame);
 
-    set({
-      // nullifies the subframeIndex! (very important)
-      cursor: { entryIndex, frameIndex, subframeIndex: null },
-    });
+    // nullifies the subframeIndex! (very important)
+    get().setCursor({ entryIndex, frameIndex, subframeIndex: null });
   },
 
   convertActiveFrameToMultiFrame: (ignoreIfNotNeeded) => {
@@ -386,5 +382,68 @@ export const createSharedSliceWrapper: CreatorMaker = () => (set, get) => ({
     const { entryIndex, frameIndex } = get().cursor;
     get().convertMultiFrameToSingleFrame(entryIndex!, frameIndex!);
     return true;
+  },
+
+  deleteFrame: (entryIndex, frameIndex) => {
+    const entries = get().getEntries();
+    const entry = entries[entryIndex];
+
+    const newFrames = [...entry.frames];
+    newFrames.splice(frameIndex, 1);
+
+    const newEntry: typeof entry = {
+      ...entry,
+      frames: newFrames,
+    };
+
+    get().replaceEntry(entryIndex, newEntry);
+
+    // unselects the frame that was deleted. very important!
+    get().setCursor({ entryIndex, frameIndex: null, subframeIndex: null });
+  },
+
+  deleteSubframe: (entryIndex, frameIndex, subframeIndex) => {
+    const entries = get().getEntries();
+    const entry = entries[entryIndex];
+    const frame = entry.frames[frameIndex];
+
+    if (frame.frameData.kind !== 'multi') {
+      throw new Error(`Frame is not multi-layered.`);
+    }
+
+    const newLayers = [...frame.frameData.layers];
+    newLayers.splice(subframeIndex, 1);
+
+    const newFrame: typeof frame = {
+      ...frame,
+      frameData: {
+        ...frame.frameData,
+        layers: newLayers,
+      },
+    };
+
+    get().replaceFrame(entryIndex, frameIndex, newFrame);
+
+    // unselects the subframe that was deleted. very important!
+    get().setCursor({ entryIndex, frameIndex, subframeIndex: null });
+  },
+
+  deleteActiveFrame: () => {
+    const { entryIndex, frameIndex } = get().cursor;
+
+    if (entryIndex === null) throw new Error(`No entry selected.`);
+    if (frameIndex === null) throw new Error(`No frame selected`);
+
+    get().deleteFrame(entryIndex, frameIndex);
+  },
+
+  deleteActiveSubframe: () => {
+    const { entryIndex, frameIndex, subframeIndex } = get().cursor;
+
+    if (entryIndex === null)    throw new Error(`No entry selected.`);
+    if (frameIndex === null)    throw new Error(`No frame selected`);
+    if (subframeIndex === null) throw new Error(`No subframe selected`);
+
+    get().deleteSubframe(entryIndex, frameIndex, subframeIndex);
   },
 });

@@ -35,7 +35,7 @@ export default function ConvertFrameToMultiModal({ close }: ConvertFrameToMultiM
         Its existing frame data will become the first subframe of the new Multi-layered frame.
       </div>
 
-      <div className="flex space-x-2">
+      <div className="flex justify-end space-x-2">
         <SolidButton
           color="success"
           onClick={() => {

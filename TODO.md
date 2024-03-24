@@ -21,7 +21,7 @@
     - [x] Multi->Single conversion is only enabled when there is exactly ONE sublayer.
           That one sublayer's frameData is copied as the frameData of the new single-layered frame.
 
-- [ ] Buttons to delete Frames and Subframes.
+- [x] Buttons to delete Frames and Subframes.
 
 - [ ] Image importing
   - [ ] TAF import wizard

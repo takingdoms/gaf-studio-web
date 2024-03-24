@@ -1,5 +1,6 @@
 import ConvertFrameToMultiModal from '@/components/app/converter/ConvertFrameToMultiModal';
 import ConvertFrameToSingleModal from '@/components/app/converter/ConvertFrameToSingleModal';
+import DeleteFrameModal from '@/components/app/deleter/DeleteFrameModal';
 import ImportModal from '@/components/app/importer/ImportModal';
 import { ModalContext } from '@/components/ui/modal/ModalContext';
 import { AdHocWizards, AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
@@ -27,22 +28,35 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
 
   const convertToMulti = () => {
     const { close } = modal.pushModal({
-      title: 'Convert Frame to Multi-layered',
+      title: 'Convert Selected Frame to Multi-layered',
       body: <ConvertFrameToMultiModal close={() => close()} />,
     });
   };
 
   const convertToSingle = () => {
     const { close } = modal.pushModal({
-      title: 'Convert Frame to Single-layered',
+      title: 'Convert Selected Frame to Single-layered',
       body: <ConvertFrameToSingleModal close={() => close()} />,
     });
+  };
+
+  const deleteFrame = () => {
+    const { close } = modal.pushModal({
+      title: 'Delete Selected Frame',
+      body: <DeleteFrameModal close={() => close()} />,
+    });
+  };
+
+  const deleteSubframe = () => {
+    //
   };
 
   const adHocWizards: AdHocWizards = {
     importImages,
     convertToMulti,
     convertToSingle,
+    deleteFrame,
+    deleteSubframe,
   };
 
   return (

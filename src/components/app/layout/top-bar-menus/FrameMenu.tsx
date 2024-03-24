@@ -13,21 +13,15 @@ export default function FrameMenu() {
   return (
     <Menu label="Frame">
       <MenuItem
-        label="Add frame(s)"
+        label="Create frame(s)"
         disabled={activeEntryIndex === null}
         onClick={() => adHocWizards.importImages('frames')}
-      />
-
-      <MenuItem
-        label="Add subframe(s)"
-        disabled={activeFrameIndex === null}
-        onClick={() => adHocWizards.importImages('subframes')}
       />
 
       <MenuItemSeparator />
 
       <Menu
-        label="Convert to..."
+        label="Convert frame to..."
         disabled={activeFrameIndex === null}
       >
         <MenuItem
@@ -42,6 +36,12 @@ export default function FrameMenu() {
           onClick={() => adHocWizards.convertToMulti()}
         />
       </Menu>
+
+      <MenuItem
+        label="Delete frame"
+        disabled={activeFrameIndex === null}
+        onClick={() => adHocWizards.deleteFrame()}
+      />
     </Menu>
   );
 }
