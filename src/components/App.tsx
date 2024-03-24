@@ -1,5 +1,4 @@
 import { AppDebugContext } from "@/components/AppDebugContext";
-import CommonProviders from "@/components/app/logical/CommonProviders";
 import PreludeScreen from "@/components/app/prelude/PreludeScreen";
 import WorkspaceRoot from "@/components/app/workspace-root/WorkspaceRoot";
 import { WorkspaceStoreWrapper, WorkspaceStoreWrapperContext } from "@/lib/react/workspace-store-context";
@@ -9,6 +8,8 @@ import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
 import AdHocWizardsContextProvider from "@/components/app/logical/AdHocWizardsContextProvider";
+import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
+import ModalContextProvider from "@/components/ui/modal/ModalContextProvider";
 
 export default function App() {
   const [storeWrapper, setStoreWrapper] = React.useState<WorkspaceStoreWrapper>();
@@ -34,9 +35,11 @@ export default function App() {
 
   if (storeWrapper === undefined) {
     return (
-      <CommonProviders paletteStore={paletteStore}>
-        <PreludeScreen onInit={onInit} />
-      </CommonProviders>
+      <ModalContextProvider>
+        <PaletteStoreContext.Provider value={paletteStore}>
+          <PreludeScreen onInit={onInit} />
+        </PaletteStoreContext.Provider>
+      </ModalContextProvider>
     );
   }
 
@@ -45,13 +48,15 @@ export default function App() {
       resetWorkspace: () => setStoreWrapper(undefined),
     }}>
       <WorkspaceStoreWrapperContext.Provider value={storeWrapper}>
-        <CommonProviders paletteStore={paletteStore}>
+        <ModalContextProvider>
           <AdHocWizardsContextProvider>
-            <AppLayout>
-              <WorkspaceRoot />
-            </AppLayout>
+            <PaletteStoreContext.Provider value={paletteStore}>
+              <AppLayout>
+                <WorkspaceRoot />
+              </AppLayout>
+            </PaletteStoreContext.Provider>
           </AdHocWizardsContextProvider>
-        </CommonProviders>
+        </ModalContextProvider>
       </WorkspaceStoreWrapperContext.Provider>
     </AppDebugContext.Provider>
   );
