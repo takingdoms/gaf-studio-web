@@ -33,11 +33,13 @@ export default function FrameMenu() {
         <MenuItem
           label="Single-layered"
           disabled={kind === null || kind === 'single'}
+          onClick={() => adHocWizards.convertToSingle()}
         />
 
         <MenuItem
           label="Multi-layered"
           disabled={kind === null || kind === 'multi'}
+          onClick={() => adHocWizards.convertToMulti()}
         />
       </Menu>
     </Menu>

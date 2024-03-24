@@ -13,22 +13,22 @@
           to a multi-layered frame, where the existing data is copied as the first sub-frame and
           the imported images become the subsequent frames.
 
-- [ ] VirtualFrameData conversion: from Single to Multi and vice-versa
-  - [ ] Button somewhere to convert the current frame to Single/Multi
+- [x] VirtualFrameData conversion: from Single to Multi and vice-versa
+  - [x] Button somewhere to convert the current frame to Single/Multi
         (maybe in the Menu Bar in the Frame topmenu)
-    - [ ] When Single becomes Multi, the frameData is then copied as the first sublayer of the new
+    - [x] When Single becomes Multi, the frameData is then copied as the first sublayer of the new
           multi-layered frame.
-    - [ ] Multi->Single conversion is only enabled when there is exactly ONE sublayer.
+    - [x] Multi->Single conversion is only enabled when there is exactly ONE sublayer.
           That one sublayer's frameData is copied as the frameData of the new single-layered frame.
 
 - [ ] Buttons to delete Frames and Subframes.
 
-- [ ] Button to replace the image data of the current frame (if it's a single-layered frame) or the
-      current subframe. This opens the Import wizard that I already have.
-
 - [ ] Image importing
   - [ ] TAF import wizard
   - [x] GAF import wizard
+
+- [ ] Button to replace the image data of the current frame (if it's a single-layered frame) or the
+      current subframe. This opens the Import wizard that I already have.
 
 - [ ] Main Canvases controls
   - [ ] Buttons to toggle or configure grids, bounds, etc

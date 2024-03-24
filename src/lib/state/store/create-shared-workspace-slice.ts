@@ -317,6 +317,11 @@ export const createSharedSliceWrapper: CreatorMaker = () => (set, get) => ({
     };
 
     get().replaceFrame(entryIndex, frameIndex, newFrame);
+
+    set({
+      // auto-selects the first subframe of the new multi-layered frame (not really necessary)
+      cursor: { entryIndex, frameIndex, subframeIndex: 0 },
+    });
   },
 
   convertMultiFrameToSingleFrame: (entryIndex, frameIndex) => {
@@ -340,6 +345,11 @@ export const createSharedSliceWrapper: CreatorMaker = () => (set, get) => ({
     };
 
     get().replaceFrame(entryIndex, frameIndex, newFrame);
+
+    set({
+      // nullifies the subframeIndex! (very important)
+      cursor: { entryIndex, frameIndex, subframeIndex: null },
+    });
   },
 
   convertActiveFrameToMultiFrame: (ignoreIfNotNeeded) => {
