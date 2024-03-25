@@ -73,11 +73,29 @@ export default function ImportGafOptionsSelector({
       };
     });
 
-    const promise = AsyncUtils.deferMap(updatedDecFiles, GafImportingFunctions.importImage);
+    const promise = AsyncUtils.deferMap(updatedDecFiles, GafImportingFunctions.importImage)
+      .then((updatedImportFiles) => {
+        const updatedConfigFiles: typeof configedFiles = configedFiles.map((next, index) => {
+          if (next === undefined) {
+            return undefined;
+          }
+
+          return {
+            ...next,
+            importedFile: updatedImportFiles[index],
+          };
+        });
+
+        return {
+          updatedImportFiles,
+          updatedConfigFiles,
+        };
+      });
 
     promise
-      .then((updatedImportFiles) => {
+      .then(({ updatedImportFiles, updatedConfigFiles }) => {
         setImportedFiles(updatedImportFiles);
+        setConfigedFiles(updatedConfigFiles);
         setCurrentPalette(newPal);
       })
       .catch((err) => {
@@ -85,7 +103,8 @@ export default function ImportGafOptionsSelector({
         onAbort();
       })
       .finally(() => setIsReimporting(false));
-  }, [isReimporting, setCurrentPalette, importedFiles, setImportedFiles, onAbort]);
+  }, [isReimporting, setCurrentPalette, importedFiles, setImportedFiles, configedFiles,
+      setConfigedFiles, onAbort]);
 
   const onChangeSelectedImporter = React.useCallback((newSelectedImporter: GafSelectedImporter) => {
     if (isReimporting) {
