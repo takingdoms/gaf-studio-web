@@ -1,5 +1,6 @@
 import { ModalController, ModalConfig, ModalContext, ModalHelpers, ModalHelpersContext } from '@/components/ui/modal/ModalContext';
 import ModalPortal from '@/components/ui/modal/ModalPortal';
+import { makeModalColorPrompt } from '@/components/ui/modal/helpers/modalColorPrompt';
 import { makeModalConfirmPrompt } from "@/components/ui/modal/helpers/modalConfirmPrompt";
 import { makeModalCustomPrompt } from "@/components/ui/modal/helpers/modalCustomPrompt";
 import { makeModalNumberPrompt } from "@/components/ui/modal/helpers/modalNumberPrompt";
@@ -38,6 +39,7 @@ export default function ModalContextProvider({
       confirmPrompt: makeModalConfirmPrompt(modal),
       customPrompt: makeModalCustomPrompt(modal),
       numberPrompt: makeModalNumberPrompt(modal),
+      colorPrompt: makeModalColorPrompt(modal),
     };
   }, [pushModal, popModal]);
 

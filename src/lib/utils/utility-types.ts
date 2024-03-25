@@ -4,5 +4,12 @@ export type ReadonlyUint8Array = Readonly<Uint8Array>; // TODO proper read-only 
 
 export type ReadonlyRecord<K extends string | number | symbol, V> = Readonly<Record<K, V>>;
 
-export type ColorRgb = { r: number; g: number; b: number };
-export type ColorRgba = ColorRgb & { a: number };
+export type ColorRgb = {
+  readonly r: number;
+  readonly g: number;
+  readonly b: number;
+};
+
+export type ColorRgba = ColorRgb & {
+  readonly a: number;
+};

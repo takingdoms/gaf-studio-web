@@ -1,4 +1,5 @@
 import ColorTile from "@/components/ui/color/ColorTile";
+import { ModalHelpersContext } from "@/components/ui/modal/ModalContext";
 import Select from "@/components/ui/select/Select";
 import { CommonGafImporterConfig } from "@/lib/importing/image-importers/gaf/common-gaf-importer";
 import { ColorRgb, ColorRgba } from "@/lib/utils/utility-types";
@@ -13,9 +14,27 @@ export default function TransparencyStrategyControl({
   transparencyStrategy,
   setTransparencyStrategy,
 }: TransparencyStrategyControlProps) {
-  const onClickColorSelect = React.useCallback((currentColor: ColorRgb | ColorRgba) => {
-    // TODO open modal with prompt to select a new color!
-  }, []);
+  const { colorPrompt } = React.useContext(ModalHelpersContext);
+
+  const onClickColorSelect = React.useCallback(async (currentColor: ColorRgb | ColorRgba) => {
+    const colorRgba = 'a' in currentColor
+      ? { ...currentColor }
+      : { ...currentColor, a: 255 };
+
+    const result = await colorPrompt({
+      title: 'Source transparency',
+      label: 'Select a color',
+      defaultColor: colorRgba,
+      enableAlpha: false,
+    });
+
+    if (result !== null) {
+      setTransparencyStrategy({
+        kind: 'custom-color',
+        color: result,
+      });
+    }
+  }, [colorPrompt, setTransparencyStrategy]);
 
   const mainSelect = (
     <Select<CommonGafImporterConfig['transparencyStrategy']['kind']>
