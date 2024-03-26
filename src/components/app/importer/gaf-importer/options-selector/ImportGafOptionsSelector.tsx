@@ -105,6 +105,7 @@ export default function ImportGafOptionsSelector({
         setImportedFiles(updatedImportFiles);
         setConfigedFiles(updatedConfigFiles);
         setCurrentPalette(newPal);
+        setProgress(0);
       })
       .catch((err) => {
         console.error(err); // theoretically impossible to reach
