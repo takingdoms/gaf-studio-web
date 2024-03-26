@@ -3,7 +3,7 @@ import { AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
 import { Icons } from '@/lib/react/icons';
 import React from 'react';
 
-export default function FrameSelectorAdder({ type }: { type: 'frames' | 'subframes' }) {
+export default function ThumbnailAdder({ type }: { type: 'frames' | 'subframes' }) {
   const adHocWizards = React.useContext(AdHocWizardsContext);
 
   return (

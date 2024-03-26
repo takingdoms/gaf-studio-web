@@ -1,8 +1,8 @@
-import CompositeFrameSelector from '@/components/app/frame-selector/thumbnail-mode/CompositeFrameSelector';
-import FrameSelector from '@/components/app/frame-selector/thumbnail-mode/FrameSelector';
-import FrameSelectorAdder from '@/components/app/frame-selector/thumbnail-mode/FrameSelectorAdder';
-import SelectorWrapper from '@/components/app/frame-selector/thumbnail-mode/SelectorWrapper';
-import SelectorWrapperScroller from '@/components/app/frame-selector/thumbnail-mode/SelectorWrapperScroller';
+import SelectorItemsScroller from "@/components/app/frame-selector/common/SelectorItemsScroller";
+import SelectorItemsWrapper from "@/components/app/frame-selector/common/SelectorItemsWrapper";
+import CompositeThumbnailSelector from '@/components/app/frame-selector/thumbnail-mode/CompositeThumbnailSelector';
+import ThumbnailAdder from '@/components/app/frame-selector/thumbnail-mode/ThumbnailAdder';
+import { FRAME_SELECTOR_ITEM_HEIGHT } from "@/lib/constants";
 import React from 'react';
 
 type ThumbnailListContentProps = {
@@ -28,16 +28,16 @@ export default function ThumbnailListContent({
   showCompositeItem,
 }: ThumbnailListContentProps) {
   return (
-    <SelectorWrapper>
-      {showCompositeItem && <CompositeFrameSelector />}
+    <SelectorItemsWrapper minHeight={FRAME_SELECTOR_ITEM_HEIGHT}>
+      {showCompositeItem && <CompositeThumbnailSelector />}
 
       {itemLength > 0 && (
-        <SelectorWrapperScroller>
+        <SelectorItemsScroller>
           {Array.from({ length: itemLength }).map((_, index) => renderItem(index))}
-        </SelectorWrapperScroller>
+        </SelectorItemsScroller>
       )}
 
-      <FrameSelectorAdder type={type} />
-    </SelectorWrapper>
+      <ThumbnailAdder type={type} />
+    </SelectorItemsWrapper>
   );
 }

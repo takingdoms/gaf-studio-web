@@ -1,14 +1,14 @@
-import CompositeFrameSelectorItem from '@/components/app/frame-selector/thumbnail-mode/CompositeFrameSelectorItem';
+import CompositeThumbnailItem from '@/components/app/frame-selector/thumbnail-mode/CompositeThumbnailItem';
 import { S } from '@/lib/state/store/store-helper';
 
-export default function CompositeFrameSelector() {
-  // console.log('Rendering CompositeFrameSelector');
+export default function CompositeThumbnailSelector() {
+  // console.log('Rendering CompositeThumbnailSelector');
 
   const isSelected = S.useStore()((state) => state.cursor.subframeIndex === null);
   const setActiveSubframeIndex = S.useStore()((state) => state.setActiveSubframeIndex);
 
   return (
-    <CompositeFrameSelectorItem
+    <CompositeThumbnailItem
       isSelected={isSelected}
       onClick={() => setActiveSubframeIndex(null)}
     />

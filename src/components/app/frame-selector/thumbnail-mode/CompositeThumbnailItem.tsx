@@ -1,15 +1,15 @@
 import { FRAME_SELECTOR_ITEM_HEIGHT, FRAME_SELECTOR_ITEM_WIDTH } from '@/lib/constants';
 
-type CompositeFrameSelectorItemProps = {
+type CompositeThumbnailItemProps = {
   isSelected: boolean;
   onClick: () => void;
 };
 
-// TODO reuse code from FrameSelectorItem
-export default function CompositeFrameSelectorItem({
+// TODO reuse code from ThumbnailItem
+export default function CompositeThumbnailItem({
   isSelected,
   onClick,
-}: CompositeFrameSelectorItemProps) {
+}: CompositeThumbnailItemProps) {
   const borderCls = isSelected ? 'border-blue-500' : 'border-gray-300';
   const textCls = isSelected ? 'text-blue-500' : 'text-slate-400';
   const cursorCls = isSelected ? 'cursor-default' : 'cursor-pointer';

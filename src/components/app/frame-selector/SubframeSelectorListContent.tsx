@@ -1,6 +1,6 @@
 import MinimalItem from '@/components/app/frame-selector/minimal-mode/MinimalItem';
 import MinimalListContent from '@/components/app/frame-selector/minimal-mode/MinimalListContent';
-import SubframeSelector from '@/components/app/frame-selector/thumbnail-mode/SubframeSelector';
+import ThumbnailSubframeSelector from '@/components/app/frame-selector/thumbnail-mode/ThumbnailSubframeSelector';
 import ThumbnailListContent from '@/components/app/frame-selector/thumbnail-mode/ThumbnailListContent';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
 
@@ -23,7 +23,7 @@ export default function SubframeSelectorListContent({
         type="subframes"
         itemLength={activeFrameLayersLength ?? 0}
         renderItem={(layerIndex) => (
-          <SubframeSelector
+          <ThumbnailSubframeSelector
             key={layerIndex}
             frameIndex={activeFrameIndex}
             subframeIndex={layerIndex}

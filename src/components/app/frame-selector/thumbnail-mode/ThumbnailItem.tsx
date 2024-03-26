@@ -16,13 +16,13 @@ type FrameSelectorItemProps = {
 // value below show be set to true otherwise to false
 const COMPOSITE_MULTI_LAYERS: boolean = false;
 
-export default function FrameSelectorItem({
+export default function ThumbnailItem({
   index,
   frameData,
   isSelected,
   onClick,
 }: FrameSelectorItemProps) {
-  // console.log('Rendering FrameSelectorItem');
+  // console.log('Rendering ThumbnailItem');
   const divRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {

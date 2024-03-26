@@ -1,23 +1,23 @@
-import FrameSelectorItem from '@/components/app/frame-selector/thumbnail-mode/FrameSelectorItem';
+import ThumbnailItem from '@/components/app/frame-selector/thumbnail-mode/ThumbnailItem';
 import { S } from '@/lib/state/store/store-helper';
 
-type FrameSelectorProps = {
+type ThumbnailFrameSelectorProps = {
   frameIndex: number;
   setActiveFrameIndex: (frameIndex: number) => void;
 };
 
-export default function FrameSelector({
+export default function ThumbnailFrameSelector({
   frameIndex,
   setActiveFrameIndex,
-}: FrameSelectorProps) {
-  // console.log('Rendering FrameSelector');
+}: ThumbnailFrameSelectorProps) {
+  // console.log('Rendering ThumbnailFrameSelector');
 
   // TODO make a helper function for this inside S
   const frameData = S.useStore()((state) => state.getActiveEntry()!.frames[frameIndex].frameData);
   const isSelected = S.useStore()((state) => state.cursor.frameIndex === frameIndex);
 
   return (
-    <FrameSelectorItem
+    <ThumbnailItem
       index={frameIndex}
       frameData={frameData}
       isSelected={isSelected}

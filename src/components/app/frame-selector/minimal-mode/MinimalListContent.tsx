@@ -1,7 +1,8 @@
+import SelectorItemsScroller from "@/components/app/frame-selector/common/SelectorItemsScroller";
+import SelectorItemsWrapper from "@/components/app/frame-selector/common/SelectorItemsWrapper";
 import CompositeMinimalItem from '@/components/app/frame-selector/minimal-mode/CompositeMinimalItem';
 import MinimalAdder from '@/components/app/frame-selector/minimal-mode/MinimalAdder';
-import MinimalWrapper from '@/components/app/frame-selector/minimal-mode/MinimalWrapper';
-import SelectorWrapperScroller from '@/components/app/frame-selector/thumbnail-mode/SelectorWrapperScroller';
+import { MINIMAL_SELECTOR_ITEM_HEIGHT } from "@/lib/constants";
 import React from 'react';
 
 type MinimalListContentProps = {
@@ -27,16 +28,16 @@ export default function MinimalListContent({
   showCompositeItem,
 }: MinimalListContentProps) {
   return (
-    <MinimalWrapper>
+    <SelectorItemsWrapper minHeight={MINIMAL_SELECTOR_ITEM_HEIGHT}>
       {showCompositeItem && <CompositeMinimalItem />}
 
       {itemLength > 0 && (
-        <SelectorWrapperScroller>
+        <SelectorItemsScroller>
           {Array.from({ length: itemLength }).map((_, index) => renderItem(index))}
-        </SelectorWrapperScroller>
+        </SelectorItemsScroller>
       )}
 
       <MinimalAdder type={type} />
-    </MinimalWrapper>
+    </SelectorItemsWrapper>
   );
 }
