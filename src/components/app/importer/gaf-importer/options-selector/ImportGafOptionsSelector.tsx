@@ -80,9 +80,17 @@ export default function ImportGafOptionsSelector({
             return undefined;
           }
 
+          const matchingImportedFile = updatedImportFiles[index];
+
           return {
             ...next,
-            importedFile: updatedImportFiles[index],
+            importedFile: matchingImportedFile,
+            options: {
+              ...next.options,
+              transparencyIndex: matchingImportedFile.importerResult.kind !== 'error'
+                ? matchingImportedFile.importerResult.result.transparencyIndex
+                : next.options.transparencyIndex,
+            },
           };
         });
 
