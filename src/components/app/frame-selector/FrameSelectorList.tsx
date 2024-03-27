@@ -1,12 +1,12 @@
 import FrameSelectorListContent from "@/components/app/frame-selector/FrameSelectorListContent";
 import ListWrapper from "@/components/app/frame-selector/ListWrapper";
-import { S } from "@/lib/state/store/store-helper";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 export default function FrameSelectorList() {
   // console.log('Rendering FrameSelectorList');
 
-  const activeEntryFramesLength = S.useStore()((state) => state.getActiveEntry()?.frames.length);
-  const setActiveFrameIndex = S.useStore()((state) => state.setActiveFrameIndex);
+  const activeEntryFramesLength = S.useOptionalActiveEntryFramesLength();
+  const setActiveFrameIndex = S.useSetActiveFrameIndex();
 
   if (activeEntryFramesLength === undefined) {
     return null;

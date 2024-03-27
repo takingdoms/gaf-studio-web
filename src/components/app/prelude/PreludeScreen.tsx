@@ -3,12 +3,11 @@ import PreludeButton from "@/components/app/prelude/PreludeButton";
 import PreludeChooseFile from "@/components/app/prelude/PreludeChooseFile";
 import PreludeHeader from "@/components/app/prelude/PreludeHeader";
 import Body from "@/components/ui/layout/Body";
-import { WorkspaceSliceConfig } from "@/lib/state/store/workspace-slice-configs";
-import { WorkspaceStateUtils } from "@/lib/state/utils/workspace-state-utils";
+import { WorkspaceConfigWrapper } from "@/lib/state/workspace/workspace-state";
 import React from "react";
 
 type PreludeScreenProps = {
-  onInit: (config: WorkspaceSliceConfig) => void;
+  onInit: (config: WorkspaceConfigWrapper) => void;
 };
 
 export default function PreludeScreen({ onInit }: PreludeScreenProps) {
@@ -44,13 +43,13 @@ export default function PreludeScreen({ onInit }: PreludeScreenProps) {
               style={{ minHeight: 200 }}
             >
               <PreludeButton onClick={() => {
-                onInit(WorkspaceStateUtils.initBlank('taf'));
+                // onInit(WorkspaceStateUtils.initBlank('taf'));
               }}>
                 TAF
               </PreludeButton>
               <PreludeButton onClick={() => {
                 const defaultPalette = paletteStore.grayscale;
-                onInit(WorkspaceStateUtils.initBlank('gaf', defaultPalette));
+                // onInit(WorkspaceStateUtils.initBlank('gaf', defaultPalette));
               }}>
                 GAF
               </PreludeButton>

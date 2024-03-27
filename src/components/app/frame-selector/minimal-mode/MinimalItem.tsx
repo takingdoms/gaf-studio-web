@@ -1,5 +1,5 @@
 import { MINIMAL_SELECTOR_ITEM_WIDTH, MINIMAL_SELECTOR_ITEM_HEIGHT } from '@/lib/constants';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 import React from 'react';
 
 type MinimalItemProps = {
@@ -15,11 +15,7 @@ export default function MinimalItem({
 }: MinimalItemProps) {
   const divRef = React.useRef<HTMLDivElement>(null);
 
-  const isSelected = S.useStore()((state) => {
-    return index === (
-      type === 'frame' ? state.cursor.frameIndex : state.cursor.subframeIndex
-    );
-  });
+  const isSelected = S.useIsFrameOrSubframeSelectedAt(type, index);
 
   React.useEffect(() => {
     const div = divRef.current;
@@ -31,19 +27,7 @@ export default function MinimalItem({
     div.scrollIntoView({ behavior: 'smooth' });
   }, [isSelected]);
 
-  const subFrames = S.useStore()((state) => {
-    if (type === 'subframe') {
-      return null;
-    }
-
-    const frameData = state.getActiveEntry()!.frames[index].frameData;
-
-    if (frameData.kind === 'single') {
-      return null;
-    }
-
-    return frameData.layers.length;
-  });
+  const subFrames = S.useSubframesCountAtFrameOrSubframe(type, index);
 
   const borderCls = isSelected ? 'border-blue-500' : 'border-gray-300';
   const textCls = isSelected ? 'text-blue-500' : 'text-gray-400';

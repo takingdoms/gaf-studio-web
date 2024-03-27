@@ -1,5 +1,5 @@
 import ThumbnailItem from '@/components/app/frame-selector/thumbnail-mode/ThumbnailItem';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 type ThumbnailFrameSelectorProps = {
   frameIndex: number;
@@ -12,9 +12,8 @@ export default function ThumbnailFrameSelector({
 }: ThumbnailFrameSelectorProps) {
   // console.log('Rendering ThumbnailFrameSelector');
 
-  // TODO make a helper function for this inside S
-  const frameData = S.useStore()((state) => state.getActiveEntry()!.frames[frameIndex].frameData);
-  const isSelected = S.useStore()((state) => state.cursor.frameIndex === frameIndex);
+  const frameData = S.useFrameDataAt(frameIndex);
+  const isSelected = S.useIsFrameSelectedAt(frameIndex);
 
   return (
     <ThumbnailItem

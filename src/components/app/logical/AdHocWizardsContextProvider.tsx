@@ -1,6 +1,7 @@
 import ConvertFrameToMultiModal from '@/components/app/converter/ConvertFrameToMultiModal';
 import ConvertFrameToSingleModal from '@/components/app/converter/ConvertFrameToSingleModal';
 import DeleteFrameModal from '@/components/app/deleter/DeleteFrameModal';
+import DeleteSubframeModal from '@/components/app/deleter/DeleteSubframeModal';
 import ImportModal from '@/components/app/importer/ImportModal';
 import { ModalContext } from '@/components/ui/modal/ModalContext';
 import { AdHocWizards, AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
@@ -48,7 +49,10 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
   };
 
   const deleteSubframe = () => {
-    //
+    const { close } = modal.pushModal({
+      title: 'Delete Selected Subframe',
+      body: <DeleteSubframeModal close={() => close()} />,
+    });
   };
 
   const adHocWizards: AdHocWizards = {

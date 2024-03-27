@@ -1,6 +1,5 @@
 import SolidButton from '@/components/ui/button/SolidButton';
 import { Icons } from '@/lib/react/icons';
-import React from 'react';
 
 type ImportOptionsStepperProps = {
   total: number;

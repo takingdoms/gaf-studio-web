@@ -42,6 +42,8 @@ export type VirtualFrameDataMultiLayer<T extends MainFormat = MainFormat> =
 export type VirtualLayerData<T extends MainFormat = MainFormat> =
   T extends 'gaf' ? VirtualLayerDataPaletteIndices :
   T extends 'taf' ? VirtualLayerDataRawColors :
+  // T extends 'taf-solo' ? VirtualLayerDataRawColors :
+  // T extends 'taf-pair' ? VirtualLayerDataRawColorsPair :
   never;
 
 export type VirtualLayerDataPaletteIndices = {
@@ -53,4 +55,10 @@ export type VirtualLayerDataPaletteIndices = {
 export type VirtualLayerDataRawColors = {
   readonly kind: 'raw-colors';
   readonly imageResource: ColoredImageResource;
+};
+
+export type VirtualLayerDataRawColorsPair = {
+  readonly kind: 'raw-colors-pair';
+  readonly imageResource1555: ColoredImageResource<'argb1555'>;
+  readonly imageResource4444: ColoredImageResource<'argb4444'>;
 };

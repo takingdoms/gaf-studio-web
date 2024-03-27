@@ -1,15 +1,13 @@
 import FrameControlsSingle from "@/components/app/controls/FrameControlsSingle";
 import FrameInfoControls from "@/components/app/controls/FrameInfoControls";
 import SubframeIndexControl from "@/components/app/controls/SubframeIndexControl";
-import { S } from "@/lib/state/store/store-helper";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 export default function FrameControls() {
   // console.log('Rendering FrameControls');
 
-  const activeFrameIndex = S.useStore()((state) => state.cursor.frameIndex);
-  const showSubframeIndexControl = S.useStore()((state) => (
-    state.getActiveFrame()?.frameData.kind === 'multi'
-  ));
+  const activeFrameIndex = S.useActiveFrameIndex();
+  const showSubframeIndexControl = S.useHasActiveFrameMulti();
 
   if (activeFrameIndex === null) {
     return (

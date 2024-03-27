@@ -1,9 +1,9 @@
 import SolidButton from "@/components/ui/button/SolidButton";
-import { S } from "@/lib/state/store/store-helper";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 export default function DeleteSubframeModal({ close }: { close: () => void }) {
-  const activeSubframe = S.useStore()((state) => state.getActiveSubframe());
-  const doDelete = S.useStore()((state) => state.deleteActiveSubframe);
+  const activeSubframe = S.useActiveSubframe();
+  const doDelete = S.useDeleteActiveSubframe();
 
   if (activeSubframe === null) {
     return <div className="p-4">No subframe selected.</div>;

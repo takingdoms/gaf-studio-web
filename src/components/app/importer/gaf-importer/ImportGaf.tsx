@@ -1,28 +1,27 @@
 import { FinalImportResult } from '@/components/app/importer/common/common-importing-types';
 import ImportGafWizard from '@/components/app/importer/gaf-importer/ImportGafWizard';
-import { GafWorkspaceStore } from '@/lib/react/workspace-store-context';
-import { VirtualFrame, VirtualFrameData, VirtualFrameDataSingleLayer } from '@/lib/virtual-gaf/virtual-gaf';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
+import { GafS } from '@/lib/state/workspace/workspace-context/gaf-workspace-helper';
+import { VirtualFrame, VirtualFrameDataSingleLayer } from '@/lib/virtual-gaf/virtual-gaf';
 import React from 'react';
 
 type ImportGafProps = {
   type: 'frames' | 'subframes';
-  useGafStore: GafWorkspaceStore;
   onEnded: () => void;
   onAbort: () => void;
 };
 
 export default function ImportGaf({
   type,
-  useGafStore,
   onAbort,
   onEnded,
 }: ImportGafProps) {
-  const currentPalette = useGafStore((state) => state.currentPalette);
-  const setCurrentPalette = useGafStore((state) => state.setCurrentPalette);
+  const currentPalette = GafS.useCurrentPalette();
+  const setCurrentPalette = GafS.useSetCurrentPalette();
 
-  const addFramesToActiveEntry = useGafStore((state) => state.addFramesToActiveEntry);
-  const addSubframesToActiveFrame = useGafStore((state) => state.addSubframesToActiveFrame);
-  const convertActiveFrameToMultiFrame = useGafStore((state) => state.convertActiveFrameToMultiFrame);
+  const addFramesToActiveEntry = S.useAddFramesToActiveEntry();
+  const addSubframesToActiveFrame = S.useAddSubframesToActiveFrame();
+  const convertActiveFrameToMultiFrame = S.useConvertActiveFrameToMultiFrame();
 
   const onFinish = React.useCallback((result: FinalImportResult) => {
     if (result.type === 'frames') {

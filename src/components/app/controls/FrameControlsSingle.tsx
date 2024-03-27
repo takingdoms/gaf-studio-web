@@ -1,13 +1,13 @@
 import FrameDataControls from '@/components/app/controls/FrameDataControls';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 export default function FrameControlsSingle() {
   // console.log('Rendering FrameControlsSingle');
 
   const format = S.useFormat();
-  const activeFrameFrameDataProps = S.useActiveFrameFrameDataProps();
-  const modifyActiveFrameData = S.useStore()((state) => state.modifyActiveFrameData);
+  const activeFrameFrameDataProps = S.useShallowActiveFrameDataProps();
+  const modifyActiveFrameData = S.useModifyActiveFrameData();
 
   const showFrameData = useGlobalConfigStore((state) => state.showMultiFrameFrameData);
   const setShowFrameData = useGlobalConfigStore((state) => state.actions.setShowMultiFrameFrameData);

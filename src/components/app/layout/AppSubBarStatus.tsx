@@ -1,13 +1,7 @@
-import { S } from "@/lib/state/store/store-helper";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 export default function AppSubBarStatus() {
-  const currentGafFileName = S.useStore()((state) => {
-    const currentGaf = state.getCurrentGaf();
-
-    return currentGaf.kind === 'from-file'
-      ? currentGaf.fileName
-      : null;
-  });
+  const currentGafFileName = S.useCurrentGafFileName();
 
   return (
     <div className="flex items-center px-1 py-0.5">

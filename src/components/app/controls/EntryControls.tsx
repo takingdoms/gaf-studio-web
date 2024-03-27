@@ -1,13 +1,13 @@
 import NumberControl from '@/components/ui/control/NumberControl';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 import { FormatUtils } from '@/lib/utils/format-utils';
 
 export default function EntryControls() {
   // console.log('Rendering EntryControls');
 
-  const activeEntryProps = S.useActiveEntryProps();
-  const activeFrameIndex = S.useStore()((state) => state.cursor.frameIndex);
-  const setActiveFrameIndex = S.useStore()((state) => state.setActiveFrameIndex);
+  const activeEntryProps = S.useShallowActiveEntryProps();
+  const activeFrameIndex = S.useActiveFrameIndex()
+  const setActiveFrameIndex = S.useSetActiveFrameIndex();
 
   if (activeEntryProps === null) {
     return (

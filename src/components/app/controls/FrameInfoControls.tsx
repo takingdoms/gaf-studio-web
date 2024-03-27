@@ -1,5 +1,4 @@
-import { S } from '@/lib/state/store/store-helper';
-
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 export default function FrameInfoControls() {
   const activeFrameDuration = S.useActiveFrameDuration();

@@ -1,11 +1,11 @@
 import FrameContent from '@/components/app/frame-content/FrameContent';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 export default function FrameContentWrapper() {
   // console.log('Rendering FrameContentWrapper');
 
-  const activeFrame = S.useStore()((state) => state.getActiveFrame());
-  const activeSubframeIndex = S.useStore()((state) => state.cursor.subframeIndex);
+  const activeFrame = S.useActiveFrame();
+  const activeSubframeIndex = S.useActiveSubframeIndex();
 
   if (activeFrame === null) {
     return (

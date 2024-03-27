@@ -1,13 +1,13 @@
 import FrameDataControls from "@/components/app/controls/FrameDataControls";
-import { S } from "@/lib/state/store/store-helper";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 // should never be called if there's no active frame
 export default function SubframeControls() {
   // console.log('Rendering SubframeControls');
 
   const format = S.useFormat();
-  const activeSubframeFrameDataProps = S.useActiveSubframeFrameDataProps();
-  const modifyActiveSubframeData = S.useStore()((state) => state.modifyActiveSubframeData);
+  const activeSubframeFrameDataProps = S.useShallowActiveSubframeDataProps();
+  const modifyActiveSubframeData = S.useModifyActiveSubframeData();
 
   if (activeSubframeFrameDataProps === null) {
     return (

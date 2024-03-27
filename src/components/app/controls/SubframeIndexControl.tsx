@@ -1,12 +1,12 @@
 import NumberControl from '@/components/ui/control/NumberControl';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 export default function SubframeIndexControl() {
   // console.log('Rendering SubframeIndexControl');
 
   const activeFrameLayersLength = S.useActiveFrameLayersLength();
-  const activeSubframeIndex = S.useStore()((state) => state.cursor.subframeIndex);
-  const setActiveSubframeIndex = S.useStore()((state) => state.setActiveSubframeIndex);
+  const activeSubframeIndex = S.useActiveSubframeIndex();
+  const setActiveSubframeIndex = S.useSetActiveSubframeIndex();
 
   const hasSubFrames = activeFrameLayersLength > 0;
 

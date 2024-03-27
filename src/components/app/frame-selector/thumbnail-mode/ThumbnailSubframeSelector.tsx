@@ -1,5 +1,5 @@
 import ThumbnailItem from '@/components/app/frame-selector/thumbnail-mode/ThumbnailItem';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 type ThumbnailSubframeSelectorRealProps = {
   frameIndex: number;
@@ -14,16 +14,8 @@ export default function ThumbnailSubframeSelector({
 }: ThumbnailSubframeSelectorRealProps) {
   // console.log('Rendering ThumbnailSubframeSelector');
 
-  // TODO make a helper function for this inside S
-  const frameData = S.useStore()((state) => {
-    const frameData = state.getActiveEntry()!.frames[frameIndex].frameData;
-    if (frameData.kind === 'single') {
-      throw new Error(`Can't use this component for single-layered frameData.`);
-    }
-    return frameData.layers[subframeIndex];
-  });
-
-  const isSelected = S.useStore()((state) => state.cursor.subframeIndex === subframeIndex);
+  const frameData = S.useSubframeDataAt(frameIndex, subframeIndex);
+  const isSelected = S.useIsSubframeSelectedAt(subframeIndex);
 
   return (
     <ThumbnailItem

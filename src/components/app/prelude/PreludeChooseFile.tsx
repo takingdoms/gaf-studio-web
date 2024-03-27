@@ -3,11 +3,11 @@ import PreludeChooseFileTafPair from '@/components/app/prelude/PreludeChooseFile
 import Select from '@/components/ui/select/Select';
 import { MainFormat } from '@/lib/main-format';
 import { PaletteStore } from '@/lib/state/gaf-studio/palette-store';
-import { WorkspaceSliceConfig } from '@/lib/state/store/workspace-slice-configs';
+import { WorkspaceConfigWrapper } from '@/lib/state/workspace/workspace-state';
 import React from 'react';
 
 type PreludeChooseFileProps = {
-  onInit: (config: WorkspaceSliceConfig) => void;
+  onInit: (config: WorkspaceConfigWrapper) => void;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
   paletteStore: PaletteStore;

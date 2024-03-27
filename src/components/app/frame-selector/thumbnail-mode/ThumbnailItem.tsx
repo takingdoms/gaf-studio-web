@@ -85,7 +85,7 @@ export default function ThumbnailItem({
               className="flex justify-center items-center space-x-1 invisible"
               title="Single-layered"
             >
-              <Icons.SingleLayered size={14} />
+              <Icons.SingleLayered size={14} /> (None)
             </div>
           )}
         </div>

@@ -3,7 +3,7 @@ import FrameControls from '@/components/app/controls/FrameControls';
 import SubframeControls from '@/components/app/controls/SubframeControls';
 import CollapsibleHeader from '@/components/ui/collapsible/CollapsibleHeader';
 import Panel from '@/components/ui/panel/Panel';
-import { useWorkspaceStore } from '@/lib/react/use-workspace-store';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 import React from 'react';
 
 export default function ControlsPanel() {
@@ -13,12 +13,8 @@ export default function ControlsPanel() {
   const [frameExpanded, setFrameExpanded] = React.useState(true);
   const [subframeExpanded, setSubframeExpanded] = React.useState(true);
 
-  const showFrameControls = useWorkspaceStore()((state) => state.cursor.entryIndex !== null);
-
-  const showSubframeControls = useWorkspaceStore()((state) => (
-    state.cursor.entryIndex !== null &&
-    state.getActiveFrame()?.frameData.kind === 'multi'
-  ));
+  const showFrameControls = S.useHasActiveEntry();
+  const showSubframeControls = S.useHasActiveFrameMulti();
 
   return (
     <Panel>

@@ -1,12 +1,12 @@
 import { Menu, MenuItem, MenuItemSeparator } from "@/components/ui/dropdown/DropdownMenu";
 import { AdHocWizardsContext } from "@/lib/react/ad-hoc-wizards-context";
-import { S } from "@/lib/state/store/store-helper";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 import React from "react";
 
 export default function FrameMenu() {
-  const activeEntryIndex = S.useStore()((state) => state.cursor.entryIndex);
-  const activeFrameIndex = S.useStore()((state) => state.cursor.frameIndex);
-  const kind = S.useActiveFrameDataKind();
+  const activeEntryIndex = S.useActiveEntryIndex();
+  const activeFrameIndex = S.useActiveFrameIndex();
+  const kind = S.useOptionalActiveFrameDataKind();
 
   const adHocWizards = React.useContext(AdHocWizardsContext);
 

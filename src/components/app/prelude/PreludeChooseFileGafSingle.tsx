@@ -2,13 +2,13 @@ import PreludeButton from '@/components/app/prelude/PreludeButton';
 import PreludePaletteSelector from '@/components/app/prelude/PreludePaletteSelector';
 import { CurrentPaletteFromCustomFile } from '@/lib/state/gaf-studio/current-palette';
 import { PaletteStore } from '@/lib/state/gaf-studio/palette-store';
-import { WorkspaceSliceConfig } from '@/lib/state/store/workspace-slice-configs';
 import { WorkspaceStateUtils } from '@/lib/state/utils/workspace-state-utils';
+import { WorkspaceConfigWrapper } from '@/lib/state/workspace/workspace-state';
 import React from 'react';
 
 type PreludeChooseFileSingleProps = {
   format: 'gaf' | 'taf' | 'auto';
-  onInit: (config: WorkspaceSliceConfig) => void;
+  onInit: (config: WorkspaceConfigWrapper) => void;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
   paletteStore: PaletteStore;

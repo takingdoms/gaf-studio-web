@@ -1,6 +1,6 @@
 import EntryListTable from '@/components/app/entry-list/EntryListTable';
 import Panel from '@/components/ui/panel/Panel';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 export default function EntryListPanel() {
   // console.log('Rendering EntryListPanel');

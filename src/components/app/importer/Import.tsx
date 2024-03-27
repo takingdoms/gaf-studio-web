@@ -1,6 +1,6 @@
 import ImportTaf from '@/components/app/importer/ImportTaf';
 import ImportGaf from '@/components/app/importer/gaf-importer/ImportGaf';
-import { useWorkspaceStore } from '@/lib/react/use-workspace-store';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 type ImportProps = {
   type: 'frames' | 'subframes';
@@ -13,25 +13,22 @@ export default function Import({
   onAbort,
   onEnded,
 }: ImportProps) {
-  const useGafStore = useWorkspaceStore('gaf');
-  const useTafStore = useWorkspaceStore('taf');
+  const format = S.useFormat();
 
-  if (useGafStore !== null) {
+  if (format === 'gaf') {
     return (
       <ImportGaf
         type={type}
-        useGafStore={useGafStore}
         onEnded={onEnded}
         onAbort={onAbort}
       />
     );
   }
 
-  if (useTafStore !== null) {
+  if (format === 'taf') {
     return (
       <ImportTaf
         type={type}
-        useTafStore={useTafStore}
         onEnded={onEnded}
         onAbort={onAbort}
       />

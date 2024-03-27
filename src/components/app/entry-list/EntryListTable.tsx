@@ -1,4 +1,4 @@
-import { S } from "@/lib/state/store/store-helper";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 const thCls = 'px-2 py-1 text-left border~ border-gray-300';
 const tdCls = 'px-2 py-1';
@@ -7,9 +7,9 @@ export default function EntryListTable() {
   // console.log('Rendering EntryListTable');
 
   // this component is probably cheap enough to re-render every time entries is changed
-  const entries = S.useStore()((state) => state.getEntries());
-  const activeEntryIndex = S.useStore()((state) => state.cursor.entryIndex);
-  const setActiveEntryIndex = S.useStore()((state) => state.setActiveEntryIndex);
+  const entries = S.useEntries();
+  const activeEntryIndex = S.useActiveEntryIndex();
+  const setActiveEntryIndex = S.useSetActiveEntryIndex();
 
   return (
     <table className="text-xs text-black">

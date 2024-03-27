@@ -1,5 +1,5 @@
 import Import from '@/components/app/importer/Import';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 type ImportModalProps = {
   type: 'frames' | 'subframes';
@@ -10,8 +10,8 @@ export default function ImportModal({
   type,
   close,
 }: ImportModalProps) {
-  const activeEntryIndex = S.useStore()((state) => state.cursor.entryIndex);
-  const activeFrameIndex = S.useStore()((state) => state.cursor.frameIndex);
+  const activeEntryIndex = S.useActiveEntryIndex();
+  const activeFrameIndex = S.useActiveFrameIndex();
 
   if (activeEntryIndex === null) {
     return <div className="p-4">No entry selected.</div>;

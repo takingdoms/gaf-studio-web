@@ -1,15 +1,16 @@
 import { AppDebugContext } from "@/components/AppDebugContext";
+import AdHocWizardsContextProvider from "@/components/app/logical/AdHocWizardsContextProvider";
+import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
 import PreludeScreen from "@/components/app/prelude/PreludeScreen";
 import WorkspaceRoot from "@/components/app/workspace-root/WorkspaceRoot";
-import { WorkspaceStoreWrapper, WorkspaceStoreWrapperContext } from "@/lib/react/workspace-store-context";
-import { WorkspaceSliceConfig } from "@/lib/state/store/workspace-slice-configs";
-import { createBoundGafStore, createBoundTafStore } from "@/lib/state/store/workspace-slices";
+import ModalContextProvider from "@/components/ui/modal/ModalContextProvider";
+import { createGafWorkspace } from "@/lib/state/workspace/gaf/create-gaf-workspace";
+import { createTafSoloWorkspace } from "@/lib/state/workspace/taf-solo/create-taf-solo-workspace";
+import { WorkspaceStoreWrapper, WorkspaceWrapperContext } from "@/lib/state/workspace/workspace-context/workspace-context";
+import { WorkspaceConfigWrapper } from "@/lib/state/workspace/workspace-state";
 import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
-import AdHocWizardsContextProvider from "@/components/app/logical/AdHocWizardsContextProvider";
-import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
-import ModalContextProvider from "@/components/ui/modal/ModalContextProvider";
 
 export default function App() {
   const [storeWrapper, setStoreWrapper] = React.useState<WorkspaceStoreWrapper>();
@@ -18,18 +19,21 @@ export default function App() {
     return createTakPaletteStore();
   }, []);
 
-  const onInit = React.useCallback((config: WorkspaceSliceConfig) => {
-    if (config.format === 'gaf') {
+  const onInit = React.useCallback((configWrapper: WorkspaceConfigWrapper) => {
+    if (configWrapper.format === 'gaf') {
       setStoreWrapper({
         format: 'gaf',
-        store: createBoundGafStore(config),
+        store: createGafWorkspace(configWrapper.config),
+      });
+    }
+    else if (configWrapper.format === 'taf-solo') {
+      setStoreWrapper({
+        format: 'taf-solo',
+        store: createTafSoloWorkspace(configWrapper.config),
       });
     }
     else {
-      setStoreWrapper({
-        format: 'taf',
-        store: createBoundTafStore(config),
-      });
+      throw new Error(`Format not yet supported.`);
     }
   }, []);
 
@@ -47,7 +51,7 @@ export default function App() {
     <AppDebugContext.Provider value={{
       resetWorkspace: () => setStoreWrapper(undefined),
     }}>
-      <WorkspaceStoreWrapperContext.Provider value={storeWrapper}>
+      <WorkspaceWrapperContext.Provider value={storeWrapper}>
         <ModalContextProvider>
           <AdHocWizardsContextProvider>
             <PaletteStoreContext.Provider value={paletteStore}>
@@ -57,7 +61,7 @@ export default function App() {
             </PaletteStoreContext.Provider>
           </AdHocWizardsContextProvider>
         </ModalContextProvider>
-      </WorkspaceStoreWrapperContext.Provider>
+      </WorkspaceWrapperContext.Provider>
     </AppDebugContext.Provider>
   );
 }

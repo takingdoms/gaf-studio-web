@@ -1,15 +1,15 @@
 import SolidButton from '@/components/ui/button/SolidButton';
 import { Icons } from '@/lib/react/icons';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 type ConvertFrameToSingleModalProps = {
   close: () => void;
 };
 
 export default function ConvertFrameToSingleModal({ close }: ConvertFrameToSingleModalProps) {
-  const activeFrame = S.useStore()((state) => state.getActiveFrame());
-  const activeFrameIndex = S.useStore()((state) => state.cursor.frameIndex);
-  const doConvert = S.useStore()((state) => state.convertActiveFrameToSingleFrame);
+  const activeFrame = S.useActiveFrame();
+  const activeFrameIndex = S.useActiveFrameIndex();
+  const doConvert = S.useConvertActiveFrameToSingleFrame();
 
   if (activeFrame === null) {
     return <div className="p-4">No frame selected.</div>;

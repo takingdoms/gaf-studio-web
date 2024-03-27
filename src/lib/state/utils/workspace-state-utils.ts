@@ -2,16 +2,18 @@ import { SimpleImageCompiler } from '@/lib/image/compiler/simple-image-compiler'
 import { Palette } from '@/lib/image/palette/palette';
 import { MainFormat } from '@/lib/main-format';
 import { CurrentGaf, CurrentGafFromFile } from '@/lib/state/gaf-studio/current-gaf';
-import { CurrentGafs } from '@/lib/state/gaf-studio/current-gafs';
+import { CurrentTafs } from '@/lib/state/gaf-studio/current-tafs';
 import { CurrentPalette } from '@/lib/state/gaf-studio/current-palette';
 import { WorkspaceCursor } from '@/lib/state/gaf-studio/workspace-cursor';
-import { GafWorkspaceSliceConfig, TafWorkspaceSliceConfig, WorkspaceSliceConfig } from '@/lib/state/store/workspace-slice-configs';
 import { FormatUtils } from '@/lib/utils/format-utils';
 import { VirtualGaf } from '@/lib/virtual-gaf/virtual-gaf';
 import { ColoredVirtualGafBuilder } from '@/lib/virtual-gaf/virtual-gaf-conversion/colored-virtual-gaf-builder';
 import { PalettedVirtualGafBuilder } from '@/lib/virtual-gaf/virtual-gaf-conversion/paletted-virtual-gaf-builder';
 import LibGaf from 'lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
+import { WorkspaceConfigWrapper } from '@/lib/state/workspace/workspace-state';
+import { TafSoloWorkspaceConfig } from '@/lib/state/workspace/taf-solo/create-taf-solo-workspace';
+import { TafPairWorkspaceConfig } from '@/lib/state/workspace/taf-pair/create-taf-pair-workspace';
 
 const BLANK_CURRENT_GAF: CurrentGaf = {
   kind: 'blank',
@@ -103,7 +105,7 @@ export namespace WorkspaceStateUtils {
   export async function initFromAnyFile(
     file: File,
     defaultPalette: CurrentPalette,
-  ): Promise<WorkspaceSliceConfig> {
+  ): Promise<WorkspaceConfigWrapper> {
     const currentGaf = await loadCurrentGaf(file, defaultPalette.palette);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
@@ -116,25 +118,29 @@ export namespace WorkspaceStateUtils {
     if (detectedFormat.mainFormat === 'gaf') {
       return {
         format: 'gaf',
-        initialGaf: currentGaf,
-        initialPalette: defaultPalette,
+        config: {
+          initialGaf: currentGaf,
+          initialPalette: defaultPalette,
+        },
       };
     }
 
-    return {
+    throw new Error(`Tafs not supported yet`);
+
+    /*return {
       format: 'taf',
       initialGafs: {
         'taf_1555': detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
         'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
-      } as CurrentGafs,
+      } as CurrentTafs,
       initialSubFormat: detectedFormat.subFormat,
-    };
+    };*/
   }
 
   export async function initFromGafFile(
     file: File,
     currentPalette: CurrentPalette,
-  ): Promise<GafWorkspaceSliceConfig> {
+  ): Promise<WorkspaceConfigWrapper> {
     const currentGaf = await loadCurrentGaf(file, currentPalette.palette);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
@@ -146,12 +152,14 @@ export namespace WorkspaceStateUtils {
 
     return {
       format: 'gaf',
-      initialGaf: currentGaf,
-      initialPalette: currentPalette,
+      config: {
+        initialGaf: currentGaf,
+        initialPalette: currentPalette,
+      },
     };
   }
 
-  export async function initFromTafFile(file: File): Promise<TafWorkspaceSliceConfig> {
+  export async function initFromTafFile(file: File): Promise<WorkspaceConfigWrapper> {
     const currentGaf = await loadCurrentGaf(file);
 
     const detectedFormat = FormatUtils.detectFormatFromResult(currentGaf.originalGaf.gaf)
@@ -164,19 +172,21 @@ export namespace WorkspaceStateUtils {
       throw new Error(`Expected a TAF, but got a GAF.`);
     }
 
-    return {
+    throw new Error(`Tafs not yet supported.`);
+
+    /*return {
       format: 'taf',
       // currentTaf1555: detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
       // currentTaf4444: detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
       initialGafs: {
         'taf_1555': detectedFormat.subFormat === 'taf_1555' ? currentGaf : null,
         'taf_4444': detectedFormat.subFormat === 'taf_4444' ? currentGaf : null,
-      } as CurrentGafs,
+      } as CurrentTafs,
       initialSubFormat: detectedFormat.subFormat,
-    };
+    };*/
   }
 
-  export async function initFromTafPair(file1555: File, file4444: File): Promise<TafWorkspaceSliceConfig> {
+  export async function initFromTafPair(file1555: File, file4444: File): Promise<TafPairWorkspaceConfig> {
     const currentGaf1555 = await loadCurrentGaf(file1555);
     const currentGaf4444 = await loadCurrentGaf(file4444);
 
@@ -203,16 +213,12 @@ export namespace WorkspaceStateUtils {
     }
 
     return {
-      format: 'taf',
-      initialGafs: {
-        'taf_1555': currentGaf1555,
-        'taf_4444': currentGaf4444,
-      },
-      initialSubFormat: 'taf_1555',
+      initialGaf1555: currentGaf1555,
+      initialGaf4444: currentGaf4444,
     };
   }
 
-  export function initBlank(format: 'gaf', defaultPalette: CurrentPalette): GafWorkspaceSliceConfig;
+  /*export function initBlank(format: 'gaf', defaultPalette: CurrentPalette): GafWorkspaceSliceConfig;
   export function initBlank(format: 'taf', defaultPalette?: undefined): TafWorkspaceSliceConfig;
   export function initBlank(format: MainFormat, defaultPalette?: CurrentPalette):
     GafWorkspaceSliceConfig | TafWorkspaceSliceConfig
@@ -249,5 +255,5 @@ export namespace WorkspaceStateUtils {
       },
       initialSubFormat: 'taf_1555',
     };
-  }
+  }*/
 }

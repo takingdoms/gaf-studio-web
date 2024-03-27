@@ -1,9 +1,9 @@
 import SolidButton from "@/components/ui/button/SolidButton";
-import { S } from "@/lib/state/store/store-helper";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 export default function DeleteFrameModal({ close }: { close: () => void }) {
-  const activeFrame = S.useStore()((state) => state.getActiveFrame());
-  const doDelete = S.useStore()((state) => state.deleteActiveFrame);
+  const activeFrame = S.useActiveFrame();
+  const doDelete = S.useDeleteActiveFrame();
 
   if (activeFrame === null) {
     return <div className="p-4">No frame selected.</div>;

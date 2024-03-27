@@ -1,6 +1,11 @@
 export namespace ArrayUtils {
   export function update<T>(array: readonly T[], index: number, newValue: T): T[] {
-    // return array.map((value, i) => (i === index ? newValue : value));
+    if (index < 0 || index > array.length) {
+      console.error(index);
+      console.error(array);
+      throw new Error(`Index out of bounds.`);
+    }
+
     const newArray = [...array];
     newArray[index] = newValue;
     return newArray;
@@ -11,7 +16,12 @@ export namespace ArrayUtils {
     index: number,
     newValue: (oldValue: T) => T,
   ): T[] {
-    // return array.map((value, i) => (i === index ? newValue(value) : value));
+    if (index < 0 || index > array.length) {
+      console.error(index);
+      console.error(array);
+      throw new Error(`Index out of bounds.`);
+    }
+
     const newArray = [...array];
     newArray[index] = newValue(newArray[index]);
     return newArray;

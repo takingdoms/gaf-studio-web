@@ -1,6 +1,6 @@
 import TextButton from '@/components/ui/button/TextButton';
 import NumberControl from '@/components/ui/control/NumberControl';
-import { AllowedFrameDataModification } from '@/lib/state/store/mods';
+import { AllowedFrameDataModification } from '@/lib/state/workspace/common/common-workspace-state';
 import { BaseVirtualGafFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
 type FrameDataControlsProps = {

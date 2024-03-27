@@ -1,24 +1,13 @@
 import ListWrapper from "@/components/app/frame-selector/ListWrapper";
 import SubframeSelectorListContent from "@/components/app/frame-selector/SubframeSelectorListContent";
-import { S } from "@/lib/state/store/store-helper";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 export default function SubframeSelectorList() {
   // console.log('Rendering SubframeSelectorList');
 
-  const activeFrameLayersLength = S.useStore()((state) => {
-    const frame = state.getActiveFrame();
-
-    if (!frame) {
-      return null;
-    }
-
-    return frame.frameData.kind === 'multi'
-      ? frame.frameData.layers.length
-      : null;
-  });
-
-  const activeFrameIndex = S.useStore()((state) => state.cursor.frameIndex);
-  const setActiveSubframeIndex = S.useStore()((state) => state.setActiveSubframeIndex);
+  const activeFrameLayersLength = S.useOptionalActiveFrameLayersLength();
+  const activeFrameIndex = S.useActiveFrameIndex();
+  const setActiveSubframeIndex = S.useSetActiveSubframeIndex();
 
   if (activeFrameIndex === null) {
     return null;

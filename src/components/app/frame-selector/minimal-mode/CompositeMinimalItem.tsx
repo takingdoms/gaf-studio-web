@@ -1,11 +1,11 @@
 import { MINIMAL_SELECTOR_ITEM_WIDTH, MINIMAL_SELECTOR_ITEM_HEIGHT } from '@/lib/constants';
 import { Icons } from '@/lib/react/icons';
-import { S } from '@/lib/state/store/store-helper';
+import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 // TODO reuse code from MinimalItem
 export default function CompositeMinimalItem() {
-  const isSelected = S.useStore()((state) => state.cursor.subframeIndex === null);
-  const setActiveSubframeIndex = S.useStore()((state) => state.setActiveSubframeIndex);
+  const isSelected = S.useHasActiveSubframe() === false;
+  const setActiveSubframeIndex = S.useSetActiveSubframeIndex();
 
   const onClick = () => setActiveSubframeIndex(null);
 
