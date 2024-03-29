@@ -2,7 +2,7 @@ import MainCanvases from '@/components/app/main-canvases/MainCanvases';
 import FrameContentBackground from '@/components/app/frame-content/FrameContentBackground';
 import FrameContentOptionsDiv from '@/components/app/frame-content/frame-content-options/FrameContentOptionsDiv';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
-import { VirtualGafUtils } from '@/lib/virtual-gaf/virtual-gaf-utils';
+import { VirtualGafUtils } from '@/lib/virtual-gaf/utils/virtual-gaf-utils';
 
 type FrameContentProps = {
   frameData: VirtualFrameData;

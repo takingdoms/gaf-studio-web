@@ -9,6 +9,10 @@ namespace WorkspaceHelper {
     return useW((state) => state.format);
   }
 
+  export function useGafFormat() {
+    return useW((state) => state.gafFormat);
+  }
+
   // TODO someday memoize every "expensive looking" selector
   const formatSelector = (state: WorkspaceState) => state.format;
   function useFormat_MemoizedExample() {
@@ -340,9 +344,14 @@ namespace WorkspaceHelper {
     return useW((state) => {
       const currentGaf = state.abstractActions.getCurrentGaf();
 
-      return currentGaf.kind === 'from-file'
-        ? currentGaf.fileName
-        : null;
+      if (currentGaf.kind === 'from-file-single') {
+        return currentGaf.fileName;
+      }
+      else if (currentGaf.kind === 'from-file-pair') {
+        return currentGaf.data1555.fileName + ' + ' + currentGaf.data4444.fileName;
+      }
+
+      return null;
     });
   }
 }

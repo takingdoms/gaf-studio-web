@@ -1,10 +1,11 @@
+import { TafSubFormat } from '@/lib/main-format';
 import LibGaf from 'lib-gaf';
 
 export type DetectedFormat = {
   readonly mainFormat: 'gaf';
 } | {
   readonly mainFormat: 'taf';
-  readonly subFormat: 'taf_1555' | 'taf_4444';
+  readonly subFormat: TafSubFormat;
 };
 
 export namespace FormatUtils {
@@ -15,6 +16,13 @@ export namespace FormatUtils {
   export function getFileExtension(fileName: string): string {
     const parts = fileName.split('.');
     return parts[parts.length - 1];
+  }
+
+  export function detectFormatFromResultOrFileName(
+    gaf: LibGaf.GafResult,
+    fileName: string,
+  ): DetectedFormat | null {
+    return detectFormatFromResult(gaf) ?? detectFormatFromFileName(fileName);
   }
 
   export function detectFormatFromFileName(fileName: string): DetectedFormat | null {
@@ -42,9 +50,7 @@ export namespace FormatUtils {
   }
 
   /** Returns null if there's no frame to infer format information. */
-  export function detectFormatFromResult(
-    gaf: LibGaf.GafResult,
-  ): DetectedFormat | null {
+  export function detectFormatFromResult(gaf: LibGaf.GafResult): DetectedFormat | null {
     for (const entry of gaf.entries) {
       for (const frame of entry.frames) {
         const result = detectFrameDataFormat(frame.frameData);

@@ -6,6 +6,7 @@ import React from "react";
 
 export type ModalConfig = {
   title: string;
+  titleColor?: 'primary' | 'error';
   body: React.ReactNode;
   disableBackgroundClose?: boolean;
   disableXClose?: boolean;

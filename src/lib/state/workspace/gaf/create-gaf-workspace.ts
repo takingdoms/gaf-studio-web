@@ -19,6 +19,7 @@ export const createGafWorkspace: CreateGafWorkspace = (config) => createStore((s
 
   return {
     format: 'gaf',
+    gafFormat: 'gaf',
     currentGaf: config.initialGaf,
     currentPalette: config.initialPalette,
     cursor: common.cursor,
@@ -44,12 +45,21 @@ export const createGafWorkspace: CreateGafWorkspace = (config) => createStore((s
 
         const currentGaf = get().currentGaf;
 
-        const newVirtualGaf: VirtualGaf<'gaf'> = {
-          ...currentGaf.virtualGaf,
-          entries: RecompileGaf.recompileVirtualGafEntries({
+        if (currentGaf.format !== 'gaf') {
+          throw new Error(`Expected a GAF format but got: ${currentGaf.format}`);
+        }
+
+        const entries = RecompileGaf.recompileVirtualGafEntries(
+          {
             palette: newCurrentPalette.palette,
             imageCompiler: new SimpleImageCompiler(),
-          }, currentGaf.virtualGaf.entries),
+          },
+          currentGaf.virtualGaf.entries,
+        );
+
+        const newVirtualGaf: VirtualGaf<'gaf'> = {
+          ...currentGaf.virtualGaf,
+          entries,
         };
 
         const deltaMs = performance.now() - startMs;

@@ -1,19 +1,35 @@
-import { MainFormat } from "@/lib/main-format";
+import { Result } from "@/lib/utils/result";
 import { VirtualGaf } from "@/lib/virtual-gaf/virtual-gaf";
 import LibGaf from "lib-gaf";
 
-export type MakeVirtualGaf<T extends MainFormat = MainFormat> =
-  (source: LibGaf.GafResult<T>) => VirtualGaf<T>;
-
-export type CommitVirtualGaf<T extends MainFormat = MainFormat> =
-  (source: VirtualGaf<T>, prevState?: VirtualGaf<T>) => LibGaf.GafResult<T>;
-
-// wrapper types:
-
-export type VirtualGafMaker<T extends MainFormat = MainFormat> = {
-  readonly makeVirtualGaf: MakeVirtualGaf<T>;
+export type VirtualGafMakerForGafWrapper = {
+  readonly makeVirtualGaf: (source: LibGaf.GafResult<'gaf'>) => VirtualGaf<'gaf'>;
 };
 
-export type VirtualGafCommiter<T extends MainFormat = MainFormat> = {
-  readonly commitVirtualGaf: CommitVirtualGaf<T>;
+export type VirtualGafMakerForTafSoloWrapper = {
+  readonly makeVirtualGaf: (source: LibGaf.GafResult<'taf'>) => VirtualGaf<'taf-solo'>;
 };
+
+export type VirtualGafMakerForTafPairWrapper = {
+  readonly makeVirtualGaf: (
+    source1555: LibGaf.GafResult<'taf'>,
+    source4444: LibGaf.GafResult<'taf'>,
+  ) => VirtualGafPairResult;
+};
+
+export type VirtualGafPairResult = Result<VirtualGafPairResultSuccess, VirtualGafPairResultError>;
+
+export type VirtualGafPairResultSuccess = {
+  virtualGaf: VirtualGaf<'taf-pair'>;
+};
+
+export type VirtualGafPairResultError = { // returned when pair is out of sync
+  valueName: string;
+  value1555: string | number;
+  value4444: string | number;
+  path?: VirtualGafPairResultErrorPath;
+  message?: string;
+  // TODO more detailed type?
+};
+
+export type VirtualGafPairResultErrorPath = Array<{ name: string, pos: number }>;

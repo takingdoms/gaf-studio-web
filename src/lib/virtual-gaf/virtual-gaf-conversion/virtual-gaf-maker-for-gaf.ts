@@ -1,19 +1,28 @@
 import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { Palette } from "@/lib/image/palette/palette";
 import { PaletteUtils } from "@/lib/image/palette/palette-utils";
-import { BaseVirtualGafFrameData, VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
-import { SimpleVirtualGafBuilder } from "@/lib/virtual-gaf/virtual-gaf-conversion/simple-virtual-gaf-builder";
+import { BaseVirtualGafFrameData, VirtualGaf, VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
+import { VirtualGafMakerForGafWrapper } from "@/lib/virtual-gaf/virtual-gaf-conversion";
+import { VirtualGafMakerHelper } from "@/lib/virtual-gaf/virtual-gaf-conversion/virtual-gaf-maker-helper";
 import LibGaf from "lib-gaf";
 
-export class PalettedVirtualGafBuilder extends SimpleVirtualGafBuilder<'gaf'> {
+export class VirtualGafMakerForGaf extends VirtualGafMakerHelper<'gaf', 'gaf'>
+  implements VirtualGafMakerForGafWrapper
+{
   constructor(
-    private readonly imageCompiler: ImageCompiler,
     private readonly palette: Palette,
+    private readonly imageCompiler: ImageCompiler,
   ) {
     super();
   }
 
-  protected override makeLayerData(
+  makeVirtualGaf(source: LibGaf.GafResult<'gaf'>): VirtualGaf<'gaf'> {
+    return {
+      entries: this.makeEntries(source.entries),
+    };
+  }
+
+  protected makeLayerData(
     srcLayerData: LibGaf.GafLayerData<'gaf'>,
     { width, height, transparencyIndex }: BaseVirtualGafFrameData,
   ): VirtualLayerData<'gaf'> {

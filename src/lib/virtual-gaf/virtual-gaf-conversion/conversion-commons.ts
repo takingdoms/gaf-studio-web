@@ -1,20 +1,26 @@
 import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { BaseVirtualGafFrameData, VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
-import { SimpleVirtualGafBuilder } from "@/lib/virtual-gaf/virtual-gaf-conversion/simple-virtual-gaf-builder";
 import LibGaf from "lib-gaf";
 
-export class ColoredVirtualGafBuilder extends SimpleVirtualGafBuilder<'taf'> {
-  constructor(
-    private readonly imageCompiler: ImageCompiler,
-  ) {
-    super();
+export namespace ConversionCommons {
+  export function makeBaseFrameData(srcFrameData: LibGaf.GafFrameData): BaseVirtualGafFrameData {
+    return {
+      width: srcFrameData.width,
+      height: srcFrameData.height,
+      xOffset: srcFrameData.xOffset,
+      yOffset: srcFrameData.yOffset,
+      transparencyIndex: srcFrameData.transparencyIndex,
+      unknown2: srcFrameData.unknown2,
+      unknown3: srcFrameData.unknown3,
+    };
   }
 
-  protected override makeLayerData(
-    srcLayerData: LibGaf.GafLayerData<'taf'>,
-    { width, height }: BaseVirtualGafFrameData,
-  ): VirtualLayerData<'taf'> {
-    const srcColorData = srcLayerData.colorData;
+  export function compileTafImage(
+    srcColorData: LibGaf.ColorData<"argb1555" | "argb4444">,
+    width: number,
+    height: number,
+    imageCompiler: ImageCompiler,
+  ): ImageData {
     let convertedData: LibGaf.ColorData<'rgba8888'>;
 
     if (isFormat(srcColorData, 'argb1555')) {
@@ -40,22 +46,14 @@ export class ColoredVirtualGafBuilder extends SimpleVirtualGafBuilder<'taf'> {
       throw new Error(`Unexpected color format: ${srcColorData.format}`);
     }
 
-    const compiledImage = this.imageCompiler.compileImage(width, height, convertedData);
-
-    return {
-      kind: 'raw-colors',
-      imageResource: {
-        kind: 'colored',
-        compiledImage,
-        colorData: srcColorData,
-      },
-    };
+    return imageCompiler.compileImage(width, height, convertedData);
   }
-}
 
-// TODO move this \/ to lib-gaf
-function isFormat<T extends LibGaf.ColorDataFormat>(colorData: LibGaf.ColorData, format: T):
-  colorData is LibGaf.ColorData<T>
-{
-  return colorData.format === format;
+  // TODO move this \/ to lib-gaf
+  export function isFormat<T extends LibGaf.ColorDataFormat>(
+    colorData: LibGaf.ColorData,
+    format: T,
+  ): colorData is LibGaf.ColorData<T> {
+    return colorData.format === format;
+  }
 }

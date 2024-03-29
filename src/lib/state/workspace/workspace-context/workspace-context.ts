@@ -18,14 +18,15 @@ export type WorkspaceStoreWrapper = {
 
 export const WorkspaceWrapperContext = React.createContext<WorkspaceStoreWrapper | null>(null);
 
-/**
- * Components should never use this hook directly because it exposes all actions/state values.
+/*
+ * Components should never use these hooks directly because it exposes all actions/state values.
  * Instead they should use the store helper (S) which exposes only safe actions and getters.
  * The reason some actions might be unsafe is because they allow you to modify some parts of the
  * state while skipping the TAF synchronization logic. In practice, this is safe to use for GAFs,
  * but it's still better to avoid doing that even on GAFs for consistency.
  * The only place where this variable is "allowed" to be used is in the store helper (S) itself.
 */
+
 export function useWorkspaceContextUnsafe<T>(selector: (state: WorkspaceState) => T): T {
   const wrapper = React.useContext(WorkspaceWrapperContext);
   if (!wrapper) throw new Error('Missing WorkspaceWrapperContext.Provider in the tree');

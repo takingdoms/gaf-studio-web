@@ -1,13 +1,13 @@
-import React from 'react';
-import LibGaf from 'lib-gaf';
 import { FILE_MAP_VIEWER_COLORS } from '@/components/app/file-map-viewer/colors';
 import { FileMapAreaGroup } from '@/lib/file-map/file-map';
+import { ReadonlyUint8Array } from '@/lib/utils/utility-types';
+import LibGaf from 'lib-gaf';
+import React from 'react';
 import { ElementOf } from 'ts-essentials';
-import { CurrentGafFromFile } from '@/lib/state/gaf-studio/current-gaf';
 
 type FileMapViewerAreaProps = {
   area: ElementOf<FileMapAreaGroup['areas']>;
-  fileData: CurrentGafFromFile['fileData'];
+  fileData: ReadonlyUint8Array;
   index: number;
   isAlone: boolean;
 };

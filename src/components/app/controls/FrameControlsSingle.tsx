@@ -5,7 +5,7 @@ import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper'
 export default function FrameControlsSingle() {
   // console.log('Rendering FrameControlsSingle');
 
-  const format = S.useFormat();
+  const format = S.useGafFormat();
   const activeFrameFrameDataProps = S.useShallowActiveFrameDataProps();
   const modifyActiveFrameData = S.useModifyActiveFrameData();
 

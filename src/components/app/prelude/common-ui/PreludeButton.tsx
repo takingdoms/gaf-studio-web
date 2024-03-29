@@ -18,7 +18,7 @@ export default function PreludeButton({
   return (
     <button
       className={`${cls} grow border-2 border-slate-300 flex justify-center items-center` +
-        ` text-xl p-2 bg-gradient-to-br from-slate-50 to-slate-200 text-slate-600`}
+        ` text-xl p-4 bg-gradient-to-br from-slate-50 to-slate-200 text-slate-600`}
       onClick={(ev) => {
         ev.preventDefault();
         if (!disabled) {

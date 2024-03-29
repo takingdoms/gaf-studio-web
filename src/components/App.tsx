@@ -11,6 +11,7 @@ import { WorkspaceConfigWrapper } from "@/lib/state/workspace/workspace-state";
 import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
+import { createTafPairWorkspace } from "@/lib/state/workspace/taf-pair/create-taf-pair-workspace";
 
 export default function App() {
   const [storeWrapper, setStoreWrapper] = React.useState<WorkspaceStoreWrapper>();
@@ -32,8 +33,14 @@ export default function App() {
         store: createTafSoloWorkspace(configWrapper.config),
       });
     }
+    else if (configWrapper.format === 'taf-pair') {
+      setStoreWrapper({
+        format: 'taf-pair',
+        store: createTafPairWorkspace(configWrapper.config),
+      });
+    }
     else {
-      throw new Error(`Format not yet supported.`);
+      throw new Error(`Unknown format.`);
     }
   }, []);
 

@@ -15,6 +15,7 @@ export default function ImportFilesSelector({ onFinish, onAbort, acceptFiles }: 
       <ImportContent>
         <FileDropzone
           defaultStyling
+          multi
           onChoose={onFinish}
           accept={acceptFiles}
         />

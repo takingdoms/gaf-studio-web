@@ -36,15 +36,17 @@ export default function Select<TId extends string = string>({
     defaultValue = undefined;
   }
 
-  const bgCss = !disabled && frozenValue === undefined
+  const bgCls = !disabled && frozenValue === undefined
     ? 'bg-main-700'
     : 'bg-main-800';
 
-    // TODO make it so the "default" selection is empty and not the first option
+  const opacityCls = disabled ? 'opacity-50' : '';
+
+  // TODO make it so the "default" selection is empty and not the first option
 
   return (
     <select
-      className={`w-full px-2 py-1 border border-main-800 ${bgCss} ${className ?? ''}`}
+      className={`w-full px-2 py-1 border border-main-800 ${bgCls} ${opacityCls} ${className ?? ''}`}
       name={name}
       id={htmlId}
       required={required}

@@ -5,7 +5,7 @@ import PairSeparator from '@/components/ui/misc/PairSeparator';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 export default function WorkspaceAndEntriesPanel() {
-  const isGaf = S.useFormat() === 'gaf';
+  const isGaf = S.useGafFormat() === 'gaf';
 
   return (
     <div className="grow flex flex-col overflow-hidden">

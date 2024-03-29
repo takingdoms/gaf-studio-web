@@ -2,30 +2,83 @@ import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { SimpleImageCompiler } from "@/lib/image/compiler/simple-image-compiler";
 import { Palette } from "@/lib/image/palette/palette";
 import { PaletteUtils } from "@/lib/image/palette/palette-utils";
-import { CurrentPaletteFromRaw } from "@/lib/state/gaf-studio/current-palette";
-import { PaletteStore } from "@/lib/state/gaf-studio/palette-store";
+import { CurrentPalette, CurrentPaletteFromRaw } from "@/lib/state/gaf-studio/current-palette";
+import { PaletteStore, PaletteStorePreSelectable } from "@/lib/state/gaf-studio/palette-store";
+
+const PRE_SELECTABLE_FILES_BASE_PATH = '/palettes/';
+const PRE_SELECTABLE_FILES: PaletteStorePreSelectable[] = [
+  { key: 'ara_textures.pcx',    label: 'Aramon Units' },
+  { key: 'aramon_features.pcx', label: 'Aramon Features' },
+  { key: 'tar_textures.pcx',    label: 'Taros Units' },
+  { key: 'taros_features.pcx',  label: 'Taros Features' },
+  { key: 'ver_textures.pcx',    label: 'Veruna Units' },
+  { key: 'veruna_features.pcx', label: 'Veruna Features' },
+  { key: 'zhon_features.pcx',   label: 'Zhon Units' },
+  { key: 'zon_textures.pcx',    label: 'Zhon Features' },
+  { key: 'cre_textures.pcx',    label: 'Creon Units' },
+  { key: 'creon_features.pcx',  label: 'Creon Features' },
+] as const;
+
+const KEY_BLACK_TO_WHITE = 'black-to-white';
+const KEY_WHITE_TO_BLACK = 'white-to-black';
+
+const PRE_SELECTABLE_RAWS: PaletteStorePreSelectable[] = [
+  { key: KEY_BLACK_TO_WHITE, label: '(Black-to-white)' },
+  { key: KEY_WHITE_TO_BLACK, label: '(White-to-black)' },
+] as const;
 
 export function createTakPaletteStore(): PaletteStore {
   const simpleImageCompiler = new SimpleImageCompiler();
 
-  const grayscalePalette = makeGrayscalePalette(false);
-  const grayscaleReversePalette = makeGrayscalePalette(true);
+  const blackToWhitePalette = makeGrayscalePalette(false);
+  const whiteToBlackPalette = makeGrayscalePalette(true);
 
-  const grayscale = makeRawPalette(
+  const rawBlackToWhite = makeRawPalette(
     'Black-to-white',
-    grayscalePalette,
+    blackToWhitePalette,
     simpleImageCompiler,
   );
 
-  const grayscaleReverse = makeRawPalette(
+  const rawWhiteToBlack = makeRawPalette(
     'White-to-black',
-    grayscaleReversePalette,
+    whiteToBlackPalette,
     simpleImageCompiler,
   );
+
+  async function loadPreSelectable(key: string): Promise<CurrentPalette> {
+    if (key === KEY_BLACK_TO_WHITE) return rawBlackToWhite;
+    if (key === KEY_WHITE_TO_BLACK) return rawWhiteToBlack;
+
+    const preSelectable = PRE_SELECTABLE_FILES.find((next) => next.key === key);
+
+    if (preSelectable === undefined) {
+      throw new Error(`Unknown pre-selectable palette key: ${key}`);
+    }
+
+    const url = PRE_SELECTABLE_FILES_BASE_PATH + preSelectable.key;
+    const arrayBuffer = await fetch(url).then((data) => data.arrayBuffer());
+    const bytes = new Uint8Array(arrayBuffer);
+    const palette = PaletteUtils.loadFromPcxFileData(bytes);
+    const previewImage = PaletteUtils.compilePreviewImage(palette);
+
+    return {
+      kind: 'world',
+      fileName: key,
+      palette,
+      previewImage,
+      world: preSelectable.label,
+    };
+  }
+
+  const allPreSelectables: PaletteStorePreSelectable[] = [
+    ...PRE_SELECTABLE_RAWS,
+    ...PRE_SELECTABLE_FILES,
+  ];
 
   return {
-    grayscale,
-    grayscaleReverse,
+    default: rawBlackToWhite,
+    preSelectables: allPreSelectables,
+    loadPreSelectable,
   };
 }
 

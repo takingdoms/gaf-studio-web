@@ -10,12 +10,14 @@ const MIN_WIDTH: number | string | undefined = 300;
 const MAX_WIDTH: number | string | undefined = '50vw';
 
 export default function ModalConfigContent({ config, close }: ModalConfigContentProps) {
+  const titleBgCls = config.titleColor === 'error' ? 'bg-red-800' : 'bg-sky-700';
+
   return (
     <div
       className="grow flex flex-col overflow-hidden"
       style={{ minWidth: MIN_WIDTH, maxWidth: MAX_WIDTH }}
     >
-      <div className="flex bg-sky-700 text-white font-bold rounded-tl-sm rounded-tr-sm">
+      <div className={`${titleBgCls} flex text-white font-bold rounded-tl-sm rounded-tr-sm`}>
         <div className="overflow-hidden grow flex items-center p-2">
           <div className="truncate">
             {config.title}

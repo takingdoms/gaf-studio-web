@@ -1,23 +1,43 @@
 import FileMapViewerAreaGroup from '@/components/app/file-map-viewer/FileMapViewerAreaGroup';
 import FileMapViewerInfo from '@/components/app/file-map-viewer/FileMapViewerInfo';
 import { normalizeFileMap } from '@/lib/file-map/file-map';
+import { TafSubFormat } from '@/lib/main-format';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
+import { ReadonlyUint8Array } from '@/lib/utils/utility-types';
+import LibGaf from 'lib-gaf';
 import React from 'react';
 
 export default function FileMapViewer() {
   const [labelFilter, setLabelFilter] = React.useState<string[]>();
 
   const currentGaf = S.useCurrentGaf();
+  const activeSubFormat: TafSubFormat = 'taf_4444' as TafSubFormat; // TODO
 
-  const normFileMap = React.useMemo(() => {
-    if (currentGaf === undefined || currentGaf.kind !== 'from-file') {
-      return null;
+  if (currentGaf.kind === 'blank') {
+    return null;
+  }
+
+  let originalGaf: LibGaf.Reader.GafReaderResult;
+  let fileData: ReadonlyUint8Array;
+
+  if (currentGaf.kind === 'from-file-single') {
+    originalGaf = currentGaf.originalGaf;
+    fileData = currentGaf.fileData;
+  }
+  else {
+    if (activeSubFormat === 'taf_1555') {
+      originalGaf = currentGaf.data1555.originalGaf;
+      fileData = currentGaf.data1555.fileData;
     }
+    else {
+      originalGaf = currentGaf.data4444.originalGaf;
+      fileData = currentGaf.data4444.fileData;
+    }
+  }
 
-    return normalizeFileMap(currentGaf.originalGaf.map);
-  }, [currentGaf]);
+  const normFileMap = normalizeFileMap(originalGaf.map);
 
-  if (currentGaf.kind !== 'from-file' || normFileMap === null) {
+  if (normFileMap === null) {
     return null;
   }
 
@@ -42,7 +62,7 @@ export default function FileMapViewer() {
               <FileMapViewerAreaGroup
                 key={index}
                 group={areaGroup}
-                fileData={currentGaf.fileData}
+                fileData={fileData}
               />
             );
           })}

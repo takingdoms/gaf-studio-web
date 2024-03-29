@@ -1,6 +1,7 @@
 import AutoSizedCanvas from '@/components/app/main-canvases/AutoSizedCanvas';
 import { CanvasHelperContext } from '@/lib/canvas/CanvasHelperContext';
 import { Debug } from '@/lib/debug/debug';
+import { TafSubFormat } from '@/lib/main-format';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
 type ImageCanvasProps = {
@@ -12,6 +13,8 @@ export default function ImageCanvas({
 }: ImageCanvasProps) {
   console.log('Rendering ImageCanvas');
 
+  const activeSubFormat: TafSubFormat = 'taf_4444' as TafSubFormat; // TODO
+
   const layers = frameData.kind === 'multi'
     ? frameData.layers
     : [frameData];
@@ -21,7 +24,17 @@ export default function ImageCanvas({
       key={index}
       onRender={(canvas) => {
         const ctx = new CanvasHelperContext(canvas);
-        const image = layer.layerData.imageResource.compiledImage;
+
+        let image: ImageData;
+
+        if (layer.layerData.kind === 'raw-colors-pair') {
+          image = activeSubFormat === 'taf_1555'
+            ? layer.layerData.imageResource1555.compiledImage
+            : layer.layerData.imageResource4444.compiledImage;
+        }
+        else {
+          image = layer.layerData.imageResource.compiledImage
+        }
 
         Debug.assertEq(layer.width, image.width);
         Debug.assertEq(layer.height, image.height);

@@ -14,8 +14,8 @@ export default function IconButton({
   icon: Icon,
 }: IconButtonProps) {
   const cls = disabled
-    ? 'text-orange-600 opacity-50'
-    : 'text-orange-600 hover:text-orange-500 active:text-orange-500';
+    ? 'text-sky-600 opacity-50'
+    : 'text-sky-600 hover:text-sky-500 active:text-sky-500';
 
   return (
     <button

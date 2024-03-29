@@ -1,17 +1,21 @@
-import { PaletteStoreContext } from "@/components/app/logical/PaletteStoreContext";
-import PreludeButton from "@/components/app/prelude/PreludeButton";
-import PreludeChooseFile from "@/components/app/prelude/PreludeChooseFile";
-import PreludeHeader from "@/components/app/prelude/PreludeHeader";
-import Body from "@/components/ui/layout/Body";
-import { WorkspaceConfigWrapper } from "@/lib/state/workspace/workspace-state";
-import React from "react";
+import { PaletteStoreContext } from '@/components/app/logical/PaletteStoreContext';
+import PreludeAdvanced from '@/components/app/prelude/PreludeAdvanced';
+import PreludeDownloadPwa from '@/components/app/prelude/PreludeDownloadPwa';
+import PreludeLogo from '@/components/app/prelude/PreludeLogo';
+import PreludeSeparator from '@/components/app/prelude/common-ui/PreludeSeparator';
+import PreludeGafForm from '@/components/app/prelude/prelude-gaf/PreludeGafForm';
+import PreludeTafForm from '@/components/app/prelude/prelude-taf/PreludeTafForm';
+import Body from '@/components/ui/layout/Body';
+import { WorkspaceConfigWrapper } from '@/lib/state/workspace/workspace-state';
+import React from 'react';
 
 type PreludeScreenProps = {
-  onInit: (config: WorkspaceConfigWrapper) => void;
+  onInit: (configWrapper: WorkspaceConfigWrapper) => void;
 };
 
 export default function PreludeScreen({ onInit }: PreludeScreenProps) {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoadingGaf, setIsLoadingGaf] = React.useState(false);
+  const [isLoadingTaf, setIsLoadingTaf] = React.useState(false);
 
   const paletteStore = React.useContext(PaletteStoreContext);
 
@@ -21,41 +25,51 @@ export default function PreludeScreen({ onInit }: PreludeScreenProps) {
 
   return (
     <Body>
-      <div className="grow flex flex-col justify-center items-center overflow-auto bg-gray-300">
-        <div className="flex">
-
-          <div className="flex flex-col space-y-2 m-4">
-            <PreludeHeader>Open existing file</PreludeHeader>
-            <PreludeChooseFile
-              onInit={onInit}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              paletteStore={paletteStore}
-            />
+      <div className="grow flex flex-col overflow-auto bg-gray-300 p-4">
+        <div className="flex flex-col justify-center items-center">
+          <div className="mb-2">
+            <PreludeLogo />
           </div>
 
-          <div className="border border-dashed border-gray-400 my-4 mx-8" />
-
-          <div className="flex flex-col space-y-2 m-4">
-            <PreludeHeader>Create new project</PreludeHeader>
+          <div
+            className="grid mb-10"
+            style={{ gridTemplateColumns: '1fr auto 1fr' }}
+          >
             <div
-              className="flex flex-col space-y-2"
-              style={{ minHeight: 200 }}
+              className="m-10"
+              style={{ minWidth: '20vw' }}
             >
-              <PreludeButton onClick={() => {
-                // onInit(WorkspaceStateUtils.initBlank('taf'));
-              }}>
-                TAF
-              </PreludeButton>
-              <PreludeButton onClick={() => {
-                const defaultPalette = paletteStore.grayscale;
-                // onInit(WorkspaceStateUtils.initBlank('gaf', defaultPalette));
-              }}>
-                GAF
-              </PreludeButton>
+              <PreludeGafForm
+                isLoading={isLoadingGaf || isLoadingTaf}
+                setIsLoading={setIsLoadingGaf}
+                onInit={onInit}
+                paletteStore={paletteStore}
+              />
+            </div>
+
+            <PreludeSeparator />
+
+            <div
+              className="m-10"
+              style={{ minWidth: '20vw' }}
+            >
+              <PreludeTafForm
+                isLoading={isLoadingGaf || isLoadingTaf}
+                setIsLoading={setIsLoadingTaf}
+                onInit={onInit}
+              />
             </div>
           </div>
 
+          <div className="flex flex-col items-center space-y-4">
+            <PreludeAdvanced
+              isLoading={isLoadingGaf || isLoadingTaf}
+              onInit={onInit}
+              paletteStore={paletteStore}
+            />
+
+            <PreludeDownloadPwa />
+          </div>
         </div>
       </div>
     </Body>

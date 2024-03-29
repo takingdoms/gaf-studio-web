@@ -13,7 +13,7 @@ export default function Import({
   onAbort,
   onEnded,
 }: ImportProps) {
-  const format = S.useFormat();
+  const format = S.useGafFormat();
 
   if (format === 'gaf') {
     return (

@@ -1,5 +1,5 @@
 import { MainFormat } from "@/lib/main-format";
-import { BaseVirtualGafFrameData, VirtualEntry, VirtualFrame, VirtualFrameData, VirtualFrameDataMultiLayer, VirtualFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
+import { VirtualFrameData, VirtualFrameDataMultiLayer, VirtualFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
 
 export namespace VirtualGafUtils {
   /**

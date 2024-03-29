@@ -1,12 +1,12 @@
-import React from 'react';
 import FileMapViewerArea from '@/components/app/file-map-viewer/FileMapViewerArea';
 import { FILE_MAP_VIEWER_COLORS } from '@/components/app/file-map-viewer/colors';
 import { FileMapAreaGroup } from '@/lib/file-map/file-map';
-import { CurrentGafFromFile } from '@/lib/state/gaf-studio/current-gaf';
+import { ReadonlyUint8Array } from '@/lib/utils/utility-types';
+import React from 'react';
 
 type FileMapViewerAreaGroupProps = {
   group: FileMapAreaGroup;
-  fileData: CurrentGafFromFile['fileData'];
+  fileData: ReadonlyUint8Array;
 };
 
 export default function FileMapViewerAreaGroup({

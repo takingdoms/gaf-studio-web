@@ -5,6 +5,7 @@ import { CommonWorkspaceState } from "@/lib/state/workspace/common/common-worksp
 
 export type GafWorkspaceState = AbstractWorkspaceState & CommonWorkspaceState & {
   readonly format: 'gaf';
+  readonly gafFormat: 'gaf';
   readonly currentGaf: CurrentGaf;
   readonly currentPalette: CurrentPalette;
 

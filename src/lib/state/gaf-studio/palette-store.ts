@@ -1,9 +1,12 @@
-import { CurrentPaletteFromRaw } from "@/lib/state/gaf-studio/current-palette";
+import { CurrentPalette, CurrentPaletteFromRaw } from "@/lib/state/gaf-studio/current-palette";
 
-export type PaletteStore = {
-  readonly grayscale: CurrentPaletteFromRaw;
-  readonly grayscaleReverse: CurrentPaletteFromRaw;
+export type PaletteStore<K extends string = string> = {
+  readonly default: CurrentPaletteFromRaw;
+  readonly preSelectables: readonly PaletteStorePreSelectable<K>[];
+  readonly loadPreSelectable: (key: K) => Promise<CurrentPalette>;
+};
 
-  // TODO list other pre-selectable palettes
-  // TODO etc
+export type PaletteStorePreSelectable<K extends string = string> = {
+  readonly key: K;
+  readonly label: string;
 };

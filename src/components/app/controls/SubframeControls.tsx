@@ -5,7 +5,7 @@ import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper"
 export default function SubframeControls() {
   // console.log('Rendering SubframeControls');
 
-  const format = S.useFormat();
+  const format = S.useGafFormat();
   const activeSubframeFrameDataProps = S.useShallowActiveSubframeDataProps();
   const modifyActiveSubframeData = S.useModifyActiveSubframeData();
 

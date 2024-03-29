@@ -1,13 +1,13 @@
 import { ReadonlyRecord } from '@/lib/utils/utility-types';
-import LibGaf from 'lib-gaf';
 import { ElementOf } from 'ts-essentials';
 
-export const MAIN_FORMATS: LibGaf.GafFormat[] = [
+export const MAIN_FORMATS = [
   'gaf',
-  'taf',
-];
+  'taf-solo',
+  'taf-pair',
+] as const satisfies string[];
 
-export type MainFormat = LibGaf.GafFormat;
+export type MainFormat = ElementOf<typeof MAIN_FORMATS>;
 
 export const TAF_SUB_FORMATS = [
   'taf_1555',

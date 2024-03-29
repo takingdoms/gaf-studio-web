@@ -4,14 +4,12 @@ import { AbstractWorkspaceState } from "@/lib/state/workspace/abstract-workspace
 import { CommonWorkspaceState } from "@/lib/state/workspace/common/common-workspace-state";
 
 export type TafSoloWorkspaceState = AbstractWorkspaceState & CommonWorkspaceState & {
-  readonly format: 'taf';
-  readonly mode: 'solo';
-  readonly subFormat: TafSubFormat;
+  readonly format: 'taf-solo';
+  readonly gafFormat: 'taf';
   readonly currentTaf: CurrentGaf;
+  readonly subFormat: TafSubFormat;
 
   readonly tafSoloOnlyActions: {
-    // TODO
+    // nothing for now
   };
 };
-
-// the make function will make use of the _makeCommonWorkspace function!
