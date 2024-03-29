@@ -13,7 +13,7 @@ export default function OptionButton({
 }: OptionButtonProps) {
   return (
     <button
-      className="inline-flex items-center bg-slate-400 text-slate-100 px-1.5 py-0.5
+      className="inline-flex items-center bg-slate-400 text-slate-100 px-1.5 py-1
         rounded-tl rounded-tr hover:bg-slate-500 hover:text-white"
       onClick={onClick}
     >

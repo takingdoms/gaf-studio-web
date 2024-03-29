@@ -1,10 +1,14 @@
+import ActivePairSubFormatSelector from "@/components/app/frame-content/frame-content-options/ActivePairSubFormatSelector";
 import BgSelectorModalContent from "@/components/app/frame-content/frame-content-options/BgSelectorModalContent";
 import OptionButton from "@/components/app/frame-content/frame-content-options/OptionButton";
 import { ModalContext } from "@/components/ui/modal/ModalContext";
 import { Icons } from "@/lib/react/icons";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 import React from "react";
 
 export default function FrameContentOptionsDiv() {
+  const format = S.useFormat();
+
   const modal = React.useContext(ModalContext);
 
   const onClickOptions = React.useCallback(async () => {
@@ -19,6 +23,10 @@ export default function FrameContentOptionsDiv() {
 
   return (
     <div className="flex space-x-2">
+      <div className="grow">
+        {format === 'taf-pair' && <ActivePairSubFormatSelector />}
+      </div>
+
       <OptionButton
         icon={Icons.Options}
         label="Options"
