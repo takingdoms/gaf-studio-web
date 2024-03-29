@@ -1,3 +1,4 @@
+import { TafSubFormat } from "@/lib/main-format";
 import { GlobalConfig, ListMode } from "@/lib/state/global-config/global-config";
 import { create } from "zustand";
 
@@ -7,6 +8,7 @@ export type GlobalConfigStore = GlobalConfig & {
     readonly setSubframeListMode: (subframeListMode: ListMode) => void;
     readonly setImporterWorkspaceOptionsCollapsed: (collapsed: boolean) => void;
     readonly setShowMultiFrameFrameData: (showMultiFrameFrameData: boolean) => void;
+    readonly setActivePairSubFormat: (activePairSubFormat: TafSubFormat) => void;
   };
 };
 
@@ -17,6 +19,7 @@ export const useGlobalConfigStore = create<GlobalConfigStore>()((set) => ({
   subframeListMode: 'thumbs',
   importerWorkspaceOptionsCollapsed: false,
   showMultiFrameFrameData: false,
+  activePairSubFormat: 'taf_4444',
 
   actions: {
     setFrameListMode: (frameListMode) => set({ frameListMode }),
@@ -24,5 +27,6 @@ export const useGlobalConfigStore = create<GlobalConfigStore>()((set) => ({
     setImporterWorkspaceOptionsCollapsed: (importerWorkspaceOptionsCollapsed) =>
       set({ importerWorkspaceOptionsCollapsed }),
     setShowMultiFrameFrameData: (showMultiFrameFrameData) => set({ showMultiFrameFrameData }),
+    setActivePairSubFormat: (activePairSubFormat) => set({ activePairSubFormat }),
   },
 }));

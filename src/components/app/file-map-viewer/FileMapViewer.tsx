@@ -1,7 +1,7 @@
 import FileMapViewerAreaGroup from '@/components/app/file-map-viewer/FileMapViewerAreaGroup';
 import FileMapViewerInfo from '@/components/app/file-map-viewer/FileMapViewerInfo';
 import { normalizeFileMap } from '@/lib/file-map/file-map';
-import { TafSubFormat } from '@/lib/main-format';
+import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 import { ReadonlyUint8Array } from '@/lib/utils/utility-types';
 import LibGaf from 'lib-gaf';
@@ -11,7 +11,7 @@ export default function FileMapViewer() {
   const [labelFilter, setLabelFilter] = React.useState<string[]>();
 
   const currentGaf = S.useCurrentGaf();
-  const activeSubFormat: TafSubFormat = 'taf_4444' as TafSubFormat; // TODO
+  const activePairSubFormat = useGlobalConfigStore((state) => state.activePairSubFormat);
 
   if (currentGaf.kind === 'blank') {
     return null;
@@ -25,7 +25,7 @@ export default function FileMapViewer() {
     fileData = currentGaf.fileData;
   }
   else {
-    if (activeSubFormat === 'taf_1555') {
+    if (activePairSubFormat === 'taf_1555') {
       originalGaf = currentGaf.data1555.originalGaf;
       fileData = currentGaf.data1555.fileData;
     }

@@ -1,5 +1,5 @@
 import ImageRenderer from '@/components/app/image-renderer/ImageRenderer';
-import { TafSubFormat } from '@/lib/main-format';
+import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 
 type FrameSelectorImageRendererProps = {
@@ -7,7 +7,7 @@ type FrameSelectorImageRendererProps = {
 };
 
 export default function FrameSelectorImageRenderer({ frameData }: FrameSelectorImageRendererProps) {
-  const activeSubFormat: TafSubFormat = 'taf_4444' as TafSubFormat; // TODO
+  const activePairSubFormat = useGlobalConfigStore((state) => state.activePairSubFormat);
 
   const layers = frameData.kind === 'multi'
     ? frameData.layers
@@ -17,7 +17,7 @@ export default function FrameSelectorImageRenderer({ frameData }: FrameSelectorI
     let image: ImageData;
 
     if (layer.layerData.kind === 'raw-colors-pair') {
-      image = activeSubFormat === 'taf_1555'
+      image = activePairSubFormat === 'taf_1555'
         ? layer.layerData.imageResource1555.compiledImage
         : layer.layerData.imageResource4444.compiledImage;
     }
