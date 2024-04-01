@@ -1,12 +1,14 @@
 import { CANVAS_BG_OPTIONS } from "@/lib/state/canvas/canvas-bg-options";
 import { CanvasConfig } from "@/lib/state/canvas/canvas-config";
 import { MainCanvasLayer } from "@/lib/state/canvas/main-canvas-layer";
+import { ReadonlyRecord } from "@/lib/utils/utility-types";
 import { create } from "zustand";
 
 export type CanvasConfigStore = CanvasConfig & {
   readonly actions: {
     readonly setBackground: (background: string) => void;
-    readonly setMainCanvasLayerOrder: (order: ReadonlySet<MainCanvasLayer>) => void;
+    readonly setMainCanvasLayerOrder: (o: ReadonlySet<MainCanvasLayer>) => void;
+    readonly setMainCanvasLayerVisibility: (v: ReadonlyRecord<MainCanvasLayer, boolean>) => void;
     readonly setGridSpacing: (gridSpacing: number) => void;
     readonly setGridStyle: (gridStyle: string) => void;
     readonly setCrossStyle: (crossStyle: string) => void;
@@ -26,6 +28,13 @@ export const useCanvasConfigStore = create<CanvasConfigStore>()((set) => ({
     'BOUNDS',
     'O_BOUNDS',
   ]),
+  mainCanvasLayerVisibility: {
+    'GRID': true,
+    'IMAGE': true,
+    'CROSS': true,
+    'BOUNDS': true,
+    'O_BOUNDS': true,
+  },
   gridSpacing: 16,
   gridStyle: '#0000000A',
   crossStyle: '#FF0000FF',
@@ -34,6 +43,7 @@ export const useCanvasConfigStore = create<CanvasConfigStore>()((set) => ({
 
   actions: {
     setBackground: (background) => set({ background }),
+    setMainCanvasLayerVisibility: (mainCanvasLayerVisibility) => set({ mainCanvasLayerVisibility }),
     setMainCanvasLayerOrder: (mainCanvasLayerOrder) => set({ mainCanvasLayerOrder }),
     setGridSpacing: (gridSpacing) => set({ gridSpacing }),
     setGridStyle: (gridStyle) => set({ gridStyle }),

@@ -11,7 +11,12 @@ type BoundsCanvasProps = {
 export default function BoundsCanvas({ frameData }: BoundsCanvasProps) {
   console.log('Rendering BoundsCanvas');
 
+  const isVisible = useCanvasConfigStore((state) => state.mainCanvasLayerVisibility['BOUNDS']);
   const boundsStyle = useCanvasConfigStore((state) => state.boundsStyle);
+
+  if (!isVisible) {
+    return;
+  }
 
   const layers = frameData.kind === 'multi'
     ? frameData.layers

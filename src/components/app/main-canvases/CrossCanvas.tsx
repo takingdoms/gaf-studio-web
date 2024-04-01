@@ -6,7 +6,12 @@ import { useCanvasConfigStore } from "@/lib/state/canvas/canvas-config-store";
 export default function CrossCanvas() {
   console.log('Rendering CrossCanvas');
 
+  const isVisible = useCanvasConfigStore((state) => state.mainCanvasLayerVisibility['CROSS']);
   const crossStyle = useCanvasConfigStore((state) => state.crossStyle);
+
+  if (!isVisible) {
+    return;
+  }
 
   return (
     <AutoSizedCanvas onRender={(canvas) => {

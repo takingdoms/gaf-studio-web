@@ -25,6 +25,7 @@ import {
 } from "@floating-ui/react";
 import * as React from "react";
 import styles from './DropdownMenu.module.css';
+import { IconFunc } from "@/lib/react/icons";
 
 const MenuContext = React.createContext<{
   getItemProps: (
@@ -44,6 +45,7 @@ const MenuContext = React.createContext<{
 
 interface MenuProps {
   label: string;
+  icon?: IconFunc;
   nested?: boolean;
   children?: React.ReactNode;
 }
@@ -51,7 +53,7 @@ interface MenuProps {
 export const MenuComponent = React.forwardRef<
   HTMLButtonElement,
   MenuProps & React.HTMLProps<HTMLButtonElement>
->(({ children, label, ...props }, forwardedRef) => {
+>(({ children, label, icon: Icon, ...props }, forwardedRef) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [hasFocusInside, setHasFocusInside] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
@@ -152,7 +154,7 @@ export const MenuComponent = React.forwardRef<
         data-open={isOpen ? "" : undefined}
         data-nested={isNested ? "" : undefined}
         data-focus-inside={hasFocusInside ? "" : undefined}
-        className={isNested ? styles.MenuItem : styles.RootMenu}
+        className={props.className ?? (isNested ? styles.MenuItem : styles.RootMenu)}
         {...getReferenceProps(
           parent.getItemProps({
             ...props,
@@ -164,9 +166,12 @@ export const MenuComponent = React.forwardRef<
           })
         )}
       >
-        {label}
+        {Icon && (
+          <Icon className="mr-1" size={18} />
+        )}
+        <span className="grow">{label}</span>
         {isNested && (
-          <span aria-hidden style={{ marginLeft: 10, fontSize: 10 }}>
+          <span className="j" aria-hidden style={{ marginLeft: 10, fontSize: 10 }}>
             ▶
           </span>
         )}
@@ -208,13 +213,14 @@ export const MenuComponent = React.forwardRef<
 
 interface MenuItemProps {
   label: string;
+  preContent?: React.ReactNode;
   disabled?: boolean;
 }
 
 export const MenuItem = React.forwardRef<
   HTMLButtonElement,
   MenuItemProps & React.ButtonHTMLAttributes<HTMLButtonElement>
->(({ label, disabled, ...props }, forwardedRef) => {
+>(({ label, preContent, disabled, ...props }, forwardedRef) => {
   const menu = React.useContext(MenuContext);
   const item = useListItem({ label: disabled ? null : label });
   const tree = useFloatingTree();
@@ -240,6 +246,7 @@ export const MenuItem = React.forwardRef<
         }
       })}
     >
+      {preContent}
       {label}
     </button>
   );
@@ -273,5 +280,44 @@ export function MenuItemSeparator() {
         style={{ height: 1 }}
       />
     </button>
+  );
+}
+
+export function MenuItemCheckbox({
+  label,
+  checked,
+  onChange,
+  disabled,
+}: {
+  label: string;
+  checked?: boolean;
+  onChange: (checked: boolean) => void;
+  disabled?: boolean;
+}) {
+  const preContent = (
+    <div className="mr-1.5">
+      <input
+        className="cursor-pointer"
+        type="checkbox"
+        checked={checked}
+        onChange={() => {
+          // do nothing (the MenuItem does)
+        }}
+        disabled={disabled}
+      />
+    </div>
+  );
+
+  return (
+    <MenuItem
+      label={label}
+      disabled={disabled}
+      preContent={preContent}
+      onClick={() => {
+        if (!disabled) {
+          onChange(!checked);
+        }
+      }}
+    />
   );
 }

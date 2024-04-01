@@ -4,6 +4,8 @@ export const CANVAS_BG_OPTIONS = [
   'green',
   '#FF00FF',
   'var(--color-gray-100)',
+  '#303030',
+  'url("/images/bg/paintnet-bg.png")',
   'url("/images/bg/firefox-bg-noise.png")',
   'url("/images/bg/868a8222.JPG")',
   // 'url("/images/bg/4e72c8a4.JPG")',

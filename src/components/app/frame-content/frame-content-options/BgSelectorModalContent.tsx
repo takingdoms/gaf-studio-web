@@ -1,4 +1,4 @@
-import SimpleButton from "@/components/ui/button/SimpleButton";
+import SolidButton from "@/components/ui/button/SolidButton";
 import ModalPadding from "@/components/ui/modal/ModalPadding";
 import { CANVAS_BG_OPTIONS } from "@/lib/state/canvas/canvas-bg-options";
 import { useCanvasConfigStore } from "@/lib/state/canvas/canvas-config-store";
@@ -43,9 +43,9 @@ export default function BgSelectorModalContent({ close }: BgSelectorModalContent
         })}
       </div>
       <div className="flex justify-center">
-        <SimpleButton onClick={close}>
+        <SolidButton onClick={close}>
           OK
-        </SimpleButton>
+        </SolidButton>
       </div>
     </ModalPadding>
   );

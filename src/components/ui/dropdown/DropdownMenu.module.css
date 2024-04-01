@@ -30,7 +30,7 @@
 }
 
 .MenuItem {
-  @apply flex justify-between items-center w-full rounded-sm text-left text-slate-800 px-1 py-0.5;
+  @apply flex justify-start items-center w-full rounded-sm text-left text-slate-800 px-1 py-0.5;
   /* display: flex; */
   /* justify-content: space-between; */
   /* align-items: center; */
