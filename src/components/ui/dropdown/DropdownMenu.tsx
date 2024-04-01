@@ -321,3 +321,42 @@ export function MenuItemCheckbox({
     />
   );
 }
+
+export function MenuItemRadiobox({
+  label,
+  checked,
+  onChange,
+  disabled,
+}: {
+  label: string;
+  checked?: boolean;
+  onChange: (checked: boolean) => void;
+  disabled?: boolean;
+}) {
+  const preContent = (
+    <div className="mr-1.5">
+      <input
+        className="cursor-pointer"
+        type="radio"
+        checked={checked}
+        onChange={() => {
+          // do nothing (the MenuItem does)
+        }}
+        disabled={disabled}
+      />
+    </div>
+  );
+
+  return (
+    <MenuItem
+      label={label}
+      disabled={disabled}
+      preContent={preContent}
+      onClick={() => {
+        if (!disabled) {
+          onChange(!checked);
+        }
+      }}
+    />
+  );
+}

@@ -3,6 +3,7 @@ import AppTopBarHeader from "./AppTopBarHeader";
 import AppTopBarMenuButton from "./AppTopBarMenuButton";
 import ToolsMenu from "@/components/app/layout/top-bar-menus/ToolsMenu";
 import SubframeMenu from "@/components/app/layout/top-bar-menus/SubframeMenu";
+import ViewMenu from "@/components/app/layout/top-bar-menus/ViewMenu";
 
 export default function AppTopbar() {
   return (
@@ -18,6 +19,8 @@ export default function AppTopbar() {
         label="Options"
         onClick={() => {}}
       />
+
+      <ViewMenu />
 
       <FrameMenu />
 
