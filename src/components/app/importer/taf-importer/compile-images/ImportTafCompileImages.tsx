@@ -118,7 +118,25 @@ export default function ImportTafCompileImages({
       return;
     }
 
-    onNext(results);
+    const okResults = results.filter((result) => {
+      if (result.importerResult.target === 'taf-pair') {
+        return result.importerResult.taf_1555.kind !== 'error'
+          && result.importerResult.taf_4444.kind !== 'error';
+      }
+
+      if (result.importerResult.subFormat === 'taf_1555') {
+        return result.importerResult.taf_1555.kind !== 'error';
+      }
+
+      return result.importerResult.taf_4444.kind !== 'error';
+    });
+
+    if (okResults.length === 0) {
+      alert(`All images being imported have an error. Nothing will be imported.`);
+      return;
+    }
+
+    onNext(okResults);
   }, [results, onNext]);
 
   if (configs === undefined || results === undefined) {

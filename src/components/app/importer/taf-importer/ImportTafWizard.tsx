@@ -66,7 +66,7 @@ export default function ImportTafWizard({
         }
 
         if (importerResult.kind === 'error') {
-          throw new Error(`Imported files with errors shouldn't even reach here.`); // TODO make this true
+          throw new Error(`Imported files with errors shouldn't even reach here.`);
         }
 
         return {
@@ -87,7 +87,7 @@ export default function ImportTafWizard({
       const result4444 = result.importerResult.taf_4444;
 
       if (result1555.kind === 'error' || result4444.kind === 'error') {
-        throw new Error(`Imported files with errors shouldn't even reach here.`); // TODO make this true
+        throw new Error(`Imported files with errors shouldn't even reach here.`);
       }
 
       return {
