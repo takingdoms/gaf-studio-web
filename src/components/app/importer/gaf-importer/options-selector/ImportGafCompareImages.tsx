@@ -16,12 +16,10 @@ export default function ImportGafCompareImages({
 }: ImportGafCompareImagesProps) {
   const originalImage = React.useMemo(() => {
     return (
-      <ImageRenderer
-        image={decoded.image}
-        width={decoded.metadata.width}
-        height={decoded.metadata.height}
-        contain={true}
-        smoothing={false}
+      <ImportPreviewWrapper
+        imageData={decoded.image}
+        imageWidth={decoded.metadata.width}
+        imageHeight={decoded.metadata.height}
       />
     );
   }, [decoded]);
@@ -36,12 +34,10 @@ export default function ImportGafCompareImages({
     }
 
     return (
-      <ImageRenderer
-        image={imported.result.resource.compiledImage}
-        width={decoded.metadata.width}
-        height={decoded.metadata.height}
-        contain={true}
-        smoothing={false}
+      <ImportPreviewWrapper
+        imageData={imported.result.resource.compiledImage}
+        imageWidth={decoded.metadata.width}
+        imageHeight={decoded.metadata.height}
       />
     );
   }, [imported, decoded]);
@@ -52,16 +48,12 @@ export default function ImportGafCompareImages({
     <div className="flex space-x-2">
       <div className="flex-1 flex flex-col items-center">
         <div className="text-center text-slate-500 text-xs font-bold mb-0.5">Original</div>
-        <ImportPreviewWrapper>
-          {originalImage}
-        </ImportPreviewWrapper>
+        {originalImage}
       </div>
 
       <div className="flex-1 flex flex-col items-center">
         <div className="text-center text-slate-500 text-xs font-bold mb-0.5">Converted</div>
-        <ImportPreviewWrapper>
-          {importedImage}
-        </ImportPreviewWrapper>
+        {importedImage}
       </div>
     </div>
   );

@@ -75,9 +75,8 @@ export default function ImportGafOrderSelector({
               Image Preview
             </div>
 
-            <ImportPreviewWrapper>
-              <SelectedItemPreview selectedItem={selectedItem} />
-            </ImportPreviewWrapper>
+
+            <SelectedItemPreview selectedItem={selectedItem} />
           </div>
         </div>
       </ImportContent>
@@ -131,24 +130,22 @@ function SelectedItemPreview({
     );
   }
 
-  const renderer = (
-    <ImageRenderer
-      image={decodedUserFile.decodedUserImage.image}
-      width={decodedUserFile.decodedUserImage.metadata.width}
-      height={decodedUserFile.decodedUserImage.metadata.height}
-      contain={true}
-      smoothing={false}
+  const preview = (
+    <ImportPreviewWrapper
+      imageData={decodedUserFile.decodedUserImage.image}
+      imageWidth={decodedUserFile.decodedUserImage.metadata.width}
+      imageHeight={decodedUserFile.decodedUserImage.metadata.height}
     />
   );
 
   if (!selectedItem.disabled) {
-    return renderer;
+    return preview;
   }
 
   return (
     <div className="relative">
       <div style={{ opacity: '30%' }}>
-        {renderer}
+        {preview}
       </div>
       <div className="absolute inset-0 flex justify-center items-center text-center">
         <span className="text-gray-500 font-bold">(Disabled)</span>
