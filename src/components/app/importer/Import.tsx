@@ -1,5 +1,6 @@
 import ImportGaf from '@/components/app/importer/gaf-importer/ImportGaf';
-import ImportTaf from '@/components/app/importer/taf-importer/ImportTaf';
+import ImportTafPair from '@/components/app/importer/taf-importer/ImportTafPair';
+import ImportTafSolo from '@/components/app/importer/taf-importer/ImportTafSolo';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 type ImportProps = {
@@ -13,7 +14,7 @@ export default function Import({
   onAbort,
   onEnded,
 }: ImportProps) {
-  const format = S.useGafFormat();
+  const format = S.useFormat();
 
   if (format === 'gaf') {
     return (
@@ -25,9 +26,9 @@ export default function Import({
     );
   }
 
-  if (format === 'taf') {
+  if (format === 'taf-solo') {
     return (
-      <ImportTaf
+      <ImportTafSolo
         type={type}
         onEnded={onEnded}
         onAbort={onAbort}
@@ -35,5 +36,11 @@ export default function Import({
     );
   }
 
-  throw new Error(`Invalid store`);
+  return (
+    <ImportTafPair
+      type={type}
+      onEnded={onEnded}
+      onAbort={onAbort}
+    />
+  );
 }

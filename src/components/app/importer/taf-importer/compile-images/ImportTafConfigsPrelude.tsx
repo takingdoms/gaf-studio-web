@@ -9,11 +9,13 @@ import { TafImageImporterConfig } from '@/lib/importing/image-importers/taf/taf-
 import React from 'react';
 
 type ImportTafConfigsPreludeProps = {
+  target: TafImporting.Target;
   onNext: (configs: TafImporting.ConfigPair) => void;
   onAbort: () => void;
 };
 
 export default function ImportTafConfigsPrelude({
+  target,
   onNext,
   onAbort,
 }: ImportTafConfigsPreludeProps) {
@@ -47,6 +49,8 @@ export default function ImportTafConfigsPrelude({
         </div>
 
         <ImportTafConfigsForm
+          show1555={target.kind === 'taf-pair' || target.subFormat === 'taf_1555'}
+          show4444={target.kind === 'taf-pair' || target.subFormat === 'taf_4444'}
           config1555={config1555}
           config4444={config4444}
           setConfig1555={setConfig1555}

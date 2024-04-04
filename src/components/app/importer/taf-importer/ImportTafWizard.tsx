@@ -8,21 +8,25 @@ import { TafImportingFunctions } from '@/components/app/importer/taf-importer/ta
 import { TafImporting } from '@/components/app/importer/taf-importer/taf-importing-types';
 import { BMP_IMAGE_DECODER } from '@/lib/importing/image-decoders/bmp-image-decoder';
 import { PNG_IMAGE_DECODER } from '@/lib/importing/image-decoders/png-image-decoder';
-import { VirtualFrame, VirtualFrameDataSingleLayer } from '@/lib/virtual-gaf/virtual-gaf';
+import { ImporterResultWrapper } from '@/lib/importing/image-importer';
+import { TafImporterResult } from '@/lib/importing/image-importers/taf/taf-image-importer';
+import { BaseVirtualGafFrameData, VirtualFrame, VirtualFrameDataSingleLayer } from '@/lib/virtual-gaf/virtual-gaf';
 import React from 'react';
 
 type ImportTafWizardProps = {
+  target: TafImporting.Target;
   type: 'frames' | 'subframes';
   onFinish: (result: FinalImportResult) => void;
   onAbort: () => void;
 };
 
 const AVAILABLE_IMAGE_DECODERS = [
-  // BMP_IMAGE_DECODER,
+  BMP_IMAGE_DECODER,
   PNG_IMAGE_DECODER,
 ] as const;
 
 export default function ImportTafWizard({
+  target,
   type,
   onFinish,
   onAbort,
@@ -34,16 +38,8 @@ export default function ImportTafWizard({
 
   const doFinish = React.useCallback((results: TafImporting.ResultItem[]) => {
     const layers: VirtualFrameDataSingleLayer[] = results.map((result) => {
-      const result1555 = result.importerResults.taf_1555;
-      const result4444 = result.importerResults.taf_4444;
-
-      if (result1555.kind === 'error' || result4444.kind === 'error') {
-        throw new Error(`Imported files with errors shouldn't even reach here.`);
-      }
-
       const { width, height } = result.decodedUserImage.metadata;
-
-      return {
+      const base: BaseVirtualGafFrameData = {
         width,
         height,
         xOffset: result.options.center ? Math.floor(width / 2) : 0,
@@ -51,14 +47,58 @@ export default function ImportTafWizard({
         transparencyIndex: 0,
         unknown2: 0,
         unknown3: 0,
+      };
 
+      if (target.kind === 'taf-solo') {
+        if (result.importerResult.target !== 'taf-solo') {
+          throw new Error(`Target mismatch.`);
+        }
+
+        let importerResult: ImporterResultWrapper<TafImporterResult<'argb1555' | 'argb4444'>>;
+
+        if (target.subFormat === 'taf_1555') {
+          if (result.importerResult.subFormat !== 'taf_1555') throw new Error(`Target mismatch.`);
+          importerResult = result.importerResult.taf_1555;
+        }
+        else {
+          if (result.importerResult.subFormat !== 'taf_4444') throw new Error(`Target mismatch.`);
+          importerResult = result.importerResult.taf_4444;
+        }
+
+        if (importerResult.kind === 'error') {
+          throw new Error(`Imported files with errors shouldn't even reach here.`); // TODO make this true
+        }
+
+        return {
+          ...base,
+          kind: 'single',
+          layerData: {
+            kind: 'raw-colors',
+            imageResource: importerResult.result.resource,
+          },
+        } satisfies VirtualFrameDataSingleLayer;
+      }
+
+      if (result.importerResult.target !== 'taf-pair') {
+        throw new Error(`Target mismatch.`);
+      }
+
+      const result1555 = result.importerResult.taf_1555;
+      const result4444 = result.importerResult.taf_4444;
+
+      if (result1555.kind === 'error' || result4444.kind === 'error') {
+        throw new Error(`Imported files with errors shouldn't even reach here.`); // TODO make this true
+      }
+
+      return {
+        ...base,
         kind: 'single',
         layerData: {
           kind: 'raw-colors-pair',
           imageResource1555: result1555.result.resource,
           imageResource4444: result4444.result.resource,
         },
-      };
+      } satisfies VirtualFrameDataSingleLayer;
     });
 
     let result: FinalImportResult;
@@ -84,7 +124,7 @@ export default function ImportTafWizard({
     }
 
     onFinish(result);
-  }, [type, onFinish]);
+  }, [type, target, onFinish]);
 
   const onSelectFiles = React.useCallback((files: File[]) => {
     if (loading !== undefined) {
@@ -143,6 +183,7 @@ export default function ImportTafWizard({
 
   return (
     <ImportTafCompileImages
+      target={target}
       okDecodedFiles={okDecodedFiles}
       onNext={doFinish}
       onAbort={onAbort}

@@ -15,6 +15,7 @@ import { AsyncUtils } from '@/lib/utils/async-utils';
 import React from 'react';
 
 type ImportTafCompileImagesProps = {
+  target: TafImporting.Target;
   okDecodedFiles: TafImporting.DecodedFileOk[];
   onNext: (results: TafImporting.ResultItem[]) => void;
   onAbort: () => void;
@@ -26,6 +27,7 @@ const DEFAULT_OPTIONS: TafImporting.ImportOptions = {
 };
 
 export default function ImportTafCompileImages({
+  target,
   okDecodedFiles,
   onNext,
   onAbort,
@@ -53,14 +55,20 @@ export default function ImportTafCompileImages({
     const existingOptions = results?.map((result) => result.options);
 
     const promises = AsyncUtils.deferMap(okDecodedFiles, (decFile, index) => {
-      return TafImportingFunctions.compileItem(decFile.result, newConfigs).then((resultPair) => {
+      const compilePromise = TafImportingFunctions.compileItem(
+        target,
+        decFile.result,
+        newConfigs,
+      );
+
+      return compilePromise.then((resultPair) => {
         const previousOptions = existingOptions?.[index];
         const options = previousOptions ?? DEFAULT_OPTIONS;
 
         return {
           originalfile: decFile.file,
           decodedUserImage: decFile.result,
-          importerResults: resultPair,
+          importerResult: resultPair,
           options,
         } satisfies TafImporting.ResultItem;
       });
@@ -75,7 +83,7 @@ export default function ImportTafCompileImages({
         onAbort();
       })
       .finally(() => setIsCompiling(false));
-  }, [okDecodedFiles, onAbort, results]);
+  }, [target, okDecodedFiles, onAbort, results]);
 
   const setCurrentResult = React.useCallback((newResult: TafImporting.ResultItem) => {
     if (results === undefined) {
@@ -120,6 +128,7 @@ export default function ImportTafCompileImages({
         isLoading={isCompiling}
       >
         <ImportTafConfigsPrelude
+          target={target}
           onNext={onChangeConfigs}
           onAbort={onAbort}
         />
@@ -152,6 +161,8 @@ export default function ImportTafCompileImages({
                 (applies to all images being imported)
               </div>
               <ImportTafConfigsForm
+                show1555={target.kind === 'taf-pair' || target.subFormat === 'taf_1555'}
+                show4444={target.kind === 'taf-pair' || target.subFormat === 'taf_4444'}
                 config1555={configs.config1555}
                 config4444={configs.config4444}
                 setConfig1555={(config1555) => onChangeConfigs({ ...configs, config1555 })}
@@ -165,8 +176,9 @@ export default function ImportTafCompileImages({
           <div>
             <ImportHeader>Result</ImportHeader>
             <ImportTafPreviewResults
+              target={target}
               original={currentDecodedFile}
-              results={currentResult.importerResults}
+              results={currentResult.importerResult}
             />
           </div>
 

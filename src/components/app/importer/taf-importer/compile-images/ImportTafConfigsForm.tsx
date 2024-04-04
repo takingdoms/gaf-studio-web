@@ -7,15 +7,19 @@ import LibGaf from 'lib-gaf';
 import React from 'react';
 
 type ImportTafConfigsFormProps = {
+  show1555: boolean;
   config1555: TafImageImporterConfig<'taf_1555'>;
   setConfig1555: (config1555: TafImageImporterConfig<'taf_1555'>) => void;
+  show4444: boolean;
   config4444: TafImageImporterConfig<'taf_4444'>;
   setConfig4444: (config4444: TafImageImporterConfig<'taf_4444'>) => void;
 };
 
 export default function ImportTafConfigsForm({
+  show1555,
   config1555,
   setConfig1555,
+  show4444,
   config4444,
   setConfig4444,
 }: ImportTafConfigsFormProps) {
@@ -36,36 +40,44 @@ export default function ImportTafConfigsForm({
 
   return (
     <div className="flex space-x-8">
-      <div className="flex-1">
-        <div className="text-center font-semibold mb-2">1555 Settings</div>
+      {show1555 && (
+        <div className="flex-1">
+          <div className="text-center font-semibold mb-2">1555 Settings</div>
 
-        <div className="flex flex-col space-y-4">
-          <SubFormWrapper
-            label="8-bit to 1-bit (Alpha)"
-            namedConverters={NAMED_8_TO_1_CONVERTERS}
-            value={value8to1}
-            setValue={setValue8to1}
-          />
+          <div className="flex flex-col space-y-4">
+            <SubFormWrapper
+              label="8-bit to 1-bit (Alpha)"
+              namedConverters={NAMED_8_TO_1_CONVERTERS}
+              value={value8to1}
+              setValue={setValue8to1}
+            />
+
+            <SubFormWrapper
+              label="8-bit to 5-bit (Red, Green, Blue)"
+              namedConverters={NAMED_8_TO_5_CONVERTERS}
+              value={value8to5}
+              setValue={setValue8to5}
+            />
+          </div>
+        </div>
+      )}
+
+      {show4444 && (
+        <div className="flex-1">
+          <div className="text-center font-semibold mb-2">4444 Settings</div>
 
           <SubFormWrapper
-            label="8-bit to 5-bit (Red, Green, Blue)"
-            namedConverters={NAMED_8_TO_5_CONVERTERS}
-            value={value8to5}
-            setValue={setValue8to5}
+            label="8-bit to 4-bit (ARGB)"
+            namedConverters={NAMED_8_TO_4_CONVERTERS}
+            value={value8to4}
+            setValue={setValue8to4}
           />
         </div>
-      </div>
+      )}
 
-      <div className="flex-1">
-        <div className="text-center font-semibold mb-2">4444 Settings</div>
-
-        <SubFormWrapper
-          label="8-bit to 4-bit (ARGB)"
-          namedConverters={NAMED_8_TO_4_CONVERTERS}
-          value={value8to4}
-          setValue={setValue8to4}
-        />
-      </div>
+      {(!show1555 || !show4444) && (
+        <div className="flex-1" />
+      )}
     </div>
   );
 }

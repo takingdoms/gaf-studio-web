@@ -3,17 +3,17 @@ import ImportTafWizard from '@/components/app/importer/taf-importer/ImportTafWiz
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 import React from 'react';
 
-type ImportTafProps = {
+type ImportTafPairProps = {
   type: 'frames' | 'subframes';
   onEnded: () => void;
   onAbort: () => void;
 };
 
-export default function ImportTaf({
+export default function ImportTafPair({
   type,
   onAbort,
   onEnded,
-}: ImportTafProps) {
+}: ImportTafPairProps) {
   const addFramesToActiveEntry = S.useAddFramesToActiveEntry();
   const addSubframesToActiveFrame = S.useAddSubframesToActiveFrame();
   const convertActiveFrameToMultiFrame = S.useConvertActiveFrameToMultiFrame();
@@ -37,6 +37,7 @@ export default function ImportTaf({
 
   return (
     <ImportTafWizard
+      target={{ kind: 'taf-pair' }}
       type={type}
       onFinish={onFinish}
       onAbort={onAbort}

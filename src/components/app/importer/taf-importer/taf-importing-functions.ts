@@ -70,14 +70,37 @@ export namespace TafImportingFunctions {
   }
 
   export async function compileItem(
+    target: TafImporting.Target,
     sourceImage: DecodedUserImage,
     configs: TafImporting.ConfigPair,
-  ): Promise<TafImporting.ImporterResultPair> {
-    const promise1555 = TAF_IMAGE_IMPORTER_1555.createResource(sourceImage, configs.config1555);
-    const promise4444 = TAF_IMAGE_IMPORTER_4444.createResource(sourceImage, configs.config4444);
+  ): Promise<TafImporting.ImporterResult> {
+    if (target.kind === 'taf-pair') {
+      const promise1555 = TAF_IMAGE_IMPORTER_1555.createResource(sourceImage, configs.config1555);
+      const promise4444 = TAF_IMAGE_IMPORTER_4444.createResource(sourceImage, configs.config4444);
 
-    return Promise.all([promise1555, promise4444]).then(([taf_1555, taf_4444]) => {
-      return { taf_1555, taf_4444 };
-    });
+      return Promise.all([promise1555, promise4444]).then(([taf_1555, taf_4444]) => {
+        return {
+          target: 'taf-pair',
+          taf_1555,
+          taf_4444,
+        };
+      });
+    }
+
+    if (target.subFormat === 'taf_1555') {
+      return TAF_IMAGE_IMPORTER_1555.createResource(sourceImage, configs.config1555)
+        .then((taf_1555) => ({
+          target: 'taf-solo',
+          subFormat: 'taf_1555',
+          taf_1555,
+        }));
+    }
+
+    return TAF_IMAGE_IMPORTER_4444.createResource(sourceImage, configs.config4444)
+      .then((taf_4444) => ({
+        target: 'taf-solo',
+        subFormat: 'taf_4444',
+        taf_4444,
+      }));
   }
 }
