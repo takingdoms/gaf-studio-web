@@ -22,7 +22,7 @@ export default function ImportModal({
   }
 
   return (
-    <div style={{ minWidth: 480 }}>
+    <div style={{ minWidth: 600 }}>
       <Import
         type={type}
         onAbort={close}

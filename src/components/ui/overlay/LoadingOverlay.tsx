@@ -4,6 +4,7 @@ type LoadingOverlayProps = {
   children: React.ReactNode;
   className?: string;
   isLoading?: boolean | string;
+  label?: string;
   hideLabel?: boolean;
   overlayBg?: string;
 };
@@ -12,6 +13,7 @@ export default function LoadingOverlay({
   children,
   className,
   isLoading,
+  label,
   hideLabel,
   overlayBg
 }: LoadingOverlayProps) {
@@ -34,7 +36,7 @@ export default function LoadingOverlay({
         <div className={`${overlayBg} absolute inset-0 flex justify-center items-center`}>
           {!hideLabel && (
             <span className="text-white font-bold text-lg select-none">
-              {isLoading === true ? 'Loading...' : isLoading}
+              {label ?? 'Loading...'}
             </span>
           )}
         </div>

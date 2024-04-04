@@ -9,11 +9,12 @@ export namespace AsyncUtils {
     });
   }
 
-  export function deferMap<T1, T2>(items: T1[], mapper: (item: T1) => Promise<T2>): Promise<T2[]> {
+  export function deferMap<T1, T2>(
+    items: T1[],
+    mapper: (item: T1, index: number) => Promise<T2>,
+  ): Promise<T2[]> {
     return defer(
-      () => Promise.all(
-        items.map(mapper)
-      )
+      () => Promise.all(items.map(mapper))
     );
   }
 }
