@@ -1,5 +1,4 @@
 import ImageRenderer from '@/components/app/image-renderer/ImageRenderer';
-import React from 'react';
 
 type ImportPreviewWrapperProps = {
   imageData: ImageData;
@@ -19,22 +18,30 @@ export default function ImportPreviewWrapper({
   wrapperWidth ??= 250;
   wrapperHeight ??= 300;
 
+  const image = (
+    <ImageRenderer
+      image={imageData}
+      width={imageWidth}
+      height={imageHeight}
+      contain={true}
+      smoothing={false}
+    />
+  );
+
   return (
     <div
-      className="relative border border-slate-300"
+      className="relative"
       style={{
-        width: wrapperWidth,
-        height: wrapperHeight,
+        // + 1 = to account for border width
+        width: Math.min(wrapperWidth, imageWidth),
+        height: Math.min(wrapperHeight, imageHeight),
       }}
     >
-      <div className="absolute inset-1 flex justify-center items-center overflow-hidden">
-        <ImageRenderer
-          image={imageData}
-          width={imageWidth}
-          height={imageHeight}
-          contain={true}
-          smoothing={false}
-        />
+      <div
+        className="absolute inset-0 flex justify-center items-center border border-slate-300
+          overflow-hidden p-1"
+      >
+        {image}
       </div>
     </div>
   );
