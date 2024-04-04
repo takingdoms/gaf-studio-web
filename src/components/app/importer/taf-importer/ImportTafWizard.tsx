@@ -112,7 +112,7 @@ export default function ImportTafWizard({
     else {
       const frames: VirtualFrame[] = layers.map((layer) => {
         return {
-          duration: 10, // TODO!!!!
+          duration: 2, // TODO!!!!
           frameData: layer,
         };
       });
