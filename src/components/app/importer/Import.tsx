@@ -1,5 +1,5 @@
-import ImportTaf from '@/components/app/importer/ImportTaf';
 import ImportGaf from '@/components/app/importer/gaf-importer/ImportGaf';
+import ImportTaf from '@/components/app/importer/taf-importer/ImportTaf';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
 type ImportProps = {

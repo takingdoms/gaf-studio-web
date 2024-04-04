@@ -20,3 +20,5 @@ export const TAF_SUB_FORMAT_TO_LABEL: ReadonlyRecord<TafSubFormat, string> = {
   'taf_1555': '1555',
   'taf_4444': '4444',
 };
+
+export type TafSubFormatToColorDataFormat<T> = T extends 'taf_1555' ? 'argb1555' : 'argb4444';

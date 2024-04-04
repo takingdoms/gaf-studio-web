@@ -1,7 +1,6 @@
 import { FinalImportResult } from '@/components/app/importer/common/common-importing-types';
-import ImportGafWizard from '@/components/app/importer/gaf-importer/ImportGafWizard';
+import ImportTafWizard from '@/components/app/importer/taf-importer/ImportTafWizard';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
-import { GafS } from '@/lib/state/workspace/workspace-context/gaf-workspace-helper';
 import React from 'react';
 
 type ImportGafProps = {
@@ -10,14 +9,11 @@ type ImportGafProps = {
   onAbort: () => void;
 };
 
-export default function ImportGaf({
+export default function ImportTaf({
   type,
   onAbort,
   onEnded,
 }: ImportGafProps) {
-  const currentPalette = GafS.useCurrentPalette();
-  const setCurrentPalette = GafS.useSetCurrentPalette();
-
   const addFramesToActiveEntry = S.useAddFramesToActiveEntry();
   const addSubframesToActiveFrame = S.useAddSubframesToActiveFrame();
   const convertActiveFrameToMultiFrame = S.useConvertActiveFrameToMultiFrame();
@@ -40,10 +36,8 @@ export default function ImportGaf({
   }, [onEnded, addFramesToActiveEntry, addSubframesToActiveFrame, convertActiveFrameToMultiFrame]);
 
   return (
-    <ImportGafWizard
+    <ImportTafWizard
       type={type}
-      currentPalette={currentPalette}
-      setCurrentPalette={setCurrentPalette}
       onFinish={onFinish}
       onAbort={onAbort}
     />

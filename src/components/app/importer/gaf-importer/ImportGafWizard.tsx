@@ -105,7 +105,6 @@ export default function ImportGafWizard({
         unknown2: 0,
         unknown3: 0,
 
-        key: Symbol(),
         kind: 'single',
         layerData: {
           kind: 'palette-idx',
@@ -126,8 +125,7 @@ export default function ImportGafWizard({
     else {
       const frames: VirtualFrame[] = layers.map((layer) => {
         return {
-          key: Symbol(),
-          duration: 10,
+          duration: 10, // TODO!!!!
           frameData: layer,
         };
       });
@@ -144,9 +142,11 @@ export default function ImportGafWizard({
 
   if (decoding) {
     return (
-      <ImportBackground><ImportContent>
-        Decoding...
-      </ImportContent></ImportBackground>
+      <ImportBackground>
+        <ImportContent>
+          Decoding...
+        </ImportContent>
+      </ImportBackground>
     );
   }
 
@@ -162,9 +162,11 @@ export default function ImportGafWizard({
 
   if (importing) {
     return (
-      <ImportBackground><ImportContent>
-        Compiling...
-      </ImportContent></ImportBackground>
+      <ImportBackground>
+        <ImportContent>
+          Compiling...
+        </ImportContent>
+      </ImportBackground>
     );
   }
 
@@ -193,8 +195,10 @@ export default function ImportGafWizard({
 
   // normally unreachable
   return (
-    <ImportBackground><ImportContent>
-      Finished! You can now close this wizard...
-    </ImportContent></ImportBackground>
+    <ImportBackground>
+      <ImportContent>
+        Finished! You can now close this wizard...
+      </ImportContent>
+    </ImportBackground>
   );
 }
