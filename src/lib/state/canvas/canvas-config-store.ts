@@ -7,6 +7,7 @@ import { create } from "zustand";
 export type CanvasConfigStore = CanvasConfig & {
   readonly actions: {
     readonly setBackground: (background: string) => void;
+    readonly setImportBackground: (importBackground: string) => void;
     readonly setMainCanvasLayerOrder: (o: ReadonlySet<MainCanvasLayer>) => void;
     readonly setMainCanvasLayerVisibility: (v: ReadonlyRecord<MainCanvasLayer, boolean>) => void;
     readonly setGridSpacing: (gridSpacing: number) => void;
@@ -21,6 +22,7 @@ export type CanvasConfigStore = CanvasConfig & {
 
 export const useCanvasConfigStore = create<CanvasConfigStore>()((set) => ({
   background: CANVAS_BG_OPTIONS[4],
+  importBackground: CANVAS_BG_OPTIONS[6],
   mainCanvasLayerOrder: new Set([
     'GRID',
     'IMAGE',
@@ -43,6 +45,7 @@ export const useCanvasConfigStore = create<CanvasConfigStore>()((set) => ({
 
   actions: {
     setBackground: (background) => set({ background }),
+    setImportBackground: (importBackground) => set({ importBackground }),
     setMainCanvasLayerVisibility: (mainCanvasLayerVisibility) => set({ mainCanvasLayerVisibility }),
     setMainCanvasLayerOrder: (mainCanvasLayerOrder) => set({ mainCanvasLayerOrder }),
     setGridSpacing: (gridSpacing) => set({ gridSpacing }),

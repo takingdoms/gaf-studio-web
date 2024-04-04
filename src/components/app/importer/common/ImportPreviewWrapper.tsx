@@ -1,4 +1,5 @@
 import ImageRenderer from '@/components/app/image-renderer/ImageRenderer';
+import { useCanvasConfigStore } from '@/lib/state/canvas/canvas-config-store';
 
 type ImportPreviewWrapperProps = {
   imageData: ImageData;
@@ -28,6 +29,8 @@ export default function ImportPreviewWrapper({
     />
   );
 
+  const background = useCanvasConfigStore((state) => state.importBackground);
+
   return (
     <div
       className="relative"
@@ -40,6 +43,7 @@ export default function ImportPreviewWrapper({
       <div
         className="absolute inset-0 flex justify-center items-center border border-slate-300
           overflow-hidden p-1"
+        style={{ background }}
       >
         {image}
       </div>
