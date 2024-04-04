@@ -358,7 +358,7 @@ function generateInitialConfig(
     importedFile: importedFile,
     options: {
       center: false,
-      compress: false,
+      compress: true,
       transparencyIndex: importedFile.importerResult.result.transparencyIndex,
     },
   };
