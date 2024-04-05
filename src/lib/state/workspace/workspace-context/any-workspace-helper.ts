@@ -90,6 +90,10 @@ namespace WorkspaceHelper {
     ));
   }
 
+  export function useActiveEntry() {
+    return useW((state) => state.commonActions.getActiveEntry());
+  }
+
   export function useActiveFrame() {
     return useW((state) => state.commonActions.getActiveFrame());
   }
@@ -330,6 +334,10 @@ namespace WorkspaceHelper {
 
   export function useCreateEntry() {
     return useW((state) => state.commonActions.createEntry);
+  }
+
+  export function useRenameActiveEntry() {
+    return useW((state) => state.commonActions.renameActiveEntry);
   }
 
   export function useAddFramesToActiveEntry() {

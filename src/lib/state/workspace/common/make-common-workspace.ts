@@ -365,10 +365,10 @@ export const _makeCommonWorkspace: MakeCommonWorkspace = (set, get, store) => ({
     createEntry: (name) => {
       const entries = get().commonActions.getEntries();
 
-      for (const entry of entries) {
-        if (entry.name === name) {
-          throw new Error(`An entry with this name already exists.`);
-        }
+      const nameExists = entries.some((entry) => entry.name === name);
+
+      if (nameExists) {
+        throw new Error(`An entry with this name already exists.`);
       }
 
       const newEntry: VirtualEntry = {
@@ -387,6 +387,37 @@ export const _makeCommonWorkspace: MakeCommonWorkspace = (set, get, store) => ({
         frameIndex: null,
         subframeIndex: null,
       });
+    },
+
+    renameEntry: (entryIndex, newName) => {
+      const entries = get().commonActions.getEntries();
+
+      const nameExists = entries.some((entry, index) => {
+        return index !== entryIndex && entry.name === newName;
+      });
+
+      if (nameExists) {
+        throw new Error(`An entry with this name already exists.`);
+      }
+
+      const entry = entries[entryIndex];
+
+      const newEntry: typeof entry = {
+        ...entry,
+        name: newName,
+      };
+
+      get().commonActions.replaceEntry(entryIndex, newEntry);
+    },
+
+    renameActiveEntry: (newName) => {
+      const entryIndex = get().cursor.entryIndex;
+
+      if (entryIndex === null) {
+        throw new Error(`No active entry.`);
+      }
+
+      get().commonActions.renameEntry(entryIndex, newName);
     },
 
     addFrames: (entryIndex, newFrames) => {

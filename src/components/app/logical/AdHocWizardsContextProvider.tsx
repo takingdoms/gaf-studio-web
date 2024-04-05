@@ -3,6 +3,7 @@ import ConvertFrameToSingleModal from '@/components/app/converter/ConvertFrameTo
 import DeleteFrameModal from '@/components/app/deleter/DeleteFrameModal';
 import DeleteSubframeModal from '@/components/app/deleter/DeleteSubframeModal';
 import CreateEntryModal from '@/components/app/entry/CreateEntryModal';
+import RenameEntryModal from '@/components/app/entry/RenameEntryModal';
 import ImportModal from '@/components/app/importer/ImportModal';
 import ChangeFrameDurationModal from '@/components/app/other-modals/ChangeFrameDurationModal';
 import { ModalContext } from '@/components/ui/modal/ModalContext';
@@ -80,6 +81,13 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     });
   };
 
+  const renameActiveEntry = (oldName?: string) => {
+    const { close } = modal.pushModal({
+      title: 'Rename Sequence',
+      body: <RenameEntryModal close={() => close()} />,
+    });
+  };
+
   const adHocWizards: AdHocWizards = {
     importImages,
     convertToMulti,
@@ -88,6 +96,7 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     deleteSubframe,
     changeFrameDuration,
     createEntry,
+    renameActiveEntry,
   };
 
   return (

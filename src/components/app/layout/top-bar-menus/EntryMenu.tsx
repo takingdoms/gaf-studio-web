@@ -14,6 +14,14 @@ export default function EntryMenu() {
         label="Create sequence"
         onClick={() => adHocWizards.createEntry()}
       />
+
+      <MenuItemSeparator />
+
+      <MenuItem
+        label="Rename sequence"
+        disabled={activeEntryIndex === null}
+        onClick={() => adHocWizards.renameActiveEntry()}
+      />
     </Menu>
   );
 }

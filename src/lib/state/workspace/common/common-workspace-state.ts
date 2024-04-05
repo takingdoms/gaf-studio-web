@@ -44,7 +44,8 @@ export type CommonWorkspaceState = {
     readonly convertActiveFrameToSingleFrame: (ignoreIfNotNeeded: boolean) => boolean; // return if was needed
 
     readonly createEntry: (name: string) => void;
-    // readonly renameEntry: (entryIndex: number, newName: string) => void; // TODO
+    readonly renameEntry: (entryIndex: number, newName: string) => void;
+    readonly renameActiveEntry: (newName: string) => void;
     // readonly deleteEntry: (entryIndex: number) => void; // TODO
 
     readonly addFrames: (entryIndex: number, newFrames: readonly VirtualFrame[]) => void;

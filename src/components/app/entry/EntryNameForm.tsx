@@ -4,10 +4,11 @@ import { GafValidation } from '@/lib/validation/gaf-validation';
 import React from 'react';
 
 type EntryNameFormProps = {
+  defaultValue?: string;
   onSubmit: (validName: string) => void;
 };
 
-export default function EntryNameForm({ onSubmit }: EntryNameFormProps) {
+export default function EntryNameForm({ defaultValue, onSubmit }: EntryNameFormProps) {
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -19,7 +20,14 @@ export default function EntryNameForm({ onSubmit }: EntryNameFormProps) {
       return;
     }
 
+
     const value = input.value.trim();
+
+    if (value === defaultValue) {
+      close();
+      return;
+    }
+
     const validationResult = GafValidation.validateEntryName(value);
 
     if (validationResult.kind === 'invalid') {
@@ -29,7 +37,7 @@ export default function EntryNameForm({ onSubmit }: EntryNameFormProps) {
 
     setErrorMsg(null);
     onSubmit(value);
-  }, [onSubmit]);
+  }, [onSubmit, defaultValue]);
 
   return (
     <div>
@@ -41,6 +49,7 @@ export default function EntryNameForm({ onSubmit }: EntryNameFormProps) {
         <SimpleInput
           type="text"
           inputRef={inputRef}
+          defaultValue={defaultValue}
         />
         <SolidButton
           color="success"
