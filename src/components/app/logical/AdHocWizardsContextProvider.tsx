@@ -2,6 +2,7 @@ import ConvertFrameToMultiModal from '@/components/app/converter/ConvertFrameToM
 import ConvertFrameToSingleModal from '@/components/app/converter/ConvertFrameToSingleModal';
 import DeleteFrameModal from '@/components/app/deleter/DeleteFrameModal';
 import DeleteSubframeModal from '@/components/app/deleter/DeleteSubframeModal';
+import CreateEntryModal from '@/components/app/entry/CreateEntryModal';
 import ImportModal from '@/components/app/importer/ImportModal';
 import ChangeFrameDurationModal from '@/components/app/other-modals/ChangeFrameDurationModal';
 import { ModalContext } from '@/components/ui/modal/ModalContext';
@@ -72,6 +73,13 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     });
   };
 
+  const createEntry = () => {
+    const { close } = modal.pushModal({
+      title: 'Create Sequence',
+      body: <CreateEntryModal close={() => close()} />,
+    });
+  };
+
   const adHocWizards: AdHocWizards = {
     importImages,
     convertToMulti,
@@ -79,6 +87,7 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     deleteFrame,
     deleteSubframe,
     changeFrameDuration,
+    createEntry,
   };
 
   return (

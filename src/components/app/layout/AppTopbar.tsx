@@ -4,6 +4,7 @@ import AppTopBarMenuButton from "./AppTopBarMenuButton";
 import ToolsMenu from "@/components/app/layout/top-bar-menus/ToolsMenu";
 import SubframeMenu from "@/components/app/layout/top-bar-menus/SubframeMenu";
 import ViewMenu from "@/components/app/layout/top-bar-menus/ViewMenu";
+import EntryMenu from "@/components/app/layout/top-bar-menus/EntryMenu";
 
 export default function AppTopbar() {
   return (
@@ -21,6 +22,8 @@ export default function AppTopbar() {
       />
 
       <ViewMenu />
+
+      <EntryMenu />
 
       <FrameMenu />
 

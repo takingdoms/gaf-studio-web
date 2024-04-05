@@ -3,7 +3,7 @@ import { ALLOWED_FRAME_DATA_MOD_KEYS, CommonWorkspaceState } from "@/lib/state/w
 import { WorkspaceState } from "@/lib/state/workspace/workspace-state";
 import { ArrayUtils } from "@/lib/utils/array-utils";
 import { ObjectUtils } from "@/lib/utils/object-utils";
-import { VirtualFrame, VirtualFrameDataMultiLayer } from "@/lib/virtual-gaf/virtual-gaf";
+import { VirtualEntry, VirtualFrame, VirtualFrameDataMultiLayer } from "@/lib/virtual-gaf/virtual-gaf";
 import { Writable } from "ts-essentials";
 import { StateCreator } from "zustand";
 
@@ -360,6 +360,33 @@ export const _makeCommonWorkspace: MakeCommonWorkspace = (set, get, store) => ({
       const { entryIndex, frameIndex } = get().cursor;
       get().commonActions.convertMultiFrameToSingleFrame(entryIndex!, frameIndex!);
       return true;
+    },
+
+    createEntry: (name) => {
+      const entries = get().commonActions.getEntries();
+
+      for (const entry of entries) {
+        if (entry.name === name) {
+          throw new Error(`An entry with this name already exists.`);
+        }
+      }
+
+      const newEntry: VirtualEntry = {
+        name,
+        frames: [],
+        unknown1: 0x1,
+        unknown2: 0x0,
+      };
+
+      const newEntries = [ ...entries, newEntry ];
+      get().commonActions.setEntries(newEntries);
+
+      // auto-selects the newly created entry (for user convenience)
+      get().commonActions.setCursor({
+        entryIndex: newEntries.length - 1,
+        frameIndex: null,
+        subframeIndex: null,
+      });
     },
 
     addFrames: (entryIndex, newFrames) => {

@@ -328,6 +328,10 @@ namespace WorkspaceHelper {
     return useW((state) => state.commonActions.deleteActiveSubframe);
   }
 
+  export function useCreateEntry() {
+    return useW((state) => state.commonActions.createEntry);
+  }
+
   export function useAddFramesToActiveEntry() {
     return useW((state) => state.commonActions.addFramesToActiveEntry);
   }

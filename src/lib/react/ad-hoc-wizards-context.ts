@@ -7,6 +7,7 @@ export type AdHocWizards = {
   deleteFrame: () => void;
   deleteSubframe: () => void;
   changeFrameDuration: (applyToAll: boolean) => void;
+  createEntry: () => void;
 };
 
 const doNothing = () => {};
@@ -18,4 +19,5 @@ export const AdHocWizardsContext = React.createContext<AdHocWizards>({
   deleteFrame: doNothing,
   deleteSubframe: doNothing,
   changeFrameDuration: doNothing,
+  createEntry: doNothing,
 });
