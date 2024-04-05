@@ -5,10 +5,17 @@ import React from 'react';
 
 type EntryNameFormProps = {
   defaultValue?: string;
+  existingEntryNames: string[]; // should be in the same order as the actual entries lsit
   onSubmit: (validName: string) => void;
+  close: () => void;
 };
 
-export default function EntryNameForm({ defaultValue, onSubmit }: EntryNameFormProps) {
+export default function EntryNameForm({
+  defaultValue,
+  existingEntryNames,
+  onSubmit,
+  close,
+}: EntryNameFormProps) {
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -20,11 +27,16 @@ export default function EntryNameForm({ defaultValue, onSubmit }: EntryNameFormP
       return;
     }
 
-
     const value = input.value.trim();
 
     if (value === defaultValue) {
-      close();
+      return;
+    }
+
+    const existingIdx = existingEntryNames.indexOf(value);
+
+    if (existingIdx !== -1) {
+      setErrorMsg(`A sequence with this name already exists. (Sequence #${existingIdx + 1})`);
       return;
     }
 
@@ -37,7 +49,7 @@ export default function EntryNameForm({ defaultValue, onSubmit }: EntryNameFormP
 
     setErrorMsg(null);
     onSubmit(value);
-  }, [onSubmit, defaultValue]);
+  }, [onSubmit, defaultValue, existingEntryNames]);
 
   return (
     <div>

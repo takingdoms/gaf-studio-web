@@ -10,6 +10,7 @@ type RenameEntryModalProps = {
 export default function RenameEntryModal({ close }: RenameEntryModalProps) {
   const activeEntry = S.useActiveEntry();
   const renameActiveEntry = S.useRenameActiveEntry();
+  const existingEntryNames = S.useEntries().map((entry) => entry.name);
 
   const onSubmit = React.useCallback((name: string) => {
     renameActiveEntry(name);
@@ -28,7 +29,9 @@ export default function RenameEntryModal({ close }: RenameEntryModalProps) {
     <ModalPadding>
       <EntryNameForm
         defaultValue={activeEntry.name}
+        existingEntryNames={existingEntryNames}
         onSubmit={onSubmit}
+        close={close}
       />
     </ModalPadding>
   );

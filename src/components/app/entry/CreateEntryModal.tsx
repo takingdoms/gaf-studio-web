@@ -9,6 +9,7 @@ type CreateEntryModalProps = {
 
 export default function CreateEntryModal({ close }: CreateEntryModalProps) {
   const createEntry = S.useCreateEntry();
+  const existingEntryNames = S.useEntries().map((entry) => entry.name);
 
   const onSubmit = React.useCallback((name: string) => {
     createEntry(name);
@@ -17,7 +18,11 @@ export default function CreateEntryModal({ close }: CreateEntryModalProps) {
 
   return (
     <ModalPadding>
-      <EntryNameForm onSubmit={onSubmit} />
+      <EntryNameForm
+        existingEntryNames={existingEntryNames}
+        onSubmit={onSubmit}
+        close={close}
+      />
     </ModalPadding>
   );
 }
