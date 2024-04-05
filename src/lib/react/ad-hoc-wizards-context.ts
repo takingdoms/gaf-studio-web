@@ -6,6 +6,7 @@ export type AdHocWizards = {
   convertToSingle: () => void;
   deleteFrame: () => void;
   deleteSubframe: () => void;
+  changeFrameDuration: (applyToAll: boolean) => void;
 };
 
 const doNothing = () => {};
@@ -16,4 +17,5 @@ export const AdHocWizardsContext = React.createContext<AdHocWizards>({
   convertToSingle: doNothing,
   deleteFrame: doNothing,
   deleteSubframe: doNothing,
+  changeFrameDuration: doNothing,
 });

@@ -1,25 +1,20 @@
 import { Menu, MenuItem } from "@/components/ui/dropdown/DropdownMenu";
+import { AdHocWizardsContext } from "@/lib/react/ad-hoc-wizards-context";
+import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
+import React from "react";
 
 export default function ToolsMenu() {
+  const activeEntryIndex = S.useActiveEntryIndex();
+  const { changeFrameDuration } = React.useContext(AdHocWizardsContext);
+
   return (
     <Menu label="Tools">
-      <MenuItem label="Undo" onClick={() => console.log("Undo")} />
-      <MenuItem label="Redo" disabled />
-      <MenuItem label="Cut" />
-      <Menu label="Copy as">
-        <MenuItem label="Text" />
-        <MenuItem label="Video" />
-        <Menu label="Image">
-          <MenuItem label=".png" />
-          <MenuItem label=".jpg" />
-          <MenuItem label=".svg" />
-          <MenuItem label=".gif" />
-        </Menu>
-        <MenuItem label="Audio" />
-      </Menu>
-      <Menu label="Share">
-        <MenuItem label="Mail" />
-        <MenuItem label="Instagram" />
+      <Menu label="Helper hunctions">
+        <MenuItem
+          label="Change frame duration for Sequence"
+          disabled={activeEntryIndex === null}
+          onClick={() => changeFrameDuration(true)}
+        />
       </Menu>
     </Menu>
   );

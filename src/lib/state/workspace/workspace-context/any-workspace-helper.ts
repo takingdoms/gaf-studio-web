@@ -202,6 +202,14 @@ namespace WorkspaceHelper {
     return useW((state) => state.commonActions.modifyActiveFrameData);
   }
 
+  export function useModifyActiveFrameDuration() {
+    return useW((state) => state.commonActions.modifyActiveFrameDuration);
+  }
+
+  export function useModifyActiveSequenceFrameDuration() {
+    return useW((state) => state.commonActions.modifyActiveSequenceFrameDuration);
+  }
+
   export function useActiveFrameDuration() {
     return useW((state) => {
       const { entryIndex, frameIndex } = state.cursor;

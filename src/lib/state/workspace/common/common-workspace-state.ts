@@ -35,6 +35,8 @@ export type CommonWorkspaceState = {
 
     readonly modifyActiveFrameData: (mod: AllowedFrameDataModification) => void;
     readonly modifyActiveSubframeData: (mod: AllowedFrameDataModification) => void;
+    readonly modifyActiveFrameDuration: (newDuration: number) => void;
+    readonly modifyActiveSequenceFrameDuration: (newDuration: number) => void;
 
     readonly convertSingleFrameToMultiFrame: (entryIndex: number, frameIndex: number) => void;
     readonly convertMultiFrameToSingleFrame: (entryIndex: number, frameIndex: number) => void;

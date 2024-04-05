@@ -3,6 +3,7 @@ import ConvertFrameToSingleModal from '@/components/app/converter/ConvertFrameTo
 import DeleteFrameModal from '@/components/app/deleter/DeleteFrameModal';
 import DeleteSubframeModal from '@/components/app/deleter/DeleteSubframeModal';
 import ImportModal from '@/components/app/importer/ImportModal';
+import ChangeFrameDurationModal from '@/components/app/other-modals/ChangeFrameDurationModal';
 import { ModalContext } from '@/components/ui/modal/ModalContext';
 import { AdHocWizards, AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
 import React from 'react';
@@ -55,12 +56,29 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     });
   };
 
+  const changeFrameDuration = (applyToAll: boolean) => {
+    const title = applyToAll
+      ? 'Change frame duration of every Frame of the active Sequence'
+      : 'Change frame duration of the active Frame';
+
+    const { close } = modal.pushModal({
+      title,
+      body: (
+        <ChangeFrameDurationModal
+          applyToAll={applyToAll}
+          close={() => close()}
+        />
+      ),
+    });
+  };
+
   const adHocWizards: AdHocWizards = {
     importImages,
     convertToMulti,
     convertToSingle,
     deleteFrame,
     deleteSubframe,
+    changeFrameDuration,
   };
 
   return (

@@ -236,6 +236,42 @@ export const _makeCommonWorkspace: MakeCommonWorkspace = (set, get, store) => ({
       get().commonActions.replaceSubframe(entryIndex, frameIndex, subframeIndex, newSubframe);
     },
 
+    modifyActiveFrameDuration: (newDuration) => {
+      const { entryIndex, frameIndex } = get().cursor;
+
+      if (entryIndex === null) throw new Error(`No active entry.`);
+      if (frameIndex === null) throw new Error(`No active frame.`);
+
+      const activeFrame = get().commonActions.getEntries()[entryIndex].frames[frameIndex];
+
+      const newActiveFrame: typeof activeFrame = {
+        ...activeFrame,
+        duration: newDuration,
+      };
+
+      get().commonActions.replaceFrame(entryIndex, frameIndex, newActiveFrame);
+    },
+
+    modifyActiveSequenceFrameDuration: (newDuration) => {
+      const { entryIndex } = get().cursor;
+
+      if (entryIndex === null) throw new Error(`No active entry.`);
+
+      const entry = get().commonActions.getEntries()[entryIndex];
+
+      const newEntry:typeof entry = {
+        ...entry,
+        frames: entry.frames.map((frame) => {
+          return {
+            ...frame,
+            duration: newDuration,
+          };
+        }),
+      };
+
+      get().commonActions.replaceEntry(entryIndex, newEntry);
+    },
+
     convertSingleFrameToMultiFrame: (entryIndex, frameIndex) => {
       const entries = get().commonActions.getEntries();
       const entry = entries[entryIndex];
