@@ -126,7 +126,15 @@ export default function ImportGafWizard({
     });
 
     if (replacing !== undefined) {
-      onFinish(layers[0]);
+      let result = layers[0];
+
+      result = {
+        ...result,
+        unknown2: replacing.unknown2,
+        unknown3: replacing.unknown3,
+      };
+
+      onFinish(result);
       setFinished(true);
       return;
     }

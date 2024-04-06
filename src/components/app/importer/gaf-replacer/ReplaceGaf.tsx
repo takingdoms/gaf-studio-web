@@ -1,10 +1,8 @@
 import ReplaceLocationInfo from '@/components/app/importer/common-replacer/ReplaceLocationInfo';
-import { FinalImportResult } from '@/components/app/importer/common/common-importing-types';
 import ImportGafWizard from '@/components/app/importer/gaf-importer/ImportGafWizard';
 import SolidButton from '@/components/ui/button/SolidButton';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 import { GafS } from '@/lib/state/workspace/workspace-context/gaf-workspace-helper';
-import { useWorkspaceContextUnsafe } from '@/lib/state/workspace/workspace-context/workspace-context';
 import { VirtualFrameDataSingleLayer } from '@/lib/virtual-gaf/virtual-gaf';
 import React from 'react';
 
