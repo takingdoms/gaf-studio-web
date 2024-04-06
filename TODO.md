@@ -23,15 +23,15 @@
 
 - [x] Buttons to delete Frames and Subframes.
 
-- [ ] Image importing
-  - [ ] TAF import wizard
+- [x] Image importing
+  - [x] TAF import wizard
   - [x] GAF import wizard
 
-- [ ] Button to replace the image data of the current frame (if it's a single-layered frame) or the
+- [x] Button to replace the image data of the current frame (if it's a single-layered frame) or the
       current subframe. This opens the Import wizard that I already have.
 
 - [ ] Main Canvases controls
-  - [ ] Buttons to toggle or configure grids, bounds, etc
+  - [x] Buttons to toggle or configure grids, bounds, etc
   - [ ] Panning (middle mouse button or inputs near the other buttons)
 
 - [ ] Other controls
