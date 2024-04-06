@@ -13,10 +13,16 @@ import { TafImporterResult } from '@/lib/importing/image-importers/taf/taf-image
 import { BaseVirtualGafFrameData, VirtualFrame, VirtualFrameDataSingleLayer } from '@/lib/virtual-gaf/virtual-gaf';
 import React from 'react';
 
-type ImportTafWizardProps = {
-  target: TafImporting.Target;
+type ImportTafWizardProps = ({
   type: 'frames' | 'subframes';
+  replacing?: never;
   onFinish: (result: FinalImportResult) => void;
+} | {
+  type?: never;
+  replacing: VirtualFrameDataSingleLayer;
+  onFinish: (result: VirtualFrameDataSingleLayer) => void;
+}) & {
+  target: TafImporting.Target;
   onAbort: () => void;
 };
 
@@ -26,9 +32,10 @@ const AVAILABLE_IMAGE_DECODERS = [
 ] as const;
 
 export default function ImportTafWizard({
-  target,
   type,
+  replacing,
   onFinish,
+  target,
   onAbort,
 }: ImportTafWizardProps) {
   /// Length should always be === 1 when in 'replace' mode
@@ -101,6 +108,19 @@ export default function ImportTafWizard({
       } satisfies VirtualFrameDataSingleLayer;
     });
 
+    if (replacing !== undefined) {
+      let result = layers[0];
+
+      result = {
+        ...result,
+        unknown2: replacing.unknown2,
+        unknown3: replacing.unknown3,
+      };
+
+      onFinish(result);
+      return;
+    }
+
     let result: FinalImportResult;
 
     if (type === 'subframes') {
@@ -124,7 +144,7 @@ export default function ImportTafWizard({
     }
 
     onFinish(result);
-  }, [type, target, onFinish]);
+  }, [replacing, type, target, onFinish]);
 
   const onSelectFiles = React.useCallback((files: File[]) => {
     if (loading !== undefined) {
@@ -134,6 +154,10 @@ export default function ImportTafWizard({
     if (files.length === 0) {
       onAbort();
       return;
+    }
+
+    if (replacing !== undefined && files.length > 1) {
+      files = [files[0]];
     }
 
     setLoading('Decoding files...');
@@ -149,7 +173,7 @@ export default function ImportTafWizard({
         // TODO
       })
       .finally(() => setLoading(undefined));
-  }, [loading, onAbort]);
+  }, [replacing, loading, onAbort]);
 
   if (loading) {
     return (
@@ -164,6 +188,7 @@ export default function ImportTafWizard({
   if (decodedFiles === undefined) {
     return (
       <ImportTafSelectFiles
+        isReplacing={replacing !== undefined}
         onAbort={onAbort}
         onNext={onSelectFiles}
         availableDecoders={AVAILABLE_IMAGE_DECODERS}

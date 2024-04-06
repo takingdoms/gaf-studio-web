@@ -3,12 +3,14 @@ import { ImageDecoder } from '@/lib/importing/image-decoder';
 import React from 'react';
 
 type ImportTafSelectFilesProps = {
+  isReplacing: boolean;
   availableDecoders: readonly ImageDecoder[];
   onNext: (file: File[]) => void;
   onAbort: () => void;
 };
 
 export default function ImportTafSelectFiles({
+  isReplacing,
   availableDecoders,
   onNext,
   onAbort,
@@ -21,6 +23,7 @@ export default function ImportTafSelectFiles({
 
   return (
     <ImportFilesSelector
+      isReplacing={isReplacing}
       onFinish={onNext}
       acceptFiles={acceptFiles}
       onAbort={onAbort}
