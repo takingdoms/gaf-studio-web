@@ -203,7 +203,7 @@ export default function ImportTafCompileImages({
           <TafImportOptionsForm
             currentResult={currentResult}
             setCurrentResult={setCurrentResult}
-            onClickApplyAll={onClickApplyAll}
+            onClickApplyAll={okDecodedFiles.length > 1 ? onClickApplyAll : undefined}
           />
         </ImportContent>
 
