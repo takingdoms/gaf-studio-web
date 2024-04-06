@@ -8,7 +8,7 @@ import React from 'react';
 
 type ReplaceGafProps = {
   target: { entryIndex: number; frameIndex: number; subframeIndex?: number };
-  frameData: VirtualFrameDataSingleLayer;
+  frameData: VirtualFrameDataSingleLayer<'gaf'>;
   onAbort: () => void;
   onEnded: () => void;
 };

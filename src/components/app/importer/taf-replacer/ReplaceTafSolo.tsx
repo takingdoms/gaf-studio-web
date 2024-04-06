@@ -8,7 +8,7 @@ import React from 'react';
 
 type ReplaceTafSoloProps = {
   target: { entryIndex: number; frameIndex: number; subframeIndex?: number };
-  frameData: VirtualFrameDataSingleLayer;
+  frameData: VirtualFrameDataSingleLayer<'taf-solo'>;
   onAbort: () => void;
   onEnded: () => void;
 };
