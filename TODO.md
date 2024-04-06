@@ -46,4 +46,4 @@
 - [?] QOL
   - [x] Upon creating a new Frame/Subframe automatically scroll into view of it
   - [ ] Hitting Enter on number prompts should fire the submit event of its surrounding "form"
-  - [ ]
+  - [ ] Pre-load all image background resources before the app starts. IMPORTANT!!
