@@ -1,7 +1,12 @@
 import TextButton from '@/components/ui/button/TextButton';
 import NumberControl from '@/components/ui/control/NumberControl';
+import { NumberControlSideButton } from '@/components/ui/control/NumberControlSideButton';
+import { AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
+import { Icons } from '@/lib/react/icons';
+import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
 import { AllowedFrameDataModification } from '@/lib/state/workspace/common/common-workspace-state';
 import { BaseVirtualGafFrameData } from '@/lib/virtual-gaf/virtual-gaf';
+import React from 'react';
 
 type FrameDataControlsProps = {
   frameData: BaseVirtualGafFrameData;
@@ -25,6 +30,13 @@ export default function FrameDataControls({
 }: FrameDataControlsProps) {
   // TODO shouldn't re-render when the activeSubframeIndex changes
   // console.log('Rendering FrameDataControls');
+
+  const {
+    changeFrameDataUnknown2,
+    changeFrameDataUnknown3,
+  } = React.useContext(AdHocWizardsContext);
+
+  const enableUnknownEditing = useGlobalConfigStore((state) => state.enableUnknownEditing);
 
   const setXOffset = (newOffset: number) => {
     modify({ xOffset: newOffset, yOffset: frameData.yOffset });
@@ -88,13 +100,35 @@ export default function FrameDataControls({
           <tr>
             <th className={thCls}>Unknown2:</th>
             <td className={tdCls}>
-              {frameData.unknown2}
+              <div className="flex items-center space-x-1.5">
+                <span>{frameData.unknown2}</span>
+
+                {enableUnknownEditing && (
+                  <NumberControlSideButton
+                    icon={<Icons.Edit size={14} />}
+                    onClick={() => {
+                      changeFrameDataUnknown2(isSubframe ? 'active-subframe' : 'active-frame');
+                    }}
+                  />
+                )}
+              </div>
             </td>
           </tr>
           <tr>
             <th className={thCls}>Unknown3:</th>
             <td className={tdCls}>
-              {frameData.unknown3}
+              <div className="flex items-center space-x-1.5">
+                <span>{frameData.unknown3}</span>
+
+                {enableUnknownEditing && (
+                  <NumberControlSideButton
+                    icon={<Icons.Edit size={14} />}
+                    onClick={() => {
+                      changeFrameDataUnknown3(isSubframe ? 'active-subframe' : 'active-frame');
+                    }}
+                  />
+                )}
+              </div>
             </td>
           </tr>
           {isGaf && (<tr>

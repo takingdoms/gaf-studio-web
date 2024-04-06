@@ -82,7 +82,9 @@ export type CommonWorkspaceState = {
 export const ALLOWED_FRAME_DATA_MOD_KEYS = [
   'xOffset',
   'yOffset',
+  'unknown2',
+  'unknown3',
 ] as const satisfies (keyof BaseVirtualGafFrameData)[];
 
 export type AllowedFrameDataModification =
-  Pick<BaseVirtualGafFrameData, ElementOf<typeof ALLOWED_FRAME_DATA_MOD_KEYS>>;
+  Partial<Pick<BaseVirtualGafFrameData, ElementOf<typeof ALLOWED_FRAME_DATA_MOD_KEYS>>>;

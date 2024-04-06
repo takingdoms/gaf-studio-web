@@ -7,6 +7,7 @@ import DeleteEntryModal from '@/components/app/entry/DeleteEntryModal';
 import RenameEntryModal from '@/components/app/entry/RenameEntryModal';
 import ImportModal from '@/components/app/importer/ImportModal';
 import ReplaceModal from '@/components/app/importer/ReplaceModal';
+import ChangeFrameDataUnknownModal from '@/components/app/other-modals/ChangeFrameDataUnknownModal';
 import ChangeFrameDurationModal from '@/components/app/other-modals/ChangeFrameDurationModal';
 import { ModalContext } from '@/components/ui/modal/ModalContext';
 import { AdHocWizards, AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
@@ -105,6 +106,32 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     });
   };
 
+  const changeFrameDataUnknown2 = (target: 'active-frame' | 'active-subframe') => {
+    const { close } = modal.pushModal({
+      title: 'Change Unknown2',
+      body: (
+        <ChangeFrameDataUnknownModal
+          target={target}
+          field="unknown2"
+          close={() => close()}
+        />
+      ),
+    });
+  };
+
+  const changeFrameDataUnknown3 = (target: 'active-frame' | 'active-subframe') => {
+    const { close } = modal.pushModal({
+      title: 'Change Unknown3',
+      body: (
+        <ChangeFrameDataUnknownModal
+          target={target}
+          field="unknown3"
+          close={() => close()}
+        />
+      ),
+    });
+  };
+
   const adHocWizards: AdHocWizards = {
     importImages,
     convertToMulti,
@@ -116,6 +143,8 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     renameActiveEntry,
     deleteActiveEntry,
     replaceActiveFrameData,
+    changeFrameDataUnknown2,
+    changeFrameDataUnknown3,
   };
 
   return (

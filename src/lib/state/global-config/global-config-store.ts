@@ -9,6 +9,7 @@ export type GlobalConfigStore = GlobalConfig & {
     readonly setImporterWorkspaceOptionsCollapsed: (collapsed: boolean) => void;
     readonly setShowMultiFrameFrameData: (showMultiFrameFrameData: boolean) => void;
     readonly setActivePairSubFormat: (activePairSubFormat: TafSubFormat) => void;
+    readonly setEnableUnknownEditing: (enableUnknownEditing: boolean) => void;
   };
 };
 
@@ -20,6 +21,7 @@ export const useGlobalConfigStore = create<GlobalConfigStore>()((set) => ({
   importerWorkspaceOptionsCollapsed: false,
   showMultiFrameFrameData: false,
   activePairSubFormat: 'taf_4444',
+  enableUnknownEditing: false,
 
   actions: {
     setFrameListMode: (frameListMode) => set({ frameListMode }),
@@ -28,5 +30,6 @@ export const useGlobalConfigStore = create<GlobalConfigStore>()((set) => ({
       set({ importerWorkspaceOptionsCollapsed }),
     setShowMultiFrameFrameData: (showMultiFrameFrameData) => set({ showMultiFrameFrameData }),
     setActivePairSubFormat: (activePairSubFormat) => set({ activePairSubFormat }),
+    setEnableUnknownEditing: (enableUnknownEditing) => set({ enableUnknownEditing }),
   },
 }));

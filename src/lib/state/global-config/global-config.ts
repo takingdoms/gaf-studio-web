@@ -8,6 +8,7 @@ export type GlobalConfig = {
   readonly importerWorkspaceOptionsCollapsed: boolean;
   readonly showMultiFrameFrameData: boolean;
   readonly activePairSubFormat: TafSubFormat; // only used when in taf-pair mode
+  readonly enableUnknownEditing: boolean;
 };
 
 export const LIST_MODE_LABEL: Record<ListMode, string> = {
