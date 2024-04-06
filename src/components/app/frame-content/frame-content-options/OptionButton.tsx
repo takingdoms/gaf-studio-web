@@ -1,6 +1,7 @@
 import BgSelectorModalContent from '@/components/app/frame-content/frame-content-options/BgSelectorModalContent';
-import { Menu, MenuItem, MenuItemCheckbox } from '@/components/ui/dropdown/DropdownMenu';
+import { Menu, MenuItem, MenuItemCheckbox, MenuItemSeparator } from '@/components/ui/dropdown/DropdownMenu';
 import { ModalContext } from '@/components/ui/modal/ModalContext';
+import { AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
 import { Icons } from '@/lib/react/icons';
 import { useCanvasConfigStore } from '@/lib/state/canvas/canvas-config-store';
 import React from 'react';
@@ -9,6 +10,7 @@ export default function OptionButton() {
   console.log('Rendering OptionButton');
 
   const modal = React.useContext(ModalContext);
+  const adHocWizards = React.useContext(AdHocWizardsContext);
 
   const onClickChangeBg = React.useCallback(async () => {
     const { close } = modal.pushModal({
@@ -54,6 +56,13 @@ export default function OptionButton() {
         label="Show origin bounds"
         checked={layers['O_BOUNDS']}
         onChange={(checked) => setLayers({ ...layers, 'O_BOUNDS': checked })}
+      />
+
+      <MenuItemSeparator />
+
+      <MenuItem
+        label="Replace image data"
+        onClick={() => adHocWizards.replaceActiveFrameData()}
       />
     </Menu>
   );

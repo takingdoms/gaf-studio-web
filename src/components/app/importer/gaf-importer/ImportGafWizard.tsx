@@ -12,11 +12,17 @@ import { AsyncUtils } from '@/lib/utils/async-utils';
 import { VirtualFrame, VirtualFrameDataSingleLayer } from '@/lib/virtual-gaf/virtual-gaf';
 import React from 'react';
 
-type ImportGafWizardProps = {
+type ImportGafWizardProps = ({
   type: 'frames' | 'subframes';
+  replacing?: never;
+  onFinish: (result: FinalImportResult) => void;
+} | {
+  type?: never;
+  replacing: VirtualFrameDataSingleLayer;
+  onFinish: (result: VirtualFrameDataSingleLayer) => void;
+}) & {
   currentPalette: CurrentPalette;
   setCurrentPalette: (newPal: CurrentPalette) => void;
-  onFinish: (result: FinalImportResult) => void;
   onAbort: () => void;
 };
 
@@ -26,6 +32,7 @@ const SUPPORTED_FILE_EXTS: readonly string[] =
 
 export default function ImportGafWizard({
   type,
+  replacing,
   currentPalette,
   setCurrentPalette,
   onFinish,
@@ -35,7 +42,7 @@ export default function ImportGafWizard({
   const [decoding, setDecoding] = React.useState(false);
   const [importedFiles, setImportedFiles] = React.useState<GafImportedFile[]>();
   const [importing, setImporting] = React.useState(false);
-  const [finalResult, setFinalResult] = React.useState<FinalImportResult>();
+  const [finished, setFinished] = React.useState(false);
 
   const onImportFiles = React.useCallback((decFiles: GafDecodedUserFileOk[]) => {
     if (decFiles.length === 0) {
@@ -62,6 +69,10 @@ export default function ImportGafWizard({
       return;
     }
 
+    if (replacing !== undefined && files.length > 1) {
+      files = [files[0]];
+    }
+
     setDecoding(true);
 
     const result = AsyncUtils.deferMap(files, (file) => {
@@ -85,7 +96,7 @@ export default function ImportGafWizard({
         onAbort();
       })
       .finally(() => setDecoding(false));
-  }, [onAbort, currentPalette, onImportFiles]);
+  }, [replacing, onAbort, currentPalette, onImportFiles]);
 
   const onOptionsSelected = React.useCallback((configedFiles: GafConfiguredFile[]) => {
     const layers: VirtualFrameDataSingleLayer[] = configedFiles.map((file) => {
@@ -114,6 +125,12 @@ export default function ImportGafWizard({
       };
     });
 
+    if (replacing !== undefined) {
+      onFinish(layers[0]);
+      setFinished(true);
+      return;
+    }
+
     let result: FinalImportResult;
 
     if (type === 'subframes') {
@@ -136,9 +153,9 @@ export default function ImportGafWizard({
       };
     }
 
-    setFinalResult(result);
     onFinish(result);
-  }, [type, setFinalResult, onFinish]);
+    setFinished(true);
+  }, [type, replacing, setFinished, onFinish]);
 
   if (decoding) {
     return (
@@ -153,6 +170,7 @@ export default function ImportGafWizard({
   if (decodedUserFiles === undefined) {
     return (
       <ImportFilesSelector
+        isReplacing={replacing !== undefined}
         onFinish={onFilesSelected}
         onAbort={onAbort}
         acceptFiles={SUPPORTED_FILE_EXTS.map((ext) => `.${ext}`).join(',')}
@@ -180,7 +198,7 @@ export default function ImportGafWizard({
     );
   }
 
-  if (finalResult === undefined) {
+  if (!finished) {
     return (
       <ImportGafOptionsSelector
         importedFiles={importedFiles}

@@ -4,21 +4,36 @@ import SolidButton from '@/components/ui/button/SolidButton';
 import FileDropzone from '@/components/ui/file-dropzone/FileDropzone';
 
 type ImportFilesSelectorProps = {
+  isReplacing: boolean; // when true, only allows 1 file to be selected
   onFinish: (files: File[]) => void;
   onAbort: () => void;
   acceptFiles?: string;
 };
 
-export default function ImportFilesSelector({ onFinish, onAbort, acceptFiles }: ImportFilesSelectorProps) {
+export default function ImportFilesSelector({
+  onFinish,
+  onAbort,
+  acceptFiles,
+  isReplacing,
+}: ImportFilesSelectorProps) {
   return (
     <ImportBackground>
       <ImportContent>
-        <FileDropzone
-          defaultStyling
-          multi
-          onChoose={onFinish}
-          accept={acceptFiles}
-        />
+        {isReplacing ? (
+          <FileDropzone
+            defaultStyling
+            multi={false}
+            onChoose={(file) => onFinish([file])}
+            accept={acceptFiles}
+          />
+        ): (
+          <FileDropzone
+            defaultStyling
+            multi={true}
+            onChoose={onFinish}
+            accept={acceptFiles}
+          />
+        )}
       </ImportContent>
 
       <div className="flex">

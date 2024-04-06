@@ -185,6 +185,27 @@ export const _makeCommonWorkspace: MakeCommonWorkspace = (set, get, store) => ({
       get().commonActions.replaceFrame(entryIndex, frameIndex, newFrame);
     },
 
+    replaceFrameImageData: (entryIndex, frameIndex, data) => {
+      const entries = get().commonActions.getEntries();
+      const entry = entries[entryIndex];
+      const frame = entry.frames[frameIndex];
+
+      if (frame.frameData.kind === 'multi') {
+        throw new Error(`Frame is not single-layered.`);
+      }
+
+      const newFrame: typeof frame = {
+        ...frame,
+        frameData: data,
+      };
+
+      get().commonActions.replaceFrame(entryIndex, frameIndex, newFrame);
+    },
+
+    replaceSubframeImageData: (entryIndex, frameIndex, subframeIndex, data) => {
+      get().commonActions.replaceSubframe(entryIndex, frameIndex, subframeIndex, data);
+    },
+
     modifyActiveFrameData: (mod) => {
       mod = ObjectUtils.select(mod, ALLOWED_FRAME_DATA_MOD_KEYS);
       const { entryIndex, frameIndex } = get().cursor;

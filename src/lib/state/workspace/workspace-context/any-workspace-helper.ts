@@ -99,7 +99,7 @@ namespace WorkspaceHelper {
   }
 
   export function useActiveSubframe() {
-    return useW((state) => state.commonActions.getActiveSubframe);
+    return useW((state) => state.commonActions.getActiveSubframe());
   }
 
   export function useIsFrameOrSubframeSelectedAt(type: 'frame' | 'subframe', index: number) {
@@ -200,6 +200,14 @@ namespace WorkspaceHelper {
         ...frameDataProps,
       };
     }));
+  }
+
+  export function useReplaceFrameImageData() {
+    return useW((state) => state.commonActions.replaceFrameImageData);
+  }
+
+  export function useReplaceSubframeImageData() {
+    return useW((state) => state.commonActions.replaceSubframeImageData);
   }
 
   export function useModifyActiveFrameData() {

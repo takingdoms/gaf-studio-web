@@ -6,6 +6,7 @@ import CreateEntryModal from '@/components/app/entry/CreateEntryModal';
 import DeleteEntryModal from '@/components/app/entry/DeleteEntryModal';
 import RenameEntryModal from '@/components/app/entry/RenameEntryModal';
 import ImportModal from '@/components/app/importer/ImportModal';
+import ReplaceModal from '@/components/app/importer/ReplaceModal';
 import ChangeFrameDurationModal from '@/components/app/other-modals/ChangeFrameDurationModal';
 import { ModalContext } from '@/components/ui/modal/ModalContext';
 import { AdHocWizards, AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
@@ -96,6 +97,14 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     });
   };
 
+  const replaceActiveFrameData = () => {
+    const { close } = modal.pushModal({
+      title: 'Replace Active Image Data',
+      body: <ReplaceModal close={() => close()} />,
+      disableBackgroundClose: true,
+    });
+  };
+
   const adHocWizards: AdHocWizards = {
     importImages,
     convertToMulti,
@@ -106,6 +115,7 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     createEntry,
     renameActiveEntry,
     deleteActiveEntry,
+    replaceActiveFrameData,
   };
 
   return (

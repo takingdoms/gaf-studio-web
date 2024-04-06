@@ -33,6 +33,18 @@ export type CommonWorkspaceState = {
       newSubframe: VirtualFrameDataSingleLayer,
     ) => void;
 
+    readonly replaceFrameImageData: (
+      entryIndex: number,
+      frameIndex: number,
+      data: VirtualFrameDataSingleLayer,
+    ) => void;
+    readonly replaceSubframeImageData: (
+      entryIndex: number,
+      frameIndex: number,
+      subframeIndex: number,
+      data: VirtualFrameDataSingleLayer,
+    ) => void;
+
     readonly modifyActiveFrameData: (mod: AllowedFrameDataModification) => void;
     readonly modifyActiveSubframeData: (mod: AllowedFrameDataModification) => void;
     readonly modifyActiveFrameDuration: (newDuration: number) => void;
