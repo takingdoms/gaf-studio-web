@@ -18,7 +18,10 @@ export default function FrameControls() {
   }
 
   return (
-    <div className="grow flex flex-col overflow-y-auto overflow-x-hidden bg-white space-y-2 px-4 py-2">
+    <div
+      className="grow flex flex-col items-center overflow-y-auto overflow-x-hidden bg-white
+        space-y-2 px-4 py-2"
+    >
       <FrameInfoControls />
 
       <div className="self-center border-b border-dotted border-slate-500 w-1/2" />

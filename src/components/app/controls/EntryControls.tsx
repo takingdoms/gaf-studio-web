@@ -21,7 +21,8 @@ export default function EntryControls() {
 
   return (
     <div
-      className="grow flex flex-col overflow-y-auto overflow-x-hidden bg-white space-y-2 px-4 py-2"
+      className="grow flex flex-col items-center overflow-y-auto overflow-x-hidden bg-white
+        space-y-2 px-4 py-2"
     >
       <div className="flex flex-col text-center">
         <div className="font-bold text-gray-700">Sequence selected:</div>
