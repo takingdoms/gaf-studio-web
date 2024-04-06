@@ -167,7 +167,19 @@ export default function ImportTafWizard({
     });
 
     Promise.all(promises)
-      .then(setDecodedFiles)
+      .then((decodedFiles) => {
+        setDecodedFiles(decodedFiles);
+
+        if (decodedFiles.length === 1) {
+          const first = decodedFiles[0];
+          if (first.result.kind === 'ok') {
+            setOkDecodedFiles([{
+              file: first.file,
+              result: first.result.result,
+            }]);
+          }
+        }
+      })
       .catch((err) => {
         console.error(err);
         // TODO
