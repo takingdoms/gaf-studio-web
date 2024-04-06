@@ -43,13 +43,13 @@ export function useGafWorkspaceContextUnsafe<T>(selector: (state: GafWorkspaceSt
 export function useTafSoloWorkspaceContextUnsafe<T>(selector: (state: TafSoloWorkspaceState) => T): T {
   const wrapper = React.useContext(WorkspaceWrapperContext);
   if (!wrapper) throw new Error('Missing WorkspaceWrapperContext.Provider in the tree');
-  if (wrapper.format !== 'taf-solo') throw new Error(`Not a Gaf workspace.`);
+  if (wrapper.format !== 'taf-solo') throw new Error(`Not a Taf Solo workspace.`);
   return useStore(wrapper.store, selector);
 }
 
 export function useTafPairWorkspaceContextUnsafe<T>(selector: (state: TafPairWorkspaceState) => T): T {
   const wrapper = React.useContext(WorkspaceWrapperContext);
   if (!wrapper) throw new Error('Missing WorkspaceWrapperContext.Provider in the tree');
-  if (wrapper.format !== 'taf-pair') throw new Error(`Not a Gaf workspace.`);
+  if (wrapper.format !== 'taf-pair') throw new Error(`Not a Taf Pair workspace.`);
   return useStore(wrapper.store, selector);
 }
