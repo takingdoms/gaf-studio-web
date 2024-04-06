@@ -22,6 +22,12 @@ export default function EntryMenu() {
         disabled={activeEntryIndex === null}
         onClick={() => adHocWizards.renameActiveEntry()}
       />
+
+      <MenuItem
+        label="Delete sequence"
+        disabled={activeEntryIndex === null}
+        onClick={() => adHocWizards.deleteActiveEntry()}
+      />
     </Menu>
   );
 }

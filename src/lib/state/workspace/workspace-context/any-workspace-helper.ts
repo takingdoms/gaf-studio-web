@@ -340,6 +340,10 @@ namespace WorkspaceHelper {
     return useW((state) => state.commonActions.renameActiveEntry);
   }
 
+  export function useDeleteActiveEntry() {
+    return useW((state) => state.commonActions.deleteActiveEntry);
+  }
+
   export function useAddFramesToActiveEntry() {
     return useW((state) => state.commonActions.addFramesToActiveEntry);
   }

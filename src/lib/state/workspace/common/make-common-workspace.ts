@@ -420,6 +420,28 @@ export const _makeCommonWorkspace: MakeCommonWorkspace = (set, get, store) => ({
       get().commonActions.renameEntry(entryIndex, newName);
     },
 
+    deleteEntry: (entryIndex) => {
+      const entries = get().commonActions.getEntries();
+
+      const newEntries = [...entries];
+      newEntries.splice(entryIndex, 1);
+
+      get().commonActions.setEntries(newEntries);
+
+      // unselects the entry that was deleted (very important)
+      set({ cursor: { entryIndex: null, frameIndex: null, subframeIndex: null } });
+    },
+
+    deleteActiveEntry: () => {
+      const entryIndex = get().cursor.entryIndex;
+
+      if (entryIndex === null) {
+        throw new Error(`No active entry.`);
+      }
+
+      get().commonActions.deleteEntry(entryIndex);
+    },
+
     addFrames: (entryIndex, newFrames) => {
       const entry = get().commonActions.getEntries()[entryIndex];
 

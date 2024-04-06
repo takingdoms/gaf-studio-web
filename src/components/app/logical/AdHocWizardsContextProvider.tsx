@@ -3,6 +3,7 @@ import ConvertFrameToSingleModal from '@/components/app/converter/ConvertFrameTo
 import DeleteFrameModal from '@/components/app/deleter/DeleteFrameModal';
 import DeleteSubframeModal from '@/components/app/deleter/DeleteSubframeModal';
 import CreateEntryModal from '@/components/app/entry/CreateEntryModal';
+import DeleteEntryModal from '@/components/app/entry/DeleteEntryModal';
 import RenameEntryModal from '@/components/app/entry/RenameEntryModal';
 import ImportModal from '@/components/app/importer/ImportModal';
 import ChangeFrameDurationModal from '@/components/app/other-modals/ChangeFrameDurationModal';
@@ -88,6 +89,13 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     });
   };
 
+  const deleteActiveEntry = () => {
+    const { close } = modal.pushModal({
+      title: 'Delete Sequence',
+      body: <DeleteEntryModal close={() => close()} />,
+    });
+  };
+
   const adHocWizards: AdHocWizards = {
     importImages,
     convertToMulti,
@@ -97,6 +105,7 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     changeFrameDuration,
     createEntry,
     renameActiveEntry,
+    deleteActiveEntry,
   };
 
   return (

@@ -46,7 +46,8 @@ export type CommonWorkspaceState = {
     readonly createEntry: (name: string) => void;
     readonly renameEntry: (entryIndex: number, newName: string) => void;
     readonly renameActiveEntry: (newName: string) => void;
-    // readonly deleteEntry: (entryIndex: number) => void; // TODO
+    readonly deleteEntry: (entryIndex: number) => void;
+    readonly deleteActiveEntry: () => void;
 
     readonly addFrames: (entryIndex: number, newFrames: readonly VirtualFrame[]) => void;
     readonly addFramesToActiveEntry: (newFrames: readonly VirtualFrame[]) => void;

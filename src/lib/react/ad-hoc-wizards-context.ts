@@ -9,6 +9,7 @@ export type AdHocWizards = {
   changeFrameDuration: (applyToAll: boolean) => void;
   createEntry: () => void;
   renameActiveEntry: () => void;
+  deleteActiveEntry: () => void;
 };
 
 const doNothing = () => {};
@@ -22,4 +23,5 @@ export const AdHocWizardsContext = React.createContext<AdHocWizards>({
   changeFrameDuration: doNothing,
   createEntry: doNothing,
   renameActiveEntry: doNothing,
+  deleteActiveEntry: doNothing,
 });
