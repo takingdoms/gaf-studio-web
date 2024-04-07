@@ -27,7 +27,7 @@ export default function ModalColorPromptBody({
 
   return (
     <div className="flex flex-col items-center p-4">
-      <div className="mb-2">
+      <div className="mb-2 font-semibold">
         {label}
       </div>
 
