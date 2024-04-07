@@ -22,6 +22,13 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
   const modal = React.useContext(ModalContext);
 
   const createNewProject = () => {
+    const newTab = window.open('/', '_blank');
+
+    if (newTab !== null) {
+      newTab.focus();
+      return;
+    }
+
     const { close } = modal.pushModal({
       title: 'Create a new project',
       body: <NewProjectModal close={() => close()} />,
