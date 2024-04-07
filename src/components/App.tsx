@@ -12,6 +12,7 @@ import { createTakPaletteStore } from "@/lib/tak/create-tak-palette-store";
 import React from "react";
 import AppLayout from "./app/layout/AppLayout";
 import { createTafPairWorkspace } from "@/lib/state/workspace/taf-pair/create-taf-pair-workspace";
+import { Provider } from "jotai";
 
 export default function App() {
   const [storeWrapper, setStoreWrapper] = React.useState<WorkspaceStoreWrapper>();
@@ -63,7 +64,9 @@ export default function App() {
           <AdHocWizardsContextProvider>
             <PaletteStoreContext.Provider value={paletteStore}>
               <AppLayout>
-                <WorkspaceRoot />
+                <Provider>
+                  <WorkspaceRoot />
+                </Provider>
               </AppLayout>
             </PaletteStoreContext.Provider>
           </AdHocWizardsContextProvider>

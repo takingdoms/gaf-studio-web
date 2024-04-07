@@ -15,9 +15,9 @@ export default function GridCanvas() {
   }
 
   return (
-    <AutoSizedCanvas onRender={(canvas) => {
+    <AutoSizedCanvas onRender={(canvas, panX, panY) => {
       const ctx = new CanvasHelperContext(canvas);
-      CanvasFunctions.drawGrid(ctx, gridSpacing, gridStyle);
+      CanvasFunctions.drawGrid(ctx, gridSpacing, panX, panY, gridStyle);
     }} />
   );
 }

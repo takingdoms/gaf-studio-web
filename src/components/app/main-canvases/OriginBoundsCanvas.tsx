@@ -23,11 +23,18 @@ export default function OriginBoundsCanvas({ frameData }: OriginBoundsCanvasProp
     : [frameData];
 
   return (
-    <AutoSizedCanvas onRender={(canvas) => {
+    <AutoSizedCanvas onRender={(canvas, panX, panY) => {
       const ctx = new CanvasHelperContext(canvas);
 
       layers.forEach((layer) => {
-        CanvasFunctions.drawOriginBounds(ctx, layer.width, layer.height, originBoundsStyle);
+        CanvasFunctions.drawOriginBounds(
+          ctx,
+          layer.width,
+          layer.height,
+          panX,
+          panY,
+          originBoundsStyle,
+        );
       });
     }} />
   );

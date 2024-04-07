@@ -14,9 +14,9 @@ export default function CrossCanvas() {
   }
 
   return (
-    <AutoSizedCanvas onRender={(canvas) => {
+    <AutoSizedCanvas onRender={(canvas, panX, panY) => {
       const ctx = new CanvasHelperContext(canvas);
-      CanvasFunctions.drawCross(ctx, crossStyle);
+      CanvasFunctions.drawCross(ctx, panX, panY, crossStyle);
     }} />
   );
 }

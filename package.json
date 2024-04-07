@@ -16,6 +16,7 @@
     "bmp-ts": "^1.0.3",
     "buffer": "^6.0.3",
     "deep-equal": "^2.2.3",
+    "jotai": "^2.7.2",
     "lib-gaf": "file:../prototype",
     "mime": "^4.0.1",
     "react": "^18.2.0",

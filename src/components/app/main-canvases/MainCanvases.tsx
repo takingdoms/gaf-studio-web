@@ -2,6 +2,7 @@ import BoundsCanvas from '@/components/app/main-canvases/BoundsCanvas';
 import CrossCanvas from '@/components/app/main-canvases/CrossCanvas';
 import GridCanvas from '@/components/app/main-canvases/GridCanvas';
 import ImageCanvas from '@/components/app/main-canvases/ImageCanvas';
+import MouseCanvas from '@/components/app/main-canvases/MouseCanvas';
 import OriginBoundsCanvas from '@/components/app/main-canvases/OriginBoundsCanvas';
 import { useCanvasConfigStore } from '@/lib/state/canvas/canvas-config-store';
 import { VirtualFrameData } from '@/lib/virtual-gaf/virtual-gaf';
@@ -20,8 +21,6 @@ export default function MainCanvases({ frameData }: MainCanvasesProps) {
 
   const order = useCanvasConfigStore((state) => state.mainCanvasLayerOrder);
 
-  // TODO eventually implement panning (with middle-mouse click maybe)
-
   return (
     <div className="absolute inset-0">
       {[...order].map((key) => (
@@ -36,6 +35,7 @@ export default function MainCanvases({ frameData }: MainCanvasesProps) {
           }
         </React.Fragment>
       ))}
+      <MouseCanvas />
     </div>
   );
 }

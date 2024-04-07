@@ -1,5 +1,6 @@
 import ActivePairSubFormatSelector from "@/components/app/frame-content/frame-content-options/ActivePairSubFormatSelector";
 import OptionButton from "@/components/app/frame-content/frame-content-options/OptionButton";
+import CanvasControls from "@/components/app/frame-content/frame-content-options/canvas-controls/CanvasControls";
 import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 
 export default function FrameContentOptionsDiv() {
@@ -7,11 +8,17 @@ export default function FrameContentOptionsDiv() {
 
   return (
     <div className="flex space-x-2">
-      <div className="grow">
+      <div className="flex-1">
         {format === 'taf-pair' && <ActivePairSubFormatSelector />}
       </div>
 
-      <OptionButton />
+      <div className="flex-1">
+        <CanvasControls />
+      </div>
+
+      <div className="flex-1 flex justify-end">
+        <OptionButton />
+      </div>
     </div>
   );
 }

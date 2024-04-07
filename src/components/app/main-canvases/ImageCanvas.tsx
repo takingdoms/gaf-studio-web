@@ -22,7 +22,7 @@ export default function ImageCanvas({
   return layers.map((layer, index) => (
     <AutoSizedCanvas
       key={index}
-      onRender={(canvas) => {
+      onRender={(canvas, panX, panY) => {
         const ctx = new CanvasHelperContext(canvas);
 
         let image: ImageData;
@@ -42,7 +42,11 @@ export default function ImageCanvas({
         const centerX = Math.floor(ctx.canvas.width / 2);
         const centerY = Math.floor(ctx.canvas.height / 2);
 
-        ctx.drawImage(image, centerX - layer.xOffset, centerY - layer.yOffset);
+        ctx.drawImage(
+          image,
+          centerX - layer.xOffset + panX,
+          centerY - layer.yOffset + panY,
+        );
       }}
     />
   ));

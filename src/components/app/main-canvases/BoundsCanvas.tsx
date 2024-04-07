@@ -23,7 +23,7 @@ export default function BoundsCanvas({ frameData }: BoundsCanvasProps) {
     : [frameData];
 
   return (
-    <AutoSizedCanvas onRender={(canvas) => {
+    <AutoSizedCanvas onRender={(canvas, panX, panY) => {
       const ctx = new CanvasHelperContext(canvas);
 
       layers.forEach((layer) => {
@@ -33,6 +33,8 @@ export default function BoundsCanvas({ frameData }: BoundsCanvasProps) {
           layer.height,
           layer.xOffset,
           layer.yOffset,
+          panX,
+          panY,
           boundsStyle,
         );
       });
