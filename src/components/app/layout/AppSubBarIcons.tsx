@@ -4,7 +4,10 @@ import React from "react";
 import AppSubBarIconButton from "./AppSubBarIconButton";
 
 export default function AppSubBarIcons() {
-  const { createNewProject } = React.useContext(AdHocWizardsContext);
+  const {
+    createNewProject,
+    openAnyFile,
+  } = React.useContext(AdHocWizardsContext);
 
   return (
     <div className="flex items-center p-0.5">
@@ -12,10 +15,10 @@ export default function AppSubBarIcons() {
         icon={Icons.NewFile}
         onClick={createNewProject}
       />
-      <AppSubBarIconButton
+      {/* <AppSubBarIconButton
         icon={Icons.OpenFile}
-        onClick={() => {}}
-      />
+        onClick={openAnyFile}
+      /> */}
       <AppSubBarIconButton
         icon={Icons.SaveFile}
         onClick={() => {}}

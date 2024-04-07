@@ -35,6 +35,10 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     });
   };
 
+  const openAnyFile = () => {
+    alert('TODO');
+  };
+
   const importImages: AdHocWizards['importImages'] = (type) => {
     const { close } = modal.pushModal({
       title: 'Import Images Wizard',
@@ -149,6 +153,7 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
 
   const adHocWizards: AdHocWizards = {
     createNewProject,
+    openAnyFile,
     importImages,
     convertToMulti,
     convertToSingle,

@@ -7,7 +7,10 @@ export default function FileMenu() {
   const format = S.useFormat();
   const extName = format === 'gaf' ? 'GAF' : 'TAF';
 
-  const { createNewProject } = React.useContext(AdHocWizardsContext);
+  const {
+    createNewProject,
+    openAnyFile,
+  } = React.useContext(AdHocWizardsContext);
 
   return (
     <Menu label="File">
@@ -16,12 +19,12 @@ export default function FileMenu() {
         onClick={createNewProject}
       />
 
-      <MenuItemSeparator />
+      {/* <MenuItemSeparator />
 
       <MenuItem
         label="Open file..."
-        onClick={() => {}}
-      />
+        onClick={openAnyFile}
+      /> */}
 
       <MenuItemSeparator />
 
