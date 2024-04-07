@@ -1,4 +1,6 @@
-// TODO make this a singleton ASAP!
+// used to alleviate class instantiation overhead
+let pixelRatioCache: number | undefined;
+
 export class CanvasHelperContext {
   readonly canvas: HTMLCanvasElement;
   readonly ctx: CanvasRenderingContext2D;
@@ -8,16 +10,20 @@ export class CanvasHelperContext {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d')!;
 
-    const dpr = window.devicePixelRatio || 1;
-    const ctx = this.ctx as any;
-    const bsr = ctx['webkitBackingStorePixelRatio']
-      ?? ctx['mozBackingStorePixelRatio']
-      ?? ctx['msBackingStorePixelRatio']
-      ?? ctx['oBackingStorePixelRatio']
-      ?? ctx['backingStorePixelRatio']
-      ?? 1;
+    if (pixelRatioCache === undefined) {
+      const dpr = window.devicePixelRatio || 1;
+      const ctx = this.ctx as any;
+      const bsr = ctx['webkitBackingStorePixelRatio']
+        ?? ctx['mozBackingStorePixelRatio']
+        ?? ctx['msBackingStorePixelRatio']
+        ?? ctx['oBackingStorePixelRatio']
+        ?? ctx['backingStorePixelRatio']
+        ?? 1;
 
-    this.pixelRatio = dpr / bsr;
+      pixelRatioCache = dpr / bsr;
+    }
+
+    this.pixelRatio = pixelRatioCache;
 
     this.start();
   }
