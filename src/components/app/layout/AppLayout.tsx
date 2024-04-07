@@ -1,4 +1,4 @@
-import AppSubBar from "@/components/app/layout/AppSubBar";
+import AppSubBar from "@/components/app/layout/sub-bar/AppSubBar";
 import Body from "../../ui/layout/Body";
 import AppTopBar from "./AppTopBar";
 

@@ -9,7 +9,7 @@ export default function FileMenu() {
 
   const {
     createNewProject,
-    openAnyFile,
+    // openAnyFile,
   } = React.useContext(AdHocWizardsContext);
 
   return (
