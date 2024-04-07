@@ -13,7 +13,7 @@ export default function CanvasControls() {
 
   const onClickEditPanX = async () => {
     const newPanX = await numberPrompt({
-      title: 'Set Pan X',
+      title: 'Set camera X',
       label: 'Value',
       defaultValue: panX,
     });
@@ -26,7 +26,7 @@ export default function CanvasControls() {
 
   const onClickEditPanY = async () => {
     const newPanY = await numberPrompt({
-      title: 'Set Pan Y',
+      title: 'Set camera Y',
       label: 'Value',
       defaultValue: panY,
     });
@@ -42,9 +42,9 @@ export default function CanvasControls() {
       <div className="flex items-center space-x-1 font-mono">
         <span
           className="font-bold"
-          title="Middle-click and drag on the image to pan"
+          title="Middle-click and drag on the image to move camera"
         >
-          Pan:
+          Camera:
         </span>
         <span
           className="cursor-pointer"
