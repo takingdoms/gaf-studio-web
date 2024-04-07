@@ -276,7 +276,10 @@ export default function ImportGafOptionsSelector({
 
       return {
         ...next,
-        options: currentConfigedFile.options,
+        options: {
+          ...currentConfigedFile.options,
+          transparencyIndex: next.options.transparencyIndex,
+        },
       };
     });
 

@@ -128,26 +128,28 @@ export default function GafImportOptionsForm({
   );
 
   return (
-    <div className="flex flex-col">
-      <div className="flex">
-        <div className="flex-1 flex flex-col items-start space-y-2">
+    <div className="flex">
+      <div className="flex-1 flex flex-col items-start">
+        <div className="flex flex-col items-start space-y-2">
           {centerControl}
           {compressControl}
-        </div>
-        <div className="pl-2 mr-2" />
-        <div className="flex-1 flex flex-col items-start space-y-2">
-          {transpIndexControl}
+
+          {onClickApplyAll && (
+            <div className="self-center mt-2 text-center text-xs">
+              <TextButton
+                label="Apply to all images"
+                onClick={onClickApplyAll}
+              />
+            </div>
+          )}
         </div>
       </div>
 
-      {onClickApplyAll && (
-        <div className="mt-2 text-center text-xs">
-          <TextButton
-            label="Apply to all images"
-            onClick={onClickApplyAll}
-          />
-        </div>
-      )}
+      <div className="mx-4 border-l border-slate-200" />
+
+      <div className="flex-1 flex flex-col items-start space-y-2">
+        {transpIndexControl}
+      </div>
     </div>
   );
 }
