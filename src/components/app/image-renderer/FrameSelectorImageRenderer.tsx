@@ -35,7 +35,7 @@ export default function FrameSelectorImageRenderer({ frameData }: FrameSelectorI
           width={layer.width}
           height={layer.height}
           contain={true}
-          smoothing={false}
+          smoothing={true}
         />
       </div>
     );
