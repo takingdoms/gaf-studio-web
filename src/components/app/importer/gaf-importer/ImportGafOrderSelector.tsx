@@ -70,11 +70,10 @@ export default function ImportGafOrderSelector({
               setSelectedIndex={setSelectedIndex}
             />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 flex flex-col items-center">
             <div className="text-center text-xs font-bold text-slate-500 mb-0.5">
               Image Preview
             </div>
-
 
             <SelectedItemPreview selectedItem={selectedItem} />
           </div>
