@@ -68,6 +68,7 @@ export default function ModalNumberPromptBody({
           inputRef={inputRef}
           type="number"
           defaultValue={defaultValue}
+          autoFocus
         />
         <SolidButton
           color="success"
