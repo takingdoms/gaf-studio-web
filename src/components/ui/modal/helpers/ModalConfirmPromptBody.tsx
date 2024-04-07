@@ -1,4 +1,4 @@
-import SolidButton from "@/components/ui/button/SolidButton";
+import SolidButton, { SolidButtonProps } from "@/components/ui/button/SolidButton";
 import { ModalConfirmPromptResult } from "@/components/ui/modal/helpers/modalConfirmPrompt";
 import React from 'react';
 
@@ -7,6 +7,8 @@ type ModalPromptBodyProps = {
   text: React.ReactNode;
   confirmLabel: string;
   rejectLabel: string;
+  confirmColor?: SolidButtonProps['color'];
+  rejectColor?: SolidButtonProps['color'];
 };
 
 export default function ModalPromptBody({
@@ -14,6 +16,8 @@ export default function ModalPromptBody({
   text,
   confirmLabel,
   rejectLabel,
+  confirmColor,
+  rejectColor,
 }: ModalPromptBodyProps) {
   return (
     <div className="flex flex-col p-4">
@@ -23,13 +27,13 @@ export default function ModalPromptBody({
 
       <div className="flex justify-center space-x-4">
         <SolidButton
-          color="success"
+          color={confirmColor ?? 'success'}
           onClick={() => resolve(true)}
         >
           {confirmLabel}
         </SolidButton>
         <SolidButton
-          color="danger"
+          color={rejectColor ?? 'danger'}
           onClick={() => resolve(false)}
         >
           {rejectLabel}

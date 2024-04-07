@@ -1,6 +1,6 @@
 import React from 'react';
 
-type SolidButtonProps = {
+export type SolidButtonProps = {
   children: React.ReactNode;
   onClick: () => void;
   color?: 'default' | 'success' | 'danger';

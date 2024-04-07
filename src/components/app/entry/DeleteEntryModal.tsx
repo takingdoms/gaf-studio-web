@@ -1,5 +1,4 @@
 import SolidButton from '@/components/ui/button/SolidButton';
-import SimpleInput from '@/components/ui/control/SimpleInput';
 import ModalPadding from '@/components/ui/modal/ModalPadding';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 import React from 'react';

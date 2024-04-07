@@ -1,3 +1,4 @@
+import { SolidButtonProps } from '@/components/ui/button/SolidButton';
 import { ModalController } from '@/components/ui/modal/ModalContext';
 import ModalConfirmPromptBody from "@/components/ui/modal/helpers/ModalConfirmPromptBody";
 import React from 'react';
@@ -9,6 +10,8 @@ export type ModalConfirmPromptOptions = {
   rejectLabel?: string;
   disableBackgroundClose?: boolean;
   disableXClose?: boolean;
+  confirmColor?: SolidButtonProps['color'];
+  rejectColor?: SolidButtonProps['color'];
 };
 
 export type ModalConfirmPromptResult = true | false | null; // yes | no | (closed)
@@ -28,6 +31,8 @@ export const makeModalConfirmPrompt: (modal: ModalController) => ModalConfirmPro
           <ModalConfirmPromptBody
             confirmLabel={options.confirmLabel ?? 'Yes'}
             rejectLabel={options.rejectLabel ?? 'No'}
+            confirmColor={options.confirmColor}
+            rejectColor={options.rejectColor}
             text={options.text}
             resolve={(result) => {
               if (!resolved) {

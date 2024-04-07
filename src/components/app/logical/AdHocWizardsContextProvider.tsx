@@ -9,6 +9,7 @@ import ImportModal from '@/components/app/importer/ImportModal';
 import ReplaceModal from '@/components/app/importer/ReplaceModal';
 import ChangeFrameDataUnknownModal from '@/components/app/other-modals/ChangeFrameDataUnknownModal';
 import ChangeFrameDurationModal from '@/components/app/other-modals/ChangeFrameDurationModal';
+import NewProjectModal from '@/components/app/other-modals/NewProjectModal';
 import { ModalContext } from '@/components/ui/modal/ModalContext';
 import { AdHocWizards, AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
 import React from 'react';
@@ -19,6 +20,13 @@ type AdHocWizardsContextProviderProps = {
 
 export default function AdHocWizardsContextProvider({ children }: AdHocWizardsContextProviderProps) {
   const modal = React.useContext(ModalContext);
+
+  const createNewProject = () => {
+    const { close } = modal.pushModal({
+      title: 'Create a new project',
+      body: <NewProjectModal close={() => close()} />,
+    });
+  };
 
   const importImages: AdHocWizards['importImages'] = (type) => {
     const { close } = modal.pushModal({
@@ -133,6 +141,7 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
   };
 
   const adHocWizards: AdHocWizards = {
+    createNewProject,
     importImages,
     convertToMulti,
     convertToSingle,
