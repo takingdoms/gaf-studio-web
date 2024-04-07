@@ -35,17 +35,22 @@ export default function ImportPreviewWrapper({
     <div
       className="relative"
       style={{
-        // + 1 = to account for border width
         width: Math.min(wrapperWidth, imageWidth),
         height: Math.min(wrapperHeight, imageHeight),
       }}
     >
-      <div
-        className="absolute inset-0 flex justify-center items-center border border-slate-300
-          overflow-hidden p-1"
-        style={{ background }}
-      >
-        {image}
+      <div className="absolute inset-0 flex justify-center items-center">
+        <div className="border border-gray-300">
+          <div style={{
+            background,
+            width: imageWidth,
+            height: imageHeight,
+            maxWidth: '100%',
+            maxHeight: '100%',
+          }}>
+            {image}
+          </div>
+        </div>
       </div>
     </div>
   );
