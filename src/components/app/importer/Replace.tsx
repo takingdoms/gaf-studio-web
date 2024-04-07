@@ -23,7 +23,7 @@ export default function Replace({
     return (
       <ReplaceGaf
         target={target}
-        frameData={frameData}
+        frameData={frameData as VirtualFrameDataSingleLayer<'gaf'>}
         onAbort={onAbort}
         onEnded={onEnded}
       />
@@ -34,7 +34,7 @@ export default function Replace({
     return (
       <ReplaceTafSolo
         target={target}
-        frameData={frameData}
+        frameData={frameData as VirtualFrameDataSingleLayer<'taf-solo'>}
         onAbort={onAbort}
         onEnded={onEnded}
       />
@@ -44,7 +44,7 @@ export default function Replace({
   return (
     <ReplaceTafPair
       target={target}
-      frameData={frameData}
+      frameData={frameData as VirtualFrameDataSingleLayer<'taf-pair'>}
       onAbort={onAbort}
       onEnded={onEnded}
     />
