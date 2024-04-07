@@ -1,3 +1,4 @@
+// TODO make this a singleton ASAP!
 export class CanvasHelperContext {
   readonly canvas: HTMLCanvasElement;
   readonly ctx: CanvasRenderingContext2D;
