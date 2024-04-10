@@ -57,3 +57,4 @@
   - [ ] Put all "maxWidth: 600" and such that proliferate modal components into a variable
         inside constants.ts
   - [ ] Limit Int value for frame data offsets Inputs
+  - [ ] Limit/validate image dimensions when importing images
