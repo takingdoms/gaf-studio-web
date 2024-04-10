@@ -9,6 +9,10 @@ type ImageRendererProps = {
   smoothing: boolean;
   scaleX?: number;
   scaleY?: number;
+  style?: {
+    background?: string;
+    border?: string;
+  };
 };
 
 export default function ImageRenderer({
@@ -19,6 +23,7 @@ export default function ImageRenderer({
   smoothing,
   scaleX: _scaleX,
   scaleY: _scaleY,
+  style,
 }: ImageRendererProps) {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
@@ -51,14 +56,20 @@ export default function ImageRenderer({
   // still here to easily see whether smoothing is enabled on the canvas with inspect-element
   const imageRendering = smoothing ? 'auto' : 'pixelated';
 
-  const style: React.CSSProperties = contain ? {
+  const baseStyle: React.CSSProperties = {
     imageRendering,
+  };
+
+  const finalStyle: React.CSSProperties = contain ? {
+    ...style,
+    ...baseStyle,
     width: 'auto',
     height: 'auto',
     maxWidth: '100%',
     maxHeight: '100%',
   } : {
-    imageRendering,
+    ...style,
+    ...baseStyle,
     width,
     height,
     maxWidth: width,
@@ -71,7 +82,7 @@ export default function ImageRenderer({
       ref={canvasRef}
       width={width}
       height={height}
-      style={style}
+      style={finalStyle}
     />
   );
 }

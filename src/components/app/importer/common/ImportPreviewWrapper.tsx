@@ -19,6 +19,8 @@ export default function ImportPreviewWrapper({
   wrapperWidth ??= 250;
   wrapperHeight ??= 300;
 
+  const background = useCanvasConfigStore((state) => state.importBackground);
+
   const image = (
     <ImageRenderer
       image={imageData}
@@ -26,10 +28,12 @@ export default function ImportPreviewWrapper({
       height={imageHeight}
       contain={true}
       smoothing={false}
+      style={{
+        background,
+        border: '1px solid var(--color-gray-300)',
+      }}
     />
   );
-
-  const background = useCanvasConfigStore((state) => state.importBackground);
 
   return (
     <div
@@ -39,18 +43,8 @@ export default function ImportPreviewWrapper({
         height: Math.min(wrapperHeight, imageHeight),
       }}
     >
-      <div className="absolute inset-0 flex justify-center items-center">
-        <div className="border border-gray-300">
-          <div style={{
-            background,
-            width: imageWidth,
-            height: imageHeight,
-            maxWidth: '100%',
-            maxHeight: '100%',
-          }}>
-            {image}
-          </div>
-        </div>
+      <div className="absolute inset-0 flex justify-center items-center bg-slate-100">
+        {image}
       </div>
     </div>
   );
