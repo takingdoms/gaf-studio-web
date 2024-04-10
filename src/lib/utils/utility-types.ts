@@ -13,3 +13,5 @@ export type ColorRgb = {
 export type ColorRgba = ColorRgb & {
   readonly a: number;
 };
+
+export type Replace<T extends object, K extends keyof T, P> = Omit<T, K> & {[key in K]: P};

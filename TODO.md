@@ -41,7 +41,7 @@
 - [ ] Palette stuff
   - [ ] Palette selection wizard
 
-- [ ] Result exporting (the end)
+- [x] Result exporting (the end)
 
 - [ ] New Pos column in the entries table
 
@@ -56,3 +56,4 @@
   - [ ] Pre-load all image background resources before the app starts. VERY IMPORTANT!!
   - [ ] Put all "maxWidth: 600" and such that proliferate modal components into a variable
         inside constants.ts
+  - [ ] Limit Int value for frame data offsets Inputs

@@ -11,14 +11,14 @@ export default function AppSubBarIcons() {
 
   const {
     createNewProject,
-    // openAnyFile,
+    exportResult,
   } = React.useContext(AdHocWizardsContext);
 
   return (
     <div className="flex items-center p-0.5">
       <AppSubBarIconButton
         icon={Icons.NewFile}
-        title="New project..."
+        label="New project"
         onClick={createNewProject}
       />
       {/* <AppSubBarIconButton
@@ -31,7 +31,7 @@ export default function AppSubBarIcons() {
       <AppSubBarIconButton
         icon={Icons.Exportfile}
         label={`Export ${extName}`}
-        onClick={() => {}}
+        onClick={exportResult}
       />
     </div>
   );

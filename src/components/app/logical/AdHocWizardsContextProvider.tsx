@@ -5,6 +5,8 @@ import DeleteSubframeModal from '@/components/app/deleter/DeleteSubframeModal';
 import CreateEntryModal from '@/components/app/entry/CreateEntryModal';
 import DeleteEntryModal from '@/components/app/entry/DeleteEntryModal';
 import RenameEntryModal from '@/components/app/entry/RenameEntryModal';
+import Export from '@/components/app/exporter/Export';
+import ExportModal from '@/components/app/exporter/ExportModal';
 import ImportModal from '@/components/app/importer/ImportModal';
 import ReplaceModal from '@/components/app/importer/ReplaceModal';
 import ChangeFrameDataUnknownModal from '@/components/app/other-modals/ChangeFrameDataUnknownModal';
@@ -38,6 +40,15 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
   const openAnyFile = () => {
     alert('TODO');
   };
+
+  const exportResult = () => {
+    const { close } = modal.pushModal({
+      title: 'Export Wizard',
+      disableBackgroundClose: true,
+      body: <ExportModal close={() => close()} />,
+    });
+  };
+
 
   const importImages: AdHocWizards['importImages'] = (type) => {
     const { close } = modal.pushModal({
@@ -154,6 +165,7 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
   const adHocWizards: AdHocWizards = {
     createNewProject,
     openAnyFile,
+    exportResult,
     importImages,
     convertToMulti,
     convertToSingle,

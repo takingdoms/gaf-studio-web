@@ -4,6 +4,7 @@ import { WorkspaceState } from "@/lib/state/workspace/workspace-state";
 import { ArrayUtils } from "@/lib/utils/array-utils";
 import { ObjectUtils } from "@/lib/utils/object-utils";
 import { VirtualEntry, VirtualFrame, VirtualFrameDataMultiLayer } from "@/lib/virtual-gaf/virtual-gaf";
+import LibGaf from "lib-gaf";
 import { Writable } from "ts-essentials";
 import { StateCreator } from "zustand";
 
@@ -395,8 +396,8 @@ export const _makeCommonWorkspace: MakeCommonWorkspace = (set, get, store) => ({
       const newEntry: VirtualEntry = {
         name,
         frames: [],
-        unknown1: 0x1,
-        unknown2: 0x0,
+        unknown1: LibGaf.Constants.USUAL_ENTRY_UNKNOWN1,
+        unknown2: LibGaf.Constants.USUAL_ENTRY_UNKNOWN2,
       };
 
       const newEntries = [ ...entries, newEntry ];

@@ -3,6 +3,7 @@ import React from "react";
 export type AdHocWizards = {
   createNewProject: () => void;
   openAnyFile: () => void;
+  exportResult: () => void;
   importImages: (type: 'frames' | 'subframes') => void;
   convertToMulti: () => void;
   convertToSingle: () => void;
@@ -22,6 +23,7 @@ const doNothing = () => {};
 export const AdHocWizardsContext = React.createContext<AdHocWizards>({
   createNewProject: doNothing,
   openAnyFile: doNothing,
+  exportResult: doNothing,
   importImages: doNothing,
   convertToMulti: doNothing,
   convertToSingle: doNothing,

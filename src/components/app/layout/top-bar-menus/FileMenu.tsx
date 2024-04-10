@@ -9,7 +9,7 @@ export default function FileMenu() {
 
   const {
     createNewProject,
-    // openAnyFile,
+    exportResult,
   } = React.useContext(AdHocWizardsContext);
 
   return (
@@ -30,7 +30,7 @@ export default function FileMenu() {
 
       <MenuItem
         label={`Export ${extName}...`}
-        onClick={() => {}}
+        onClick={exportResult}
       />
     </Menu>
   );
