@@ -5,7 +5,7 @@ import { PaletteUtils } from "@/lib/image/palette/palette-utils";
 import { CurrentPalette, CurrentPaletteFromRaw } from "@/lib/state/gaf-studio/current-palette";
 import { PaletteStore, PaletteStorePreSelectable } from "@/lib/state/gaf-studio/palette-store";
 
-const PRE_SELECTABLE_FILES_BASE_PATH = '/palettes/';
+const PRE_SELECTABLE_FILES_BASE_PATH = 'palettes/';
 const PRE_SELECTABLE_FILES: PaletteStorePreSelectable[] = [
   { key: 'ara_textures.pcx',    label: 'Aramon Units' },
   { key: 'aramon_features.pcx', label: 'Aramon Features' },

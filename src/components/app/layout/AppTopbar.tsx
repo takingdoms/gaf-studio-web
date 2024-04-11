@@ -1,3 +1,4 @@
+import version from "@/version";
 import FrameMenu from "@/components/app/layout/top-bar-menus/FrameMenu";
 import AppTopBarHeader from "./AppTopBarHeader";
 import AppTopBarMenuButton from "./AppTopBarMenuButton";
@@ -35,7 +36,7 @@ export default function AppTopbar() {
       />
 
       <div className="grow flex justify-end">
-        <AppTopBarHeader label="GAF Studio v0.0.0" />
+        <AppTopBarHeader label={'GAF Studio v' + version} />
       </div>
     </div>
   );
