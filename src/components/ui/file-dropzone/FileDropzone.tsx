@@ -50,7 +50,7 @@ export default function FileDropzone({
   const containerRef = React.useRef<HTMLDivElement>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
-  const onChange = React.useCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) {
       return;
     }
@@ -64,11 +64,37 @@ export default function FileDropzone({
     const result = [...files];
 
     if (multi) {
-      onChoose(result);
+      (onChoose as (files: File[]) => void)(result);
     } else {
-      onChoose(result[0])
+      (onChoose as (file: File) => void)(result[0])
     }
-  }, [multi, onChoose, disabled]);
+  };
+
+  const onDragOver = (ev: React.DragEvent<HTMLDivElement>) => {
+    ev.preventDefault();
+
+    if (!disabled) {
+      ev.dataTransfer.dropEffect = 'copy';
+    }
+  };
+
+  const onDrop = (ev: React.DragEvent<HTMLDivElement>) => {
+    ev.preventDefault();
+
+    if (!disabled) {
+      const files = ev.dataTransfer.files;
+
+      if (files.length > 0) {
+        const fileList = Array.from(files);
+
+        if (multi) {
+          (onChoose as (files: File[]) => void)(fileList);
+        } else {
+          (onChoose as (file: File) => void)(fileList[0]);
+        }
+      }
+    }
+  };
 
   const cls = React.useMemo(() => {
     return className
@@ -85,6 +111,8 @@ export default function FileDropzone({
           fileInputRef.current.click();
         }
       }}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
       className={cls}
     >
       {currentFile ? currentFile.name : label}
