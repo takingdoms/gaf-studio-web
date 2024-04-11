@@ -3,7 +3,7 @@ import Select from '@/components/ui/select/Select';
 import { NAMED_8_TO_1_CONVERTERS, NAMED_8_TO_4_CONVERTERS, NAMED_8_TO_5_CONVERTERS, NamedDepthConverter } from '@/lib/importing/image-importers/taf/named-depth-converter';
 import { TafImageImporterConfig } from '@/lib/importing/image-importers/taf/taf-image-importer';
 import { Icons } from '@/lib/react/icons';
-import LibGaf from 'lib-gaf';
+import LibGaf from '@takingdoms/lib-gaf';
 import React from 'react';
 
 type ImportTafConfigsFormProps = {

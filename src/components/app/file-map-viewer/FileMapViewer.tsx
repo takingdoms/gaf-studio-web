@@ -4,7 +4,7 @@ import { normalizeFileMap } from '@/lib/file-map/file-map';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 import { ReadonlyUint8Array } from '@/lib/utils/utility-types';
-import LibGaf from 'lib-gaf';
+import LibGaf from '@takingdoms/lib-gaf';
 import React from 'react';
 
 export default function FileMapViewer() {

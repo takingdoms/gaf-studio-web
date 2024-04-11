@@ -1,7 +1,7 @@
 import { FILE_MAP_VIEWER_COLORS } from '@/components/app/file-map-viewer/colors';
 import { FileMapAreaGroup } from '@/lib/file-map/file-map';
 import { ReadonlyUint8Array } from '@/lib/utils/utility-types';
-import LibGaf from 'lib-gaf';
+import LibGaf from '@takingdoms/lib-gaf';
 import React from 'react';
 import { ElementOf } from 'ts-essentials';
 

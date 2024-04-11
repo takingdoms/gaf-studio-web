@@ -2,7 +2,7 @@ import { BuildValidator, ValidatorError, ValidatorFatalError, NodePath } from "@
 import { ColoredImageResource } from "@/lib/image/image-resource";
 import { TafSubFormat } from "@/lib/main-format";
 import { Result } from "@/lib/utils/result";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export abstract class TafBuildValidator<
   TFormat extends 'taf-solo' | 'taf-pair',

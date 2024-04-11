@@ -2,7 +2,7 @@ import { ValidatorError, ValidatorFatalError } from "@/lib/exporting/validator/b
 import { MainFormat, TafSubFormat } from "@/lib/main-format";
 import { Result } from "@/lib/utils/result";
 import { VirtualGaf } from "@/lib/virtual-gaf/virtual-gaf";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export type GafBuildExporterResult = {
   kind: 'gaf';

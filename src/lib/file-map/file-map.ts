@@ -1,4 +1,4 @@
-import LibGaf from 'lib-gaf';
+import LibGaf from '@takingdoms/lib-gaf';
 import { DeepReadonly } from 'ts-essentials';
 
 type UnknownGapSection = LibGaf.Reader.Mapping.BaseSection<'unknown-gap', LibGaf.Reader.Mapping.RawBytes>;

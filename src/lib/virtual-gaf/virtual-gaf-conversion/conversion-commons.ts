@@ -1,6 +1,6 @@
 import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { BaseVirtualGafFrameData, VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export namespace ConversionCommons {
   export function makeBaseFrameData(srcFrameData: LibGaf.GafFrameData): BaseVirtualGafFrameData {

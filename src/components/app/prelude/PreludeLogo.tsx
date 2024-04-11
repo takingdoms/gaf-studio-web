@@ -1,3 +1,5 @@
+import version from '@/version';
+
 export default function PreludeLogo() {
   return (
     <div className="flex flex-col p-4">
@@ -5,7 +7,7 @@ export default function PreludeLogo() {
         Gaf Studio Web
       </div>
       <div className="text-right text-xs text-slate-400 font-bold">
-        v0.0.0
+        v{version}
       </div>
     </div>
   );

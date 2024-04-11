@@ -1,6 +1,6 @@
 import { Result } from "@/lib/utils/result";
 import { VirtualGafPairResultError } from "@/lib/virtual-gaf/virtual-gaf-conversion";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 import { StrictOmit } from "ts-essentials";
 
 type CompError = StrictOmit<VirtualGafPairResultError, 'path' | 'message'>;

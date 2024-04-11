@@ -1,6 +1,6 @@
 import { VirtualEntry, VirtualFrame, VirtualFrameDataSingleLayer, VirtualFrameDataMultiLayer, BaseVirtualGafFrameData, VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
 import { ConversionCommons } from "@/lib/virtual-gaf/virtual-gaf-conversion/conversion-commons";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export abstract class VirtualGafMakerHelper<
   TInput extends 'gaf' | 'taf',

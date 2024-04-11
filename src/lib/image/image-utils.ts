@@ -1,4 +1,4 @@
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 import * as png from '@stevebel/png';
 
 export namespace ImageUtils {

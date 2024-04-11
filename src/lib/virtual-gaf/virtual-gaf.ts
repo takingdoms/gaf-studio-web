@@ -1,6 +1,6 @@
 import { PalettedImageResource, ColoredImageResource } from '@/lib/image/image-resource';
 import { MainFormat } from '@/lib/main-format';
-import LibGaf from 'lib-gaf';
+import LibGaf from '@takingdoms/lib-gaf';
 
 export type VirtualGaf<T extends MainFormat = MainFormat> = {
   readonly entries: readonly VirtualEntry<T>[];

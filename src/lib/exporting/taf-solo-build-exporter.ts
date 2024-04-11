@@ -4,7 +4,7 @@ import { TafSoloBuildValidator } from "@/lib/exporting/validator/impl/taf-solo-b
 import { TafSubFormat } from "@/lib/main-format";
 import { Result } from "@/lib/utils/result";
 import { VirtualGaf } from "@/lib/virtual-gaf/virtual-gaf";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export class TafSoloBuildExporter implements BuildExporter<'taf-solo'> {
   constructor(private readonly subFormat: TafSubFormat) {}

@@ -4,7 +4,7 @@ import { WorkspaceState } from "@/lib/state/workspace/workspace-state";
 import { ArrayUtils } from "@/lib/utils/array-utils";
 import { ObjectUtils } from "@/lib/utils/object-utils";
 import { VirtualEntry, VirtualFrame, VirtualFrameDataMultiLayer } from "@/lib/virtual-gaf/virtual-gaf";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 import { Writable } from "ts-essentials";
 import { StateCreator } from "zustand";
 

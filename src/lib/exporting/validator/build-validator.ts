@@ -4,7 +4,7 @@ import { MainFormat } from "@/lib/main-format";
 import { Result } from "@/lib/utils/result";
 import { GafValidation } from "@/lib/validation/gaf-validation";
 import { BaseVirtualGafFrameData, VirtualEntry, VirtualFrame, VirtualFrameData, VirtualFrameDataMultiLayer, VirtualFrameDataSingleLayer, VirtualGaf } from "@/lib/virtual-gaf/virtual-gaf";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 const Consts = LibGaf.Constants;
 

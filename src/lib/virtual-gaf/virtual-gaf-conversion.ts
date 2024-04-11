@@ -1,6 +1,6 @@
 import { Result } from "@/lib/utils/result";
 import { VirtualGaf } from "@/lib/virtual-gaf/virtual-gaf";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export type VirtualGafMakerForGafWrapper = {
   readonly makeVirtualGaf: (source: LibGaf.GafResult<'gaf'>) => VirtualGaf<'gaf'>;
