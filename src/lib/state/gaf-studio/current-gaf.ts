@@ -1,7 +1,7 @@
 import { MainFormat } from '@/lib/main-format';
 import { ReadonlyUint8Array } from '@/lib/utils/utility-types';
 import { VirtualGaf } from '@/lib/virtual-gaf/virtual-gaf';
-import LibGaf from 'lib-gaf';
+import LibGaf from '@takingdoms/lib-gaf';
 
 export type CurrentGaf<T extends MainFormat = MainFormat> =
   | CurrentGafFromFile<T>

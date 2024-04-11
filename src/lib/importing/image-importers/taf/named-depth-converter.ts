@@ -1,4 +1,4 @@
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export type NamedDepthConverter<TIn extends LibGaf.BitDepth, TOut extends LibGaf.BitDepth> = {
   id: string;

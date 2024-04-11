@@ -1,5 +1,5 @@
 import { ReadonlyUint8Array } from "@/lib/utils/utility-types";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export type ActualImage = ImageData;
 

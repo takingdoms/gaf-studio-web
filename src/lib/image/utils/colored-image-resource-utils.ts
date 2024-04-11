@@ -1,6 +1,6 @@
 import { ColoredImageResource } from "@/lib/image/image-resource";
 import { SimpleImageCompiler } from "@/lib/image/compiler/simple-image-compiler";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 /**
  * The main use for this is when importing external image files (such as .pngs or .jpgs)

@@ -4,7 +4,7 @@ import { PaletteUtils } from "@/lib/image/palette/palette-utils";
 import { BaseVirtualGafFrameData, VirtualGaf, VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
 import { VirtualGafMakerForGafWrapper } from "@/lib/virtual-gaf/virtual-gaf-conversion";
 import { VirtualGafMakerHelper } from "@/lib/virtual-gaf/virtual-gaf-conversion/virtual-gaf-maker-helper";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export class VirtualGafMakerForGaf extends VirtualGafMakerHelper<'gaf', 'gaf'>
   implements VirtualGafMakerForGafWrapper

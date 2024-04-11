@@ -1,5 +1,5 @@
 import { TafSubFormat } from '@/lib/main-format';
-import LibGaf from 'lib-gaf';
+import LibGaf from '@takingdoms/lib-gaf';
 
 export type DetectedFormat = {
   readonly mainFormat: 'gaf';

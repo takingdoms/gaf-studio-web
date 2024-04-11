@@ -4,7 +4,7 @@ import { TafPairBuildValidator } from "@/lib/exporting/validator/impl/taf-pair-b
 import { ValidatedGafFrameData, ValidatedGafFrameDataSingleLayer, ValidatedGafResult } from "@/lib/exporting/validator/validated-gaf";
 import { Result } from "@/lib/utils/result";
 import { VirtualGaf } from "@/lib/virtual-gaf/virtual-gaf";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export class TafPairBuildExporter implements BuildExporter<'taf-pair'> {
   export(

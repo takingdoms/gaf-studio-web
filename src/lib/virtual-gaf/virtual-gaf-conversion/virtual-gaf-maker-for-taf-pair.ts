@@ -5,7 +5,7 @@ import { GafComparator } from "@/lib/virtual-gaf/utils/gaf-comparator";
 import { VirtualEntry, VirtualFrame, VirtualFrameData, VirtualFrameDataMultiLayer, VirtualFrameDataSingleLayer } from "@/lib/virtual-gaf/virtual-gaf";
 import { VirtualGafMakerForTafPairWrapper, VirtualGafPairResult, VirtualGafPairResultError, VirtualGafPairResultErrorPath } from "@/lib/virtual-gaf/virtual-gaf-conversion";
 import { ConversionCommons } from "@/lib/virtual-gaf/virtual-gaf-conversion/conversion-commons";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapper
 {

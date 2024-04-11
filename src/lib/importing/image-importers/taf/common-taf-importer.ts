@@ -4,7 +4,7 @@ import { ColoredImageResource } from "@/lib/image/image-resource";
 import { TafImageImporter, TafImageImporterConfig, TafImporterResult } from "@/lib/importing/image-importers/taf/taf-image-importer";
 import { TafSubFormat, TafSubFormatToColorDataFormat } from "@/lib/main-format";
 import { ConversionCommons } from "@/lib/virtual-gaf/virtual-gaf-conversion/conversion-commons";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 const imageCompiler = new SimpleImageCompiler();
 

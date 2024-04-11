@@ -1,5 +1,5 @@
 import { Replace } from "@/lib/utils/utility-types";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 /*
   These types exist to thinly wrap the LibGaf result tree with a type tree that ultimately leads

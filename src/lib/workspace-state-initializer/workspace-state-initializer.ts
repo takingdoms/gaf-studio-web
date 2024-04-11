@@ -8,7 +8,7 @@ import { VirtualGafMakerForGaf } from "@/lib/virtual-gaf/virtual-gaf-conversion/
 import { VirtualGafMakerForTafPair } from "@/lib/virtual-gaf/virtual-gaf-conversion/virtual-gaf-maker-for-taf-pair";
 import { VirtualGafMakerForTafSolo } from "@/lib/virtual-gaf/virtual-gaf-conversion/virtual-gaf-maker-for-taf-solo";
 import { WorkspaceInitError, WorkspaceInitResult, WorkspaceInitResultSuccess } from "@/lib/workspace-state-initializer/workspace-init-result";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export namespace WorkspaceStateInitializer {
   const imageCompiler = new SimpleImageCompiler();

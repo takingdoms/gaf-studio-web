@@ -1,6 +1,6 @@
 import { ImageCompiler } from "@/lib/image/compiler/image-compiler";
 import { ActualImage } from "@/lib/image/image-resource";
-import LibGaf from "lib-gaf";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export class SimpleImageCompiler implements ImageCompiler {
   compileImage(
