@@ -1,3 +1,5 @@
+import config from "@/config";
+
 export const CANVAS_BG_OPTIONS = [
   'white',
   'black',
@@ -20,8 +22,10 @@ export const PRE_LOAD_IMAGE_BGS = () => {
   CANVAS_BG_OPTIONS.forEach(bg => {
     if (bg.startsWith('url("') && bg.endsWith('")')) {
       const imageUrl = bg.slice(5, -2); // Extract the URL inside url("")
+      const absoluteUrl = `${config.baseUrl}/${imageUrl}`; // Prepend base URL
+
       const image = new Image();
-      image.src = imageUrl;
+      image.src = absoluteUrl;
     }
   });
 };

@@ -1,4 +1,4 @@
-import version from '@/version';
+import config from '@/config';
 
 export default function PreludeLogo() {
   return (
@@ -7,7 +7,7 @@ export default function PreludeLogo() {
         Gaf Studio Web
       </div>
       <div className="text-right text-xs text-slate-400 font-bold">
-        v{version}
+        v{config.version}
       </div>
     </div>
   );
