@@ -1,4 +1,4 @@
-import { IconAlertTriangle, IconArrowDown, IconArrowFork, IconArrowRight, IconBoxMultiple, IconCaretDown, IconCaretUp, IconCheck, IconCircle, IconCircleCaretDown, IconCircleCaretUp, IconCircleCheck, IconCircleDot, IconCircleOff, IconCirclePlus, IconCircleX, IconDeviceFloppy, IconDownload, IconExclamationCircle, IconFile, IconFolderOpen, IconHelp, IconInfoCircle, IconMinus, IconPackageExport, IconPencil, IconPhotoCancel, IconPhotoCheck, IconPhotoDown, IconPlayerSkipBack, IconPlayerSkipForward, IconPlayerTrackNext, IconPlus, IconRefresh, IconSettings, IconSquareNumber1, IconStack, IconTrash, IconX, TablerIconsProps } from '@tabler/icons-react';
+import { IconAlertTriangle, IconArrowDown, IconArrowFork, IconArrowRight, IconBoxMultiple, IconCaretDown, IconCaretUp, IconCheck, IconCircle, IconCircleCaretDown, IconCircleCaretUp, IconCircleCheck, IconCircleDot, IconCircleOff, IconCirclePlus, IconCircleX, IconDeviceFloppy, IconDownload, IconExclamationCircle, IconFile, IconFolderOpen, IconHelp, IconInfoCircle, IconMinus, IconPackageExport, IconPencil, IconPhotoCancel, IconPhotoCheck, IconPhotoDown, IconPhotoShare, IconPlayerSkipBack, IconPlayerSkipForward, IconPlayerTrackNext, IconPlus, IconRefresh, IconSettings, IconSquareNumber1, IconStack, IconTrash, IconX, TablerIconsProps } from '@tabler/icons-react';
 
 export type IconProps = TablerIconsProps;
 export type IconFunc = (props: IconProps) => React.ReactNode;
@@ -16,7 +16,8 @@ export const Icons = {
   NewFile: IconFile,
   OpenFile: IconFolderOpen,
   SaveFile: IconDeviceFloppy,
-  Exportfile: IconPackageExport,
+  ExportFile: IconPackageExport,
+  ExportImage: IconPhotoShare,
   CaretUp: IconCaretUp,
   CaretDown: IconCaretDown,
   Options: IconSettings,

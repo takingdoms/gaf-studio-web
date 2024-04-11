@@ -29,7 +29,7 @@ export default function AppSubBarIcons() {
       <AppSubBarSeparator />
 
       <AppSubBarIconButton
-        icon={Icons.Exportfile}
+        icon={Icons.ExportFile}
         label={`Export ${extName}`}
         onClick={exportResult}
       />

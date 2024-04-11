@@ -1,5 +1,5 @@
 import { ActualImage } from "@/lib/image/image-resource";
-import { ColorData } from "../../../../prototype/dist/color";
+import LibGaf from "@takingdoms/lib-gaf";
 
 export type ImageDecoder = {
   readonly supportedFileExts: string[];
@@ -7,7 +7,7 @@ export type ImageDecoder = {
 };
 
 export type DecodedUserImage = {
-  colorData: ColorData<'rgba8888'>;
+  colorData: LibGaf.ColorData<'rgba8888'>;
   image: ActualImage;
   metadata: DecodedImageMetadata;
 };
