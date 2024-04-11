@@ -13,9 +13,15 @@ import React from "react";
 import AppLayout from "./app/layout/AppLayout";
 import { createTafPairWorkspace } from "@/lib/state/workspace/taf-pair/create-taf-pair-workspace";
 import { Provider } from "jotai";
+import { PRE_LOAD_IMAGE_BGS } from "@/lib/state/canvas/canvas-bg-options";
 
 export default function App() {
   const [storeWrapper, setStoreWrapper] = React.useState<WorkspaceStoreWrapper>();
+
+  React.useEffect(() => {
+    // kinda hacky. maybe find a better way
+    PRE_LOAD_IMAGE_BGS();
+  }, []);
 
   const paletteStore = React.useMemo(() => {
     return createTakPaletteStore();

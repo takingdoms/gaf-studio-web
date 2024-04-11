@@ -15,3 +15,13 @@ export const CANVAS_BG_OPTIONS = [
   'url("/images/bg/9e1ac834.JPG")',
   'url("/images/bg/18c8f89c.JPG")',
 ] as const satisfies string[];
+
+export const PRE_LOAD_IMAGE_BGS = () => {
+  CANVAS_BG_OPTIONS.forEach(bg => {
+    if (bg.startsWith('url("') && bg.endsWith('")')) {
+      const imageUrl = bg.slice(5, -2); // Extract the URL inside url("")
+      const image = new Image();
+      image.src = imageUrl;
+    }
+  });
+};
