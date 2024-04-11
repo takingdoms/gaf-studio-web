@@ -6,6 +6,7 @@ type NumberControlInputProps = {
   setValue?: (value: number) => void; // if undefined, the NumberControls is "read-only"
   min?: number;
   max?: number;
+  allowUnsafeIntegers?: boolean;
 };
 
 export default function NumberControlInput({
@@ -13,7 +14,13 @@ export default function NumberControlInput({
   setValue,
   min,
   max,
+  allowUnsafeIntegers,
 }: NumberControlInputProps) {
+  if (!allowUnsafeIntegers) {
+    min ??= Number.MIN_SAFE_INTEGER;
+    max ??= Number.MAX_SAFE_INTEGER;
+  }
+
   const onChange = React.useCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
     ev.preventDefault();
 

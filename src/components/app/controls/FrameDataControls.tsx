@@ -5,6 +5,7 @@ import { AdHocWizardsContext } from '@/lib/react/ad-hoc-wizards-context';
 import { Icons } from '@/lib/react/icons';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
 import { AllowedFrameDataModification } from '@/lib/state/workspace/common/common-workspace-state';
+import { BinaryValidation } from '@/lib/validation/binary-validation';
 import { BaseVirtualGafFrameData } from '@/lib/virtual-gaf/virtual-gaf';
 import React from 'react';
 
@@ -85,6 +86,8 @@ export default function FrameDataControls({
               <NumberControl
                 value={frameData.xOffset}
                 setValue={setXOffset}
+                min={BinaryValidation.MIN_I32}
+                max={BinaryValidation.MAX_I32}
               />
             </td>
           </tr>
@@ -94,6 +97,8 @@ export default function FrameDataControls({
               <NumberControl
                 value={frameData.yOffset}
                 setValue={setYOffset}
+                min={BinaryValidation.MIN_I32}
+                max={BinaryValidation.MAX_I32}
               />
             </td>
           </tr>

@@ -56,5 +56,5 @@
   - [ ] Pre-load all image background resources before the app starts. VERY IMPORTANT!!
   - [ ] Put all "maxWidth: 600" and such that proliferate modal components into a variable
         inside constants.ts
-  - [ ] Limit Int value for frame data offsets Inputs
+  - [x] Limit Int value for frame data offsets Inputs
   - [ ] Limit/validate image dimensions when importing images

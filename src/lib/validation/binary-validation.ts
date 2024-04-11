@@ -1,6 +1,14 @@
 import { ElementOf } from "ts-essentials";
 
 export namespace BinaryValidation {
+  export const MIN_I16 = -32768;
+  export const MAX_I16 = 32767;
+  export const MAX_U16 = 65535;
+
+  export const MIN_I32 = -2147483648;
+  export const MAX_I32 = 2147483647;
+  export const MAX_U32 = 4294967295;
+
   export const INT_TYPES = [
     'u8', 'i8', 'u16', 'i16', 'u32', 'i32',
   ] as const;
@@ -31,34 +39,34 @@ export namespace BinaryValidation {
 
     switch (type) {
       case 'u8':
-          min = 0;
-          max = 255;
-          break;
+        min = 0;
+        max = 255;
+        break;
       case 'i8':
-          min = -128;
-          max = 127;
-          break;
+        min = -128;
+        max = 127;
+        break;
       case 'u16':
-          min = 0;
-          max = 65535;
-          break;
+        min = 0;
+        max = MAX_U16;
+        break;
       case 'i16':
-          min = -32768;
-          max = 32767;
-          break;
+        min = MIN_I16;
+        max = MAX_I16;
+        break;
       case 'u32':
-          min = 0;
-          max = 4294967295;
-          break;
+        min = 0;
+        max = MAX_U32;
+        break;
       case 'i32':
-          min = -2147483648;
-          max = 2147483647;
-          break;
+        min = MIN_I32;
+        max = MAX_I32;
+        break;
       default:
-          throw new Error('Invalid integer type.');
-  }
+        throw new Error('Invalid integer type.');
+    }
 
-  return int >= min && int <= max;
+    return int >= min && int <= max;
   }
 
   // written by ChatGPT
