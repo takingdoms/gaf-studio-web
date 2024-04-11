@@ -15,6 +15,7 @@ export default function EntryListTable() {
     <table className="text-xs text-black">
       <thead className="sticky top-0 bg-white">
         <tr>
+          <th className={`${thCls}`}>#</th>
           <th className={`${thCls} w-full`}>Name</th>
           <th className={`${thCls}`}>Frames</th>
           <th className={`${thCls}`}>Subframes</th>
@@ -50,6 +51,7 @@ export default function EntryListTable() {
                 setActiveEntryIndex(index);
               }}
             >
+              <td className={`${tdCls}`}>{index + 1}</td>
               <td
                 title={entry.name}
                 className={`${tdCls} w-full truncate`}
