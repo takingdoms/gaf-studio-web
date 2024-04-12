@@ -1,10 +1,10 @@
+import ExportImageButton from "@/components/ui/button/ExportImageButton";
 import { DownloadUtils } from "@/lib/downloading/download-utils";
-import { Icons } from "@/lib/react/icons";
 import { useGlobalConfigStore } from "@/lib/state/global-config/global-config-store";
 import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 import { VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
 
-export default function ExportImageButton() {
+export default function ExportCurrentFrame() {
   const { entryIndex, frameIndex, subframeIndex } = S.useCursor();
   const activeEntryName = S.useActiveEntryName();
   const activeFrameFrameData = S.useActiveFrameFrameData();
@@ -22,10 +22,6 @@ export default function ExportImageButton() {
     layerData = activeFrameFrameData.layers[subframeIndex].layerData;
   }
 
-  const cls = layerData === undefined
-    ? 'text-sky-600 opacity-30 cursor-not-allowed'
-    : 'text-sky-600 hover:bg-slate-50';
-
   // TODO put the image file naming logic elsewhere (which can be shared)
   const entryIdx = (entryIndex + 1).toString().padStart(3, '0');
   const frameIdx = (frameIndex + 1).toString().padStart(3, '0');
@@ -41,8 +37,8 @@ export default function ExportImageButton() {
   }
 
   return (
-    <button
-      className={`${cls} flex items-center px-1.5 py-1 text-xs font-semibold rounded-tl rounded-tr`}
+    <ExportImageButton
+      disabled={layerData === undefined}
       onClick={() => {
         if (layerData === undefined) return;
 
@@ -64,12 +60,6 @@ export default function ExportImageButton() {
 
         DownloadUtils.saveImageDataAsPng(image, fileName);
       }}
-    >
-      <Icons.ExportImage
-        className="mr-1"
-        size={16}
-      />
-      Export
-    </button>
-  );
+    />
+  )
 }
