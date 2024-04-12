@@ -94,8 +94,16 @@ namespace WorkspaceHelper {
     return useW((state) => state.commonActions.getActiveEntry());
   }
 
+  export function useActiveEntryName() {
+    return useW((state) => state.commonActions.getActiveEntry()?.name);
+  }
+
   export function useActiveFrame() {
     return useW((state) => state.commonActions.getActiveFrame());
+  }
+
+  export function useActiveFrameFrameData() {
+    return useW((state) => state.commonActions.getActiveFrame()?.frameData);
   }
 
   export function useActiveSubframe() {

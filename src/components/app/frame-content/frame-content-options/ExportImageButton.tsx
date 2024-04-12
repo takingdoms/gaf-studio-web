@@ -6,29 +6,39 @@ import { VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
 
 export default function ExportImageButton() {
   const { entryIndex, frameIndex, subframeIndex } = S.useCursor();
-  const activeFrame = S.useActiveFrame();
+  const activeEntryName = S.useActiveEntryName();
+  const activeFrameFrameData = S.useActiveFrameFrameData();
   const activePairSubFormat = useGlobalConfigStore((state) => state.activePairSubFormat);
 
-  if (entryIndex === null || frameIndex === null) return; // <-- only exists for typing
-  if (activeFrame === null) return;
+  if (entryIndex === null || frameIndex === null || activeEntryName === undefined) return;
+  if (activeFrameFrameData === undefined) return;
 
   let layerData: VirtualLayerData | undefined;
-  let frameData = activeFrame.frameData;
 
-  if (frameData.kind === 'single') {
-    layerData = frameData.layerData;
+  if (activeFrameFrameData.kind === 'single') {
+    layerData = activeFrameFrameData.layerData;
   }
   else if (subframeIndex !== null) {
-    layerData = frameData.layers[subframeIndex].layerData;
+    layerData = activeFrameFrameData.layers[subframeIndex].layerData;
   }
 
   const cls = layerData === undefined
     ? 'text-sky-600 opacity-30 cursor-not-allowed'
     : 'text-sky-600 hover:bg-slate-50';
 
-  const fileName = subframeIndex === null
-    ? `frame_${entryIndex + 1}_${frameIndex + 1}.png`
-    : `frame_${entryIndex + 1}_${frameIndex + 1}_${subframeIndex + 1}.png`;
+  // TODO put the image file naming logic elsewhere (which can be shared)
+  const entryIdx = (entryIndex + 1).toString().padStart(3, '0');
+  const frameIdx = (frameIndex + 1).toString().padStart(3, '0');
+
+  let fileName: string;
+
+  if (subframeIndex === null) {
+    fileName = `${activeEntryName}.${entryIdx}.${frameIdx}.png`;
+  }
+  else {
+    const subframeIdx = (subframeIndex + 1).toString().padStart(3, '0');
+    fileName = `${activeEntryName}.${entryIdx}.${frameIdx}.${subframeIdx}.png`;
+  }
 
   return (
     <button
