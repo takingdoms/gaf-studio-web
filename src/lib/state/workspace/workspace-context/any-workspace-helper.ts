@@ -106,6 +106,10 @@ namespace WorkspaceHelper {
     return useW((state) => state.commonActions.getActiveFrame()?.frameData);
   }
 
+  export function useActiveFrameFrameDataIsMulti() {
+    return useW((state) => state.commonActions.getActiveFrame()?.frameData.kind === 'multi');
+  }
+
   export function useActiveSubframe() {
     return useW((state) => state.commonActions.getActiveSubframe());
   }

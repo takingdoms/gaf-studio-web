@@ -4,7 +4,7 @@ import { useGlobalConfigStore } from "@/lib/state/global-config/global-config-st
 import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 import { VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
 
-export default function ExportCurrentFrame() {
+export default function ExportCurrentImage() {
   const { entryIndex, frameIndex, subframeIndex } = S.useCursor();
   const activeEntryName = S.useActiveEntryName();
   const activeFrameFrameData = S.useActiveFrameFrameData();

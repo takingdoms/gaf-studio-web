@@ -1,5 +1,5 @@
 import ActivePairSubFormatSelector from "@/components/app/frame-content/frame-content-options/ActivePairSubFormatSelector";
-import ExportCurrentFrame from "@/components/app/frame-content/frame-content-options/ExportCurrentFrame";
+import ExportCurrentImage from "@/components/app/frame-content/frame-content-options/ExportCurrentImage";
 import OptionButton from "@/components/app/frame-content/frame-content-options/OptionButton";
 import CanvasControls from "@/components/app/frame-content/frame-content-options/canvas-controls/CanvasControls";
 import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
@@ -18,7 +18,7 @@ export default function FrameContentOptionsDiv() {
       </div>
 
       <div className="flex-1 flex justify-end space-x-2">
-        <ExportCurrentFrame />
+        <ExportCurrentImage />
         <OptionButton />
       </div>
     </div>
