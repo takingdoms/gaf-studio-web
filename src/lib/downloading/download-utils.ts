@@ -52,7 +52,7 @@ export namespace DownloadUtils {
     ctx.putImageData(imageData, 0, 0);
 
     // Convert canvas content to a data URL
-    const dataURL: string | null = canvas.toDataURL('image/png');
+    const dataURL: string | null = canvas.toDataURL('image/png', 1.0);
 
     if (!dataURL) {
       console.error('Failed to convert canvas to data URL');
