@@ -17,7 +17,7 @@ export default function ExportCurrentFrames() {
     <div className="text-xs">
       <TextButton
         label="Export all"
-        onClick={() => exportFrameImages(activeEntryIndex)}
+        onClick={exportFrameImages}
         disabled={activeEntryFramesCount === 0}
       />
     </div>

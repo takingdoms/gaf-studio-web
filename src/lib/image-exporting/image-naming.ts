@@ -3,31 +3,31 @@ export namespace ImageNaming {
     prefix,
     suffix,
     ext,
-    entryName,
-    entryIndex,
+    entryNameOrIndex,
     frameIndex,
     subframeIndex,
   }: {
     prefix?: string;
     suffix?: string;
     ext: string;
-    entryName: string;
-    entryIndex: number;
+    entryNameOrIndex: string | number; // either the name of the entry or its index
     frameIndex: number;
     subframeIndex?: number;
   }): string {
     prefix ??= '';
     suffix ??= '';
 
-    const entryIdx = (entryIndex + 1).toString().padStart(3, '0');
+    const entryStr = typeof entryNameOrIndex === 'number'
+      ? (entryNameOrIndex + 1).toString().padStart(3, '0')
+      : entryNameOrIndex;
     const frameIdx = (frameIndex + 1).toString().padStart(3, '0');
 
     if (subframeIndex === undefined) {
-      return `${prefix}${entryName}.${entryIdx}.${frameIdx}${suffix}.${ext}`;
+      return `${prefix}${entryStr}.${frameIdx}${suffix}.${ext}`;
     }
     else {
       const subframeIdx = (subframeIndex + 1).toString().padStart(3, '0');
-      return `${prefix}${entryName}.${entryIdx}.${frameIdx}.${subframeIdx}${suffix}.${ext}`;
+      return `${prefix}${entryStr}.${frameIdx}.${subframeIdx}${suffix}.${ext}`;
     }
   }
 }

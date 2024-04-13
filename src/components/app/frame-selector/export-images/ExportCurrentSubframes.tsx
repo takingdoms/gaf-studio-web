@@ -4,13 +4,12 @@ import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper"
 import React from "react";
 
 export default function ExportCurrentSubframes() {
-  const activeEntryIndex = S.useActiveEntryIndex();
   const activeFrameIndex = S.useActiveFrameIndex();
   const activeFrameSubframesCount = S.useActiveFrameSubframesCount();
 
   const { exportFrameImages } = React.useContext(AdHocWizardsContext);
 
-  if (activeEntryIndex === null || activeFrameIndex === null) {
+  if (activeFrameIndex === null) {
     return;
   }
 
@@ -18,7 +17,7 @@ export default function ExportCurrentSubframes() {
     <div className="text-xs">
       <TextButton
         label="Export all"
-        onClick={() => exportFrameImages(activeEntryIndex, activeFrameIndex)}
+        onClick={() => exportFrameImages(activeFrameIndex)}
         disabled={activeFrameSubframesCount === undefined || activeFrameSubframesCount === 0}
       />
     </div>

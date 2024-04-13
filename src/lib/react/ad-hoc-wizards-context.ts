@@ -16,7 +16,7 @@ export type AdHocWizards = {
   replaceActiveFrameData: () => void;
   changeFrameDataUnknown2: (target: 'active-frame' | 'active-subframe') => void;
   changeFrameDataUnknown3: (target: 'active-frame' | 'active-subframe') => void;
-  exportFrameImages: (entryIndex: number, frameIndex?: number) => void;
+  exportFrameImages: (frameIndex?: number) => void;
   exportEveryImage: () => void;
 };
 

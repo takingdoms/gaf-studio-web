@@ -170,12 +170,11 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     });
   };
 
-  const exportFrameImages = (entryIndex: number, frameIndex?: number) => {
+  const exportFrameImages = (frameIndex?: number) => {
     const { close } = modal.pushModal({
       title: `Export ${frameIndex === undefined ? 'frames' : 'subframes'}`,
       body: (
         <ExportFrameImagesModal
-          entryIndex={entryIndex}
           frameIndex={frameIndex}
           close={() => close()}
         />

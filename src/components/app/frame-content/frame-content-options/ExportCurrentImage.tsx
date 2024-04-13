@@ -25,8 +25,7 @@ export default function ExportCurrentImage() {
 
   const fileName = ImageNaming.nameFrameOrSubframe({
     ext: 'png',
-    entryName: activeEntryName,
-    entryIndex,
+    entryNameOrIndex: activeEntryName,
     frameIndex,
     subframeIndex: subframeIndex ?? undefined,
   });

@@ -1,15 +1,160 @@
 import { DownloadUtils } from '@/lib/downloading/download-utils';
 import { ImageNaming } from '@/lib/image-exporting/image-naming';
+import { MainFormat, TafSubFormat } from '@/lib/main-format';
+import { VirtualFrame, VirtualFrameDataMultiLayer, VirtualFrameDataSingleLayer, VirtualLayerData } from '@/lib/virtual-gaf/virtual-gaf';
 import { downloadZip } from 'client-zip';
 
 export namespace ImageExporter {
   export type Item = {
     readonly image: ImageData;
     readonly entryName: string;
-    readonly entryIndex: number;
     readonly frameIndex: number;
     readonly subframeIndex?: number;
   };
+
+  export function framesToItems({
+    entryName,
+    frames,
+    frameIndex,
+    format,
+    activePairSubFormat,
+  }: {
+    entryName: string;
+    frames: readonly VirtualFrame[];
+    frameIndex?: number; // when used; will export only its subframes
+    format: MainFormat;
+    activePairSubFormat: TafSubFormat;
+  }): Item[] {
+    const items: ImageExporter.Item[] = [];
+
+    if (frameIndex === undefined) {
+      frames.forEach((frame, nextFrameIndex) => {
+        const next = frameToItem({
+          entryName,
+          frame,
+          frameIndex: nextFrameIndex,
+          format,
+          activePairSubFormat,
+        });
+
+        if (Array.isArray(next)) {
+          items.push(...next);
+        } else {
+          items.push(next);
+        }
+      });
+    }
+    else {
+      const frame = frames[frameIndex];
+
+      if (frame.frameData.kind === 'single') {
+        throw new Error(`Active frame lacks subframes!`);
+      }
+
+      const subItems = subframesToItems({
+        entryName,
+        frameData: frame.frameData,
+        frameIndex,
+        format,
+        activePairSubFormat,
+      });
+
+      items.push(...subItems);
+    }
+
+    return items;
+  }
+
+  export function subframesToItems({
+    entryName,
+    frameData,
+    frameIndex,
+    format,
+    activePairSubFormat,
+  }: {
+    entryName: string;
+    frameData: VirtualFrameDataMultiLayer;
+    frameIndex: number;
+    format: MainFormat;
+    activePairSubFormat: TafSubFormat;
+  }): Item[] {
+    const items: Item[] = [];
+
+    frameData.layers.forEach((subframe, nextSubframeIndex) => {
+      const base = {
+        entryName: entryName,
+        frameIndex,
+        subframeIndex: nextSubframeIndex,
+      } satisfies Partial<ImageExporter.Item>;
+
+      const image = imageDataFromLayerData(subframe.layerData, format, activePairSubFormat);
+
+      items.push({
+        ...base,
+        image,
+      });
+    });
+
+    return items;
+  }
+
+  export function frameToItem({
+    frame,
+    entryName,
+    frameIndex,
+    format,
+    activePairSubFormat,
+  }: {
+    frame: VirtualFrame;
+    entryName: string;
+    frameIndex: number;
+    format: MainFormat;
+    activePairSubFormat: TafSubFormat;
+  }): Item | Item[] {
+    const base = {
+      // entryIndex,
+      entryName: entryName,
+      frameIndex,
+    } satisfies Partial<ImageExporter.Item>;
+
+    let subframeIndex: number | undefined;
+    let layer: VirtualFrameDataSingleLayer;
+
+    if (frame.frameData.kind === 'single') {
+      layer = frame.frameData;
+    } else {
+      return subframesToItems({
+        frameData: frame.frameData,
+        entryName,
+        frameIndex,
+        format,
+        activePairSubFormat,
+      });
+    }
+
+    const image = imageDataFromLayerData(layer.layerData, format, activePairSubFormat);
+
+    return {
+      ...base,
+      image,
+      subframeIndex,
+    };
+  }
+
+  function imageDataFromLayerData(
+    layerData: VirtualLayerData,
+    format: MainFormat,
+    activePairSubFormat: TafSubFormat,
+  ): ImageData {
+    if (format === 'taf-pair') {
+      return (layerData as VirtualLayerData<'taf-pair'>)[
+        activePairSubFormat === 'taf_1555' ? 'imageResource1555' : 'imageResource4444'
+      ].compiledImage;
+    }
+    else {
+      return (layerData as VirtualLayerData<'gaf' | 'taf-solo'>).imageResource.compiledImage;
+    }
+  }
 
   export async function exportFramesAsDownloadableZip(
     items: Item[],
@@ -33,8 +178,7 @@ export namespace ImageExporter {
       const name = ImageNaming.nameFrameOrSubframe({
         suffix: itemBlob.blob === null ? ' (error)' : undefined,
         ext: 'png',
-        entryName: itemBlob.item.entryName,
-        entryIndex: itemBlob.item.entryIndex,
+        entryNameOrIndex: itemBlob.item.entryName,
         frameIndex: itemBlob.item.frameIndex,
         subframeIndex: itemBlob.item.subframeIndex,
       });
