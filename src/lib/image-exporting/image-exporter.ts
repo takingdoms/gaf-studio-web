@@ -30,14 +30,14 @@ export namespace ImageExporter {
     const empty = new Uint8Array([]);
 
     const blob = await downloadZip(itemBlobs.map((itemBlob) => {
-      const name = ImageNaming.nameFrameOrSubframe(
-        '',
-        'png',
-        itemBlob.item.entryName,
-        itemBlob.item.entryIndex,
-        itemBlob.item.frameIndex,
-        itemBlob.item.subframeIndex,
-      );
+      const name = ImageNaming.nameFrameOrSubframe({
+        suffix: itemBlob.blob === null ? ' (error)' : undefined,
+        ext: 'png',
+        entryName: itemBlob.item.entryName,
+        entryIndex: itemBlob.item.entryIndex,
+        frameIndex: itemBlob.item.frameIndex,
+        subframeIndex: itemBlob.item.subframeIndex,
+      });
 
       return {
         name,

@@ -23,14 +23,13 @@ export default function ExportCurrentImage() {
     layerData = activeFrameFrameData.layers[subframeIndex].layerData;
   }
 
-  const fileName = ImageNaming.nameFrameOrSubframe(
-    '',
-    'png',
-    activeEntryName,
+  const fileName = ImageNaming.nameFrameOrSubframe({
+    ext: 'png',
+    entryName: activeEntryName,
     entryIndex,
     frameIndex,
-    subframeIndex ?? undefined,
-  );
+    subframeIndex: subframeIndex ?? undefined,
+  });
 
   return (
     <ExportImageButton
