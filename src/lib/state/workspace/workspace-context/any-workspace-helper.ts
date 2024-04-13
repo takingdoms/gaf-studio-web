@@ -94,12 +94,26 @@ namespace WorkspaceHelper {
     return useW((state) => state.commonActions.getActiveEntry());
   }
 
+  export function useActiveEntryFramesCount() {
+    return useW((state) => state.commonActions.getActiveEntry()?.frames.length);
+  }
+
   export function useActiveEntryName() {
     return useW((state) => state.commonActions.getActiveEntry()?.name);
   }
 
   export function useActiveFrame() {
     return useW((state) => state.commonActions.getActiveFrame());
+  }
+
+  export function useActiveFrameSubframesCount() {
+    return useW((state) => {
+      const frame = state.commonActions.getActiveFrame();
+      if (frame === null || frame.frameData.kind === 'single')  {
+        return undefined;
+      }
+      return frame.frameData.layers.length;
+    });
   }
 
   export function useActiveFrameFrameData() {

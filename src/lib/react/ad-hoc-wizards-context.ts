@@ -16,11 +16,15 @@ export type AdHocWizards = {
   replaceActiveFrameData: () => void;
   changeFrameDataUnknown2: (target: 'active-frame' | 'active-subframe') => void;
   changeFrameDataUnknown3: (target: 'active-frame' | 'active-subframe') => void;
+  exportFrameImages: (entryIndex: number, frameIndex?: number) => void;
+  exportEveryImage: () => void;
 };
 
 const doNothing = () => {};
 
 export const AdHocWizardsContext = React.createContext<AdHocWizards>({
+  // \/ ...lol... (TODO just use undefined!)
+
   createNewProject: doNothing,
   openAnyFile: doNothing,
   exportResult: doNothing,
@@ -36,4 +40,6 @@ export const AdHocWizardsContext = React.createContext<AdHocWizards>({
   replaceActiveFrameData: doNothing,
   changeFrameDataUnknown2: doNothing,
   changeFrameDataUnknown3: doNothing,
+  exportFrameImages: doNothing,
+  exportEveryImage: doNothing,
 });

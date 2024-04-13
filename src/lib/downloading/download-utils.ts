@@ -1,17 +1,25 @@
 export namespace DownloadUtils {
   export type Downloadable = {
+    fileName: string;
     download: () => void;
     revoke: () => void; // ALWAYS REMEMBER TO CALL THE REVOKE FUNCTION!
   };
 
-  export function createDownloadable(data: Uint8Array, fileName: string): Downloadable {
-    const blob = new Blob([data], {
-      type: 'application/octet-stream',
-    });
+  export function createDownloadable(data: Uint8Array | Blob, fileName: string): Downloadable {
+    let blob: Blob;
+
+    if (data instanceof Uint8Array) {
+      blob = new Blob([data], {
+        type: 'application/octet-stream',
+      });
+    } else {
+      blob = data;
+    }
 
     const url = window.URL.createObjectURL(blob);
 
     return {
+      fileName,
       download: () => downloadUrl(url, fileName),
       revoke: () => window.URL.revokeObjectURL(url),
     };

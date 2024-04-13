@@ -5,8 +5,9 @@ import DeleteSubframeModal from '@/components/app/deleter/DeleteSubframeModal';
 import CreateEntryModal from '@/components/app/entry/CreateEntryModal';
 import DeleteEntryModal from '@/components/app/entry/DeleteEntryModal';
 import RenameEntryModal from '@/components/app/entry/RenameEntryModal';
-import Export from '@/components/app/exporter/Export';
 import ExportModal from '@/components/app/exporter/ExportModal';
+import ExportEveryImageModal from '@/components/app/image-exporter/ExportEveryImageModal';
+import ExportFrameImagesModal from '@/components/app/image-exporter/ExportFrameImagesModal';
 import ImportModal from '@/components/app/importer/ImportModal';
 import ReplaceModal from '@/components/app/importer/ReplaceModal';
 import ChangeFrameDataUnknownModal from '@/components/app/other-modals/ChangeFrameDataUnknownModal';
@@ -162,6 +163,27 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     });
   };
 
+  const exportEveryImage = () => {
+    const { close } = modal.pushModal({
+      title: 'Export every image',
+      body: <ExportEveryImageModal close={() => close()} />,
+    });
+  };
+
+  const exportFrameImages = (entryIndex: number, frameIndex?: number) => {
+    const { close } = modal.pushModal({
+      title: `Export ${frameIndex === undefined ? 'frames' : 'subframes'}`,
+      body: (
+        <ExportFrameImagesModal
+          entryIndex={entryIndex}
+          frameIndex={frameIndex}
+          close={() => close()}
+        />
+      ),
+      disableBackgroundClose: true,
+    });
+  };
+
   const adHocWizards: AdHocWizards = {
     createNewProject,
     openAnyFile,
@@ -178,6 +200,8 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     replaceActiveFrameData,
     changeFrameDataUnknown2,
     changeFrameDataUnknown3,
+    exportEveryImage,
+    exportFrameImages,
   };
 
   return (

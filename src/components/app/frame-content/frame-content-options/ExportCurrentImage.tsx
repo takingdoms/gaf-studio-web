@@ -1,5 +1,6 @@
 import ExportImageButton from "@/components/ui/button/ExportImageButton";
 import { DownloadUtils } from "@/lib/downloading/download-utils";
+import { ImageNaming } from "@/lib/image-exporting/image-naming";
 import { useGlobalConfigStore } from "@/lib/state/global-config/global-config-store";
 import { S } from "@/lib/state/workspace/workspace-context/any-workspace-helper";
 import { VirtualLayerData } from "@/lib/virtual-gaf/virtual-gaf";
@@ -22,19 +23,14 @@ export default function ExportCurrentImage() {
     layerData = activeFrameFrameData.layers[subframeIndex].layerData;
   }
 
-  // TODO put the image file naming logic elsewhere (which can be shared)
-  const entryIdx = (entryIndex + 1).toString().padStart(3, '0');
-  const frameIdx = (frameIndex + 1).toString().padStart(3, '0');
-
-  let fileName: string;
-
-  if (subframeIndex === null) {
-    fileName = `${activeEntryName}.${entryIdx}.${frameIdx}.png`;
-  }
-  else {
-    const subframeIdx = (subframeIndex + 1).toString().padStart(3, '0');
-    fileName = `${activeEntryName}.${entryIdx}.${frameIdx}.${subframeIdx}.png`;
-  }
+  const fileName = ImageNaming.nameFrameOrSubframe(
+    '',
+    'png',
+    activeEntryName,
+    entryIndex,
+    frameIndex,
+    subframeIndex ?? undefined,
+  );
 
   return (
     <ExportImageButton
