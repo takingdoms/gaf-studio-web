@@ -112,16 +112,16 @@ export default function ExportWizard<T extends MainFormat>({
   /// null = download both (when taf-pair) or the only one (when taf-solo or gaf)
   const onClickDownload = React.useCallback((target: DownloadTarget | null) => {
     if (exporterResult === undefined || exporterResult.kind === 'err') {
-      console.error(exporterResult?.error);
+      console.error(exporterResult?.err);
       throw new Error(`Cannot download.`);
     }
 
     if (writerResult === undefined || writerResult.kind === 'err') {
-      console.error(writerResult?.error);
+      console.error(writerResult?.err);
       throw new Error(`Cannot download.`);
     }
 
-    doDownload(exporterResult.result, writerResult.result, target);
+    doDownload(exporterResult.ok, writerResult.ok, target);
   }, [exporterResult, writerResult, doDownload]);
 
   const doWrite = React.useCallback((exporterResult: BuildExportResult<T>) => {
@@ -142,11 +142,11 @@ export default function ExportWizard<T extends MainFormat>({
           return;
         }
 
-        const actualWriterResult = result.result as WriterResult<T>;
+        const actualWriterResult = result.ok as WriterResult<T>;
 
         setWriterResult({
           kind: 'ok',
-          result: actualWriterResult,
+          ok: actualWriterResult,
         });
 
         if (exporterResult.nonFatalErrors.length === 0) {
@@ -173,7 +173,7 @@ export default function ExportWizard<T extends MainFormat>({
         setExporterResult(result);
 
         if (result.kind === 'ok') {
-          doWrite(result.result);
+          doWrite(result.ok);
         }
       })
       .catch((err) => {
@@ -205,7 +205,7 @@ export default function ExportWizard<T extends MainFormat>({
       <ImportBackground>
         <ImportContent>
           <ExportResultFatalError
-            error={exporterResult.error}
+            error={exporterResult.err}
             onAbort={onAbort}
           />
         </ImportContent>
@@ -226,7 +226,7 @@ export default function ExportWizard<T extends MainFormat>({
       <ModalPadding>
         <div className="mb-1">An error occured while writing the file(s) buffer(s) using LibGaf.</div>
         <div className="text-xs font-mono">
-          {writerResult.error.errorMsg}
+          {writerResult.err.errorMsg}
         </div>
       </ModalPadding>
     );
@@ -236,7 +236,7 @@ export default function ExportWizard<T extends MainFormat>({
     <ImportBackground>
       <ImportContent>
         <ExportResult
-          exporterResult={exporterResult.result}
+          exporterResult={exporterResult.ok}
           onDownload={onClickDownload}
         />
       </ImportContent>

@@ -18,7 +18,7 @@ export class GafBuildValidator extends BuildValidator<'gaf', 'gaf', 'solo'> {
 
       return {
         kind: 'err',
-        error: { path, message, nonFatalErrors: mutErrors },
+        err: { path, message, nonFatalErrors: mutErrors },
       };
     }
 
@@ -28,7 +28,7 @@ export class GafBuildValidator extends BuildValidator<'gaf', 'gaf', 'solo'> {
       if (next < 0 || next > 255) {
         return {
           kind: 'err',
-          error: {
+          err: {
             path,
             message: `Invalid byte "${next}" at index ${i} of the palette.`,
             nonFatalErrors: mutErrors,
@@ -39,7 +39,7 @@ export class GafBuildValidator extends BuildValidator<'gaf', 'gaf', 'solo'> {
 
     return {
       kind: 'ok',
-      result: {
+      ok: {
         kind: 'palette-idx',
         decompressed: virtualFrameData.layerData.compress,
         indices,

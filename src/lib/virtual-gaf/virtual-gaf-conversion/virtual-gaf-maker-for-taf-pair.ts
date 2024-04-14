@@ -29,9 +29,9 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
 
     return {
       kind: 'ok',
-      result: {
+      ok: {
         virtualGaf: {
-          entries: entriesResult.result,
+          entries: entriesResult.ok,
         },
       },
     };
@@ -44,7 +44,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
     if (srcEntries1555.length !== srcEntries4444.length) {
       return {
         kind: 'err',
-        error: {
+        err: {
           valueName: `Number of sequences`,
           value1555: srcEntries1555.length,
           value4444: srcEntries4444.length,
@@ -64,7 +64,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
       if (compEntries.kind === 'err') {
         return {
           kind: 'err',
-          error: { ...compEntries.error, path: entryPath },
+          err: { ...compEntries.err, path: entryPath },
         };
       }
 
@@ -78,13 +78,13 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
         name: nextEntry1555.name,
         unknown1: nextEntry1555.unknown1,
         unknown2: nextEntry4444.unknown2,
-        frames: framesResult.result,
+        frames: framesResult.ok,
       });
     }
 
     return {
       kind: 'ok',
-      result: virtualEntries,
+      ok: virtualEntries,
     };
   }
 
@@ -96,7 +96,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
     if (srcFrames1555.length !== srcFrames4444.length) {
       return {
         kind: 'err',
-        error: {
+        err: {
           valueName: `Number of frames`,
           value1555: srcFrames1555.length,
           value4444: srcFrames4444.length,
@@ -117,7 +117,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
       if (compFrames.kind === 'err') {
         return {
           kind: 'err',
-          error: { ...compFrames.error, path: framePath },
+          err: { ...compFrames.err, path: framePath },
         };
       }
 
@@ -133,13 +133,13 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
 
       virtualFrames.push({
         duration: nextFrame1555.duration,
-        frameData: frameDataResult.result,
+        frameData: frameDataResult.ok,
       });
     }
 
     return {
       kind: 'ok',
-      result: virtualFrames,
+      ok: virtualFrames,
     };
   }
 
@@ -152,7 +152,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
       if (srcFrameData4444.kind !== 'single') {
         return {
           kind: 'err',
-          error: {
+          err: {
             valueName: 'Kind of frameData',
             value1555: 'Single',
             value4444: 'Multi',
@@ -167,7 +167,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
     if (srcFrameData4444.kind !== 'multi') {
       return {
         kind: 'err',
-        error: {
+        err: {
           valueName: 'Kind of frameData',
           value1555: 'Multi',
           value4444: 'Single',
@@ -192,7 +192,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
     if (compBaseFrameDatas.kind === 'err') {
       return {
         kind: 'err',
-        error: { ...compBaseFrameDatas.error, path: framePath },
+        err: { ...compBaseFrameDatas.err, path: framePath },
       };
     }
 
@@ -213,7 +213,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
       },
     };
 
-    return { kind: 'ok', result: frameDataResult };
+    return { kind: 'ok', ok: frameDataResult };
   }
 
   private makeFrameDataMulti(
@@ -229,14 +229,14 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
     if (compBaseFrameDatas.kind === 'err') {
       return {
         kind: 'err',
-        error: { ...compBaseFrameDatas.error, path: framePath },
+        err: { ...compBaseFrameDatas.err, path: framePath },
       };
     }
 
     if (srcFrameData1555.layers.length !== srcFrameData4444.layers.length) {
       return {
         kind: 'err',
-        error: {
+        err: {
           valueName: `Number of subframes`,
           value1555: srcFrameData1555.layers.length,
           value4444: srcFrameData4444.layers.length,
@@ -262,7 +262,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
         return subframeResult;
       }
 
-      virtualLayers.push(subframeResult.result);
+      virtualLayers.push(subframeResult.ok);
     }
 
     const virtualFrameData: VirtualFrameDataMultiLayer<'taf-pair'> = {
@@ -271,7 +271,7 @@ export class VirtualGafMakerForTafPair implements VirtualGafMakerForTafPairWrapp
       layers: virtualLayers,
     };
 
-    return { kind: 'ok', result: virtualFrameData };
+    return { kind: 'ok', ok: virtualFrameData };
   }
 
   private compileImageResource<T extends 'argb1555' | 'argb4444'>(

@@ -15,7 +15,7 @@ export namespace TafImportingFunctions {
         file,
         result: {
           kind: 'err',
-          error: `Couldn't detect mimeType for file name: ${file.name}.`,
+          err: `Couldn't detect mimeType for file name: ${file.name}.`,
         },
       };
     }
@@ -27,7 +27,7 @@ export namespace TafImportingFunctions {
         file,
         result: {
           kind: 'err',
-          error: `Unsupported mimeType: ${mimeType}`,
+          err: `Unsupported mimeType: ${mimeType}`,
         },
       };
     }
@@ -46,7 +46,7 @@ export namespace TafImportingFunctions {
           file,
           result: {
             kind: 'err',
-            error: decodedUserImage.error,
+            err: decodedUserImage.error,
           }
         };
       }
@@ -55,7 +55,7 @@ export namespace TafImportingFunctions {
         file,
         result: {
           kind: 'ok',
-          result: decodedUserImage,
+          ok: decodedUserImage,
         },
       };
     }
@@ -64,7 +64,7 @@ export namespace TafImportingFunctions {
       file,
       result: {
         kind: 'err',
-        error: `No decoder available for file extension: ${ext}`,
+        err: `No decoder available for file extension: ${ext}`,
       },
     };
   }

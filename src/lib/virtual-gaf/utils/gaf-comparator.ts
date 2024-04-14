@@ -30,15 +30,15 @@ export class GafComparator {
     entry2: LibGaf.GafEntry<T>,
   ): Result<null, CompError> {
     const compName = this.compareObjs(entry1, entry2, 'name');
-    if (compName !== null) return { kind: 'err', error: compName };
+    if (compName !== null) return { kind: 'err', err: compName };
 
     const compUnknown1 = this.compareObjs(entry1, entry2, 'unknown1');
-    if (compUnknown1 !== null) return { kind: 'err', error: compUnknown1 };
+    if (compUnknown1 !== null) return { kind: 'err', err: compUnknown1 };
 
     const compUnknown2 = this.compareObjs(entry1, entry2, 'unknown2');
-    if (compUnknown2 !== null) return { kind: 'err', error: compUnknown2 };
+    if (compUnknown2 !== null) return { kind: 'err', err: compUnknown2 };
 
-    return { kind: 'ok', result: null };
+    return { kind: 'ok', ok: null };
   }
 
   compareFrames<T extends LibGaf.GafFormat>(
@@ -46,9 +46,9 @@ export class GafComparator {
     frame2: LibGaf.GafFrame<T>,
   ): Result<null, CompError> {
     const compDuration = this.compareObjs(frame1, frame2, 'duration');
-    if (compDuration !== null) return { kind: 'err', error: compDuration };
+    if (compDuration !== null) return { kind: 'err', err: compDuration };
 
-    return { kind: 'ok', result: null };
+    return { kind: 'ok', ok: null };
   }
 
   compareBaseFrameDatas(
@@ -62,9 +62,9 @@ export class GafComparator {
 
     for (const key of keys) {
       const nextComp = this.compareObjs(frameData1, frameData2, key);
-      if (nextComp !== null) return { kind: 'err', error: nextComp };
+      if (nextComp !== null) return { kind: 'err', err: nextComp };
     }
 
-    return { kind: 'ok', result: null };
+    return { kind: 'ok', ok: null };
   }
 }

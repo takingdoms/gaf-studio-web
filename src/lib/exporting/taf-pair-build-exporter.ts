@@ -18,12 +18,12 @@ export class TafPairBuildExporter implements BuildExporter<'taf-pair'> {
       return validatorResult;
     }
 
-    const { taf1555, taf4444 } = unwrapPair(validatorResult.result.actualResult);
-    const nonFatalErrors = validatorResult.result.errors;
+    const { taf1555, taf4444 } = unwrapPair(validatorResult.ok.actualResult);
+    const nonFatalErrors = validatorResult.ok.errors;
 
     return {
       kind: 'ok',
-      result: {
+      ok: {
         kind: 'taf-pair',
         taf1555,
         taf4444,

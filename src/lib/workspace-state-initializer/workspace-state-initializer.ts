@@ -181,13 +181,13 @@ export namespace WorkspaceStateInitializer {
     Promise<WorkspaceInitResult<'taf-pair'>>
   {
     const tafStuff1555 = await prepareTaf(file1555, 'taf_1555');
-    if (tafStuff1555.kind === 'err') return tafStuff1555.error;
+    if (tafStuff1555.kind === 'err') return tafStuff1555.err;
 
     const tafStuff4444 = await prepareTaf(file4444, 'taf_4444');
-    if (tafStuff4444.kind === 'err') return tafStuff4444.error;
+    if (tafStuff4444.kind === 'err') return tafStuff4444.err;
 
-    const { fileData: fileData1555, gafResult: gafResult1555 } = tafStuff1555.result;
-    const { fileData: fileData4444, gafResult: gafResult4444 } = tafStuff4444.result;
+    const { fileData: fileData1555, gafResult: gafResult1555 } = tafStuff1555.ok;
+    const { fileData: fileData4444, gafResult: gafResult4444 } = tafStuff4444.ok;
 
     const virtualGafMaker = new VirtualGafMakerForTafPair(imageCompiler);
     const virtualPairResult = virtualGafMaker.makeVirtualGaf(gafResult1555.gaf, gafResult4444.gaf);
@@ -195,11 +195,11 @@ export namespace WorkspaceStateInitializer {
     if (virtualPairResult.kind === 'err') {
       return {
         kind: 'tafs-out-of-sync',
-        error: virtualPairResult.error,
+        error: virtualPairResult.err,
       };
     }
 
-    const virtualGaf = virtualPairResult.result.virtualGaf;
+    const virtualGaf = virtualPairResult.ok.virtualGaf;
 
     const initialGaf: CurrentGafFromFile<'taf-pair'> = {
       kind: 'from-file-pair',
@@ -247,7 +247,7 @@ export namespace WorkspaceStateInitializer {
     } catch (error) {
       return {
         kind: 'err',
-        error: {
+        err: {
           kind: 'error-reading-gaf',
           which: subFormat,
           message: `Error reading the ${subFormat} file.`,
@@ -265,7 +265,7 @@ export namespace WorkspaceStateInitializer {
       if (detectedFormat.mainFormat !== 'taf' || detectedFormat.subFormat !== subFormat) {
         return {
           kind: 'err',
-          error: {
+          err: {
             kind: 'invalid-format',
             which: subFormat,
             detectedFormat: detectedFormat,
@@ -276,7 +276,7 @@ export namespace WorkspaceStateInitializer {
 
     return {
       kind: 'ok',
-      result: { fileData, gafResult },
+      ok: { fileData, gafResult },
     };
   }
 

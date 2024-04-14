@@ -24,7 +24,7 @@ export const WRITE_RESULT_SINGLE = (
   try {
     return {
       kind: 'ok',
-      result: {
+      ok: {
         kind: 'single',
         buffer: LibGaf.Writer.writeToBuffer(gaf).buffer,
       },
@@ -32,7 +32,7 @@ export const WRITE_RESULT_SINGLE = (
   } catch (err) {
     return {
       kind: 'err',
-      error: {
+      err: {
         errorMsg: err + '',
       },
     };
@@ -46,7 +46,7 @@ export const WRITE_RESULT_PAIR = (
   try {
     return {
       kind: 'ok',
-      result: {
+      ok: {
         kind: 'taf-pair',
         buffer1555: LibGaf.Writer.writeToBuffer(gaf1555).buffer,
         buffer4444: LibGaf.Writer.writeToBuffer(gaf4444).buffer,
@@ -55,7 +55,7 @@ export const WRITE_RESULT_PAIR = (
   } catch (err) {
     return {
       kind: 'err',
-      error: {
+      err: {
         errorMsg: err + '',
       },
     };

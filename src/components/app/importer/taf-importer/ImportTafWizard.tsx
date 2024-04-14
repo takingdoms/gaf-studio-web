@@ -175,7 +175,7 @@ export default function ImportTafWizard({
           if (first.result.kind === 'ok') {
             setOkDecodedFiles([{
               file: first.file,
-              result: first.result.result,
+              result: first.result.ok,
             }]);
           }
         }

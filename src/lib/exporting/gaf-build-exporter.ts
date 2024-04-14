@@ -19,10 +19,10 @@ export class GafBuildExporter implements BuildExporter<'gaf'> {
 
     return {
       kind: 'ok',
-      result: {
+      ok: {
         kind: 'gaf',
-        gaf: validatorResult.result.actualResult,
-        nonFatalErrors: validatorResult.result.errors,
+        gaf: validatorResult.ok.actualResult,
+        nonFatalErrors: validatorResult.ok.errors,
       },
     };
   }

@@ -34,7 +34,7 @@ export default function PreludeGafForm({
   const [palMode, setPalMode] = React.useState<PaletteSelectionMode>('pre-selectable');
   const [currentPal, setCurrentPal] = React.useState<Result<CurrentPalette, string> | undefined>({
     kind: 'ok',
-    result: paletteStore.default,
+    ok: paletteStore.default,
   });
 
   const modal = React.useContext(ModalContext);
@@ -46,7 +46,7 @@ export default function PreludeGafForm({
 
     setIsLoading(true);
 
-    WorkspaceStateInitializer.initFromFileGaf(gafFile, currentPal.result)
+    WorkspaceStateInitializer.initFromFileGaf(gafFile, currentPal.ok)
       .then((result) => {
         if (result.kind === 'success') {
           onInit(result.configWrapper);

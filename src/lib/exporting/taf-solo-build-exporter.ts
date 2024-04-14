@@ -22,11 +22,11 @@ export class TafSoloBuildExporter implements BuildExporter<'taf-solo'> {
 
     return {
       kind: 'ok',
-      result: {
+      ok: {
         kind: 'taf-solo',
         subFormat: this.subFormat,
-        taf: validatorResult.result.actualResult,
-        nonFatalErrors: validatorResult.result.errors,
+        taf: validatorResult.ok.actualResult,
+        nonFatalErrors: validatorResult.ok.errors,
       },
     };
   }

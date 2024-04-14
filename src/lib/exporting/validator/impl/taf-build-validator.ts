@@ -26,7 +26,7 @@ export abstract class TafBuildValidator<
 
       return {
         kind: 'err',
-        error: { path, message, nonFatalErrors: mutErrors },
+        err: { path, message, nonFatalErrors: mutErrors },
       };
     }
 
@@ -40,13 +40,13 @@ export abstract class TafBuildValidator<
 
       return {
         kind: 'err',
-        error: { path, message, nonFatalErrors: mutErrors },
+        err: { path, message, nonFatalErrors: mutErrors },
       };
     }
 
     return {
       kind: 'ok',
-      result: {
+      ok: {
         kind: 'raw-colors',
         colorData,
       },

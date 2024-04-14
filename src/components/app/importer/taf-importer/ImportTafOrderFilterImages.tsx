@@ -26,7 +26,7 @@ export default function ImportTafOrderFilterImages({
   const [items, setItems] = React.useState<FileListItem<TafImporting.DecodedFile>[]>(
     decodedFiles.map((decFile) => {
       const error: string | undefined = decFile.result.kind === 'err'
-        ? decFile.result.error
+        ? decFile.result.err
         : undefined;
 
       return {
@@ -50,7 +50,7 @@ export default function ImportTafOrderFilterImages({
 
         return {
           file: content.file,
-          result: content.result.result,
+          result: content.result.ok,
         };
       })
       .filter(MiscUtils.notUndefined);
@@ -127,8 +127,8 @@ function SelectedItemPreview({
       <button
         className="flex justify-center items-center text-red-600 text-center p-2 hover:underline"
         onClick={() => {
-          console.log(decFile.error);
-          alert(decFile.error);
+          console.log(decFile.err);
+          alert(decFile.err);
         }}
       >
         {`(Couldn't decode file)`}
@@ -138,9 +138,9 @@ function SelectedItemPreview({
 
   const preview = (
     <ImportPreviewWrapper
-      imageData={decFile.result.image}
-      imageWidth={decFile.result.metadata.width}
-      imageHeight={decFile.result.metadata.height}
+      imageData={decFile.ok.image}
+      imageWidth={decFile.ok.metadata.width}
+      imageHeight={decFile.ok.metadata.height}
     />
   );
 

@@ -34,9 +34,9 @@ export class TafPairBuildValidator extends TafBuildValidator<'taf-pair', 'pair'>
 
     return {
       kind: 'ok',
-      result: {
-        data1555: result1555.result,
-        data4444: result4444.result,
+      ok: {
+        data1555: result1555.ok,
+        data4444: result4444.ok,
       },
     };
   }

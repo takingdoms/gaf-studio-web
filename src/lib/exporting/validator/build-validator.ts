@@ -55,12 +55,12 @@ export abstract class BuildValidator<
         idVersion: Consts.USUAL_HEADER_ID_VERSION,
         unknown1: Consts.USUAL_HEADER_UNKNOWN1,
       },
-      entries: entriesResult.result,
+      entries: entriesResult.ok,
     };
 
     return {
       kind: 'ok',
-      result: {
+      ok: {
         actualResult: gaf,
         errors: mutErrors,
       },
@@ -81,7 +81,7 @@ export abstract class BuildValidator<
     if (virtualEntries.length === 0) {
       return {
         kind: 'err',
-        error: {
+        err: {
           path,
           message: `List of sequence is empty.`,
           nonFatalErrors: mutErrors,
@@ -133,13 +133,13 @@ export abstract class BuildValidator<
         name: virtualEntry.name,
         unknown1: virtualEntry.unknown1,
         unknown2: virtualEntry.unknown2,
-        frames: framesResult.result,
+        frames: framesResult.ok,
       });
     }
 
     return {
       kind: 'ok',
-      result,
+      ok: result,
     };
   }
 
@@ -151,7 +151,7 @@ export abstract class BuildValidator<
     if (virtualFrames.length === 0) {
       return {
         kind: 'err',
-        error: {
+        err: {
           path,
           message: `List of frames is empty.`,
           nonFatalErrors: mutErrors,
@@ -176,13 +176,13 @@ export abstract class BuildValidator<
 
       result.push({
         duration: virtualFrame.duration,
-        frameData: frameDataResult.result,
+        frameData: frameDataResult.ok,
       });
     }
 
     return {
       kind: 'ok',
-      result,
+      ok: result,
     };
   }
 
@@ -217,10 +217,10 @@ export abstract class BuildValidator<
 
     return {
       kind: 'ok',
-      result: {
-        ...baseResult.result,
+      ok: {
+        ...baseResult.ok,
         kind: 'single',
-        layerData: layerDataResult.result,
+        layerData: layerDataResult.ok,
       },
     };
   }
@@ -239,7 +239,7 @@ export abstract class BuildValidator<
     if (virtualFrameData.layers.length === 0) {
       return {
         kind: 'err',
-        error: {
+        err: {
           path,
           message: `Multi-layered frame cannot have an empty list of subframes.`,
           nonFatalErrors: mutErrors,
@@ -259,13 +259,13 @@ export abstract class BuildValidator<
         return layerResult;
       }
 
-      layers.push(layerResult.result);
+      layers.push(layerResult.ok);
     }
 
     return {
       kind: 'ok',
-      result: {
-        ...baseResult.result,
+      ok: {
+        ...baseResult.ok,
         kind: 'multi',
         layers,
       },
@@ -289,7 +289,7 @@ export abstract class BuildValidator<
 
     return {
       kind: 'ok',
-      result: { width, height, xOffset, yOffset, transparencyIndex, unknown2, unknown3 },
+      ok: { width, height, xOffset, yOffset, transparencyIndex, unknown2, unknown3 },
     };
   }
 }

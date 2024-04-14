@@ -50,14 +50,14 @@ export default function PreludeGafPaletteForm({
       .then((result) => {
         setCurrentPal({
           kind: 'ok',
-          result,
+          ok: result,
         });
       })
       .catch((err) => {
         console.error(err);
         setCurrentPal({
           kind: 'err',
-          error: `Error when trying to load pre-selectable palette: ${newPreSelectable.key}`,
+          err: `Error when trying to load pre-selectable palette: ${newPreSelectable.key}`,
         });
       })
       .finally(() => setIsLoading(false));
@@ -74,7 +74,7 @@ export default function PreludeGafPaletteForm({
         setPalMode('user-file');
         setCurrentPal({
           kind: 'ok',
-          result: {
+          ok: {
             kind: 'custom-file',
             originFile: file,
             palette,
@@ -86,7 +86,7 @@ export default function PreludeGafPaletteForm({
         console.error(err);
         setCurrentPal({
           kind: 'err',
-          error: `Error when trying to load palette from file: ${file.name}`,
+          err: `Error when trying to load palette from file: ${file.name}`,
         });
       })
       .finally(() => setIsLoading(false));
@@ -99,7 +99,7 @@ export default function PreludeGafPaletteForm({
     setUserFile(undefined);
     setCurrentPal({
       kind: 'ok',
-      result: paletteStore.default,
+      ok: paletteStore.default,
     });
     setPreSelectable(paletteStore.preSelectables[0]);
   }, [paletteStore, setCurrentPal, setPalMode]);
