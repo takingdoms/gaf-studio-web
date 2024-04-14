@@ -7,7 +7,7 @@ import { useCanvasConfigStore } from '@/lib/state/canvas/canvas-config-store';
 import React from 'react';
 
 export default function OptionButton() {
-  console.log('Rendering OptionButton');
+  // console.log('Rendering OptionButton');
 
   const modal = React.useContext(ModalContext);
   const adHocWizards = React.useContext(AdHocWizardsContext);

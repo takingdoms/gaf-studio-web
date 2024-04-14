@@ -4,7 +4,7 @@ import { CanvasHelperContext } from "@/lib/canvas/CanvasHelperContext";
 import { useCanvasConfigStore } from "@/lib/state/canvas/canvas-config-store";
 
 export default function GridCanvas() {
-  console.log('Rendering GridCanvas');
+  // console.log('Rendering GridCanvas');
 
   const isVisible = useCanvasConfigStore((state) => state.mainCanvasLayerVisibility['GRID']);
   const gridSpacing = useCanvasConfigStore((state) => state.gridSpacing);

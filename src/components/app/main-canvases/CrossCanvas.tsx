@@ -4,7 +4,7 @@ import { CanvasHelperContext } from "@/lib/canvas/CanvasHelperContext";
 import { useCanvasConfigStore } from "@/lib/state/canvas/canvas-config-store";
 
 export default function CrossCanvas() {
-  console.log('Rendering CrossCanvas');
+  // console.log('Rendering CrossCanvas');
 
   const isVisible = useCanvasConfigStore((state) => state.mainCanvasLayerVisibility['CROSS']);
   const crossStyle = useCanvasConfigStore((state) => state.crossStyle);

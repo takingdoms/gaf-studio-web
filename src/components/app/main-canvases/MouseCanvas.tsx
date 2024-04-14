@@ -3,7 +3,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import React from "react";
 
 export default function MouseCanvas() {
-  console.log('Rendering MouseCanvas');
+  // console.log('Rendering MouseCanvas');
 
   const setPan = useSetAtom(CanvasTransforms.pan);
   const lastPanReset = useAtomValue(CanvasTransforms.lastPanReset);

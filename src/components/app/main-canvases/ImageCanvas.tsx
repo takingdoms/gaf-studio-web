@@ -11,7 +11,7 @@ type ImageCanvasProps = {
 export default function ImageCanvas({
   frameData,
 }: ImageCanvasProps) {
-  console.log('Rendering ImageCanvas');
+  // console.log('Rendering ImageCanvas');
 
   const activePairSubFormat = useGlobalConfigStore((state) => state.activePairSubFormat);
 
