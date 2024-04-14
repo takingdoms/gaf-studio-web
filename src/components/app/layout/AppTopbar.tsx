@@ -36,7 +36,7 @@ export default function AppTopbar() {
       />
 
       <div className="grow flex justify-end">
-        <AppTopBarHeader label={'GAF Studio v' + config.version} />
+        <AppTopBarHeader label={'GAF Studio Web v' + config.version} />
       </div>
     </div>
   );
