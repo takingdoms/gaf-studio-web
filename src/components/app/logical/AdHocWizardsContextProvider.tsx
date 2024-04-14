@@ -6,8 +6,8 @@ import CreateEntryModal from '@/components/app/entry/CreateEntryModal';
 import DeleteEntryModal from '@/components/app/entry/DeleteEntryModal';
 import RenameEntryModal from '@/components/app/entry/RenameEntryModal';
 import ExportModal from '@/components/app/exporter/ExportModal';
-import ExportEveryImageModal from '@/components/app/image-exporter/ExportEveryImageModal';
-import ExportFrameImagesModal from '@/components/app/image-exporter/ExportFrameImagesModal';
+import ExportEveryImage from '@/components/app/image-exporter/ExportEveryImage';
+import ExportFrameImages from '@/components/app/image-exporter/ExportFrameImages';
 import ImportModal from '@/components/app/importer/ImportModal';
 import ReplaceModal from '@/components/app/importer/ReplaceModal';
 import ChangeFrameDataUnknownModal from '@/components/app/other-modals/ChangeFrameDataUnknownModal';
@@ -166,7 +166,7 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
   const exportEveryImage = () => {
     const { close } = modal.pushModal({
       title: 'Export every image',
-      body: <ExportEveryImageModal close={() => close()} />,
+      body: <ExportEveryImage onAbort={() => close()} />,
     });
   };
 
@@ -174,9 +174,9 @@ export default function AdHocWizardsContextProvider({ children }: AdHocWizardsCo
     const { close } = modal.pushModal({
       title: `Export ${frameIndex === undefined ? 'frames' : 'subframes'}`,
       body: (
-        <ExportFrameImagesModal
+        <ExportFrameImages
           frameIndex={frameIndex}
-          close={() => close()}
+          onAbort={() => close()}
         />
       ),
       disableBackgroundClose: true,

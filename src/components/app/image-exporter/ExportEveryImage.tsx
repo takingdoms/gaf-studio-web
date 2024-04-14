@@ -1,35 +1,25 @@
-import ExportFrameImagesWizard from '@/components/app/image-exporter/ExportFrameImagesWizard';
+import ExportEveryImageWizard from '@/components/app/image-exporter/ExportEveryImageWizard';
 import SolidButton from '@/components/ui/button/SolidButton';
 import ModalPadding from '@/components/ui/modal/ModalPadding';
 import { ImageExporter } from '@/lib/image-exporting/image-exporter';
+import { ImageNaming } from '@/lib/image-exporting/image-naming';
 import { useGlobalConfigStore } from '@/lib/state/global-config/global-config-store';
 import { S } from '@/lib/state/workspace/workspace-context/any-workspace-helper';
 
-type ExportFrameImagesProps = {
-  frameIndex?: number; // used only to export SUBFRAMES
+type ExportEveryImageProps = {
   onAbort: () => void;
 };
 
-export default function ExportFrameImages({
-  frameIndex,
-  onAbort,
-}: ExportFrameImagesProps) {
+export default function ExportEveryImage({ onAbort }: ExportEveryImageProps) {
   const format = S.useFormat();
-  const activeEntry = S.useActiveEntry();
+  const currentGaf = S.useCurrentGaf();
   const activePairSubFormat = useGlobalConfigStore((state) => state.activePairSubFormat);
 
-  if (activeEntry === null) {
-    onAbort();
-    return;
-  }
-
-  let items: ImageExporter.Item[];
+  let itemTreeWrapper: ImageExporter.ItemTreeWrapper;
 
   try {
-    items = ImageExporter.framesToItems({
-      entryName: activeEntry.name,
-      frames: activeEntry.frames,
-      frameIndex,
+    itemTreeWrapper = ImageExporter.currentGafToItemTreeWrapper({
+      currentGaf,
       format,
       activePairSubFormat,
     });
@@ -47,7 +37,17 @@ export default function ExportFrameImages({
     );
   }
 
-  if (items.length === 0) {
+  let isEmpty: boolean;
+
+  if (itemTreeWrapper.kind === 'taf-pair') {
+    const { taf_1555, taf_4444 } = itemTreeWrapper;
+    isEmpty = ImageExporter.isTreeEmpty(taf_1555.tree) && ImageExporter.isTreeEmpty(taf_4444.tree);
+  }
+  else {
+    isEmpty = ImageExporter.isTreeEmpty(itemTreeWrapper.tree);
+  }
+
+  if (isEmpty) {
     return (
       <ModalPadding>
         <div className="mb-4">Nothing to export.</div>
@@ -61,9 +61,8 @@ export default function ExportFrameImages({
   }
 
   return (
-    <ExportFrameImagesWizard
-      mode={frameIndex === undefined ? 'frames' : 'subframes'}
-      items={items}
+    <ExportEveryImageWizard
+      itemTreeWrapper={itemTreeWrapper}
       onAbort={onAbort}
     />
   );

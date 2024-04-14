@@ -7,17 +7,15 @@ import { Icons } from '@/lib/react/icons';
 import { AsyncUtils } from '@/lib/utils/async-utils';
 import React from 'react';
 
-type ExportFrameImagesWizardProps = {
-  mode: 'frames' | 'subframes';
-  items: ImageExporter.Item[];
+type ExportEveryImageWizardProps = {
+  itemTreeWrapper: ImageExporter.ItemTreeWrapper;
   onAbort: () => void;
 };
 
-export default function ExportFrameImagesWizard({
-  mode,
-  items,
+export default function ExportEveryImageWizard({
+  itemTreeWrapper,
   onAbort,
-}: ExportFrameImagesWizardProps) {
+}: ExportEveryImageWizardProps) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [result, setResult] = React.useState<DownloadUtils.Downloadable>();
 
@@ -37,7 +35,7 @@ export default function ExportFrameImagesWizard({
   const doExport = React.useCallback(() => {
     setIsLoading(true);
 
-    AsyncUtils.defer(() => ImageExporter.exportItemsAsDownloadableZip(items, mode))
+    AsyncUtils.defer(() => ImageExporter.exportItemTreeWrapperAsDownloadableZip(itemTreeWrapper))
       .then((newResult) => {
         setResult(newResult);
         doDownload(newResult);
@@ -48,7 +46,7 @@ export default function ExportFrameImagesWizard({
         console.error(err);
         onAbort();
       });
-  }, [items, mode, onAbort, doDownload]);
+  }, [itemTreeWrapper, onAbort, doDownload]);
 
   if (isLoading) {
     return (
@@ -65,7 +63,7 @@ export default function ExportFrameImagesWizard({
     return (
       <ModalPadding>
         <div className="mb-4">
-          Export all {mode} as images?
+          Export all sequences as images?
         </div>
 
         <div className="flex justify-end space-x-2">
